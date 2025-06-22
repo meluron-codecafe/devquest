@@ -1,0 +1,100 @@
+[
+  {
+    "title" : "How to Properly Setup a Python Project?",
+    "description" : "We discuss about Python environments, managing dependencies, and creating reproducible development setups.",
+    "tags" : ["python"],
+    "difficulty" : "Beginner",
+    "estimatedTime" : "",
+    "topics" : [
+      {
+        "question" : "Why do we even need to use a virtual environment?",
+        "description" : "Dependency conflicts, package version",
+        "filepath" : "htmls/01-01.html"
+      },
+      {
+        "question" : "How to setup a virtual environment and use it?",
+        "description" : "",
+        "filepath" : "htmls/01-02.html"
+      },
+      {
+        "question" : "How to use a virtual environment in jupyter notebooks?",
+        "description" : "",
+        "filepath" : "htmls/01-03.html"
+      }
+    ]
+  },
+  
+  {
+    "title" : "How to compute the tempo of a song?",
+    "description" : "",
+    "tags" : ["MIR", "Audio DSP", "Machine Learning"],
+    "difficulty" : "Intermediate",
+    "estimatedTime" : "",
+    "topics" : [
+      {
+        "question" : "",
+        "description" : "",
+        "filepath" : ""
+      }
+    ]
+  },
+  
+  {
+    "title" : "How to find rhythmicity of a song?",
+    "description" : "",
+    "tags" : ["MIR", "Audio DSP"],
+    "difficulty" : "Intermediate",
+    "estimatedTime" : "",
+    "topics" : [
+      {
+        "question" : "What does rhythmicity of a song mean?",
+        "description" : "",
+        "filepath" : "htmls/03-01.html"
+      },
+      {
+        "question" : "What does rhythmicity of a song mean?",
+        "description" : "",
+        "filepath" : "htmls/03-02.html"
+      },
+      {
+        "question" : "What does rhythmicity of a song mean?",
+        "description" : "",
+        "filepath" : "htmls/03-03.html"
+      }
+    ]
+  },
+  
+  {
+    "title" : "Data, Data Types and Data Structure Fundamentals",
+    "description" : "Understanding the building blocks of programming - from basic data types to complex data structures and their memory management in Python.",
+    "tags" : ["python"],
+    "difficulty" : "",
+    "topics" : [
+      {
+        "question" : "Basic Introduction to Data and Data Types",
+        "description" : "Understanding what data, data types, and data structures mean in programming context, and their relationships.",
+        "filepath" : "htmls/04-01.html"
+      },
+      {
+        "question" : "Classification of Data Types",
+        "description" : "Built-in vs Custom data types, Primitive vs Non-primitive classifications, and their practical implications.",
+        "filepath" : "htmls/04-02.html"
+      },
+      {
+        "question" : "Getting to Know 'int' Datatype Better",
+        "description" : "Integer declaration, memory location handling, memory consumption patterns, and optimization techniques.",
+        "filepath" : "htmls/04-03.html"
+      },
+      {
+        "question" : "Getting to Know 'float' Datatype Better",
+        "description" : "Float declaration, precision handling, memory consumption, and floating-point arithmetic considerations.",
+        "filepath" : "htmls/04-04.html"
+      },
+      {
+        "question" : "Getting to Know 'str' Datatype Better",
+        "description" : "String declaration, immutability concepts, memory consumption patterns, and string optimization in Python.",
+        "filepath" : "htmls/04-05.html"
+      }
+    ]
+  }
+]

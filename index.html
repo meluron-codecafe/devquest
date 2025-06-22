@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevQuest</title>
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>DevQuest</h1>
+      <p class="subtitle">By meluron</p>
+      
+      <div class="controls">
+        <input type="text" class="search-box" placeholder="What are you looking for..." id="search-input">
+      </div>
+      
+      <div class="tag-filter" id="tag-filter">
+        <button class="tag-button active" data-tag="all">All</button>
+      </div>
+    </div>
+    
+    <div class="chapters" id="chapters-container">
+    </div>
+    
+    <div class="no-results" id="no-results" style="display: none;">
+      No chapters found matching your search criteria.
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
