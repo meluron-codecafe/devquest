@@ -165,7 +165,7 @@ h1 {
   font-size: 0.9rem;
   padding: 0.6rem 1rem;
   border-radius: 12px;
-  min-width: 4rem;
+  min-width: 6rem;
   text-align: center;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
