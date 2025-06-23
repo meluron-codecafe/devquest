@@ -2,7 +2,7 @@
   {
     "title" : "How to Properly Setup a Python Project?",
     "description" : "We discuss about Python environments, managing dependencies, and creating reproducible development setups.",
-    "tags" : ["python"],
+    "tags" : ["Python"],
     "difficulty" : "Beginner",
     "estimatedTime" : "",
     "topics" : [
@@ -32,9 +32,9 @@
     "estimatedTime" : "",
     "topics" : [
       {
-        "question" : "",
+        "question" : "What do we mean by tempo/pace of a song?",
         "description" : "",
-        "filepath" : ""
+        "filepath" : "htmls/02-01.html"
       }
     ]
   },
@@ -52,7 +52,7 @@
         "filepath" : "htmls/03-01.html"
       },
       {
-        "question" : "What does rhythmicity of a song mean?",
+        "question" : "How can we measure tempo regularity of a song?",
         "description" : "",
         "filepath" : "htmls/03-02.html"
       },
@@ -65,35 +65,21 @@
   },
   
   {
-    "title" : "Data, Data Types and Data Structure Fundamentals",
-    "description" : "Understanding the building blocks of programming - from basic data types to complex data structures and their memory management in Python.",
-    "tags" : ["python"],
-    "difficulty" : "",
+    "title" : "How does python manage and represent different types of data in memory?",
+    "description" : "",
+    "tags" : ["Python"],
+    "difficulty" : "Intermediate",
+    "estimatedTime" : "",
     "topics" : [
       {
-        "question" : "Basic Introduction to Data and Data Types",
-        "description" : "Understanding what data, data types, and data structures mean in programming context, and their relationships.",
-        "filepath" : "htmls/04-01.html"
+        "question" : "How do we store data in python?",
+        "description" : "data, datatypes, size and memory address of an object",
+        "filepath" : "htmls/05-01.html"
       },
       {
-        "question" : "Classification of Data Types",
-        "description" : "Built-in vs Custom data types, Primitive vs Non-primitive classifications, and their practical implications.",
-        "filepath" : "htmls/04-02.html"
-      },
-      {
-        "question" : "Getting to Know 'int' Datatype Better",
-        "description" : "Integer declaration, memory location handling, memory consumption patterns, and optimization techniques.",
-        "filepath" : "htmls/04-03.html"
-      },
-      {
-        "question" : "Getting to Know 'float' Datatype Better",
-        "description" : "Float declaration, precision handling, memory consumption, and floating-point arithmetic considerations.",
-        "filepath" : "htmls/04-04.html"
-      },
-      {
-        "question" : "Getting to Know 'str' Datatype Better",
-        "description" : "String declaration, immutability concepts, memory consumption patterns, and string optimization in Python.",
-        "filepath" : "htmls/04-05.html"
+        "question" : "What's the precision of integers and floats in python?",
+        "description" : "",
+        "filepath" : "htmls/05-02.html"
       }
     ]
   }
