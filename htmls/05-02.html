@@ -7601,7 +7601,7 @@ a.anchor-link {
             box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
         ">
 <span style="font-size: 16px;">❔</span>
-            How to Find Out Precision of Integers and Floats in Python?
+            How are datatypes classified in python?
             
         </div>
 </div>
@@ -7609,21 +7609,26 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85f76f67-3e0c-43b1-abad-780f54023bdb">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Datatypes can be classified into the following:</p>
+<ol>
+<li>Primitive or Non-Primitive</li>
+<li>Mutable or Immutable</li>
+</ol>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=546b07fb-fdad-447b-9089-3e72c0ae0a70">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">10.000000000000001</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mf">10.000000000000001</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
+
 </div>
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -7631,24 +7636,242 @@ a.anchor-link {
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>20.000000000000004
-</pre>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div style="
+            margin: 25px 0 15px 0;
+            padding: 0;
+        ">
+<h2 style="
+                font-size: 24px;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 0;
+                padding: 12px 0 8px 0;
+                display: inline-block;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            ">▶ What are primitive and non-primitive data types?</h2>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d7d98b79-5d29-4f72-a6a2-3a1cbf68bd19">
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7b4020a4-24e6-4c08-9ed3-74bf0e9bf25e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li><strong>Primitive data types</strong> (Most basic built-in datatypes that can't be further broken down)</li>
+</ul>
+<ol>
+<li>int</li>
+<li>float</li>
+<li>string</li>
+<li>None</li>
+<li>bool</li>
+</ol>
+<ul>
+<li><strong>Non-Primitive data types</strong> (Any data types or objects in python that are not primitive)</li>
+</ul>
+<ol>
+<li>list</li>
+<li>dict</li>
+<li>set</li>
+<li>tuple</li>
+<li>deque</li>
+<li>numpy.ndarray</li>
+<li>pandas.DataFrame</li>
+<li>torch.Tensor</li>
+<li>a function (yes even a function in python is an object that has data like name of the function, inputs it takes, etc.)</li>
+</ol>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c7558013-710b-4a65-a03b-522477509320">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div style="
+            margin: 25px 0 15px 0;
+            padding: 0;
+        ">
+<h2 style="
+                font-size: 24px;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 0;
+                padding: 12px 0 8px 0;
+                display: inline-block;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            ">▶ What are mutable and immutable data types?</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bb7d0155-81b8-4389-bf7a-f3317f80ebd7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Everything we declare in python is an <strong>object</strong> which is associated to a <strong>class</strong>. <br/>
+When you create an object and assign it to a variable, the variable stores the memory location of the object or we say the variable points to the object. If the <strong>object at that memory location</strong> can be modified during <strong>runtime</strong> then the <strong>object and the associated data type</strong> is said to be <strong>mutable</strong> otherwise <strong>immutable</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef5f8b55-b419-4360-809d-5f9d5cfbacf4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr>
+<th>Category</th>
+<th>Data Type</th>
+<th>Mutable?</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primitive</td>
+<td>int</td>
+<td>No</td>
+<td>42</td>
+</tr>
+<tr>
+<td>Primitive</td>
+<td>float</td>
+<td>No</td>
+<td>3.14</td>
+</tr>
+<tr>
+<td>Primitive</td>
+<td>bool</td>
+<td>No</td>
+<td>True</td>
+</tr>
+<tr>
+<td>Primitive</td>
+<td>str</td>
+<td>No</td>
+<td>"hello"</td>
+</tr>
+<tr>
+<td>Primitive</td>
+<td>NoneType</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Non-Primitive</td>
+<td>list</td>
+<td>Yes</td>
+<td>[1, 2, 3]</td>
+</tr>
+<tr>
+<td>Non-Primitive</td>
+<td>dict</td>
+<td>Yes</td>
+<td>{"a": 1}</td>
+</tr>
+<tr>
+<td>Non-Primitive</td>
+<td>set</td>
+<td>Yes</td>
+<td>{1, 2, 3}</td>
+</tr>
+<tr>
+<td>Non-Primitive</td>
+<td>tuple</td>
+<td>No</td>
+<td>(1, 2, 3)</td>
+</tr>
+<tr>
+<td>Non-Primitive</td>
+<td>frozenset</td>
+<td>No</td>
+<td>frozenset({1, 2, 3})</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2c4dcd2a-5b1e-47c5-bd2e-792e29bc0a20">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div style="
+            margin: 25px 0 15px 0;
+            padding: 0;
+        ">
+<h3 style="
+                font-size: 18px;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 0;
+                padding: 12px 0 8px 0;
+                display: inline-block;
+                border-bottom: 3px solid #667eea;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            ">How to check if a datatype is mutable?</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b7174888-3b85-463e-8bd4-0aad5e68e338">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">100000000000000000000000000000000000000000000001</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mi">100000000000000000000000000000000000000000000001</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># int</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable 'a' points to </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> where the stored value is </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable 'a' points to </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> where the stored value is </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7661,13 +7884,334 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>200000000000000000000000000000000000000000000002
+<pre>Variable 'a' points to 4490292576 where the stored value is 10
+Variable 'a' points to 4490292896 where the stored value is 20
+----------------------------------------------------------------------------------------------------
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ba013d49-d935-4254-af78-e1a5ba5a360e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8966a920-3fe2-4c71-90ad-a2bcd4b5cc25">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div style="
+        margin: 15px 0; 
+        padding: 16px 20px; 
+        border-radius: 8px; 
+        border-left: 4px solid #9c27b0; 
+        display: flex; 
+        align-items: flex-start; 
+        gap: 12px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+        background-color: #f3e5f5; 
+        color: #6a1b9a;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    ">
+<div style="
+            font-size: 20px; 
+            margin-top: 2px; 
+            flex-shrink: 0;
+        ">❓</div>
+<div style="flex: 1;">
+<div style="
+                font-weight: bold; 
+                margin-bottom: 6px; 
+                font-size: 14px; 
+                text-transform: uppercase; 
+                letter-spacing: 0.5px;
+            ">Question</div>
+<div style="
+                margin: 0; 
+                font-size: 14px; 
+                line-height: 1.5;
+            ">What happened when we changed the value of 'a' to 20? Is 'int' mutable?</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9db1da8d-e628-43f1-bae7-9bff9f08be35">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>No, 'int' is immutable even though it seems like we managed to change the value (from 10 to 20) but under the hood when we tried to change the value by reassigning 'a' to 20, it actually created a new object(20) at a different memory location and then 'a' started pointing to the new object(20)</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3f4d6f09-f3b2-4df7-b86b-5b69d210fe02">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># list</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"pen"</span><span class="p">,</span> <span class="s2">"pencil"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable 'a' points to </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> where the stored value is </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"book"</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable 'a' points to </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2"> where the stored value is </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Variable 'a' points to 4515408896 where the stored value is ['pen', 'pencil']
+Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
+----------------------------------------------------------------------------------------------------
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1ed212ba-aab5-4016-b0bb-fc68baca8954">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[40]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div style="
+        margin: 15px 0; 
+        padding: 16px 20px; 
+        border-radius: 8px; 
+        border-left: 4px solid #9c27b0; 
+        display: flex; 
+        align-items: flex-start; 
+        gap: 12px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+        background-color: #f3e5f5; 
+        color: #6a1b9a;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    ">
+<div style="
+            font-size: 20px; 
+            margin-top: 2px; 
+            flex-shrink: 0;
+        ">❓</div>
+<div style="flex: 1;">
+<div style="
+                font-weight: bold; 
+                margin-bottom: 6px; 
+                font-size: 14px; 
+                text-transform: uppercase; 
+                letter-spacing: 0.5px;
+            ">Question</div>
+<div style="
+                margin: 0; 
+                font-size: 14px; 
+                line-height: 1.5;
+            ">What happened when we changed 'a[0]' to 'book'? Is 'list' mutable?</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa96ab40-ee9e-4a6d-9742-0ff3d350fe99">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We observe that the memory location of the object even after making changes is still same, which means that we have managed to change the object at that memory location. Hence, <code>list</code> is mutable datatype.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=72d0b2bb-8f9f-4a38-9cce-5ba94efdfd29">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#tuple</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"pen"</span><span class="p">,</span> <span class="s2">"pencil"</span><span class="p">)</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"book"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[29]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)">#tuple</span>
+<span class="ansi-green-fg">      2</span> a = (<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">pen</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">pencil</span><span class="ansi-yellow-fg">"</span>)
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg">[</span><span class="ansi-green-fg ansi-yellow-bg">0</span><span class="ansi-yellow-bg">]</span> = <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">book</span><span class="ansi-yellow-fg">"</span>
+
+<span class="ansi-red-fg">TypeError</span>: 'tuple' object does not support item assignment</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7202e671-b5bf-4503-9fb2-0a769e63d51a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[41]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div style="
+        margin: 15px 0; 
+        padding: 16px 20px; 
+        border-radius: 8px; 
+        border-left: 4px solid #9c27b0; 
+        display: flex; 
+        align-items: flex-start; 
+        gap: 12px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+        background-color: #f3e5f5; 
+        color: #6a1b9a;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    ">
+<div style="
+            font-size: 20px; 
+            margin-top: 2px; 
+            flex-shrink: 0;
+        ">❓</div>
+<div style="flex: 1;">
+<div style="
+                font-weight: bold; 
+                margin-bottom: 6px; 
+                font-size: 14px; 
+                text-transform: uppercase; 
+                letter-spacing: 0.5px;
+            ">Question</div>
+<div style="
+                margin: 0; 
+                font-size: 14px; 
+                line-height: 1.5;
+            ">What happened when we tried to change 'a[0]' to 'book'? Is 'tuple' mutable?</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cdee85de-d0bd-433e-8037-1ed8660b1482">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>No, <code>tuple</code> is immutable. It does not allow to make any changes once defined.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3d4a252d-42fb-49a0-967c-fce289e17a69">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div style="
+            margin: 25px 0 15px 0;
+            padding: 0;
+        ">
+<h2 style="
+                font-size: 24px;
+                font-weight: 600;
+                color: #2c3e50;
+                margin: 0;
+                padding: 12px 0 8px 0;
+                display: inline-block;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            ">▶ What are built-in and custom Data Types</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bc13b421-97cf-40ae-a38c-9c18107cdecd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>In python, we can classify data types into two categories based on whether they are built-in python:</p>
+<ul>
+<li><strong>Built in datatypes</strong> (meaning they come pre-defined with python and are available without importing any external module)</li>
+</ul>
+<ol>
+<li>For integer: int</li>
+<li>For decimal: Floating point number (float)</li>
+<li>For word/alphabet: String (str)</li>
+<li>For true/false: Boolean (bool)</li>
+<li>Ordered collection of items: List (list)</li>
+<li>Key-value mappings: Dictionary (dict)</li>
+</ol>
+<ul>
+<li><strong>Custom datatypes</strong> (meaning they are either created by developers (user-defined classes) or provided by external libraries)</li>
+</ul>
+<ol>
+<li>numpy.ndarray: Comes from NumPy library</li>
+<li>torch.Tensor: Comes from PyTorch library</li>
+<li>pandas.DataFrame: Comes from Pandas library</li>
+<li>Any other custom class created by the developer</li>
+</ol>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8d1bee3f-2af1-4f2c-a78b-3f015f03b62c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

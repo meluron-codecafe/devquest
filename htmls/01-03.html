@@ -7510,13 +7510,13 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3714854d-45fd-4d65-aff2-8db832a06ca7">
+<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c2bdeecb-7153-45f2-a927-a1f6b537c42a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2a551e6e-b758-4bac-97a0-355b64e7aa7a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4b625284-6f4a-4859-a267-724b1db4744b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7601,7 +7601,7 @@ a.anchor-link {
             box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
         ">
 <span style="font-size: 16px;">❔</span>
-            How can I run a Jupyter Notebook using a specific virtual environment?
+            How to setup a virtual environment in Python?
             
         </div>
 </div>
@@ -7609,41 +7609,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c346dc8b-0ed8-49ab-a761-e457154e7543">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>When we run python code from terminal, we can activate any virtual environment and use it directly without any issues.</p>
-<p>However while using Jupyter, it is important to understand that it has its own way to allow virtual environments to be used. This is through what we call as kernels. Think of kernel as a configuration that allows Jupyter to access different existing virtual environments.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2c3654e2-a786-4786-90ac-bfc1fbf18eac">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>For example, we see a list of kernels available to us in the Jupyter notebooks below.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4cff4ce5-8a2f-4504-8898-bad269462be9">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<img alt="No description has been provided for this image" height="300" src="../data/images/jupyter-lab-launcher.png" width="600"/>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6095393f-fef3-4a4f-a4f3-c191f19ea837">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=75aa88df-cd1e-44e8-bc8a-5c36511afcf0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7672,24 +7638,54 @@ a.anchor-link {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">▶ What is a kernel?</h2>
+            ">▶ Create a virtual environment</h2>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2aef6bb1-43cc-4f75-a2ad-8789047a454c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a0bec2e1-c45a-47af-b0d4-1ec3ce8c94ee">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>A kernel for a Jupyter notebook is a way to point to the virtual environment so that it can run the codeblock using a virtual env.</p>
+<p>First, you need to have python installed on your machine to create a virtual environment. There are multiple ways to download python based on the OS you are using. Assuming you already have python installed on your machine. Python gives you a module that can be used to create virtual environment. Note that every virtual environment needs to have a python interpreter (which is simply the one that you used to create the virtual environment itself).</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=edd8eabf-b529-4a46-98d7-ea1eea4b9e8a">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e7aa5735-1ea9-4169-afbe-4f1a7687be50">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>To find out the availabe python versions on your machine, you can run:</p>
+<p>Mac/Linux:  <code>ls /Library/Frameworks/Python.framework/Versions/</code></p>
+<p>Windows: <code>?</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fe37646a-a6c0-46ed-b3ce-a42b262b02cd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>To create a virtual environment:</p>
+<ol>
+<li>Navigate to the project directory</li>
+<li>Run <code>python -m venv &lt;name of the virtual env&gt;</code> <br/>
+Example <code>python -m venv .venv</code></li>
+</ol>
+<p>This should create a directory named '.venv'</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3d200071-28c4-4154-afea-2b1ff29527b9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7718,24 +7714,39 @@ a.anchor-link {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">▶ Install a kernel using ipykernel module</h2>
+            ">▶ Activate the virtual environment</h2>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0c055974-c3a9-4d75-b872-160de2bca9f4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=78bb7353-4768-438e-90d6-bb84f315aabf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>python -m ipykernel install --user --name=&lt;kernel_name&gt; --display-name=&lt;name to show in jupyter&gt;</code></p>
+<p>On Mac/Linux: <code>source &lt;name of the venv&gt;/bin/activate</code> <br/>
+Example: <code>source .venv/bin/activate</code></p>
+<p>On Windows: <code>&lt;name of the venv&gt;\Scripts\activate</code> <br/>
+Example: <code>.venv\Scripts\activate</code></p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b352fe48-8d85-43de-8c25-a2e05e20f3fe">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b3461836-a0ef-40b6-aa86-142148d85a36">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Upon activation, you should see the name of the virtual environment on the left: <br/>
+<img alt="No description has been provided for this image" src="../data/images/venv-tut.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a9217297-6285-48e4-8c44-d4f8c069b0b8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7764,71 +7775,51 @@ a.anchor-link {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">▶ How to list all the installed kernels?</h2>
+            ">▶ Install python packages in the virtual enviroment</h2>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b1208dfd-580e-4c7f-b3fc-75d2b2c23533">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3e2bf613-6092-4cf6-8052-3602e8d7f9cd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>jupyter kernelspec list</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=348c5543-fc5b-481d-9d01-90a293ec7510">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div style="
-            margin: 25px 0 15px 0;
-            padding: 0;
-        ">
-<h2 style="
-                font-size: 24px;
-                font-weight: 600;
-                color: #2c3e50;
-                margin: 0;
-                padding: 12px 0 8px 0;
-                display: inline-block;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: linear-gradient(135deg, #667eea, #764ba2);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            ">▶ How to list remove an installed kernel?</h2>
+<p>Once the virtual environment is activated, you can use pip or any other python package manager tools to install packages.</p>
+<p>With pip: <code>pip install &lt;name of the package&gt;</code></p>
+<p>Example: <code>pip install numpy</code></p>
+<p>Use <code>pip list</code> to check all the installed tools.</p>
 </div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c529e899-4f20-4dc2-9da2-7bbb54c8f7ac">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ab60b9d9-d94e-46ed-a2fb-17d2d29b10a3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>jupyter kernelspec remove &lt;kernel_name&gt;</p>
-<p>Just open the kernels folder and delete the kernel.</p>
+<p>Upon activation, you should see the name of the virtual environment on the left: <br/>
+<img alt="No description has been provided for this image" src="../data/images/venv-pip-install.png" width="500"/></p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=82644d48-8ec2-4248-94f1-c57d3037c193">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c6e8e3da-d26a-41e1-abfc-69ab9d7055ef">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>You can look into the venv directory to see where the downloaded packages are stored: <br/>
+<img alt="No description has been provided for this image" src="../data/images/venv-directory.png" width="900"/></p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=433c3020-8cd9-4b27-8163-b5eaf517e9b4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7839,7 +7830,7 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div style="
         margin: 15px 0; 
@@ -7870,10 +7861,24 @@ a.anchor-link {
             align-items: center;
             gap: 16px;
         ">
-<div><a href="./01-02.html" style="color: #5d4037; text-decoration: none; padding: 8px 12px; border-radius: 4px; background-color: #efebe9; border: 1px solid #8d6e63; display: inline-block; font-weight: 500;">⬅️ Previous Section</a></div>
-<div><span style="color: #999; padding: 8px 12px;">Next Section ➡️</span></div>
+<div><a href="./01-02" style="color: #5d4037; text-decoration: none; padding: 8px 12px; border-radius: 4px; background-color: #efebe9; border: 1px solid #8d6e63; display: inline-block; font-weight: 500;">⬅️ Previous Section</a></div>
+<div><a href="./01-04.html" style="color: #2e7d32; text-decoration: none; padding: 8px 12px; border-radius: 4px; background-color: #e8f5e8; border: 1px solid #66bb6a; display: inline-block; font-weight: 500;">Next Section ➡️</a></div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=bf35ede5-7913-42b9-ad56-ae93f115047f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 </div>
 </div>
 </div>

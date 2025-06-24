@@ -1,33 +1,38 @@
 [
   {
-    "title" : "How to Properly Setup a Python Project?",
-    "description" : "We discuss about Python environments, managing dependencies, and creating reproducible development setups.",
+    "title" : "Properly Setting Up a Python Project",
+    "description" : "",
     "tags" : ["Python"],
     "difficulty" : "Beginner",
     "estimatedTime" : "",
     "topics" : [
       {
-        "question" : "Why do we even need to use a virtual environment?",
-        "description" : "Dependency conflicts, package version",
+        "question" : "What is a virtual environment?",
+        "description" : "",
         "filepath" : "htmls/01-01.html"
       },
       {
-        "question" : "How to setup a virtual environment and use it?",
+        "question" : "Why should we care about virtual environment?",
         "description" : "",
         "filepath" : "htmls/01-02.html"
       },
       {
-        "question" : "How to use a virtual environment in jupyter notebooks?",
-        "description" : "",
+        "question" : "How to setup a virtual environment and use it?",
+        "description" : "pip, venv",
         "filepath" : "htmls/01-03.html"
+      },
+      {
+        "question" : "How to install a virtual environment in jupyter notebooks?",
+        "description" : "ipykernel",
+        "filepath" : "htmls/01-04.html"
       }
     ]
   },
   
   {
-    "title" : "How to compute the tempo of a song?",
+    "title" : "Tempo Detection Algorithm",
     "description" : "",
-    "tags" : ["MIR", "Audio DSP", "Machine Learning"],
+    "tags" : ["MIR", "Audio DSP", "Machine Learning", "Algorithm"],
     "difficulty" : "Intermediate",
     "estimatedTime" : "",
     "topics" : [
@@ -40,9 +45,9 @@
   },
   
   {
-    "title" : "How to find rhythmicity of a song?",
+    "title" : "Rhythmicity Detection Algorithm",
     "description" : "",
-    "tags" : ["MIR", "Audio DSP"],
+    "tags" : ["MIR", "Audio DSP", "Algorithm"],
     "difficulty" : "Intermediate",
     "estimatedTime" : "",
     "topics" : [
@@ -65,15 +70,15 @@
   },
   
   {
-    "title" : "How does python manage and represent different types of data in memory?",
+    "title" : "Data Management in Python",
     "description" : "",
     "tags" : ["Python"],
     "difficulty" : "Intermediate",
     "estimatedTime" : "",
     "topics" : [
       {
-        "question" : "How do we store data in python?",
-        "description" : "data, datatypes, size and memory address of an object",
+        "question" : "What is data and how is it represented in python?",
+        "description" : "data, datatypes, python API, size and memory address of an object",
         "filepath" : "htmls/05-01.html"
       },
       {
