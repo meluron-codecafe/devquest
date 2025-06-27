@@ -7620,6 +7620,7 @@ a.anchor-link {
 <ol>
 <li>Primitive or Non-Primitive</li>
 <li>Mutable or Immutable</li>
+<li>Built-in or Custom</li>
 </ol>
 </div>
 </div>
@@ -7653,7 +7654,7 @@ a.anchor-link {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">▶ What are primitive and non-primitive data types?</h2>
+            ">▶ Primitive Vs Non-Primitive Data Types</h2>
 </div>
 </div>
 </div>
@@ -7722,7 +7723,7 @@ a.anchor-link {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">▶ What are mutable and immutable data types?</h2>
+            ">▶ Mutable Vs Immutable Data Types</h2>
 </div>
 </div>
 </div>
@@ -7852,7 +7853,7 @@ When you create an object and assign it to a variable, the variable stores the m
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">How to check if a datatype is mutable?</h3>
+            ">Mutability Test of a datatype</h3>
 </div>
 </div>
 </div>
@@ -7863,7 +7864,7 @@ When you create an object and assign it to a variable, the variable stores the m
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># int</span>
@@ -7884,8 +7885,8 @@ When you create an object and assign it to a variable, the variable stores the m
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Variable 'a' points to 4490292576 where the stored value is 10
-Variable 'a' points to 4490292896 where the stored value is 20
+<pre>Variable 'a' points to 4535995744 where the stored value is 10
+Variable 'a' points to 4535996064 where the stored value is 20
 ----------------------------------------------------------------------------------------------------
 </pre>
 </div>
@@ -7903,7 +7904,7 @@ Variable 'a' points to 4490292896 where the stored value is 20
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div style="
         margin: 15px 0; 
@@ -7958,7 +7959,7 @@ Variable 'a' points to 4490292896 where the stored value is 20
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># list</span>
@@ -7979,8 +7980,8 @@ Variable 'a' points to 4490292896 where the stored value is 20
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Variable 'a' points to 4515408896 where the stored value is ['pen', 'pencil']
-Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
+<pre>Variable 'a' points to 4432967872 where the stored value is ['pen', 'pencil']
+Variable 'a' points to 4432967872 where the stored value is ['book', 'pencil']
 ----------------------------------------------------------------------------------------------------
 </pre>
 </div>
@@ -7998,7 +7999,7 @@ Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[40]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div style="
         margin: 15px 0; 
@@ -8053,7 +8054,7 @@ Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1">#tuple</span>
@@ -8074,7 +8075,7 @@ Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[29]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[10]</span><span class="ansi-green-fg">, line 3</span>
 <span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)">#tuple</span>
 <span class="ansi-green-fg">      2</span> a = (<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">pen</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">pencil</span><span class="ansi-yellow-fg">"</span>)
 <span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg">[</span><span class="ansi-green-fg ansi-yellow-bg">0</span><span class="ansi-yellow-bg">]</span> = <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">book</span><span class="ansi-yellow-fg">"</span>
@@ -8095,7 +8096,7 @@ Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[41]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div style="
         margin: 15px 0; 
@@ -8174,7 +8175,7 @@ Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-            ">▶ What are built-in and custom Data Types</h2>
+            ">▶ Built-in Vs Custom Data Types</h2>
 </div>
 </div>
 </div>
@@ -8211,7 +8212,57 @@ Variable 'a' points to 4515408896 where the stored value is ['book', 'pencil']
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8d1bee3f-2af1-4f2c-a78b-3f015f03b62c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8d1bee3f-2af1-4f2c-a78b-3f015f03b62c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div style="
+        margin: 15px 0; 
+        padding: 16px 20px; 
+        border-radius: 8px; 
+        border-left: 4px solid #607d8b; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+        background-color: #f8f9fa; 
+        color: #37474f;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    ">
+<div style="
+            font-weight: bold; 
+            margin-bottom: 12px; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        ">
+<span style="font-size: 18px;">🧭</span>
+            Navigation
+        </div>
+<div style="
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            gap: 16px;
+        ">
+<div><a href="./05.01.html" style="color: #5d4037; text-decoration: none; padding: 8px 12px; border-radius: 4px; background-color: #efebe9; border: 1px solid #8d6e63; display: inline-block; font-weight: 500;">⬅️ Previous Section</a></div>
+<div><a href="./05-03.html" style="color: #2e7d32; text-decoration: none; padding: 8px 12px; border-radius: 4px; background-color: #e8f5e8; border: 1px solid #66bb6a; display: inline-block; font-weight: 500;">Next Section ➡️</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5bcb91c5-b5a3-4461-a91a-e8af29381903">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

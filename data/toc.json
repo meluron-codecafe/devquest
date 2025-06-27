@@ -82,9 +82,19 @@
         "filepath" : "htmls/05-01.html"
       },
       {
-        "question" : "What's the precision of integers and floats in python?",
+        "question" : "How are datatypes classified in python?",
         "description" : "",
         "filepath" : "htmls/05-02.html"
+      },
+      {
+        "question" : "What are the methods available for different primitive datatypes?",
+        "description" : "",
+        "filepath" : "htmls/05-03.html"
+      },
+      {
+        "question" : "How to deal with a collection of objects?",
+        "description" : "",
+        "filepath" : "htmls/05-04.html"
       }
     ]
   }
