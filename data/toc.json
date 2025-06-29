@@ -97,5 +97,21 @@
         "filepath" : "htmls/05-04.html"
       }
     ]
+  },
+  
+  {
+    "title" : "Loops in Python",
+    "description" : "",
+    "tags" : ["Python"],
+    "difficulty" : "Intermediate",
+    "estimatedTime" : "",
+    "topics" : [
+      {
+        "question" : "For loop",
+        "description" : "",
+        "filepath" : "htmls/07-01.html"
+      }
+    ]
   }
+  
 ]
