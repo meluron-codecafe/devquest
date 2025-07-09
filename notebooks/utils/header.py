@@ -65,12 +65,12 @@ def hero(
             margin-right: 35px;
         ">
             <a href="https://meluron-codecafe.github.io/DevQuest/">
-                <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/orig.png" 
+                <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" 
                      alt="My Logo" 
                      style="
-                        width: 70px; 
-                        height: 70px;
-                        border-radius: 8px;
+                        width: 120px; 
+                        height: 50px;
+                        border-radius: 5px;
                         box-shadow: 0 3px 10px rgba(253, 138, 9, 0.3);
                      ">
             </a>
@@ -89,15 +89,15 @@ def hero(
             font-size: 14px; 
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white; 
-            padding: 8px 14px; 
-            border-radius: 20px; 
+            padding: 8px 10px; 
+            border-radius: 5px; 
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-weight: 600;
             box-shadow: 0 3px 12px rgba(102, 126, 234, 0.3);
+            margin-top: -10px;
         ">
-            <span style="font-size: 16px;">❔</span>
             {topic}
             
         </div>
