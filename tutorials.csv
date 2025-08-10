@@ -1,0 +1,8 @@
+category,topic,number,notebook,html
+DSA,List Data Structure,01,dsa-list_data_structure-01.ipynb,dsa-list_data_structure-01.html
+DSA,Linked List,01,dsa-linked_list-01.ipynb,dsa-linked_list-01.html
+DSP,Z Transform,01,dsp-z_transform-01.ipynb,dsp-z_transform-01.html
+DSP,Filters,01,dsp-filters-01.ipynb,dsp-filters-01.html
+MIR,Audio Identification,01,mir-audio_identification-01.ipynb,mir-audio_identification-01.html
+PY,Numpy Array,01,py-numpy_array-01.ipynb,py-numpy_array-01.html
+PY,Numpy Array,02,py-numpy_array-02.ipynb,py-numpy_array-02.html

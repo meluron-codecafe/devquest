@@ -1,32 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DevQuest</title>
-  <link rel="stylesheet" type="text/css" href="./styles.css">
+<meta charset="UTF-8">
+<title>Tutorial Browser</title>
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+        text-align: center;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        color: #fd8a09;
+    }
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    select, input {
+        padding: 6px 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        border-bottom: 1px solid #ddd;
+        padding: 8px 10px;
+        text-align: left;
+        font-size: 14px;
+    }
+    th {
+        background-color: #f5f5f5;
+        color: #555;
+        font-weight: bold;
+    }
+    tr:hover {
+        background-color: #fafafa;
+    }
+    a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .logo {
+        display: block;
+        margin: 0 auto 15px auto; /* center horizontally and add spacing below */
+        max-width: 200px; /* smaller size */
+        height: auto; /* keep aspect ratio */
+    }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>DevQuest</h1>
-      <p class="subtitle">By meluron</p>
-      
-      <div class="controls">
-        <input type="text" class="search-box" placeholder="What are you looking for..." id="search-input">
-      </div>
-      
-      <div class="tag-filter" id="tag-filter">
-        <button class="tag-button active" data-tag="all">All</button>
-      </div>
+<div class="container">
+    <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" 
+        alt="DevQuest Logo" 
+        class="logo">
+
+    <div class="controls">
+        <select id="categoryFilter">
+            <option value="">All Categories</option>
+        </select>
+        <input type="text" id="searchBox" placeholder="Search topics...">
     </div>
-    
-    <div class="chapters" id="chapters-container">
-    </div>
-    
-    <div class="no-results" id="no-results" style="display: none;">
-      No chapters found matching your search criteria.
-    </div>
-  </div>
-  <script src="./script.js"></script>
+
+    <table id="tutorialTable">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Topic</th>
+                <th>Number</th>
+                <th>Open</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+let tutorials = [];
+
+fetch('tutorials.csv')
+.then(response => response.text())
+.then(data => {
+    const rows = data.trim().split('\n').slice(1); // Skip header
+    const tableBody = document.querySelector('#tutorialTable tbody');
+    const categorySelect = document.getElementById('categoryFilter');
+
+    tutorials = rows.map(row => {
+        const [category, topic, number, ipynb, filename] = row.split(',');
+        return { category, topic, number, filename };
+    });
+
+    // Populate category filter
+    const categories = [...new Set(tutorials.map(t => t.category))].sort();
+    categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        categorySelect.appendChild(option);
+    });
+
+    renderTable();
+});
+
+function renderTable() {
+    const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
+    const searchQuery = document.getElementById('searchBox').value.toLowerCase();
+    const tableBody = document.querySelector('#tutorialTable tbody');
+    tableBody.innerHTML = '';
+
+    tutorials
+        .filter(t => 
+            (!categoryFilter || t.category.toLowerCase() === categoryFilter) &&
+            (!searchQuery || t.topic.toLowerCase().includes(searchQuery))
+        )
+        .forEach(t => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${t.category}</td>
+                <td>${t.topic}</td>
+                <td>${t.number}</td>
+                <td><a href="htmls/${t.filename}" target="_blank">View</a></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+}
+
+document.getElementById('categoryFilter').addEventListener('change', renderTable);
+document.getElementById('searchBox').addEventListener('input', renderTable);
+</script>
 </body>
 </html>
