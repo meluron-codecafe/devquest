@@ -47,7 +47,7 @@ def export_clean_html(ipynb_path: Path):
 	with open(output_path, "w", encoding="utf-8") as f:
 		f.write(cleaned_html)
 		
-	print(f"{output_path.name}\tStatus: ✅\t#hide: {removed}")
+	print(f"{output_path.name}\n\tStatus: ✅\t#hide: {removed}")
 	
 	
 def format_topic(topic: str) -> str:
@@ -56,16 +56,32 @@ def format_topic(topic: str) -> str:
 
 
 def extract_info_from_filename(file_path: Path):
-	"""Extract category, topic, and number from filename like category-topic-01.ipynb"""
-	pattern = re.compile(r"^(?P<category>[^-]+)-(?P<topic>[^-]+)-(?P<number>\d+)\.ipynb$")
-	match = pattern.match(file_path.name)
-	if match:
-		category = match.group("category")
-		topic = format_topic(match.group("topic"))
-		number = match.group("number")
-		return category.upper(), topic, number
-	return None, None, None
+	"""
+	Extract category, topic, subtopics, and number from filename like:
+	CATEGORY-TOPIC_NAME-SUBTOPICS-NUMBER.ipynb
 
+	Examples:
+	- dsp-z_transform--01.ipynb
+	- py-numpy-array;type;ndim;shape;size-01.ipynb
+	- dsa-linked_list--01.ipynb
+	- ai-deep_learning;cnn;transformers-02.ipynb
+	"""
+	pattern = re.compile(
+		r"^(?P<category>[^-]+)-(?P<topic>[^-]*)-(?P<subtopics>[^-]*)-(?P<number>\d+)\.ipynb$"
+	)
+	match = pattern.match(file_path.name)
+	if not match:
+		return None, None, None, None
+	
+	category = match.group("category").upper()
+	topic = match.group("topic").replace("_", " ").title()
+	subtopics_raw = match.group("subtopics")
+	
+	# Convert semicolon-separated subtopics to list, handle empty case
+	subtopics = [st.replace("_", " ") for st in subtopics_raw.split(";") if st] if subtopics_raw else []
+	
+	number = match.group("number")
+	return category, topic, subtopics, number
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Convert .ipynb to HTML, strip hidden code, and generate tutorials.csv")
@@ -79,18 +95,26 @@ if __name__ == "__main__":
 		csv_rows = []
 		for notebook in (root_dir / "notebooks").glob("*.ipynb"):
 			export_clean_html(notebook)
-			category, topic, number = extract_info_from_filename(notebook)
+			category, topic, subtopics, number = extract_info_from_filename(notebook)
 			if category:
-				csv_rows.append([category, topic, number, notebook.name, f"{notebook.stem}.html"])
+				csv_rows.append([
+					category,
+					topic,
+					"; ".join(subtopics),
+					number,
+					notebook.name,
+					f"{notebook.stem}.html"
+				])
 				
-		# Sort by category then number
-		csv_rows.sort(key=lambda x: (x[0], x[2]))
+				
+		# Sort by category then number (numeric)
+		csv_rows.sort(key=lambda x: (x[0], int(x[3])))
 		
-		# Save CSV
+		# Save CSV with correct header
 		csv_file = root_dir / "tutorials.csv"
 		with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
 			writer = csv.writer(f)
-			writer.writerow(["category", "topic", "number", "notebook", "html"])
+			writer.writerow(["category", "topic", "subtopics", "number", "notebook", "html"])
 			writer.writerows(csv_rows)
 			
 		print(f"✅ Saved CSV to {csv_file}")

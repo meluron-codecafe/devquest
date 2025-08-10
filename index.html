@@ -11,7 +11,7 @@
         padding: 20px;
     }
     .container {
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
         background: #fff;
         border: 1px solid #ccc;
@@ -65,9 +65,9 @@
     }
     .logo {
         display: block;
-        margin: 0 auto 15px auto; /* center horizontally and add spacing below */
-        max-width: 200px; /* smaller size */
-        height: auto; /* keep aspect ratio */
+        margin: 0 auto 15px auto;
+        max-width: 200px;
+        height: auto;
     }
 </style>
 </head>
@@ -81,7 +81,7 @@
         <select id="categoryFilter">
             <option value="">All Categories</option>
         </select>
-        <input type="text" id="searchBox" placeholder="Search topics...">
+        <input type="text" id="searchBox" placeholder="Search topics or subtopics...">
     </div>
 
     <table id="tutorialTable">
@@ -89,6 +89,7 @@
             <tr>
                 <th>Category</th>
                 <th>Topic</th>
+                <th>Subtopics</th>
                 <th>Number</th>
                 <th>Open</th>
             </tr>
@@ -97,58 +98,67 @@
     </table>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
 <script>
-let tutorials = [];
-
-fetch('tutorials.csv')
-.then(response => response.text())
-.then(data => {
-    const rows = data.trim().split('\n').slice(1); // Skip header
-    const tableBody = document.querySelector('#tutorialTable tbody');
-    const categorySelect = document.getElementById('categoryFilter');
-
-    tutorials = rows.map(row => {
-        const [category, topic, number, ipynb, filename] = row.split(',');
-        return { category, topic, number, filename };
+    let tutorials = [];
+    
+    fetch('tutorials.csv')
+    .then(response => response.text())
+    .then(data => {
+        const parsed = Papa.parse(data, {
+            header: true,   // Use the first row as column names
+            skipEmptyLines: true
+        });
+        
+        tutorials = parsed.data.map(row => ({
+            category: row.category || '',
+            topic: row.topic || '',
+            subtopics: row.subtopics || '',
+            number: row.number || '',
+            notebook: row.notebook || '',
+            filename: row.html || ''
+        }));
+        
+        // Populate category filter
+        const categorySelect = document.getElementById('categoryFilter');
+        const categories = [...new Set(tutorials.map(t => t.category))].sort();
+        categories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat;
+            categorySelect.appendChild(option);
+        });
+        
+        renderTable();
     });
-
-    // Populate category filter
-    const categories = [...new Set(tutorials.map(t => t.category))].sort();
-    categories.forEach(cat => {
-        const option = document.createElement('option');
-        option.value = cat;
-        option.textContent = cat;
-        categorySelect.appendChild(option);
-    });
-
-    renderTable();
-});
-
-function renderTable() {
-    const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
-    const searchQuery = document.getElementById('searchBox').value.toLowerCase();
-    const tableBody = document.querySelector('#tutorialTable tbody');
-    tableBody.innerHTML = '';
-
-    tutorials
-        .filter(t => 
+    
+    function renderTable() {
+        const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
+        const searchQuery = document.getElementById('searchBox').value.toLowerCase();
+        const tableBody = document.querySelector('#tutorialTable tbody');
+        tableBody.innerHTML = '';
+        
+        tutorials
+        .filter(t =>
             (!categoryFilter || t.category.toLowerCase() === categoryFilter) &&
-            (!searchQuery || t.topic.toLowerCase().includes(searchQuery))
+            (!searchQuery || (t.topic + ' ' + t.subtopics).toLowerCase().includes(searchQuery))
         )
         .forEach(t => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${t.category}</td>
-                <td>${t.topic}</td>
-                <td>${t.number}</td>
-                <td><a href="htmls/${t.filename}" target="_blank">View</a></td>
-            `;
+            <td>${t.category}</td>
+            <td>${t.topic}</td>
+            <td>${t.subtopics || '-'}</td>
+            <td>${t.number}</td>
+            <td><a href="htmls/${t.filename}" target="_blank">View</a></td>
+        `;
             tableBody.appendChild(tr);
         });
-}
-
-document.getElementById('categoryFilter').addEventListener('change', renderTable);
-document.getElementById('searchBox').addEventListener('input', renderTable);
+    }
+    
+    document.getElementById('categoryFilter').addEventListener('change', renderTable);
+    document.getElementById('searchBox').addEventListener('input', renderTable);
 </script>
 </body>
 </html>
