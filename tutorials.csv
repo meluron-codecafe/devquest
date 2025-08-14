@@ -1,7 +1,12 @@
-category,topic,subtopics,number,notebook,html
-DSA,List Data Structure,,01,dsa-list_data_structure--01.ipynb,dsa-list_data_structure--01.html
-DSA,Linked List,,01,dsa-linked_list--01.ipynb,dsa-linked_list--01.html
-DSP,Z Transform,,01,dsp-z_transform--01.ipynb,dsp-z_transform--01.html
-DSP,Filters,,01,dsp-filters--01.ipynb,dsp-filters--01.html
-MIR,Audio Identification,,01,mir-audio_identification--01.ipynb,mir-audio_identification--01.html
-PY,Numpy,array; type; ndim; shape; size,01,py-numpy-array;type;ndim;shape;size-01.ipynb,py-numpy-array;type;ndim;shape;size-01.html
+category,topic,keywords,number,notebook,html
+DSA,List Data Structure,-,01,dsa-List_Data_Structure-01.ipynb,dsa-List_Data_Structure-01.html
+DSA,Linked List,node; operations;,01,dsa-Linked_List-01.ipynb,dsa-Linked_List-01.html
+DSP,Z Transform,,01,dsp-Z_Transform-01.ipynb,dsp-Z_Transform-01.html
+DSP,Filters,,01,dsp-Filters-01.ipynb,dsp-Filters-01.html
+MIR,Fourier Transform,sinusoids; cosine similarity;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
+MIR,Audio Identification,-,01,mir-Audio_Identification-01.ipynb,mir-Audio_Identification-01.html
+PRJ,Artistic Speech Analysis,intro; problem statement; script; performance;,01,prj-Artistic_Speech_Analysis-01.ipynb,prj-Artistic_Speech_Analysis-01.html
+PRJ,Artistic Speech Analysis,pitch; loudness; praat-parselmouth;,02,prj-Artistic_Speech_Analysis-02.ipynb,prj-Artistic_Speech_Analysis-02.html
+PY,NumPy,ndarray; type; ndim; shape; size;,01,py-NumPy-01.ipynb,py-NumPy-01.html
+PY,Virtual Environment,venv; jupyter kernel,01,py-Virtual_Environment-01.ipynb,py-Virtual_Environment-01.html
+PY,Numpy,scalars,02,py-Numpy-02.ipynb,py-Numpy-02.html

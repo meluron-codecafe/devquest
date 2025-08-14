@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:5fa8dc846c6b16325dd2390f579f3fb716f8c3d451cea90f8298b91f6f1a6627"
+content_hash = "sha256:dbf8ef5c06383993f8895c6a7b50d9a9bbdb23560d69832991d2b8774313323f"
 
 [[metadata.targets]]
 requires_python = "==3.10.*"
@@ -944,7 +944,7 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.1"
+version = "0.3.29"
 summary = ""
 dependencies = [
     "ipython",
@@ -954,8 +954,8 @@ dependencies = [
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.1-py3-none-any.whl", hash = "sha256:de566d3d304bae80df24cac98550bea7d5a967777a72aebd6b6dc152ff740877"},
-    {file = "modusa-0.3.1.tar.gz", hash = "sha256:24738916cc5a9b5aa001eb4d9f038e34839207ae918f8079510a60b2aba41db4"},
+    {file = "modusa-0.3.29-py3-none-any.whl", hash = "sha256:0640fcc5456d542bcc4b28feae9ee1870af3d7aa42cea6ce5da1461d5008d04a"},
+    {file = "modusa-0.3.29.tar.gz", hash = "sha256:4ff9ef732f640277f00cfb476a4403db81783d12a1272c8181939d79424b5942"},
 ]
 
 [[package]]
@@ -1202,6 +1202,29 @@ dependencies = [
 files = [
     {file = "pooch-1.8.2-py3-none-any.whl", hash = "sha256:3529a57096f7198778a5ceefd5ac3ef0e4d06a6ddaf9fc2d609b806f25302c47"},
     {file = "pooch-1.8.2.tar.gz", hash = "sha256:76561f0de68a01da4df6af38e9955c4c9d1a5c90da73f7e40276a5728ec83d10"},
+]
+
+[[package]]
+name = "praat-parselmouth"
+version = "0.4.6"
+summary = ""
+dependencies = [
+    "numpy",
+]
+files = [
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:9ac98501a8302d05c33ed7d1cced38093157b395056b52ab29fa875307eaf2c8"},
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:7f694798763199011fdc1acd0435cc2ba5497487adc68e93e27582c2f82464c9"},
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:c91838cb1a3a36a718833f8bf71604aca46b5443f329dc07b91433417b9b1862"},
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:beb6487e0fcc1253e114dd72b0abeb2ba57a6dd007eb4aff040141d89d859d93"},
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:2a0bd610b0a2fc9cc2b295a63e3c5e2415b3c68cde4b7daabd9be91ce0b90da2"},
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-win32.whl", hash = "sha256:bd0e399f0a40aa038cfea6282b8624cd2862c158456e940054f728490bec946c"},
+    {file = "praat_parselmouth-0.4.6-cp310-cp310-win_amd64.whl", hash = "sha256:75f745c91e29de5532b72661ab5d5c7406d38a29219b5951a6568de4edd0cc05"},
+    {file = "praat_parselmouth-0.4.6-pp310-pypy310_pp73-macosx_10_15_x86_64.whl", hash = "sha256:55fdc10f4ff97263d155d6d7912275093ed72d3f160a1251baafebd1915076b0"},
+    {file = "praat_parselmouth-0.4.6-pp310-pypy310_pp73-macosx_11_0_arm64.whl", hash = "sha256:f6100b0c9ec08ec05a5cd79cce2975bc9d6954f4ce3e39a03e0bbc3c0d70d28f"},
+    {file = "praat_parselmouth-0.4.6-pp310-pypy310_pp73-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:4922b6c1d9fcc58bb2f55cfea63c3f816692f6c91abcdc638290325b4e944bc8"},
+    {file = "praat_parselmouth-0.4.6-pp310-pypy310_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6a5c28fdf1908e85818a18c155809949df3b14a463b76d3ce63736da7106ed85"},
+    {file = "praat_parselmouth-0.4.6-pp310-pypy310_pp73-win_amd64.whl", hash = "sha256:ce0e54e62ea8b120772c8135537d110abeb3719cf1e3e025eaa1ff6017401f66"},
+    {file = "praat_parselmouth-0.4.6.tar.gz", hash = "sha256:844e09cfcab9d202043f2aaaf803908a54be6e1953c2f01c386cc2ea7cc6851a"},
 ]
 
 [[package]]

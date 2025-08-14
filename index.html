@@ -89,7 +89,7 @@
             <tr>
                 <th>Category</th>
                 <th>Topic</th>
-                <th>Subtopics</th>
+                <th>Keywords</th>
                 <th>Number</th>
                 <th>Open</th>
             </tr>
@@ -114,7 +114,7 @@
         tutorials = parsed.data.map(row => ({
             category: row.category || '',
             topic: row.topic || '',
-            subtopics: row.subtopics || '',
+            keywords: row.keywords || '',
             number: row.number || '',
             notebook: row.notebook || '',
             filename: row.html || ''
@@ -142,14 +142,14 @@
         tutorials
         .filter(t =>
             (!categoryFilter || t.category.toLowerCase() === categoryFilter) &&
-            (!searchQuery || (t.topic + ' ' + t.subtopics).toLowerCase().includes(searchQuery))
+            (!searchQuery || (t.topic + ' ' + t.keywords).toLowerCase().includes(searchQuery))
         )
         .forEach(t => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
             <td>${t.category}</td>
             <td>${t.topic}</td>
-            <td>${t.subtopics || '-'}</td>
+            <td>${t.keywords || '-'}</td>
             <td>${t.number}</td>
             <td><a href="htmls/${t.filename}" target="_blank">View</a></td>
         `;
