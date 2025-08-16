@@ -70,15 +70,40 @@
         height: auto;
     }
     .quote-box {
-        text-align: center;
+        display: inline-block;
         font-style: italic;
-        color: #444;
-        margin-bottom: 15px;
-        font-size: 15px;
-        transition: opacity 1s ease-in-out;
-        min-height: 30px; /* reserve space so page doesn’t jump */
+        color: #777;
+        margin: 15px auto;
+        font-size: 16px;
+        min-height: 30px;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 3px;
+        text-align: center;
+        position: relative; /* so ::after can position itself */
     }
-
+    /* Simple static cursor */
+    .quote-box::after {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 1.2em;   /* <-- adjust this for cursor height */
+        background: #777;
+        margin-left: 5px;
+        vertical-align: bottom;
+    }
+    /* Center inline-block using text-align on parent */
+    #quoteBox {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+        width: fit-content;  /* only as wide as text */
+    }
+    /* Selection effect only covers text */
+    .quote-box.selected {
+        background-color: #cfe3ff; /* soft blue */
+        color: #333;               /* darker text while selected */
+    }
 </style>
 </head>
 <body>
@@ -175,26 +200,43 @@
     
 //  Quotes feature
     const quotes = [
-        '"A good dot product is all you need."'
+        '"A good dot product is all you need."',
+        '"Learn it the hard way."',
+        '"Work with people who resonate with you."'
     ];
     
     let currentQuoteIndex = 0;
+    let charIndex = 0;
     const quoteBox = document.getElementById("quoteBox");
+    const typingSpeed = 150;        // ms per character
+    const delayBetweenQuotes = 3000; // pause after typing
+    const selectionDuration = 800;   // how long the "selection" is visible before deletion
     
-    function showQuote() {
-        quoteBox.style.opacity = 0; // fade out
-        setTimeout(() => {
-            quoteBox.textContent = quotes[currentQuoteIndex];
-            quoteBox.style.opacity = 1; // fade in
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-        }, 1000); // match transition duration
+    function typeQuote() {
+        if (charIndex < quotes[currentQuoteIndex].length) {
+            quoteBox.textContent = quotes[currentQuoteIndex].substring(0, charIndex + 1);
+            charIndex++;
+            setTimeout(typeQuote, typingSpeed);
+        } else {
+            setTimeout(selectQuote, delayBetweenQuotes);
+        }
     }
     
-    // Initial quote
-    showQuote();
+    function selectQuote() {
+        quoteBox.classList.add("selected");
+        setTimeout(deleteQuote, selectionDuration);
+    }
     
-    // Change quote every 10 seconds
-    setInterval(showQuote, 10000);
+    function deleteQuote() {
+        quoteBox.textContent = "";  // clear text at once
+        quoteBox.classList.remove("selected");
+        charIndex = 0;
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        setTimeout(typeQuote, typingSpeed);
+    }
+    
+    // Start animation
+    typeQuote();
 </script>
 </body>
 </html>
