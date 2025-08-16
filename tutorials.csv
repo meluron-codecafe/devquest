@@ -4,12 +4,12 @@ DSA,List Data Structure,-,01,dsa-List_Data_Structure-01.ipynb,dsa-List_Data_Stru
 DSP,Digital Signal,signal; digital signal; ADC; sampling; bit-depth; SQNR;,01,dsp-Digital_Signal-01.ipynb,dsp-Digital_Signal-01.html
 DSP,Filters,,01,dsp-Filters-01.ipynb,dsp-Filters-01.html
 DSP,Laplace Transform,exp;,01,dsp-Laplace_Transform-01.ipynb,dsp-Laplace_Transform-01.html
-DSP,Z Transform,,01,dsp-Z_Transform-01.ipynb,dsp-Z_Transform-01.html
 DSP,PYIN,pitch detection; fundamental frequency (f0);,01,dsp-PYIN-01.ipynb,dsp-PYIN-01.html
+DSP,Z Transform,,01,dsp-Z_Transform-01.ipynb,dsp-Z_Transform-01.html
 MIR,Audio Identification,-,01,mir-Audio_Identification-01.ipynb,mir-Audio_Identification-01.html
 MIR,Fourier Transform,sinusoids; cosine similarity;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
 PRJ,Artistic Speech Analysis,intro; problem statement; script; performance;,01,prj-Artistic_Speech_Analysis-01.ipynb,prj-Artistic_Speech_Analysis-01.html
 PRJ,Artistic Speech Analysis,pitch; loudness; praat-parselmouth;,02,prj-Artistic_Speech_Analysis-02.ipynb,prj-Artistic_Speech_Analysis-02.html
 PY,NumPy,ndarray; type; ndim; shape; size;,01,py-NumPy-01.ipynb,py-NumPy-01.html
-PY,Virtual Environment,venv; jupyter kernel,01,py-Virtual_Environment-01.ipynb,py-Virtual_Environment-01.html
 PY,Numpy,scalars,02,py-Numpy-02.ipynb,py-Numpy-02.html
+PY,Virtual Environment,venv; jupyter kernel,01,py-Virtual_Environment-01.ipynb,py-Virtual_Environment-01.html

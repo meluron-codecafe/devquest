@@ -69,6 +69,16 @@
         max-width: 200px;
         height: auto;
     }
+    .quote-box {
+        text-align: center;
+        font-style: italic;
+        color: #444;
+        margin-bottom: 15px;
+        font-size: 15px;
+        transition: opacity 1s ease-in-out;
+        min-height: 30px; /* reserve space so page doesn’t jump */
+    }
+
 </style>
 </head>
 <body>
@@ -76,6 +86,8 @@
     <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" 
         alt="DevQuest Logo" 
         class="logo">
+    
+    <div id="quoteBox" class="quote-box"></div>
 
     <div class="controls">
         <select id="categoryFilter">
@@ -159,6 +171,30 @@
     
     document.getElementById('categoryFilter').addEventListener('change', renderTable);
     document.getElementById('searchBox').addEventListener('input', renderTable);
+    
+    
+//  Quotes feature
+    const quotes = [
+        '"A good dot product is all you need."'
+    ];
+    
+    let currentQuoteIndex = 0;
+    const quoteBox = document.getElementById("quoteBox");
+    
+    function showQuote() {
+        quoteBox.style.opacity = 0; // fade out
+        setTimeout(() => {
+            quoteBox.textContent = quotes[currentQuoteIndex];
+            quoteBox.style.opacity = 1; // fade in
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }, 1000); // match transition duration
+    }
+    
+    // Initial quote
+    showQuote();
+    
+    // Change quote every 10 seconds
+    setInterval(showQuote, 10000);
 </script>
 </body>
 </html>
