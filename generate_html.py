@@ -14,6 +14,13 @@ import csv
 root_dir = Path(__file__).parent.resolve()
 
 def convert_to_html(notebook_path: Path) -> str:
+	"""
+	Convert .ipynb to .html using nbformat.
+
+	Parameters
+	----------
+	notebook_path: Path
+	"""
 	notebook = nbformat.read(notebook_path, as_version=4)
 	exporter = HTMLExporter()
 	body, _ = exporter.from_notebook_node(notebook)
@@ -91,7 +98,11 @@ if __name__ == "__main__":
 	
 	if args.all:
 		csv_rows = []
-		for notebook in (root_dir / "notebooks").glob("*.ipynb"):
+		notebooks_dir = root_dir / "notebooks"
+		# Get all .ipynb paths and sort them
+		notebooks = sorted(notebooks_dir.glob("*.ipynb"))
+		
+		for notebook in notebooks:
 			keywords = export_clean_html(notebook)
 			category, topic, number = extract_info_from_filename(notebook)
 			if category:
@@ -103,9 +114,6 @@ if __name__ == "__main__":
 					notebook.name,
 					f"{notebook.stem}.html",
 				])
-				
-		# Sort by category then number (numeric)
-		csv_rows.sort(key=lambda x: (x[0], int(x[3])))
 		
 		# Save CSV with correct header
 		csv_file = root_dir / "tutorials.csv"
@@ -167,4 +175,5 @@ if __name__ == "__main__":
 			writer.writerows(rows)
 			
 		print(f"✅ {'Updated' if updated else 'Added'} row for {notebook_path.name} in {csv_file}")
+		
 		

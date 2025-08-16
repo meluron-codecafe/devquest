@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:dbf8ef5c06383993f8895c6a7b50d9a9bbdb23560d69832991d2b8774313323f"
+content_hash = "sha256:4791097c9f403233f9f80bcc45c07e1f9b30ca37f2c9af7dc4dcdcb5a91ae3c3"
 
 [[metadata.targets]]
 requires_python = "==3.10.*"
@@ -944,7 +944,7 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.29"
+version = "0.3.4.dev1"
 summary = ""
 dependencies = [
     "ipython",
@@ -954,8 +954,8 @@ dependencies = [
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.29-py3-none-any.whl", hash = "sha256:0640fcc5456d542bcc4b28feae9ee1870af3d7aa42cea6ce5da1461d5008d04a"},
-    {file = "modusa-0.3.29.tar.gz", hash = "sha256:4ff9ef732f640277f00cfb476a4403db81783d12a1272c8181939d79424b5942"},
+    {file = "modusa-0.3.4.dev1-py3-none-any.whl", hash = "sha256:c9e89b8c4d4f88af5b4bf3c7739244ad396a5177883eacf2b716e2a4fc561756"},
+    {file = "modusa-0.3.4.dev1.tar.gz", hash = "sha256:0074fb26597082d6c00b3ecf4f9a87cf60eab99ae5c6a47639af8eebd87c8eff"},
 ]
 
 [[package]]
