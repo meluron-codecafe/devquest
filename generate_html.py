@@ -166,7 +166,7 @@ if __name__ == "__main__":
 			rows.append(new_row)
 			
 		# Sort again
-		rows.sort(key=lambda x: (x[0], int(x[3])))
+		rows.sort(key=lambda x: x[4])
 		
 		# Save back to CSV
 		with open(csv_file, mode="w", newline="", encoding="utf-8") as f:

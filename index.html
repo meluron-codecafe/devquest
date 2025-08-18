@@ -108,12 +108,8 @@
 </head>
 <body>
 <div class="container">
-    <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" 
-        alt="DevQuest Logo" 
-        class="logo">
-    
+    <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo">
     <div id="quoteBox" class="quote-box"></div>
-
     <div class="controls">
         <select id="categoryFilter">
             <option value="">All Categories</option>
@@ -202,8 +198,16 @@
     const quotes = [
         '"A good dot product is all you need."',
         '"Learn it the hard way."',
-        '"Work with people who resonate with you."'
+        '"Work with people who resonate with you."',
+        '"Clarity over quantity."'
     ];
+    
+    // Shuffle the order
+    for (let i = quotes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [quotes[i], quotes[j]] = [quotes[j], quotes[i]];
+    }
+
     
     let currentQuoteIndex = 0;
     let charIndex = 0;
