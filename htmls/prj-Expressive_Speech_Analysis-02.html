@@ -7580,7 +7580,7 @@ a.anchor-link {
                     padding: 4px 0;
                     font-size: 12px;
                 ">
-                    04:42:34 PM
+                    06:28:11 PM
                 </div>
 </div>
 </div>
@@ -7678,7 +7678,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Acoustic-Feature-Extraction">Acoustic Feature Extraction<a class="anchor-link" href="#Acoustic-Feature-Extraction">¶</a></h2>
+<h2 id="Acoustic-Feature-Extraction">Acoustic Feature Extraction<a class="anchor-link" href="#Acoustic-Feature-Extraction">¶</a></h2><p>Now we compute acoustic features like <code>intensity</code> and <code>pitch</code>. We will use <code>praat-parselmouth</code> for this.</p>
 </div>
 </div>
 </div>
@@ -7686,21 +7686,119 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9dae3a3d-c393-45ab-a2a3-8a9540e9631d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">modusa</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ms</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#helper functions</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modusa</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ms</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">parselmouth</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">interp1d</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_mag_spec</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_fft</span><span class="p">,</span> <span class="n">win_length</span><span class="p">,</span> <span class="n">hop_length</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute spectrogram.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y: ndarray</span>
+<span class="sd">        Signal.</span>
+<span class="sd">    n_fft: int</span>
+<span class="sd">        Number of fft bins (samples).</span>
+<span class="sd">    win_length: int</span>
+<span class="sd">        Window length (samples).</span>
+<span class="sd">    hop_length: int</span>
+<span class="sd">        Hop length (samples).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        2D spectrogram matrix.</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        1D frequency axis.</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        1D time axis.</span>
+<span class="sd">    """</span>    
+    <span class="n">S</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">win_length</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s2">"hann"</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="c1"># Magnitude spectrum</span>
+    <span class="n">S_fr</span> <span class="o">=</span> <span class="n">y_sr</span> <span class="o">/</span> <span class="n">H</span> <span class="c1"># Frame rate (Hz)</span>
+    <span class="n">S_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_sr</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">S_fr</span>
+
+    <span class="k">return</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_f</span><span class="p">,</span> <span class="n">S_t</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pitch_contour</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">in_midi</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute pitch contour using autocorrelation method from Praat.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y: ndarray</span>
+<span class="sd">       Audio signal.</span>
+<span class="sd">    sr: int</span>
+<span class="sd">        Sampling rate of the audio signal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        Pitch contour array.</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        Timestamp (sec).</span>
+<span class="sd">    """</span>
+    <span class="n">time_step</span> <span class="o">=</span> <span class="mf">0.01</span>
+    
+    <span class="n">snd</span> <span class="o">=</span> <span class="n">parselmouth</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sampling_frequency</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span>
+    <span class="n">pitch_obj</span> <span class="o">=</span> <span class="n">snd</span><span class="o">.</span><span class="n">to_pitch_ac</span><span class="p">(</span>
+        <span class="n">time_step</span><span class="o">=</span><span class="n">time_step</span><span class="p">,</span>
+        <span class="n">pitch_floor</span><span class="o">=</span><span class="mf">75.0</span><span class="p">,</span> 
+        <span class="n">max_number_of_candidates</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> 
+        <span class="n">very_accurate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+        <span class="n">silence_threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">voicing_threshold</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> 
+        <span class="n">octave_cost</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> 
+        <span class="n">octave_jump_cost</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> 
+        <span class="n">voiced_unvoiced_cost</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> 
+        <span class="n">pitch_ceiling</span><span class="o">=</span><span class="mi">600</span>
+    <span class="p">)</span>
+    <span class="n">f0</span> <span class="o">=</span> <span class="n">pitch_obj</span><span class="o">.</span><span class="n">selected_array</span><span class="p">[</span><span class="s1">'frequency'</span><span class="p">]</span>
+    <span class="n">f0_t</span> <span class="o">=</span> <span class="n">pitch_obj</span><span class="o">.</span><span class="n">ts</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">in_midi</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">f0</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">f0</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">hz_to_midi</span><span class="p">(</span><span class="n">f0</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f0_t</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_intensity_contour</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute intensity contour with Praat.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y: ndarray</span>
+<span class="sd">       Audio signal.</span>
+<span class="sd">    sr: int</span>
+<span class="sd">        Sampling rate of the audio signal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        Intensity contour array.</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        Timestamp (sec).</span>
+<span class="sd">    """</span>
+    <span class="c1"># Parameters</span>
+    <span class="n">time_step</span><span class="o">=</span><span class="mf">0.01</span>
+    <span class="n">minimum_pitch</span><span class="o">=</span><span class="mf">75.0</span>
+    
+    <span class="n">snd</span> <span class="o">=</span> <span class="n">parselmouth</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sampling_frequency</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span>
+    <span class="n">intensity_obj</span> <span class="o">=</span> <span class="n">snd</span><span class="o">.</span><span class="n">to_intensity</span><span class="p">(</span><span class="n">minimum_pitch</span><span class="o">=</span><span class="n">minimum_pitch</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="n">time_step</span><span class="p">,</span> <span class="n">subtract_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">intensity_obj</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">I</span><span class="p">[</span><span class="n">I</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">I_t</span> <span class="o">=</span> <span class="n">intensity_obj</span><span class="o">.</span><span class="n">ts</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">I</span><span class="p">,</span> <span class="n">I_t</span>
 </pre></div>
 </div>
 </div>
@@ -7809,6 +7907,9 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Now we compute acoustic features like <code>intensity</code> and <code>pitch</code>. We will use <code>praat-parselmouth</code> for this.</p>
+<p>We have kept timestep to be 10ms for praat which is same as what we set while computing stft with librosa but
+Praat internally handles the window size which makes the timestamps misaligned, we need to interpolate the values
+at consistent timestamps</p>
 </div>
 </div>
 </div>
@@ -7817,7 +7918,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Helper functions</span>
@@ -7928,6 +8029,26 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f2f97e57-167d-4f6f-9679-f0c5b3139fa1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">ys</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># To hold audio arrays (mono 1D) from multiple files</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># To hold titles of multiple audio files</span>
+<span class="n">Ss</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># To hold spectrogram matrices of different audio files</span>
+
+<span class="n">y</span><span class="p">,</span> <span class="n">y_sr</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"../../../data/fsm-snd/Crocodile 1.mp3"</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">16000</span><span class="p">)</span>
+<span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=586436ca-4be0-4dc3-9006-f1adf480ff13">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7936,13 +8057,16 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [342]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#========1=========</span>
-<span class="c1"># Spectrogram</span>
-<span class="n">N</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">160</span> <span class="c1"># 64ms, 10ms</span>
-<span class="n">S1</span><span class="p">,</span> <span class="n">S1_f</span><span class="p">,</span> <span class="n">S1_t</span> <span class="o">=</span> <span class="n">get_mag_spec</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">win_length</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">N</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">160</span> <span class="c1"># 64ms, 10ms</span>
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">ys</span><span class="p">:</span> <span class="c1"># For each of the loaded audio</span>
+    <span class="c1"># Compute spectrogram</span>
+    <span class="n">S</span><span class="p">,</span> <span class="n">f_bins</span><span class="p">,</span> <span class="n">t_bins</span> <span class="o">=</span> <span class="n">get_mag_spec</span><span class="p">(</span><span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">win_length</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
 
-<span class="c1"># Pitch information</span>
-<span class="n">fo1</span><span class="p">,</span> <span class="n">fo1_t</span> <span class="o">=</span> <span class="n">get_pitch_contour</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y1_sr</span><span class="p">,</span> <span class="n">in_midi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Compute Pitch</span>
+    <span class="n">pitch</span><span class="p">,</span> <span class="n">pitch_t</span> <span class="o">=</span> <span class="n">get_pitch_contour</span><span class="p">(</span><span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_sr</span><span class="p">,</span> <span class="n">in_midi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pitch</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">pitch_t</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">"extrapolate"</span><span class="p">)(</span><span class="n">t_bins</span><span class="p">)</span>
+
+
 <span class="n">fo1</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">fo1_t</span><span class="p">,</span> <span class="n">fo1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">"extrapolate"</span><span class="p">)(</span><span class="n">S1_t</span><span class="p">)</span>
 <span class="n">fo1_t</span> <span class="o">=</span> <span class="n">S1_t</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -7965,10 +8089,6 @@ a.anchor-link {
 <span class="n">I2</span><span class="p">,</span> <span class="n">I2_t</span> <span class="o">=</span> <span class="n">get_intensity_contour</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">y2_sr</span><span class="p">)</span>
 <span class="n">I2</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">I2_t</span><span class="p">,</span> <span class="n">I2</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">"extrapolate"</span><span class="p">)(</span><span class="n">S2_t</span><span class="p">)</span>
 <span class="n">I2_t</span> <span class="o">=</span> <span class="n">S2_t</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="c1"># We have kept timestep to be 10ms for praat which is same as what we set while computing stft with librosa but</span>
-<span class="c1"># Praat internally handles the window size which makes the timestamps misaligned, we need to interpolate the values</span>
-<span class="c1"># at consistent timestamps</span>
 </pre></div>
 </div>
 </div>

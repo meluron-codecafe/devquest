@@ -9,10 +9,10 @@ DSP,pYIN,pitch detection; fundamental frequency (f0);,01,dsp-pYIN-01.ipynb,dsp-p
 MIR,Audio Identification,-,01,mir-Audio_Identification-01.ipynb,mir-Audio_Identification-01.html
 MIR,Fourier Transform,Cosine Similarity; DFT; FFT; STFT;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
 MIR,Pitch Shift,pitch; formant;,01,mir-Pitch_Shift-01.ipynb,mir-Pitch_Shift-01.html
-PRJ,Automatic Multispeaker Voice Cloning,-,01,prj-Automatic_Multispeaker_Voice_Cloning-01.ipynb,prj-Automatic_Multispeaker_Voice_Cloning-01.html
+ML,Linear Regression,,01,ml-Linear_Regression-01.ipynb,ml-Linear_Regression-01.html
+PRJ,Automatic Multispeaker Voice Cloning,t;,01,prj-Automatic_Multispeaker_Voice_Cloning-01.ipynb,prj-Automatic_Multispeaker_Voice_Cloning-01.html
 PRJ,Automatic Multispeaker Voice Cloning,-,02,prj-Automatic_Multispeaker_Voice_Cloning-02.ipynb,prj-Automatic_Multispeaker_Voice_Cloning-02.html
-PRJ,Expressive Speech Analysis,intro; problem statement;,01,prj-Expressive_Speech_Analysis-01.ipynb,prj-Expressive_Speech_Analysis-01.html
+PRJ,Expressive Speech Analysis,problem statement;,01,prj-Expressive_Speech_Analysis-01.ipynb,prj-Expressive_Speech_Analysis-01.html
 PRJ,Expressive Speech Analysis,dataset;,02,prj-Expressive_Speech_Analysis-02.ipynb,prj-Expressive_Speech_Analysis-02.html
-PY,NumPy,ndarray; type; ndim; shape; size;,01,py-NumPy-01.ipynb,py-NumPy-01.html
-PY,Numpy,scalars,02,py-Numpy-02.ipynb,py-Numpy-02.html
+PY,NumPy,ndarray; type; ndim; shape; size; APIs;,01,py-NumPy-01.ipynb,py-NumPy-01.html
 PY,Virtual Environment,venv; jupyter kernel,01,py-Virtual_Environment-01.ipynb,py-Virtual_Environment-01.html
