@@ -7510,25 +7510,7 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2fd1045f-af6d-432a-be9f-8628d625b58b">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="font-family: 'Georgia', serif; border-left: 3px solid #ccc; padding-left: 12px; margin-bottom: 1em;">
-<h2 style="margin: 0; color: #EF8C00; font-size: 2.4em; padding-left: 0; text-indent: 0;">
-      Expressive Speech Analysis
-  </h2>
-<p class="keywords">
-        dataset; preliminary analysis;
-    </p>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=46e08ba2-bb6f-4613-9c89-06cac654f895">
+<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=46e08ba2-bb6f-4613-9c89-06cac654f895">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7542,53 +7524,80 @@ a.anchor-link {
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <div style="
-		display: inline-block;
-		font-family: 'Arial', sans-serif;
-		border-radius: 8px;
-		overflow: hidden;
-		box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
-		width: 120px;
-		font-size: 12px;
-		text-align: center;
-	">
+        display: flex;
+        align-items: center;
+        font-family: 'Georgia', serif;
+        border-left: 3px solid #ccc;
+        padding-left: 12px;
+        margin-bottom: 1em;
+        gap: 20px;
+    ">
+<!-- Calendar on the left -->
+<div style="
+            display: inline-block;
+            font-family: 'Arial', sans-serif;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+            width: 120px;
+            font-size: 12px;
+            text-align: center;
+            flex-shrink: 0;
+        ">
 <!-- Last modified label -->
 <div style="
-			background: #f4f4f4;
-			color: #555;
-			padding: 4px 0;
-			font-weight: bold;
-			border-top-left-radius: 8px;
-			border-top-right-radius: 8px;
-		">
-			Last modified
-		</div>
+                background: #f4f4f4;
+                color: #555;
+                padding: 4px 0;
+                font-weight: bold;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            ">
+                Last modified
+            </div>
 <!-- Main calendar -->
 <div>
 <div style="
-				background: #66a6ff;
-				color: white;
-				padding: 5px 0;
-				font-weight: bold;
-			">
-				Aug, 2025
-			</div>
+                    background: #66a6ff;
+                    color: white;
+                    padding: 5px 0;
+                    font-weight: bold;
+                ">
+                    Aug, 2025
+                </div>
 <div style="
-				background: #fff;
-				color: #333;
-				padding: 8px 0;
-				font-size: 20px;
-				font-weight: bold;
-			">
-				18
-			</div>
+                    background: #fff;
+                    color: #333;
+                    padding: 8px 0;
+                    font-size: 20px;
+                    font-weight: bold;
+                ">
+                    19
+                </div>
 <div style="
-				background: #f4f4f4;
-				color: #333;
-				padding: 4px 0;
-				font-size: 12px;
-			">
-				08:09:08 PM
-			</div>
+                    background: #f4f4f4;
+                    color: #333;
+                    padding: 4px 0;
+                    font-size: 12px;
+                ">
+                    04:42:34 PM
+                </div>
+</div>
+</div>
+<!-- Header content on the right -->
+<div style="flex: 1;">
+<h2 style="
+                margin: 0;
+                color: #EF8C00;
+                font-size: 2.4em;
+                padding-left: 0;
+                text-indent: 0;
+            ">
+                Expressive Speech Analysis
+            </h2>
+<p class="keywords" style="margin: 0.5em 0 0 0;">
+                dataset;
+            </p>
 </div>
 </div>
 </div>
@@ -7598,7 +7607,7 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <div style="padding:12px; border-radius:6px; background:#f9f9f9; margin:8px 0; border-left:3px solid #667eea;">
 <div style="font:bold 16px Arial; color:#333; margin-bottom:12px;">
-			📋 Plan of Action
+			📋 Table of Contents
 		</div>
 <div style="font:11px Arial; color:#666; margin-bottom:8px;">
 			Progress: 0% (0/2)
@@ -7613,7 +7622,7 @@ a.anchor-link {
 					box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 				">●</div>
 <div style="margin-left:10px; font:12px Arial; color:#ff9800; font-weight:500;">
-					Create a small dataset for initial analysis
+					Dataset Creation
 				</div>
 </div>
 <div style="width:2px; height:20px; background:#ddd; margin-left:9px; margin-top:-4px;"></div>
@@ -7628,7 +7637,7 @@ a.anchor-link {
 					box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 				">○</div>
 <div style="margin-left:10px; font:12px Arial; color:#999; font-weight:500;">
-					Extract all the features and make observations
+					Acoustic Features Extraction
 				</div>
 </div>
 </div>
@@ -7644,24 +7653,14 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Dataset-Creation-&amp;-Preliminary-Analysis">Dataset Creation &amp; Preliminary Analysis<a class="anchor-link" href="#Dataset-Creation-&amp;-Preliminary-Analysis">¶</a></h2><p>The FSM team has shared <strong>5</strong> audio for <strong>3</strong> reference scripts (<code>This is me</code>, <code>Crocodile</code>, <code>The magician</code>).</p>
+<h2 id="Dataset-Creation">Dataset Creation<a class="anchor-link" href="#Dataset-Creation">¶</a></h2><p>The FSM team has shared <strong>5</strong> audio for <strong>3</strong> reference scripts (<code>This is me</code>, <code>Crocodile</code>, <code>The magician</code>).</p>
 <ol>
 <li>I am taking few examples from the ones shared with us and manually perform transcription, add markers
 (<code>||</code> for boundary and <code>::</code> to emphasize a word). I am using <code>audacity</code> software for doing this.</li>
 <li>I have selected two scripts <code>This is me</code> (poem) and <code>Crocodile</code>(story) for preliminary analysis. For each of them, I have taken 1 audio from male teacher, 1 from female teacher, 2 from students. So in total, we will have <strong>8 audio files</strong> to label manually.</li>
 <li>For preliminary analysis, I am planning to extract few relevant audio features like <strong>pitch</strong> and <strong>intensity</strong> to make some observations between my markings, reference markings and rendered audio.</li>
 </ol>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=728f9955-649a-470a-8e1a-aeb42a91b726">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Labelling-Guideline">Labelling Guideline<a class="anchor-link" href="#Labelling-Guideline">¶</a></h2><ol>
+<h3 id="Labelling-Guideline">Labelling Guideline<a class="anchor-link" href="#Labelling-Guideline">¶</a></h3><ol>
 <li>If the filename is "This is me 1.mp3":<ol>
 <li>Transcription label is saved as "This is me 1-<em>labels</em>.txt"</li>
 <li>Transcription alongwith markers is saved as "This is me 1-<em>labels_with_markers</em>.txt"</li>
@@ -7671,6 +7670,23 @@ a.anchor-link {
 </ol>
 </div>
 </div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=65838efe-db4b-4505-9a30-b5e9c75c57e7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Acoustic-Feature-Extraction">Acoustic Feature Extraction<a class="anchor-link" href="#Acoustic-Feature-Extraction">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9db980a7-296c-4ee4-98af-a5f18cc83442">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9dae3a3d-c393-45ab-a2a3-8a9540e9631d">
 <div class="jp-Cell-inputWrapper" tabindex="0">

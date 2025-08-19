@@ -1,18 +1,18 @@
 category,topic,keywords,number,notebook,html
 DSA,Linked List,node; operations;,01,dsa-Linked_List-01.ipynb,dsa-Linked_List-01.html
 DSA,List Data Structure,-,01,dsa-List_Data_Structure-01.ipynb,dsa-List_Data_Structure-01.html
-DSP,Digital Signal,signal; digital signal; ADC; sampling; bit-depth; SQNR;,01,dsp-Digital_Signal-01.ipynb,dsp-Digital_Signal-01.html
+DSP,Digital Signal,Signal; Digital signal; ADC; Sampling; Bit-depth; SQNR;,01,dsp-Digital_Signal-01.ipynb,dsp-Digital_Signal-01.html
 DSP,Filters,,01,dsp-Filters-01.ipynb,dsp-Filters-01.html
 DSP,Laplace Transform,exp;,01,dsp-Laplace_Transform-01.ipynb,dsp-Laplace_Transform-01.html
 DSP,Z Transform,,01,dsp-Z_Transform-01.ipynb,dsp-Z_Transform-01.html
 DSP,pYIN,pitch detection; fundamental frequency (f0);,01,dsp-pYIN-01.ipynb,dsp-pYIN-01.html
 MIR,Audio Identification,-,01,mir-Audio_Identification-01.ipynb,mir-Audio_Identification-01.html
-MIR,Fourier Transform,DFT; FFT; STFT;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
+MIR,Fourier Transform,Cosine Similarity; DFT; FFT; STFT;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
 MIR,Pitch Shift,pitch; formant;,01,mir-Pitch_Shift-01.ipynb,mir-Pitch_Shift-01.html
 PRJ,Automatic Multispeaker Voice Cloning,-,01,prj-Automatic_Multispeaker_Voice_Cloning-01.ipynb,prj-Automatic_Multispeaker_Voice_Cloning-01.html
 PRJ,Automatic Multispeaker Voice Cloning,-,02,prj-Automatic_Multispeaker_Voice_Cloning-02.ipynb,prj-Automatic_Multispeaker_Voice_Cloning-02.html
 PRJ,Expressive Speech Analysis,intro; problem statement;,01,prj-Expressive_Speech_Analysis-01.ipynb,prj-Expressive_Speech_Analysis-01.html
-PRJ,Expressive Speech Analysis,dataset; preliminary analysis;,02,prj-Expressive_Speech_Analysis-02.ipynb,prj-Expressive_Speech_Analysis-02.html
+PRJ,Expressive Speech Analysis,dataset;,02,prj-Expressive_Speech_Analysis-02.ipynb,prj-Expressive_Speech_Analysis-02.html
 PY,NumPy,ndarray; type; ndim; shape; size;,01,py-NumPy-01.ipynb,py-NumPy-01.html
 PY,Numpy,scalars,02,py-Numpy-02.ipynb,py-Numpy-02.html
 PY,Virtual Environment,venv; jupyter kernel,01,py-Virtual_Environment-01.ipynb,py-Virtual_Environment-01.html

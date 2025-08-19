@@ -227,7 +227,7 @@ def hc(title: str, keywords: list[str]=[]):
     """
     display(HTML(html_code))
 
-def planner(tasks, current_task=1):
+def toc(tasks, current_task=1):
 	"""
 	Display a planner.
 	
@@ -289,7 +289,7 @@ def planner(tasks, current_task=1):
 	html = f"""
 	<div style="padding:12px; border-radius:6px; background:#f9f9f9; margin:8px 0; border-left:3px solid #667eea;">
 		<div style="font:bold 16px Arial; color:#333; margin-bottom:12px;">
-			📋 Plan of Action
+			📋 Table of Contents
 		</div>
 		<div style="font:11px Arial; color:#666; margin-bottom:8px;">
 			Progress: {progress}% ({current_task}/{len(tasks)})
