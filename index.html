@@ -122,9 +122,8 @@
             <tr>
                 <th>Category</th>
                 <th>Topic</th>
-                <th>Keywords</th>
-                <th>Number</th>
-                <th>Open</th>
+                <th style="text-align: center;">Notebook</th>
+                <th>Tags</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -147,7 +146,7 @@
         tutorials = parsed.data.map(row => ({
             category: row.category || '',
             topic: row.topic || '',
-            keywords: row.keywords || '',
+            tags: row.tags || '',
             number: row.number || '',
             notebook: row.notebook || '',
             filename: row.html || ''
@@ -175,16 +174,17 @@
         tutorials
         .filter(t =>
             (!categoryFilter || t.category.toLowerCase() === categoryFilter) &&
-            (!searchQuery || (t.topic + ' ' + t.keywords).toLowerCase().includes(searchQuery))
+            (!searchQuery || (t.topic + ' ' + t.tags).toLowerCase().includes(searchQuery))
         )
         .forEach(t => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
             <td>${t.category}</td>
-            <td>${t.topic}</td>
-            <td>${t.keywords || '-'}</td>
-            <td>${t.number}</td>
-            <td><a href="htmls/${t.filename}" target="_blank">View</a></td>
+            <td>${t.topic}?</td>
+            <td style="text-align: center;">
+                <a href="htmls/${t.filename}" target="_blank">${t.number}</a>
+            </td>
+            <td>${t.tags || '-'}</td>
         `;
             tableBody.appendChild(tr);
         });

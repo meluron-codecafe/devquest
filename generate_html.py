@@ -29,7 +29,7 @@ def convert_to_html(notebook_path: Path) -> str:
 def strip_hidden_code_cells_and_tag_keywords(html_content: str) -> (str, int, str):
 	"""
 	- Remove cells with #hide at the start.
-	- Add 'keywords' class to the first <p> in the first markdown cell.
+	- Add 'tags' class to the first <p> in the first markdown cell.
 	- Extract the keywords text.
 	Returns: (cleaned_html, removed_count, keywords_text)
 	"""
@@ -44,13 +44,13 @@ def strip_hidden_code_cells_and_tag_keywords(html_content: str) -> (str, int, st
 			removed += 1
 			
 	# Add class to first <p> in first markdown cell and extract keywords
-	keywords_text = ""
+	tags = ""
 	first_markdown = soup.select_one('.jp-RenderedHTMLCommon p')
 	if first_markdown:
 		first_markdown['class'] = first_markdown.get('class', []) + ['keywords']
-		keywords_text = first_markdown.get_text(strip=True)
+		tags = first_markdown.get_text(strip=True)
 		
-	return str(soup), removed, keywords_text
+	return str(soup), removed, tags
 
 def export_clean_html(ipynb_path: Path):
 	html_output_dir = root_dir / "htmls"
@@ -58,13 +58,13 @@ def export_clean_html(ipynb_path: Path):
 	output_path = html_output_dir / f"{ipynb_path.stem}.html"
 	
 	html = convert_to_html(ipynb_path)
-	cleaned_html, removed, keywords = strip_hidden_code_cells_and_tag_keywords(html)
+	cleaned_html, removed, tags = strip_hidden_code_cells_and_tag_keywords(html)
 	
 	with open(output_path, "w", encoding="utf-8") as f:
 		f.write(cleaned_html)
 		
-	print(f"{output_path.name}\n\tStatus: ✅\t#hide: {removed}\tKeywords: {keywords}")
-	return keywords
+	print(f"{output_path.name} ✅\n--->#hide: {removed} || Tags: {tags}\n")
+	return tags
 
 def format_topic(topic: str) -> str:
 	"""Capitalize first letter of each word, splitting by underscore."""
@@ -103,13 +103,13 @@ if __name__ == "__main__":
 		notebooks = sorted(notebooks_dir.glob("*.ipynb"))
 		
 		for notebook in notebooks:
-			keywords = export_clean_html(notebook)
+			tags = export_clean_html(notebook)
 			category, topic, number = extract_info_from_filename(notebook)
 			if category:
 				csv_rows.append([
 					category,
 					topic,
-					keywords,
+					tags,
 					number.zfill(2),
 					notebook.name,
 					f"{notebook.stem}.html",
@@ -119,7 +119,7 @@ if __name__ == "__main__":
 		csv_file = root_dir / "tutorials.csv"
 		with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
 			writer = csv.writer(f)
-			writer.writerow(["category", "topic", "keywords", "number", "notebook", "html"])
+			writer.writerow(["category", "topic", "tags", "number", "notebook", "html"])
 			writer.writerows(csv_rows)
 			
 		print(f"✅ Saved CSV to {csv_file}")
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 				reader = list(csv.reader(f))
 				header, rows = reader[0], reader[1:]
 		else:
-			header, rows = ["category", "topic", "subtopics", "number", "notebook", "html", "keywords"], []
+			header, rows = ["category", "topic", "tags", "number", "notebook", "html"], []
 			
 		# Update or append row
 		updated = False
