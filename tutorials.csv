@@ -1,11 +1,11 @@
 category,topic,tags,number,notebook,html
-DSP,How computers store signals,Signal; Digital signal; ADC; Sampling; Bit-depth; SQNR;,01,dsp-How_computers_store_signals-01.ipynb,dsp-How_computers_store_signals-01.html
-DSP,How to compute pitch,Frequency; F0; Pitch; Autocorrelation; pYIN;,01,dsp-How_to_compute_pitch-01.ipynb,dsp-How_to_compute_pitch-01.html
-DSP,How to filter a signal,,01,dsp-How_to_filter_a_signal-01.ipynb,dsp-How_to_filter_a_signal-01.html
-DSP,When does Fourier transform break,,01,dsp-When_does_Fourier_transform_break-01.ipynb,dsp-When_does_Fourier_transform_break-01.html
-MIR,How to build an autotuner,,01,mir-How_to_build_an_autotuner-01.ipynb,mir-How_to_build_an_autotuner-01.html
-MIR,How to compare two functions,Cosine Similarity; DFT; FFT; STFT;,01,mir-How_to_compare_two_functions-01.ipynb,mir-How_to_compare_two_functions-01.html
-PRJ,How to analyse speech expressiveness,,01,prj-How_to_analyse_speech_expressiveness-01.ipynb,prj-How_to_analyse_speech_expressiveness-01.html
-PRJ,How to clone your voice,,01,prj-How_to_clone_your_voice-01.ipynb,prj-How_to_clone_your_voice-01.html
-PY,How to get comfortable with NumPy,ndarray; type; ndim; shape; size; APIs;,01,py-How_to_get_comfortable_with_NumPy-01.ipynb,py-How_to_get_comfortable_with_NumPy-01.html
-PY,How to manage python projects,,01,py-How_to_manage_python_projects-01.ipynb,py-How_to_manage_python_projects-01.html
+DSP,Filters,,01,dsp-Filters-01.ipynb,dsp-Filters-01.html
+DSP,Fundamental Frequency Tracking,Frequency; F0; Pitch; Autocorrelation; pYIN;,01,dsp-Fundamental_Frequency_Tracking-01.ipynb,dsp-Fundamental_Frequency_Tracking-01.html
+DSP,Laplace Transform,,01,dsp-Laplace_Transform-01.ipynb,dsp-Laplace_Transform-01.html
+DSP,Signals,Signal; Digital signal; ADC; Sampling; Bit-depth; SQNR;,01,dsp-Signals-01.ipynb,dsp-Signals-01.html
+MIR,Autotuner,,01,mir-Autotuner-01.ipynb,mir-Autotuner-01.html
+MIR,Fourier Transform,Cosine Similarity; DFT; FFT; STFT;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
+PRJ,Cloning My Voice,,01,prj-Cloning_My_Voice-01.ipynb,prj-Cloning_My_Voice-01.html
+PRJ,Speech Analysis,Pitch; Intensity; Praat-parselmouth;,01,prj-Speech_Analysis-01.ipynb,prj-Speech_Analysis-01.html
+PY,NumPy,ndarray; type; ndim; shape; size; APIs;,01,py-NumPy-01.ipynb,py-NumPy-01.html
+PY,Python Project Management,,01,py-Python_Project_Management-01.ipynb,py-Python_Project_Management-01.html
