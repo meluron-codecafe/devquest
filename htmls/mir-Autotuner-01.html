@@ -7572,7 +7572,7 @@ a.anchor-link {
                     font-size: 20px;
                     font-weight: bold;
                 ">
-                    20
+                    21
                 </div>
 <div style="
                     background: #f4f4f4;
@@ -7580,7 +7580,7 @@ a.anchor-link {
                     padding: 4px 0;
                     font-size: 12px;
                 ">
-                    02:26:33 PM
+                    05:07:42 PM
                 </div>
 </div>
 </div>
@@ -7593,7 +7593,7 @@ a.anchor-link {
                 padding-left: 0;
                 text-indent: 0;
             ">
-                How to build an autotuner?
+                Autotuner
             </h2>
 <p class="keywords" style="margin: 0.5em 0 0 0;">
 </p>
@@ -7604,14 +7604,85 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div style="padding:12px; border-radius:6px; background:#f9f9f9; margin:8px 0; border-left:3px solid #667eea;">
-<div style="font:bold 16px Arial; color:#333; margin-bottom:12px;">
-			📋 Table of Contents
-		</div>
-<div style="font:11px Arial; color:#666; margin-bottom:8px;">
-			Progress: 0% (0/0)
-		</div>
+<div id="toc-box" style="
+        position:fixed; 
+        top:40px; right:10px; 
+        background:#fafafa; 
+        border-left:4px solid #4caf50; 
+        border-radius:8px; 
+        box-shadow:0 2px 8px rgba(0,0,0,0.15); 
+        font-family:Arial;
+        z-index:9999;
+        width:50px; /* collapsed width */
+        transition: width 0.3s ease;
+        overflow:hidden;
+    ">
+<div onclick="
+        var box=document.getElementById('toc-box');
+        var content=document.getElementById('toc-box-content');
+        if(content.style.display=='none'){
+            content.style.display='block';
+            box.style.width='260px';
+        } else {
+            content.style.display='none';
+            box.style.width='50px';
+        }
+    " style="display:flex; align-items:center; justify-content:center; 
+             padding:8px; cursor:pointer; user-select:none;">
+<svg height="32" style="transform: rotate(-90deg);" viewbox="0 0 36 36" width="32">
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#eee" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#4caf50" stroke-dasharray="33, 100" stroke-width="3"></circle>
+<text fill="#333" font-family="Arial" font-size="9" text-anchor="middle" transform="rotate(90,18,18)" x="18" y="21">1/3</text>
+</svg>
 </div>
+<div id="toc-box-content" style="display:none; padding:0 15px 12px 15px; 
+                max-height:60vh; overflow-y:auto;">
+<div style="font-weight:bold; font-size:14px; margin-bottom:10px;">Table of Contents</div>
+<div>
+<div style="display:flex; align-items:center; margin-bottom:0;">
+<div style="
+                    width:20px; height:20px; border-radius:50%; 
+                    background:#4caf50; color:white; 
+                    display:flex; align-items:center; justify-content:center;
+                    font-size:10px; font-weight:bold;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">✓</div>
+<div style="margin-left:10px; font:12px Arial; font-weight:500;">
+<a href="#Motivation" style="color:#4caf50; text-decoration:none;">Motivation</a>
+</div>
+</div>
+<div style="width:2px; height:20px; background:#4caf50; margin-left:9px; margin-top:-4px;"></div>
+</div>
+<div>
+<div style="display:flex; align-items:center; margin-bottom:0;">
+<div style="
+                    width:20px; height:20px; border-radius:50%; 
+                    background:#ddd; color:white; 
+                    display:flex; align-items:center; justify-content:center;
+                    font-size:10px; font-weight:bold;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">○</div>
+<div style="margin-left:10px; font:12px Arial; font-weight:500;">
+<a href="#Scope" style="color:#999; text-decoration:none;">Scope</a>
+</div>
+</div>
+<div style="width:2px; height:20px; background:#ddd; margin-left:9px; margin-top:-4px;"></div>
+</div>
+<div>
+<div style="display:flex; align-items:center; margin-bottom:0;">
+<div style="
+                    width:20px; height:20px; border-radius:50%; 
+                    background:#ddd; color:white; 
+                    display:flex; align-items:center; justify-content:center;
+                    font-size:10px; font-weight:bold;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">○</div>
+<div style="margin-left:10px; font:12px Arial; font-weight:500;">
+<a href="#Reading-Materials" style="color:#999; text-decoration:none;">Reading Materials</a>
+</div>
+</div>
+</div>
+</div></div>
 </div>
 </div>
 </div>

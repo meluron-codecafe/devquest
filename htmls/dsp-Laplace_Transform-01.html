@@ -7580,7 +7580,7 @@ a.anchor-link {
                     padding: 4px 0;
                     font-size: 12px;
                 ">
-                    12:51:14 PM
+                    02:26:59 PM
                 </div>
 </div>
 </div>
@@ -7593,7 +7593,7 @@ a.anchor-link {
                 padding-left: 0;
                 text-indent: 0;
             ">
-                How to solve ODE using Laplace?
+                Laplace Transform
             </h2>
 <p class="keywords" style="margin: 0.5em 0 0 0;">
 </p>
@@ -7631,8 +7631,8 @@ a.anchor-link {
              padding:8px; cursor:pointer; user-select:none;">
 <svg height="32" style="transform: rotate(-90deg);" viewbox="0 0 36 36" width="32">
 <circle cx="18" cy="18" fill="none" r="15.9155" stroke="#eee" stroke-width="3"></circle>
-<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#4caf50" stroke-dasharray="100, 100" stroke-width="3"></circle>
-<text fill="#333" font-family="Arial" font-size="9" text-anchor="middle" transform="rotate(90,18,18)" x="18" y="21">1/1</text>
+<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#4caf50" stroke-dasharray="25, 100" stroke-width="3"></circle>
+<text fill="#333" font-family="Arial" font-size="9" text-anchor="middle" transform="rotate(90,18,18)" x="18" y="21">1/4</text>
 </svg>
 </div>
 <div id="toc-box-content" style="display:none; padding:0 15px 12px 15px; 
@@ -7648,7 +7648,52 @@ a.anchor-link {
                     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                 ">✓</div>
 <div style="margin-left:10px; font:12px Arial; font-weight:500;">
-<a href="#Introduction" style="color:#4caf50; text-decoration:none;">Introduction</a>
+<a href="#Motivation" style="color:#4caf50; text-decoration:none;">Motivation</a>
+</div>
+</div>
+<div style="width:2px; height:20px; background:#4caf50; margin-left:9px; margin-top:-4px;"></div>
+</div>
+<div>
+<div style="display:flex; align-items:center; margin-bottom:0;">
+<div style="
+                    width:20px; height:20px; border-radius:50%; 
+                    background:#ddd; color:white; 
+                    display:flex; align-items:center; justify-content:center;
+                    font-size:10px; font-weight:bold;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">○</div>
+<div style="margin-left:10px; font:12px Arial; font-weight:500;">
+<a href="#Scope" style="color:#999; text-decoration:none;">Scope</a>
+</div>
+</div>
+<div style="width:2px; height:20px; background:#ddd; margin-left:9px; margin-top:-4px;"></div>
+</div>
+<div>
+<div style="display:flex; align-items:center; margin-bottom:0;">
+<div style="
+                    width:20px; height:20px; border-radius:50%; 
+                    background:#ddd; color:white; 
+                    display:flex; align-items:center; justify-content:center;
+                    font-size:10px; font-weight:bold;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">○</div>
+<div style="margin-left:10px; font:12px Arial; font-weight:500;">
+<a href="#Introduction" style="color:#999; text-decoration:none;">Introduction</a>
+</div>
+</div>
+<div style="width:2px; height:20px; background:#ddd; margin-left:9px; margin-top:-4px;"></div>
+</div>
+<div>
+<div style="display:flex; align-items:center; margin-bottom:0;">
+<div style="
+                    width:20px; height:20px; border-radius:50%; 
+                    background:#ddd; color:white; 
+                    display:flex; align-items:center; justify-content:center;
+                    font-size:10px; font-weight:bold;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                ">○</div>
+<div style="margin-left:10px; font:12px Arial; font-weight:500;">
+<a href="#Additional-Reading" style="color:#999; text-decoration:none;">Additional Reading</a>
 </div>
 </div>
 </div>
@@ -7664,19 +7709,43 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">¶</a></h2>
+<h2 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">¶</a></h2><p>I have some idea about <strong>Fourier Transform</strong> and have used it in many music processing tasks. I have got to know about <strong>Laplace transform</strong> whose special case is <strong>Fourier Transform</strong>. This dive is to learn about it.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9592ad2b-9f8a-49b7-8a14-f59add332987">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b1b94f70-1fc0-45ae-be27-8869185ffbf7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>A digital signal is an array of numbers sampled at a constant rate often refere.</p>
-<p>Laplace transform tells us about the characterstics of a signal.</p>
+<h2 id="Scope">Scope<a class="anchor-link" href="#Scope">¶</a></h2><p>I will be following <a href="http://www.uop.edu.pk/ocontents/AdvancedEngineeringMathematics.pdf">Chapter 6: Laplace Tranform</a> as the main reference.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=375539cc-0cfc-46e3-a7e6-f59aaa184e57">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">¶</a></h2><p>Imagine I say that you can solve ODE just like you would solve algebraic problems. Yes, all thanks to Laplace that it is indeed true.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9ee6bee7-71d9-4b6a-ab9a-861016a2bc03">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
