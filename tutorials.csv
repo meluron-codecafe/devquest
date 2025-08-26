@@ -1,11 +1,4 @@
 category,topic,tags,number,notebook,html
-DSP,Filters,,01,dsp-Filters-01.ipynb,dsp-Filters-01.html
-DSP,Fundamental Frequency Tracking,Frequency; F0; Pitch; Autocorrelation; pYIN;,01,dsp-Fundamental_Frequency_Tracking-01.ipynb,dsp-Fundamental_Frequency_Tracking-01.html
-DSP,Laplace Transform,,01,dsp-Laplace_Transform-01.ipynb,dsp-Laplace_Transform-01.html
-DSP,Signals,Signal; Digital signal; ADC; Sampling; Bit-depth; SQNR;,01,dsp-Signals-01.ipynb,dsp-Signals-01.html
-MIR,Autotuner,,01,mir-Autotuner-01.ipynb,mir-Autotuner-01.html
-MIR,Fourier Transform,Cosine Similarity; DFT; FFT; STFT;,01,mir-Fourier_Transform-01.ipynb,mir-Fourier_Transform-01.html
-PRJ,Cloning My Voice,,01,prj-Cloning_My_Voice-01.ipynb,prj-Cloning_My_Voice-01.html
-PRJ,Speech Analysis,Pitch; Intensity; Praat-parselmouth;,01,prj-Speech_Analysis-01.ipynb,prj-Speech_Analysis-01.html
-PY,NumPy,ndarray; type; ndim; shape; size; APIs;,01,py-NumPy-01.ipynb,py-NumPy-01.html
-PY,Python Project Management,,01,py-Python_Project_Management-01.ipynb,py-Python_Project_Management-01.html
+DSP,Detecting Art Forgeries with Differential Equation,differential equation; radioactivity;,01,dsp-Detecting_Art_Forgeries_with_Differential_Equation-01.ipynb,dsp-Detecting_Art_Forgeries_with_Differential_Equation-01.html
+PRJ,Analyzing speech expressiveness,pitch; intensity; praat-parselmouth;,01,prj-Analyzing_speech_expressiveness-01.ipynb,prj-Analyzing_speech_expressiveness-01.html
+PY,Python Skills Beyond Coding You Probably Overlook,virtual environment (venv); jupyter-kernel;,01,py-Python_Skills_Beyond_Coding_You_Probably_Overlook-01.ipynb,py-Python_Skills_Beyond_Coding_You_Probably_Overlook-01.html

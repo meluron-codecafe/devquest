@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:8a45709ae644647432aaf0d35e2bf5996c113f52cf32af54c39f164ee627f330"
+content_hash = "sha256:0f6cea0d9b770c9718b3a36dbae28ee139e31e713a10126a9c3b97813fa0f353"
 
 [[metadata.targets]]
 requires_python = "==3.10.*"
@@ -1020,18 +1020,19 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.41"
+version = "0.3.44"
 summary = ""
 dependencies = [
     "ipython",
     "librosa",
     "matplotlib",
     "numpy",
+    "sounddevice",
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.41-py3-none-any.whl", hash = "sha256:b5bb7d79661ece1306241da8f873a034eba52413784b6d20cbc76fce5fc787e6"},
-    {file = "modusa-0.3.41.tar.gz", hash = "sha256:d1c59f57153b80c7650eaa6ac6fb56611d95e06599374adbc367be7bc35559a3"},
+    {file = "modusa-0.3.44-py3-none-any.whl", hash = "sha256:f79f6191aab79cc4781e5c5b65d43f6b22b23e5cd7f5ab2402c575305f6ce2b6"},
+    {file = "modusa-0.3.44.tar.gz", hash = "sha256:c6115cfb474091e7605ae79f19a572ee3247f7b085ec518b2329291931cc8c47"},
 ]
 
 [[package]]
@@ -3972,6 +3973,21 @@ files = [
 ]
 
 [[package]]
+name = "sounddevice"
+version = "0.5.2"
+summary = ""
+dependencies = [
+    "cffi",
+]
+files = [
+    {file = "sounddevice-0.5.2-py3-none-any.whl", hash = "sha256:82375859fac2e73295a4ab3fc60bd4782743157adc339561c1f1142af472f505"},
+    {file = "sounddevice-0.5.2-py3-none-macosx_10_6_x86_64.macosx_10_6_universal2.whl", hash = "sha256:943f27e66037d41435bdd0293454072cdf657b594c9cde63cd01ee3daaac7ab3"},
+    {file = "sounddevice-0.5.2-py3-none-win32.whl", hash = "sha256:3a113ce614a2c557f14737cb20123ae6298c91fc9301eb014ada0cba6d248c5f"},
+    {file = "sounddevice-0.5.2-py3-none-win_amd64.whl", hash = "sha256:e18944b767d2dac3771a7771bdd7ff7d3acd7d334e72c4bedab17d1aed5dbc22"},
+    {file = "sounddevice-0.5.2.tar.gz", hash = "sha256:c634d51bd4e922d6f0fa5e1a975cc897c947f61d31da9f79ba7ea34dff448b49"},
+]
+
+[[package]]
 name = "soundfile"
 version = "0.13.1"
 summary = ""
@@ -4307,9 +4323,9 @@ files = [
 
 [[package]]
 name = "yt-dlp"
-version = "2025.7.21"
+version = "2025.8.22"
 summary = ""
 files = [
-    {file = "yt_dlp-2025.7.21-py3-none-any.whl", hash = "sha256:d7aa2b53f9b2f35453346360f41811a0dad1e956e70b35a4ae95039d4d815d15"},
-    {file = "yt_dlp-2025.7.21.tar.gz", hash = "sha256:46fbb53eab1afbe184c45b4c17e9a6eba614be680e4c09de58b782629d0d7f43"},
+    {file = "yt_dlp-2025.8.22-py3-none-any.whl", hash = "sha256:b8c71fe4516170dea60c6e5c54e2d45654693b8dc273cad060f22199476ec979"},
+    {file = "yt_dlp-2025.8.22.tar.gz", hash = "sha256:d1846bbb7edbcd2a0d4a2d76c7a2124868de9ea3b3959a8cb8219e3f7cb5c335"},
 ]

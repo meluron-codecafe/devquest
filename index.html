@@ -27,15 +27,42 @@
     }
     .controls {
         display: flex;
-        justify-content: space-between;
-        gap: 10px;
+        justify-content: space-between; /* left + right alignment */
+        align-items: center;
         margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .right-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .request-topic-btn {
+        background-color: #fd8a09;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s;
+        white-space: nowrap;
+    }
+    .request-topic-btn:hover {
+        background-color: #e6750a;
+        text-decoration: none;
+        color: white;
     }
     select, input {
         padding: 6px 8px;
-        font-size: 14px;
+        font-size: 12px;
         border: 1px solid #ccc;
         border-radius: 4px;
+    }
+    #searchBox {
+        width: 250px;
     }
     table {
         width: 100%;
@@ -46,7 +73,7 @@
         border-bottom: 1px solid #ddd;
         padding: 8px 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
     }
     th {
         background-color: #f5f5f5;
@@ -65,44 +92,69 @@
     }
     .logo {
         display: block;
-        margin: 0 auto 15px auto;
-        max-width: 200px;
+        margin: 0 auto 0 auto;
+        max-width: 150px;
         height: auto;
     }
     .quote-box {
         display: inline-block;
         font-style: italic;
         color: #777;
-        margin: 15px auto;
-        font-size: 16px;
+        margin: 15px auto 25px auto;
+        font-size: 14px;
         min-height: 30px;
         white-space: nowrap;
         overflow: hidden;
         padding: 0 3px;
         text-align: center;
-        position: relative; /* so ::after can position itself */
+        position: relative;
     }
-    /* Simple static cursor */
     .quote-box::after {
         content: "";
         display: inline-block;
         width: 1px;
-        height: 1.2em;   /* <-- adjust this for cursor height */
+        height: 1.2em;
         background: #777;
         margin-left: 5px;
         vertical-align: bottom;
     }
-    /* Center inline-block using text-align on parent */
     #quoteBox {
         display: block;
         text-align: center;
         margin: 0 auto;
-        width: fit-content;  /* only as wide as text */
+        width: fit-content;
     }
-    /* Selection effect only covers text */
     .quote-box.selected {
-        background-color: #cfe3ff; /* soft blue */
-        color: #333;               /* darker text while selected */
+        background-color: #cfe3ff;
+        color: #333;
+    }
+    .footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+        color: #777;
+        font-size: 14px;
+    }
+    .footer a {
+        color: #fd8a09;
+        text-decoration: none;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+        .controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .right-controls {
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+        #searchBox {
+            width: 100%;
+        }
     }
 </style>
 </head>
@@ -110,11 +162,18 @@
 <div class="container">
     <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo">
     <div id="quoteBox" class="quote-box"></div>
+    <br>
     <div class="controls">
+        <!-- Left -->
         <select id="categoryFilter">
             <option value="">All Categories</option>
         </select>
-        <input type="text" id="searchBox" placeholder="Search topics or subtopics...">
+
+        <!-- Right -->
+        <div class="right-controls">
+            <input type="text" id="searchBox" placeholder="Search topics or subtopics...">
+            <a href="#" id="requestTopicBtn" class="request-topic-btn">Request Topic</a>
+        </div>
     </div>
 
     <table id="tutorialTable">
@@ -129,6 +188,10 @@
         <tbody></tbody>
     </table>
 </div>
+    
+<div class="footer">
+    An initiative by <a href="https://github.com/meluron" target="_blank">meluron</a> to bring context to learning.
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
@@ -139,7 +202,7 @@
     .then(response => response.text())
     .then(data => {
         const parsed = Papa.parse(data, {
-            header: true,   // Use the first row as column names
+            header: true,
             skipEmptyLines: true
         });
         
@@ -193,8 +256,23 @@
     document.getElementById('categoryFilter').addEventListener('change', renderTable);
     document.getElementById('searchBox').addEventListener('input', renderTable);
     
-    
-//  Quotes feature
+    // Request Topic button dynamic title
+    document.getElementById('requestTopicBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const searchValue = document.getElementById('searchBox').value.trim();
+        const capitalizedValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+        const baseUrl = "https://github.com/meluron-codecafe/DevQuest/issues/new";
+        const params = new URLSearchParams({
+            assignees: "ankit0anand0",
+            labels: "tutorials",
+            projects: "",
+            template: "",
+            title: searchValue ? `[TUTORIAL REQUEST] ${capitalizedValue}` : "[TUTORIAL REQUEST]"
+        });
+        window.open(`${baseUrl}?${params.toString()}`, "_blank");
+    });
+
+    // Quotes feature
     const quotes = [
         '"A good dot product is all you need."',
         '"Learn it the hard way."',
@@ -203,19 +281,18 @@
         '"Learning without context is forgettable."'
     ];
     
-    // Shuffle the order
+    // Shuffle quotes
     for (let i = quotes.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [quotes[i], quotes[j]] = [quotes[j], quotes[i]];
     }
 
-    
     let currentQuoteIndex = 0;
     let charIndex = 0;
     const quoteBox = document.getElementById("quoteBox");
-    const typingSpeed = 150;        // ms per character
-    const delayBetweenQuotes = 3000; // pause after typing
-    const selectionDuration = 800;   // how long the "selection" is visible before deletion
+    const typingSpeed = 150;
+    const delayBetweenQuotes = 3000;
+    const selectionDuration = 800;
     
     function typeQuote() {
         if (charIndex < quotes[currentQuoteIndex].length) {
@@ -233,7 +310,7 @@
     }
     
     function deleteQuote() {
-        quoteBox.textContent = "";  // clear text at once
+        quoteBox.textContent = "";
         quoteBox.classList.remove("selected");
         charIndex = 0;
         currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
