@@ -117,36 +117,36 @@ def hc(title: str, keywords: list[str]=[]):
 def toc(tasks, done=0, title="Table of Contents"):
     """
     Floating, collapsible Table of Contents with hyperlinks and circular progress.
-    Stays fixed at the top-left of the notebook.
-    Shrinks to a small circle when collapsed.
+    Dark theme version: stays fixed at top-right, collapses into a progress circle.
     """
     def header_id(text: str) -> str:
         return text.replace(" ", "-")
-
+    
     total = len(tasks)
     done = min(done, total)
     percent = int(done / total * 100)
     container_id = "toc-box"
-
+    
     html_parts = []
-
-    # Floating container box (start collapsed → small circle size)
+    
+    # Floating container box (dark theme, collapsed width first)
     html_parts.append(f"""
     <div id="{container_id}" style="
         position:fixed; 
         top:40px; right:10px; 
-        background:#fafafa; 
+        background:#1e1e1e; 
         border-left:4px solid #4caf50; 
         border-radius:8px; 
-        box-shadow:0 2px 8px rgba(0,0,0,0.15); 
-        font-family:Arial;
+        box-shadow:0 2px 8px rgba(0,0,0,0.35); 
+        font-family:'Fira Code', Consolas, monospace;
         z-index:9999;
         width:50px; /* collapsed width */
         transition: width 0.3s ease;
         overflow:hidden;
+        color:#d4d4d4;
     ">
     """)
-
+    
     # Progress circle toggle
     html_parts.append(f"""
     <div onclick="
@@ -162,37 +162,39 @@ def toc(tasks, done=0, title="Table of Contents"):
     " style="display:flex; align-items:center; justify-content:center; 
              padding:8px; cursor:pointer; user-select:none;">
         <svg width="32" height="32" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
-            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#eee" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#333" stroke-width="3"/>
             <circle cx="18" cy="18" r="15.9155" fill="none" 
                     stroke="#4caf50" stroke-width="3"
                     stroke-dasharray="{percent}, 100"/>
-            <text x="18" y="21" text-anchor="middle" fill="#333"
+            <text x="18" y="21" text-anchor="middle" fill="#d4d4d4"
                   font-size="9" font-family="Arial" transform="rotate(90,18,18)">{done}/{total}</text>
         </svg>
     </div>
     """)
-
+    
     # Collapsible content container (hidden by default)
     html_parts.append(f"""
     <div id="{container_id}-content" style="display:none; padding:0 15px 12px 15px; 
                 max-height:60vh; overflow-y:auto;">
-        <div style="font-weight:bold; font-size:14px; margin-bottom:10px;">{title}</div>
+        <div style="font-weight:bold; font-size:14px; margin-bottom:10px; color:#ffffff;">
+            {title}
+        </div>
     """)
-
+    
     # Task list
     for i, task in enumerate(tasks):
         if i < done:
             dot_color, text_color, icon = "#4caf50", "#4caf50", "✓"
         else:
-            dot_color, text_color, icon = "#ddd", "#999", "○"
-
+            dot_color, text_color, icon = "#2d2d2d", "#999", "○"
+            
         connector = ""
         if i < len(tasks) - 1:
-            line_color = "#4caf50" if i < done else "#ddd"
+            line_color = "#4caf50" if i < done else "#444"
             connector = f'<div style="width:2px; height:20px; background:{line_color}; margin-left:9px; margin-top:-4px;"></div>'
-
+            
         task_link = f'<a href="#{header_id(task)}" style="color:{text_color}; text-decoration:none;">{task}</a>'
-
+        
         html_parts.append(f"""
         <div>
             <div style="display:flex; align-items:center; margin-bottom:0;">
@@ -201,15 +203,15 @@ def toc(tasks, done=0, title="Table of Contents"):
                     background:{dot_color}; color:white; 
                     display:flex; align-items:center; justify-content:center;
                     font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
                 ">{icon}</div>
-                <div style="margin-left:10px; font:12px Arial; font-weight:500;">
+                <div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
                     {task_link}
                 </div>
             </div>
             {connector}
         </div>
         """)
-
+        
     html_parts.append("</div></div>")
     display(HTML("".join(html_parts)))

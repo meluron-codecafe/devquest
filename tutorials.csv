@@ -1,4 +1,7 @@
 category,topic,tags,number,notebook,html
 DSP,Detecting Art Forgeries with Differential Equation,differential equation; radioactivity;,01,dsp-Detecting_Art_Forgeries_with_Differential_Equation-01.ipynb,dsp-Detecting_Art_Forgeries_with_Differential_Equation-01.html
-PRJ,Analyzing speech expressiveness,pitch; intensity; praat-parselmouth;,01,prj-Analyzing_speech_expressiveness-01.ipynb,prj-Analyzing_speech_expressiveness-01.html
+DSP,Discrete Fourier Transform,ADC; DAC; sampling; quantization; quantization error;,01,dsp-Discrete_Fourier_Transform-01.ipynb,dsp-Discrete_Fourier_Transform-01.html
+DSP,Hidden Markov Model,,01,dsp-Hidden_Markov_Model-01.ipynb,dsp-Hidden_Markov_Model-01.html
+DSP,Statistics Probability and Noise,signal; signal domain; signal types; mean; std;,01,dsp-Statistics_Probability_and_Noise-01.ipynb,dsp-Statistics_Probability_and_Noise-01.html
+PY,Comparing Pitch Trackers,praat-parselmouth; pyreaper; librosa;,01,py-Comparing_Pitch_Trackers-01.ipynb,py-Comparing_Pitch_Trackers-01.html
 PY,Python Skills Beyond Coding You Probably Overlook,virtual environment (venv); jupyter-kernel;,01,py-Python_Skills_Beyond_Coding_You_Probably_Overlook-01.ipynb,py-Python_Skills_Beyond_Coding_You_Probably_Overlook-01.html

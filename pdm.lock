@@ -1020,10 +1020,11 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.44"
+version = "0.3.65"
 summary = ""
 dependencies = [
     "ipython",
+    "ipywidgets",
     "librosa",
     "matplotlib",
     "numpy",
@@ -1031,8 +1032,8 @@ dependencies = [
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.44-py3-none-any.whl", hash = "sha256:f79f6191aab79cc4781e5c5b65d43f6b22b23e5cd7f5ab2402c575305f6ce2b6"},
-    {file = "modusa-0.3.44.tar.gz", hash = "sha256:c6115cfb474091e7605ae79f19a572ee3247f7b085ec518b2329291931cc8c47"},
+    {file = "modusa-0.3.65-py3-none-any.whl", hash = "sha256:d1c2e15c902d165ec387f9b614782ebf9114df41a6c7b3651dc11bec18c21194"},
+    {file = "modusa-0.3.65.tar.gz", hash = "sha256:6d64b080cb1692c242b2679ff8c5dbc592d282f182146cf08e9ec1770896ae5d"},
 ]
 
 [[package]]
