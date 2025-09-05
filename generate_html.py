@@ -50,144 +50,149 @@ def strip_hidden_code_cells_and_tag_keywords(html_content: str) -> (str, int, st
         
     return str(soup), removed, tags
 
-def inject_dark_toggle(html: str) -> str:
-  """
-  Apply a static dark theme to nbconvert HTML output.
-  - Code cells: VSCode Dark+ style with custom colors + Copy button.
-  - Markdown/output cells: simple dark mode.
-  """
-  dark_css = """
-  <style>
-  /* ======= DARK THEME (Markdown, Outputs) ======= */
-  body {
-    background-color: #1e1e1e !important;
-    color: #d4d4d4 !important;
-  }
-  .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea {
-    background: #1e1e1e !important;
-    color: #d4d4d4 !important;
-  }
-  .jp-RenderedHTMLCommon, .jp-OutputArea-output {
-    color: #d4d4d4 !important;
-  }
-
-  /* Links */
-  a:link, a:visited {
-    color: #4aa3ff !important;
-  }
-  a:hover, a:active {
-    color: #82c7ff !important;
-  }
-
-  /* Blockquotes */
-  blockquote {
-    border-left: 4px solid #569cd6;
-    padding-left: 12px;
-    margin-left: 0;
-    font-style: italic;
-    color: #cccccc;
-    background: #2a2a2a;
-  }
-
-  /* Tables */
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    background: #1e1e1e;
-    color: #d4d4d4;
-  }
-  table, th, td {
-    border: 1px solid #444;
-    padding: 6px 10px;
-  }
-  th {
-    background: #2d2d2d;
-    font-weight: bold;
-  }
-  tr:nth-child(even) {
-    background: #242424;
-  }
-
-  /* ======= CODE CELLS ======= */
-  div.highlight {
-    position: relative;  /* container relative for copy btn */
-  }
-  pre, code {
-    background-color: #1e1e1e !important;
-    border: none !important;
-    color: #d4d4d4 !important;
-    font-family: "Fira Code", Consolas, monospace !important;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  /* Copy Button */
-  .copy-btn {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    background: #2d2d2d;
-    color: #d4d4d4;
-    border: 1px solid #444;
-    border-radius: 6px;
-    font-size: 11px;
-    padding: 2px 6px;
-    cursor: pointer;
-    opacity: 0.6;
-    z-index: 5;
-    transition: opacity 0.2s ease-in-out, color 0.2s;
-  }
-  .copy-btn:hover {
-    opacity: 1;
-    background: #3a3a3a;
-  }
-
-  /* ======= SYNTAX COLORS ======= */
-  .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } /* Keywords */
-  .nf, .nc, .nn { color: #4fc1ff !important; }               /* Functions */
-  .n { color: #ffffff !important; }                          /* Variables */
-  .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } /* Strings */
-  .m, .mf, .mi, .il { color: #d19a66 !important; }           /* Numbers */
-  .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } /* Comments */
-  .o, .p { color: #d4d4d4 !important; }                      /* Operators */
-  </style>
-  """
-  
-  copy_js = """
-  <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll("div.highlight").forEach(function(block) {
-      var btn = document.createElement("button");
-      btn.innerHTML = "Copy code";
-      btn.className = "copy-btn";
-      btn.title = "Copy code";
-  
-      btn.addEventListener("click", function(event) {
-        event.stopPropagation();
-  
-        // Prefer <code>, fallback to <pre>
-        var codeBlock = block.querySelector("code") || block.querySelector("pre");
-        if (!codeBlock) return;
-  
-        var code = codeBlock.innerText;
-  
-        navigator.clipboard.writeText(code).then(() => {
-          btn.innerHTML = "Copied!";
-          btn.style.color = "#ffffff";
-          setTimeout(() => { 
-            btn.innerHTML = "Copy code"; 
-            btn.style.color = "#d4d4d4"; 
-          }, 1500);
+def inject_css(html: str) -> str:
+    """
+    Apply a static dark theme to nbconvert HTML output.
+    - Code cells: VSCode Dark+ style with custom colors + Copy button.
+    - Markdown/output cells: simple dark mode.
+    """
+    dark_css = """
+    <style>
+    /* ======= DARK THEME (Markdown, Outputs) ======= */
+    body {
+      background-color: #1e1e1e !important;
+      color: #d4d4d4 !important;
+    }
+    .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea {
+      background: #1e1e1e !important;
+      color: #d4d4d4 !important;
+    }
+    .jp-RenderedHTMLCommon, .jp-OutputArea-output {
+      color: #d4d4d4 !important;
+    }
+    
+    /* Links */
+    a:link, a:visited {
+      color: #4aa3ff !important;
+    }
+    a:hover, a:active {
+      color: #82c7ff !important;
+    }
+    
+    /* Blockquotes */
+    blockquote {
+      border-left: 4px solid #569cd6;
+      padding-left: 12px;
+      margin-left: 0;
+      font-style: italic;
+      color: #cccccc;
+      background: #2a2a2a;
+    }
+    
+    /* Tables */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #1e1e1e;
+      color: #d4d4d4;
+    }
+    table, th, td {
+      border: 1px solid #444;
+      padding: 6px 10px;
+    }
+    th {
+      background: #2d2d2d;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background: #242424;
+    }
+    
+    /* ======= CODE CELLS ======= */
+    div.highlight {
+      position: relative;  /* container relative for copy btn */
+      overflow-x: auto;    /* enable horizontal scroll */
+    }
+    pre, code {
+      background-color: #1e1e1e !important;
+      border: none !important;
+      color: #d4d4d4 !important;
+      font-family: "Fira Code", Consolas, monospace !important;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre;     /* preserve spacing, no wrapping */
+      display: block;       /* ensure block for scrolling */
+      overflow-x: auto;     /* horizontal scrolling if needed */
+      max-width: 100%;      /* don’t overflow container */
+    }
+    
+    /* Copy Button */
+    .copy-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 1px solid #444;
+      border-radius: 6px;
+      font-size: 11px;
+      padding: 2px 6px;
+      cursor: pointer;
+      opacity: 0.6;
+      z-index: 5;
+      transition: opacity 0.2s ease-in-out, color 0.2s;
+    }
+    .copy-btn:hover {
+      opacity: 1;
+      background: #3a3a3a;
+    }
+    
+    /* ======= SYNTAX COLORS ======= */
+    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } /* Keywords */
+    .nf, .nc, .nn { color: #4fc1ff !important; }               /* Functions */
+    .n { color: #ffffff !important; }                          /* Variables */
+    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } /* Strings */
+    .m, .mf, .mi, .il { color: #d19a66 !important; }           /* Numbers */
+    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } /* Comments */
+    .o, .p { color: #d4d4d4 !important; }                      /* Operators */
+    </style>
+    """
+    
+    copy_js = """
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll("div.highlight").forEach(function(block) {
+        var btn = document.createElement("button");
+        btn.innerHTML = "Copy code";
+        btn.className = "copy-btn";
+        btn.title = "Copy code";
+    
+        btn.addEventListener("click", function(event) {
+          event.stopPropagation();
+    
+          // Prefer <code>, fallback to <pre>
+          var codeBlock = block.querySelector("code") || block.querySelector("pre");
+          if (!codeBlock) return;
+    
+          var code = codeBlock.innerText;
+    
+          navigator.clipboard.writeText(code).then(() => {
+            btn.innerHTML = "Copied!";
+            btn.style.color = "#ffffff";
+            setTimeout(() => { 
+              btn.innerHTML = "Copy code"; 
+              btn.style.color = "#d4d4d4"; 
+            }, 1500);
+          });
         });
+    
+        block.appendChild(btn);
       });
-  
-      block.appendChild(btn);
     });
-  });
-  </script>
-  """
-  
-  return html.replace("</body>", dark_css + copy_js + "\n</body>")
+    </script>
+    """
+    
+    return html.replace("</body>", dark_css + copy_js + "\n</body>")
 
 
 def export_clean_html(ipynb_path: Path):
@@ -197,7 +202,7 @@ def export_clean_html(ipynb_path: Path):
     
     html = convert_to_html(ipynb_path)
     cleaned_html, removed, tags = strip_hidden_code_cells_and_tag_keywords(html)
-    cleaned_html = inject_dark_toggle(cleaned_html)  # add dark/light toggle
+    cleaned_html = inject_css(cleaned_html)  # add additional css
     
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(cleaned_html)
