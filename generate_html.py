@@ -110,8 +110,9 @@ def inject_css(html: str) -> str:
     
     /* ======= CODE CELLS ======= */
     div.highlight {
-      position: relative;  /* container relative for copy btn */
-      overflow-x: auto;    /* enable horizontal scroll */
+      position: relative;   /* container relative for copy btn */
+      overflow-x: auto;     /* enable horizontal scroll */
+      padding: 2px 2px;      /* inner padding around code */
     }
     pre, code {
       background-color: #1e1e1e !important;
@@ -157,7 +158,7 @@ def inject_css(html: str) -> str:
     .o, .p { color: #d4d4d4 !important; }                      /* Operators */
     </style>
     """
-    
+  
     copy_js = """
     <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -191,9 +192,8 @@ def inject_css(html: str) -> str:
     });
     </script>
     """
-    
+  
     return html.replace("</body>", dark_css + copy_js + "\n</body>")
-
 
 def export_clean_html(ipynb_path: Path):
     html_output_dir = root_dir / "htmls"
