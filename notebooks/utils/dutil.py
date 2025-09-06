@@ -1,9 +1,10 @@
 # Contains all display related utils
 from IPython.display import display, HTML
 
-def hc(title: str, keywords: list[str]=[]):
+def hc(title: str, keywords: list[str] = []):
     """
     Display header with calendar on the left side and vertically centered text.
+    Calendar box in dark mode.
 
     Parameters
     ----------
@@ -26,10 +27,15 @@ def hc(title: str, keywords: list[str]=[]):
     year = now.strftime("%Y")
     time = now.strftime("%I:%M:%S %p")
 
-    if len(keywords) == 0:
-        keywords_str = ""
-    else:
-        keywords_str = "; ".join(keywords) + ";"
+    keywords_str = "; ".join(keywords) + ";" if keywords else ""
+
+    # Dark theme colors (for calendar box only)
+    text_main = "#ddd"
+    card_shadow = "1px 1px 6px rgba(0,0,0,0.6)"
+    cal_header_bg = "#333"
+    cal_month_bg = "#007acc"
+    cal_day_bg = "#2d2d2d"
+    cal_time_bg = "#333"
 
     html_code = f"""
     <div style="
@@ -41,13 +47,13 @@ def hc(title: str, keywords: list[str]=[]):
         margin-bottom: 1em;
         gap: 20px;
     ">
-        <!-- Calendar on the left -->
+        <!-- Calendar on the left (dark mode only) -->
         <div style="
             display: inline-block;
             font-family: 'Arial', sans-serif;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+            box-shadow: {card_shadow};
             width: 120px;
             font-size: 12px;
             text-align: center;
@@ -55,8 +61,8 @@ def hc(title: str, keywords: list[str]=[]):
         ">
             <!-- Last modified label -->
             <div style="
-                background: #f4f4f4;
-                color: #555;
+                background: {cal_header_bg};
+                color: {text_main};
                 padding: 4px 0;
                 font-weight: bold;
                 border-top-left-radius: 8px;
@@ -68,7 +74,7 @@ def hc(title: str, keywords: list[str]=[]):
             <!-- Main calendar -->
             <div>
                 <div style="
-                    background: #66a6ff;
+                    background: {cal_month_bg};
                     color: white;
                     padding: 5px 0;
                     font-weight: bold;
@@ -76,8 +82,8 @@ def hc(title: str, keywords: list[str]=[]):
                     {month}, {year}
                 </div>
                 <div style="
-                    background: #fff;
-                    color: #333;
+                    background: {cal_day_bg};
+                    color: {text_main};
                     padding: 8px 0;
                     font-size: 20px;
                     font-weight: bold;
@@ -85,8 +91,8 @@ def hc(title: str, keywords: list[str]=[]):
                     {day}
                 </div>
                 <div style="
-                    background: #f4f4f4;
-                    color: #333;
+                    background: {cal_time_bg};
+                    color: {text_main};
                     padding: 4px 0;
                     font-size: 12px;
                 ">
@@ -95,7 +101,7 @@ def hc(title: str, keywords: list[str]=[]):
             </div>
         </div>
         
-        <!-- Header content on the right -->
+        <!-- Header content on the right (unchanged) -->
         <div style="flex: 1;">
             <h2 style="
                 margin: 0;
@@ -113,6 +119,7 @@ def hc(title: str, keywords: list[str]=[]):
     </div>
     """
     display(HTML(html_code))
+
 
 def toc(tasks, done=0, title="Table of Contents"):
     """
