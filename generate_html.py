@@ -112,7 +112,7 @@ def inject_css(html: str) -> str:
     div.highlight {
       position: relative;   /* container relative for copy btn */
       overflow-x: auto;     /* enable horizontal scroll */
-      padding: 2px 2px;      /* inner padding around code */
+      padding: 0.2px 0.2px;      /* inner padding around code */
     }
     pre, code {
       background-color: #1e1e1e !important;

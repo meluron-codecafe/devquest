@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:0f6cea0d9b770c9718b3a36dbae28ee139e31e713a10126a9c3b97813fa0f353"
+content_hash = "sha256:a2e90fa7d9b1209e0f1c58dcddea687d87f02a9bcdbc7445a86d1d3c68c5aef3"
 
 [[metadata.targets]]
 requires_python = "==3.10.*"
@@ -1020,7 +1020,7 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.66"
+version = "0.3.68"
 summary = ""
 dependencies = [
     "ipython",
@@ -1032,8 +1032,8 @@ dependencies = [
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.66-py3-none-any.whl", hash = "sha256:59b07e2c9765d79553bf823d3ae843b333562aa4234477c9468aef0400fa2ba5"},
-    {file = "modusa-0.3.66.tar.gz", hash = "sha256:4f13c2c9a452bab3d0616902858772cbe0eedf628b0519f9f37de0ae559b77a1"},
+    {file = "modusa-0.3.68-py3-none-any.whl", hash = "sha256:e8c8e91af37399a131f0ef640861833b672be25fdf5755818cf567089c30632d"},
+    {file = "modusa-0.3.68.tar.gz", hash = "sha256:3934d9835c6a92791d76eb16d709caddfe7efda2339b99795dfb9b799a8b5d21"},
 ]
 
 [[package]]
@@ -3685,6 +3685,17 @@ files = [
 ]
 
 [[package]]
+name = "pyreaper"
+version = "0.0.11"
+summary = ""
+dependencies = [
+    "numpy",
+]
+files = [
+    {file = "pyreaper-0.0.11.tar.gz", hash = "sha256:e306d20d7e77a73a2af18a3e6d88731a456eebed95e8a8ae1ed070a51e929857"},
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 summary = ""
@@ -3737,6 +3748,18 @@ summary = ""
 files = [
     {file = "pywinpty-2.0.15-cp310-cp310-win_amd64.whl", hash = "sha256:8e7f5de756a615a38b96cd86fa3cd65f901ce54ce147a3179c45907fa11b4c4e"},
     {file = "pywinpty-2.0.15.tar.gz", hash = "sha256:312cf39153a8736c617d45ce8b6ad6cd2107de121df91c455b10ce6bba7a39b2"},
+]
+
+[[package]]
+name = "pyworld"
+version = "0.3.5"
+summary = ""
+dependencies = [
+    "numpy",
+]
+files = [
+    {file = "pyworld-0.3.5-cp310-cp310-win_amd64.whl", hash = "sha256:829876828de51c7f5fdd06efa0283d69f9897b592e034db9ded857e378bf625c"},
+    {file = "pyworld-0.3.5.tar.gz", hash = "sha256:1b93e53cddb67a0e4faa34d6cf919ac6c662feb1c8c0ed901d71b595ab396aa3"},
 ]
 
 [[package]]
