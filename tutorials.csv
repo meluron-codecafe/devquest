@@ -1,4 +1,6 @@
 category,topic,tags,number,notebook,html
-EXPERIMENT,Comparing Pitch Trackers,praat-parselmouth; pyreaper; librosa; pyworld;,01,experiment-Comparing_Pitch_Trackers-01.ipynb,experiment-Comparing_Pitch_Trackers-01.html
-PAPER,"[1967, Cover] Nearest Neighbor Pattern Classification",;,01,"paper-[1967, Cover]_Nearest_Neighbor_Pattern_Classification-01.ipynb","paper-[1967, Cover]_Nearest_Neighbor_Pattern_Classification-01.html"
-PAPER,"[1996, Rabiner] A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition",;,01,"paper-[1996, Rabiner]_A_Tutorial_on_Hidden_Markov_Models_and_Selected_Applications_in_Speech_Recognition-01.ipynb","paper-[1996, Rabiner]_A_Tutorial_on_Hidden_Markov_Models_and_Selected_Applications_in_Speech_Recognition-01.html"
+M4CS,Probability,;,01,M4CS-Probability-01.ipynb,M4CS-Probability-01.html
+P2C,"[1967, Cover] Nearest Neighbor Pattern Classification",;,01,"P2C-[1967,_Cover]_Nearest_Neighbor_Pattern_Classification-01.ipynb","P2C-[1967,_Cover]_Nearest_Neighbor_Pattern_Classification-01.html"
+P2C,"[1996, Rabiner] A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition",;,01,"P2C-[1996,_Rabiner]_A_Tutorial_on_Hidden_Markov_Models_and_Selected_Applications_in_Speech_Recognition-01.ipynb","P2C-[1996,_Rabiner]_A_Tutorial_on_Hidden_Markov_Models_and_Selected_Applications_in_Speech_Recognition-01.html"
+TOOL,Comparing Pitch Trackers,praat-parselmouth; pyreaper; librosa; pyworld; libtsm;,01,TOOL-Comparing_Pitch_Trackers-01.ipynb,TOOL-Comparing_Pitch_Trackers-01.html
+TOOL,F0 Conditioned Speech Synthesis,,01,TOOL-F0_Conditioned_Speech_Synthesis-01.ipynb,TOOL-F0_Conditioned_Speech_Synthesis-01.html

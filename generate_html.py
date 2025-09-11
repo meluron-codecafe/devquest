@@ -226,7 +226,7 @@ def extract_info_from_filename(file_path: Path):
     if not match:
         return None, None, None
     
-    category = match.group("category").upper()
+    category = match.group("category")
     topic = match.group("topic").replace("_", " ")
     
     number = match.group("number")

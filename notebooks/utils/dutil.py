@@ -161,7 +161,7 @@ def toc(tasks, done=0, title="Table of Contents"):
         var content=document.getElementById('{container_id}-content');
         if(content.style.display=='none'){{
             content.style.display='block';
-            box.style.width='260px';
+            box.style.width='400px';
         }} else {{
             content.style.display='none';
             box.style.width='50px';
