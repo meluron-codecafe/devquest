@@ -387,9 +387,6 @@ def inject_css(html: str) -> str:
   
   return html.replace("</body>", theme_css + toggle_js + "\n</body>")
 
-
-
-
 def export_clean_html(ipynb_path: Path):
     html_output_dir = root_dir / "htmls"
     html_output_dir.mkdir(parents=True, exist_ok=True)
@@ -410,108 +407,81 @@ def format_topic(topic: str) -> str:
     return " ".join(word.capitalize() for word in topic.split("_"))
 
 def extract_info_from_filename(file_path: Path):
-    """
-    Extract category, topic, subtopics, and number from filename like:
-    CATEGORY-TOPIC_NAME-SUBTOPICS-NUMBER.ipynb
-    """
-    pattern = re.compile(
-        r"^(?P<category>[^-]+)-(?P<topic>[^-]*)-(?P<number>\d+)\.ipynb$"
-    )
-    match = pattern.match(file_path.name)
-    if not match:
-        return None, None, None
-    
-    category = match.group("category")
-    topic = match.group("topic").replace("_", " ")
-    
-    number = match.group("number")
-    return category, topic, number
+  pattern = re.compile(r"^(?P<category>[^-]+)-(?P<topic>.+)\.ipynb$")
+  match = pattern.match(file_path.name)
+  if not match:
+    return None, None
+  category = match.group("category")
+  topic = match.group("topic").replace("_", " ")
+  return category, topic
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert .ipynb to HTML, strip hidden code, and generate tutorials.csv")
-    parser.add_argument("-i", "--input", type=str, required=False, help="Path to .ipynb file")
-    parser.add_argument("--all", action="store_true", help="Convert all notebooks to HTMLs")
-    args = parser.parse_args()
+  parser = argparse.ArgumentParser(description="Convert .ipynb to HTML and generate tutorials.csv")
+  parser.add_argument("-i", "--input", type=str, help="Path to .ipynb file")
+  parser.add_argument("--all", action="store_true", help="Convert all notebooks")
+  args = parser.parse_args()
+  
+  root_dir = Path(__file__).parent
+  csv_file = root_dir / "tutorials.csv"
+  
+  if args.all:
+    notebooks_dir = root_dir / "notebooks"
+    notebooks = sorted(notebooks_dir.glob("*.ipynb"))
+    csv_rows = []
     
-    root_dir = Path(__file__).parent
-    
-    if args.all:
-        csv_rows = []
-        notebooks_dir = root_dir / "notebooks"
-        # Get all .ipynb paths and sort them
-        notebooks = sorted(notebooks_dir.glob("*.ipynb"))
+    for notebook in notebooks:
+      tags = export_clean_html(notebook)
+      category, topic = extract_info_from_filename(notebook)
+      if category:
+        csv_rows.append([category, topic, tags, f"{notebook.stem}.html"])
         
-        for notebook in notebooks:
-            tags = export_clean_html(notebook)
-            category, topic, number = extract_info_from_filename(notebook)
-            if category:
-                csv_rows.append([
-                    category,
-                    topic,
-                    tags,
-                    number.zfill(2),
-                    notebook.name,
-                    f"{notebook.stem}.html",
-                ])
-        
-        # Save CSV with correct header
-        csv_file = root_dir / "tutorials.csv"
-        with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(["category", "topic", "tags", "number", "notebook", "html"])
-            writer.writerows(csv_rows)
-            
-        print(f"✅ Saved CSV to {csv_file}")
-        
-    else:
-        if not args.input:
-            parser.error("argument -i/--input is required unless --all is specified")
-            
-        notebook_path = Path(args.input)
-        keywords = export_clean_html(notebook_path)
-        
-        category, topic, number = extract_info_from_filename(notebook_path)
-        if not category:
-            print(f"⚠️ Skipped {notebook_path} (missing category info)")
-            exit()
-            
-        new_row = [
-            category,
-            topic,
-            keywords,
-            number.zfill(2),
-            notebook_path.name,
-            f"{notebook_path.stem}.html",
-        ]
-        
-        csv_file = root_dir / "tutorials.csv"
-        
-        # Load existing CSV rows (if file exists)
-        if csv_file.exists():
-            with open(csv_file, mode="r", newline="", encoding="utf-8") as f:
-                reader = list(csv.reader(f))
-                header, rows = reader[0], reader[1:]
-        else:
-            header, rows = ["category", "topic", "tags", "number", "notebook", "html"], []
-            
-        # Update or append row
-        updated = False
-        for idx, row in enumerate(rows):
-            if row[4] == new_row[4]:  # match by notebook filename
-                rows[idx] = new_row
-                updated = True
-                break
-        if not updated:
-            rows.append(new_row)
-            
-        # Sort again
-        rows.sort(key=lambda x: x[4])
-        
-        # Save back to CSV
-        with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(rows)
-            
-        print(f"✅ {'Updated' if updated else 'Added'} row for {notebook_path.name} in {csv_file}")
+    # Write CSV
+    with open(csv_file, mode="w", newline="", encoding="utf-8") as f:
+      writer = csv.writer(f)
+      writer.writerow(["category", "topic", "tags", "html"])
+      writer.writerows(csv_rows)
       
+    print(f"✅ Saved CSV to {csv_file}")
+    
+  else:
+    if not args.input:
+      parser.error("argument -i/--input is required unless --all is specified")
+    notebook_path = Path(args.input)
+    tags = export_clean_html(notebook_path)
+    category, topic = extract_info_from_filename(notebook_path)
+    
+    if not category:
+      print(f"⚠️ Skipped {notebook_path} (missing category info)")
+      exit()
+      
+    new_row = [category, topic, tags, f"{notebook_path.stem}.html"]
+    
+    # Load existing rows if CSV exists
+    if csv_file.exists():
+      with open(csv_file, "r", newline="", encoding="utf-8") as f:
+        reader = list(csv.reader(f))
+        header, rows = reader[0], reader[1:]
+    else:
+      header, rows = ["category", "topic", "tags", "html"], []
+      
+    # Update or append
+    updated = False
+    for idx, row in enumerate(rows):
+      if row[3] == new_row[3]:  # match by HTML filename
+        rows[idx] = new_row
+        updated = True
+        break
+    if not updated:
+      rows.append(new_row)
+      
+    # Sort by topic
+    rows.sort(key=lambda x: x[1].lower())
+    
+    # Save CSV
+    with open(csv_file, "w", newline="", encoding="utf-8") as f:
+      writer = csv.writer(f)
+      writer.writerow(header)
+      writer.writerows(rows)
+      
+    print(f"✅ {'Updated' if updated else 'Added'} row for {notebook_path.name} in {csv_file}")
+    
