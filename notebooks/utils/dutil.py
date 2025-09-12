@@ -3,24 +3,11 @@ from IPython.display import display, HTML
 
 def hc(title: str, keywords: list[str] = []):
     """
-    Display header with calendar on the left side and vertically centered text.
-    Calendar box in dark mode.
-
-    Parameters
-    ----------
-    title: str
-        Title of the topic.
-    keywords: list[str]
-        Keywords related to the topic.
-
-    Returns
-    -------
-    None
+    Display header with a dim calendar card (fits both dark & light modes).
     """
     from datetime import datetime
     from IPython.display import display, HTML
 
-    # Get current date and time
     now = datetime.now()
     day = now.strftime("%d")
     month = now.strftime("%b")
@@ -29,196 +16,292 @@ def hc(title: str, keywords: list[str] = []):
 
     keywords_str = "; ".join(keywords) + ";" if keywords else ""
 
-    # Dark theme colors (for calendar box only)
-    text_main = "#ddd"
-    card_shadow = "1px 1px 6px rgba(0,0,0,0.6)"
-    cal_header_bg = "#333"
-    cal_month_bg = "#007acc"
-    cal_day_bg = "#2d2d2d"
-    cal_time_bg = "#333"
-
     html_code = f"""
-    <div style="
+    <style>
+    .hc-wrapper {{
         display: flex;
         align-items: center;
         font-family: 'Georgia', serif;
-        border-left: 3px solid #ccc;
+        border-left: 3px solid #666;
         padding-left: 12px;
+        margin-top: 1em;  /* prevent overlap with buttons */
         margin-bottom: 1em;
         gap: 20px;
-    ">
-        <!-- Calendar on the left (dark mode only) -->
-        <div style="
-            display: inline-block;
-            font-family: 'Arial', sans-serif;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: {card_shadow};
-            width: 120px;
-            font-size: 12px;
-            text-align: center;
-            flex-shrink: 0;
-        ">
-            <!-- Last modified label -->
-            <div style="
-                background: {cal_header_bg};
-                color: {text_main};
-                padding: 4px 0;
-                font-weight: bold;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            ">
-                Last modified
-            </div>
-            
-            <!-- Main calendar -->
-            <div>
-                <div style="
-                    background: {cal_month_bg};
-                    color: white;
-                    padding: 5px 0;
-                    font-weight: bold;
-                ">
-                    {month}, {year}
-                </div>
-                <div style="
-                    background: {cal_day_bg};
-                    color: {text_main};
-                    padding: 8px 0;
-                    font-size: 20px;
-                    font-weight: bold;
-                ">
-                    {day}
-                </div>
-                <div style="
-                    background: {cal_time_bg};
-                    color: {text_main};
-                    padding: 4px 0;
-                    font-size: 12px;
-                ">
-                    {time}
-                </div>
-            </div>
+    }}
+    .hc-calendar {{
+        display: inline-block;
+        font-family: 'Arial', sans-serif;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #2d2d2d;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        width: 120px;
+        font-size: 12px;
+        text-align: center;
+        flex-shrink: 0;
+        border: 1px solid #444;
+    }}
+    .hc-header {{
+        background: #333;
+        color: #ddd;
+        padding: 4px 0;
+        font-weight: bold;
+        font-size: 11px;
+    }}
+    .hc-month {{
+        background: #4aa3ff;
+        color: #fff;
+        padding: 5px 0;
+        font-weight: bold;
+    }}
+    .hc-day {{
+        background: #3a3a3a;
+        color: #eee;
+        padding: 8px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }}
+    .hc-time {{
+        background: #333;
+        color: #bbb;
+        padding: 4px 0;
+        font-size: 12px;
+    }}
+    .hc-title {{
+        margin: 0;
+        color: #EF8C00;
+        font-size: 2.4em;
+        line-height: 1.2em;
+        word-break: break-word;
+    }}
+    .hc-keywords {{
+        margin: 0.5em 0 0 0;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }}
+    </style>
+
+    <div class="hc-wrapper">
+        <!-- Calendar -->
+        <div class="hc-calendar">
+            <div class="hc-header">Last modified</div>
+            <div class="hc-month">{month}, {year}</div>
+            <div class="hc-day">{day}</div>
+            <div class="hc-time">{time}</div>
         </div>
         
-        <!-- Header content on the right (unchanged) -->
+        <!-- Header text -->
         <div style="flex: 1;">
-            <h2 style="
-                margin: 0;
-                color: #EF8C00;
-                font-size: 2.4em;
-                padding-left: 0;
-                text-indent: 0;
-            ">
-                {title}
-            </h2>
-            <p style="margin: 0.5em 0 0 0;">
-                {keywords_str}
-            </p>
+            <h2 class="hc-title">{title}</h2>
+            <p class="hc-keywords">{keywords_str}</p>
         </div>
     </div>
     """
     display(HTML(html_code))
 
 
-def toc(tasks, done=0, title="Table of Contents"):
+
+def toc(tasks, title="Quick Navigation"):
     """
-    Floating, collapsible Table of Contents with hyperlinks and circular progress.
-    Dark theme version: stays fixed at top-right, collapses into a progress circle.
+    TOC button styled exactly like the theme toggle button.
+    Appears to the left of the theme toggle.
+    Works in both light and dark mode.
     """
+    from IPython.display import HTML, display
+
     def header_id(text: str) -> str:
-        return text.replace(" ", "-")
-    
+        return text.replace(" ", "-").replace(".", "")
+
     total = len(tasks)
-    done = min(done, total)
-    percent = int(done / total * 100)
-    container_id = "toc-box"
-    
-    html_parts = []
-    
-    # Floating container box (dark theme, collapsed width first)
-    html_parts.append(f"""
-    <div id="{container_id}" style="
-        position:fixed; 
-        top:40px; right:10px; 
-        background:#1e1e1e; 
-        border-left:4px solid #4caf50; 
-        border-radius:8px; 
-        box-shadow:0 2px 8px rgba(0,0,0,0.35); 
-        font-family:'Fira Code', Consolas, monospace;
-        z-index:9999;
-        width:50px; /* collapsed width */
-        transition: width 0.3s ease;
-        overflow:hidden;
-        color:#d4d4d4;
+
+    html = f"""
+    <!-- TOC Trigger -->
+    <button id="toc-trigger" class="toc-toggle" onclick="toggleCommandPalette()" title="Open TOC">
+      ☰
+    </button>
+
+    <!-- Command Palette -->
+    <div id="cmd-palette" style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        width: 450px;
+        background: rgba(20, 20, 20, 0.98);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        backdrop-filter: blur(20px);
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 13px;
     ">
-    """)
-    
-    # Progress circle toggle
-    html_parts.append(f"""
-    <div onclick="
-        var box=document.getElementById('{container_id}');
-        var content=document.getElementById('{container_id}-content');
-        if(content.style.display=='none'){{
-            content.style.display='block';
-            box.style.width='400px';
-        }} else {{
-            content.style.display='none';
-            box.style.width='50px';
-        }}
-    " style="display:flex; align-items:center; justify-content:center; 
-             padding:8px; cursor:pointer; user-select:none;">
-        <svg width="32" height="32" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
-            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#333" stroke-width="3"/>
-            <circle cx="18" cy="18" r="15.9155" fill="none" 
-                    stroke="#4caf50" stroke-width="3"
-                    stroke-dasharray="{percent}, 100"/>
-            <text x="18" y="21" text-anchor="middle" fill="#d4d4d4"
-                  font-size="9" font-family="Arial" transform="rotate(90,18,18)">{done}/{total}</text>
-        </svg>
-    </div>
-    """)
-    
-    # Collapsible content container (hidden by default)
-    html_parts.append(f"""
-    <div id="{container_id}-content" style="display:none; padding:0 15px 12px 15px; 
-                max-height:60vh; overflow-y:auto;">
-        <div style="font-weight:bold; font-size:14px; margin-bottom:10px; color:#ffffff;">
-            {title}
+        <!-- Header -->
+        <div style="
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        ">
+            <span>{title}</span>
+            <span>{total} sections</span>
         </div>
-    """)
-    
-    # Task list
+
+        <!-- Navigation Items -->
+        <div style="max-height: 300px; overflow-y: auto;" id="nav-items">
+    """
+
     for i, task in enumerate(tasks):
-        if i < done:
-            dot_color, text_color, icon = "#4caf50", "#4caf50", "✓"
-        else:
-            dot_color, text_color, icon = "#2d2d2d", "#999", "○"
-            
-        connector = ""
-        if i < len(tasks) - 1:
-            line_color = "#4caf50" if i < done else "#444"
-            connector = f'<div style="width:2px; height:20px; background:{line_color}; margin-left:9px; margin-top:-4px;"></div>'
-            
-        task_link = f'<a href="#{header_id(task)}" style="color:{text_color}; text-decoration:none;">{task}</a>'
-        
-        html_parts.append(f"""
-        <div>
-            <div style="display:flex; align-items:center; margin-bottom:0;">
-                <div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:{dot_color}; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">{icon}</div>
-                <div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-                    {task_link}
-                </div>
-            </div>
-            {connector}
+        html += f"""
+        <a href="#{header_id(task)}" onclick="closeCommandPalette()" 
+           class="nav-item" style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        ">
+            <span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">{i + 1:02d}</span>
+            <span style="flex: 1;">{task}</span>
+        </a>
+        """
+
+    html += """
         </div>
-        """)
-        
-    html_parts.append("</div></div>")
-    display(HTML("".join(html_parts)))
+    </div>
+
+    <!-- Overlay -->
+    <div id="cmd-overlay" onclick="closeCommandPalette()" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+    "></div>
+
+    <script>
+    function toggleCommandPalette() {
+        const palette = document.getElementById('cmd-palette');
+        const overlay = document.getElementById('cmd-overlay');
+
+        if (palette.style.visibility === 'visible') {
+            closeCommandPalette();
+        } else {
+            overlay.style.opacity = '1';
+            overlay.style.visibility = 'visible';
+            palette.style.opacity = '1';
+            palette.style.visibility = 'visible';
+            palette.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+    }
+
+    function closeCommandPalette() {
+        const palette = document.getElementById('cmd-palette');
+        const overlay = document.getElementById('cmd-overlay');
+
+        palette.style.opacity = '0';
+        palette.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        overlay.style.opacity = '0';
+
+        setTimeout(() => {
+            palette.style.visibility = 'hidden';
+            overlay.style.visibility = 'hidden';
+        }, 200);
+    }
+
+    // Keyboard shortcut (Cmd/Ctrl + K)
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            toggleCommandPalette();
+        }
+        if (e.key === 'Escape') {
+            closeCommandPalette();
+        }
+    });
+    </script>
+
+    <style>
+    /* TOC Trigger styled same as theme-toggle */
+    .toc-toggle {
+      position: fixed;
+      top: 20px;
+      right: 80px;  /* left of theme-toggle */
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 2px solid #444;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .toc-toggle:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+
+    /* Light mode styling for TOC trigger + palette */
+    body.light-mode .toc-toggle {
+      background: #f5f5f5;
+      color: #333;
+      border-color: #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.light-mode .toc-toggle:hover {
+      background: #e0e0e0;
+    }
+    body.light-mode #cmd-palette {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: rgba(0,0,0,0.1) !important;
+      color: #333 !important;
+    }
+    body.light-mode #cmd-palette .nav-item {
+      color: rgba(0,0,0,0.85) !important;
+    }
+    body.light-mode #cmd-palette .nav-item span:first-child {
+      color: rgba(0,0,0,0.5) !important;
+    }
+    body.light-mode #cmd-palette .nav-item:hover {
+      background: rgba(0,0,0,0.05) !important;
+    }
+    body.light-mode #cmd-palette div[style*="border-bottom"] {
+      border-bottom-color: rgba(0,0,0,0.1) !important;
+      color: rgba(0,0,0,0.7) !important;
+    }
+    </style>
+    """
+
+    display(HTML(html))

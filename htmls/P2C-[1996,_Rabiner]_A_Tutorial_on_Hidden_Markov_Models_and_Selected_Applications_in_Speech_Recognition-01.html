@@ -7523,81 +7523,81 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div style="
+<style>
+    .hc-wrapper {
         display: flex;
         align-items: center;
         font-family: 'Georgia', serif;
-        border-left: 3px solid #ccc;
+        border-left: 3px solid #666;
         padding-left: 12px;
+        margin-top: 1em;  /* prevent overlap with buttons */
         margin-bottom: 1em;
         gap: 20px;
-    ">
-<!-- Calendar on the left (dark mode only) -->
-<div style="
-            display: inline-block;
-            font-family: 'Arial', sans-serif;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 1px 1px 6px rgba(0,0,0,0.6);
-            width: 120px;
-            font-size: 12px;
-            text-align: center;
-            flex-shrink: 0;
-        ">
-<!-- Last modified label -->
-<div style="
-                background: #333;
-                color: #ddd;
-                padding: 4px 0;
-                font-weight: bold;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            ">
-                Last modified
-            </div>
-<!-- Main calendar -->
-<div>
-<div style="
-                    background: #007acc;
-                    color: white;
-                    padding: 5px 0;
-                    font-weight: bold;
-                ">
-                    Sep, 2025
-                </div>
-<div style="
-                    background: #2d2d2d;
-                    color: #ddd;
-                    padding: 8px 0;
-                    font-size: 20px;
-                    font-weight: bold;
-                ">
-                    09
-                </div>
-<div style="
-                    background: #333;
-                    color: #ddd;
-                    padding: 4px 0;
-                    font-size: 12px;
-                ">
-                    10:33:09 AM
-                </div>
+    }
+    .hc-calendar {
+        display: inline-block;
+        font-family: 'Arial', sans-serif;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #2d2d2d;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        width: 120px;
+        font-size: 12px;
+        text-align: center;
+        flex-shrink: 0;
+        border: 1px solid #444;
+    }
+    .hc-header {
+        background: #333;
+        color: #ddd;
+        padding: 4px 0;
+        font-weight: bold;
+        font-size: 11px;
+    }
+    .hc-month {
+        background: #4aa3ff;
+        color: #fff;
+        padding: 5px 0;
+        font-weight: bold;
+    }
+    .hc-day {
+        background: #3a3a3a;
+        color: #eee;
+        padding: 8px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .hc-time {
+        background: #333;
+        color: #bbb;
+        padding: 4px 0;
+        font-size: 12px;
+    }
+    .hc-title {
+        margin: 0;
+        color: #EF8C00;
+        font-size: 2.4em;
+        line-height: 1.2em;
+        word-break: break-word;
+    }
+    .hc-keywords {
+        margin: 0.5em 0 0 0;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+    </style>
+<div class="hc-wrapper">
+<!-- Calendar -->
+<div class="hc-calendar">
+<div class="hc-header">Last modified</div>
+<div class="hc-month">Sep, 2025</div>
+<div class="hc-day">12</div>
+<div class="hc-time">06:18:19 AM</div>
 </div>
-</div>
-<!-- Header content on the right (unchanged) -->
+<!-- Header text -->
 <div style="flex: 1;">
-<h2 style="
-                margin: 0;
-                color: #EF8C00;
-                font-size: 2.4em;
-                padding-left: 0;
-                text-indent: 0;
-            ">
-                A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition
-            </h2>
-<p class="keywords" style="margin: 0.5em 0 0 0;">
-                ;
-            </p>
+<h2 class="hc-title">A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition</h2>
+<p class="hc-keywords keywords">;</p>
 </div>
 </div>
 </div>
@@ -7605,193 +7605,396 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div id="toc-box" style="
-        position:fixed; 
-        top:40px; right:10px; 
-        background:#1e1e1e; 
-        border-left:4px solid #4caf50; 
-        border-radius:8px; 
-        box-shadow:0 2px 8px rgba(0,0,0,0.35); 
-        font-family:'Fira Code', Consolas, monospace;
-        z-index:9999;
-        width:50px; /* collapsed width */
-        transition: width 0.3s ease;
-        overflow:hidden;
-        color:#d4d4d4;
+<!-- TOC Trigger -->
+<button class="toc-toggle" id="toc-trigger" onclick="toggleCommandPalette()" title="Open TOC">
+      ☰
+    </button>
+<!-- Command Palette -->
+<div id="cmd-palette" style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        width: 450px;
+        background: rgba(20, 20, 20, 0.98);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        backdrop-filter: blur(20px);
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 13px;
     ">
-<div onclick="
-        var box=document.getElementById('toc-box');
-        var content=document.getElementById('toc-box-content');
-        if(content.style.display=='none'){
-            content.style.display='block';
-            box.style.width='400px';
+<!-- Header -->
+<div style="
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        ">
+<span>Quick Navigation</span>
+<span>10 sections</span>
+</div>
+<!-- Navigation Items -->
+<div id="nav-items" style="max-height: 300px; overflow-y: auto;">
+<a class="nav-item" href="#Source" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">01</span>
+<span style="flex: 1;">Source</span>
+</a>
+<a class="nav-item" href="#AIM" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">02</span>
+<span style="flex: 1;">AIM</span>
+</a>
+<a class="nav-item" href="#Random-Variable" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">03</span>
+<span style="flex: 1;">Random Variable</span>
+</a>
+<a class="nav-item" href="#Stochastic-Process" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">04</span>
+<span style="flex: 1;">Stochastic Process</span>
+</a>
+<a class="nav-item" href="#Classification-of-Stochastic-Process" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">05</span>
+<span style="flex: 1;">Classification of Stochastic Process</span>
+</a>
+<a class="nav-item" href="#Markov-Chain" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">06</span>
+<span style="flex: 1;">Markov Chain</span>
+</a>
+<a class="nav-item" href="#Markov-Model" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">07</span>
+<span style="flex: 1;">Markov Model</span>
+</a>
+<a class="nav-item" href="#Observable-Markov-Model" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">08</span>
+<span style="flex: 1;">Observable Markov Model</span>
+</a>
+<a class="nav-item" href="#An-OMM-Example" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">09</span>
+<span style="flex: 1;">An OMM Example</span>
+</a>
+<a class="nav-item" href="#Hidden-Markov-Model" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+            this.style.borderLeftColor = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+            this.style.borderLeftColor = '#4aa3ff';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span style="
+                color: rgba(255,255,255,0.6);
+                margin-right: 12px;
+                width: 20px;
+                text-align: center;
+                font-size: 12px;
+            ">10</span>
+<span style="flex: 1;">Hidden Markov Model</span>
+</a>
+</div>
+</div>
+<!-- Overlay -->
+<div id="cmd-overlay" onclick="closeCommandPalette()" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+    "></div>
+<script>
+    function toggleCommandPalette() {
+        const palette = document.getElementById('cmd-palette');
+        const overlay = document.getElementById('cmd-overlay');
+
+        if (palette.style.visibility === 'visible') {
+            closeCommandPalette();
         } else {
-            content.style.display='none';
-            box.style.width='50px';
+            overlay.style.opacity = '1';
+            overlay.style.visibility = 'visible';
+            palette.style.opacity = '1';
+            palette.style.visibility = 'visible';
+            palette.style.transform = 'translate(-50%, -50%) scale(1)';
         }
-    " style="display:flex; align-items:center; justify-content:center; 
-             padding:8px; cursor:pointer; user-select:none;">
-<svg height="32" style="transform: rotate(-90deg);" viewbox="0 0 36 36" width="32">
-<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#333" stroke-width="3"></circle>
-<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#4caf50" stroke-dasharray="10, 100" stroke-width="3"></circle>
-<text fill="#d4d4d4" font-family="Arial" font-size="9" text-anchor="middle" transform="rotate(90,18,18)" x="18" y="21">1/10</text>
-</svg>
-</div>
-<div id="toc-box-content" style="display:none; padding:0 15px 12px 15px; 
-                max-height:60vh; overflow-y:auto;">
-<div style="font-weight:bold; font-size:14px; margin-bottom:10px; color:#ffffff;">
-            Table of Contents
-        </div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#4caf50; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">✓</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Source" style="color:#4caf50; text-decoration:none;">Source</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#4caf50; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#AIM" style="color:#999; text-decoration:none;">AIM</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Random-Variable" style="color:#999; text-decoration:none;">Random Variable</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Stochastic-Process" style="color:#999; text-decoration:none;">Stochastic Process</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Classification-of-Stochastic-Process" style="color:#999; text-decoration:none;">Classification of Stochastic Process</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Markov-Chain" style="color:#999; text-decoration:none;">Markov Chain</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Markov-Model" style="color:#999; text-decoration:none;">Markov Model</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Observable-Markov-Model" style="color:#999; text-decoration:none;">Observable Markov Model</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#An-OMM-Example" style="color:#999; text-decoration:none;">An OMM Example</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Hidden-Markov-Model" style="color:#999; text-decoration:none;">Hidden Markov Model</a>
-</div>
-</div>
-</div>
-</div></div>
+    }
+
+    function closeCommandPalette() {
+        const palette = document.getElementById('cmd-palette');
+        const overlay = document.getElementById('cmd-overlay');
+
+        palette.style.opacity = '0';
+        palette.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        overlay.style.opacity = '0';
+
+        setTimeout(() => {
+            palette.style.visibility = 'hidden';
+            overlay.style.visibility = 'hidden';
+        }, 200);
+    }
+
+    // Keyboard shortcut (Cmd/Ctrl + K)
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            toggleCommandPalette();
+        }
+        if (e.key === 'Escape') {
+            closeCommandPalette();
+        }
+    });
+    </script>
+<style>
+    /* TOC Trigger styled same as theme-toggle */
+    .toc-toggle {
+      position: fixed;
+      top: 20px;
+      right: 80px;  /* left of theme-toggle */
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 2px solid #444;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .toc-toggle:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+
+    /* Light mode styling for TOC trigger + palette */
+    body.light-mode .toc-toggle {
+      background: #f5f5f5;
+      color: #333;
+      border-color: #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.light-mode .toc-toggle:hover {
+      background: #e0e0e0;
+    }
+    body.light-mode #cmd-palette {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: rgba(0,0,0,0.1) !important;
+      color: #333 !important;
+    }
+    body.light-mode #cmd-palette .nav-item {
+      color: rgba(0,0,0,0.85) !important;
+    }
+    body.light-mode #cmd-palette .nav-item span:first-child {
+      color: rgba(0,0,0,0.5) !important;
+    }
+    body.light-mode #cmd-palette .nav-item:hover {
+      background: rgba(0,0,0,0.05) !important;
+    }
+    body.light-mode #cmd-palette div[style*="border-bottom"] {
+      border-bottom-color: rgba(0,0,0,0.1) !important;
+      color: rgba(0,0,0,0.7) !important;
+    }
+    </style>
 </div>
 </div>
 </div>
@@ -8515,17 +8718,57 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
 </main>
 
     <style>
-    /* ======= DARK THEME (Markdown, Outputs) ======= */
+    /* ======= THEME TOGGLE BUTTON ======= */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 2px solid #444;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .theme-toggle:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+    
+    body.light-mode .theme-toggle {
+      background: #f5f5f5;
+      color: #333;
+      border-color: #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    body.light-mode .theme-toggle:hover {
+      background: #e0e0e0;
+    }
+    
+    /* ======= DARK THEME (Default) ======= */
     body {
       background-color: #1e1e1e !important;
       color: #d4d4d4 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea {
       background: #1e1e1e !important;
       color: #d4d4d4 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .jp-RenderedHTMLCommon, .jp-OutputArea-output {
       color: #d4d4d4 !important;
+      transition: color 0.3s ease;
     }
     
     /* Links */
@@ -8544,6 +8787,7 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       font-style: italic;
       color: #cccccc;
       background: #2a2a2a;
+      transition: all 0.3s ease;
     }
     
     /* Tables */
@@ -8552,25 +8796,82 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       width: 100%;
       background: #1e1e1e;
       color: #d4d4d4;
+      transition: all 0.3s ease;
     }
     table, th, td {
       border: 1px solid #444;
       padding: 6px 10px;
+      transition: border-color 0.3s ease;
     }
     th {
       background: #2d2d2d;
       font-weight: bold;
+      transition: background-color 0.3s ease;
     }
     tr:nth-child(even) {
       background: #242424;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* ======= LIGHT MODE OVERRIDES ======= */
+    body.light-mode {
+      background-color: #ffffff !important;
+      color: #333333 !important;
+    }
+    body.light-mode .jp-Notebook, 
+    body.light-mode .jp-Cell, 
+    body.light-mode .jp-InputArea, 
+    body.light-mode .jp-OutputArea {
+      background: #ffffff !important;
+      color: #333333 !important;
+    }
+    body.light-mode .jp-RenderedHTMLCommon, 
+    body.light-mode .jp-OutputArea-output {
+      color: #333333 !important;
+    }
+    
+    /* Light mode links */
+    body.light-mode a:link, 
+    body.light-mode a:visited {
+      color: #0066cc !important;
+    }
+    body.light-mode a:hover, 
+    body.light-mode a:active {
+      color: #004499 !important;
+    }
+    
+    /* Light mode blockquotes */
+    body.light-mode blockquote {
+      border-left: 4px solid #0066cc;
+      color: #555;
+      background: #f5f5f5;
+    }
+    
+    /* Light mode tables */
+    body.light-mode table {
+      background: #ffffff;
+      color: #333333;
+    }
+    body.light-mode table, 
+    body.light-mode th, 
+    body.light-mode td {
+      border: 1px solid #ddd;
+    }
+    body.light-mode th {
+      background: #f5f5f5;
+    }
+    body.light-mode tr:nth-child(even) {
+      background: #f9f9f9;
     }
     
     /* ======= CODE CELLS ======= */
     div.highlight {
-      position: relative;   /* container relative for copy btn */
-      overflow-x: auto;     /* enable horizontal scroll */
-      padding: 0.2px 0.2px;      /* inner padding around code */
+      position: relative;
+      overflow-x: auto;
+      padding: 0.2px 0.2px;
+      transition: background-color 0.3s ease;
     }
+    
     pre, code {
       background-color: #1e1e1e !important;
       border: none !important;
@@ -8578,10 +8879,18 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       font-family: "Fira Code", Consolas, monospace !important;
       font-size: 13px;
       line-height: 1.5;
-      white-space: pre;     /* preserve spacing, no wrapping */
-      display: block;       /* ensure block for scrolling */
-      overflow-x: auto;     /* horizontal scrolling if needed */
-      max-width: 100%;      /* don’t overflow container */
+      white-space: pre;
+      display: block;
+      overflow-x: auto;
+      max-width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    /* Light mode code */
+    body.light-mode pre, 
+    body.light-mode code {
+      background-color: #f8f8f8 !important;
+      color: #333333 !important;
     }
     
     /* Copy Button */
@@ -8598,25 +8907,84 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       cursor: pointer;
       opacity: 0.6;
       z-index: 5;
-      transition: opacity 0.2s ease-in-out, color 0.2s;
+      transition: all 0.3s ease;
     }
     .copy-btn:hover {
       opacity: 1;
       background: #3a3a3a;
     }
     
-    /* ======= SYNTAX COLORS ======= */
-    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } /* Keywords */
-    .nf, .nc, .nn { color: #4fc1ff !important; }               /* Functions */
-    .n { color: #ffffff !important; }                          /* Variables */
-    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } /* Strings */
-    .m, .mf, .mi, .il { color: #d19a66 !important; }           /* Numbers */
-    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } /* Comments */
-    .o, .p { color: #d4d4d4 !important; }                      /* Operators */
+    /* Light mode copy button */
+    body.light-mode .copy-btn {
+      background: #e0e0e0;
+      color: #333;
+      border-color: #ccc;
+    }
+    body.light-mode .copy-btn:hover {
+      background: #d0d0d0;
+    }
+    
+    /* ======= DARK MODE SYNTAX COLORS ======= */
+    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; }
+    .nf, .nc, .nn { color: #4fc1ff !important; }
+    .n { color: #ffffff !important; }
+    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; }
+    .m, .mf, .mi, .il { color: #d19a66 !important; }
+    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; }
+    .o, .p { color: #d4d4d4 !important; }
+    
+    /* ======= LIGHT MODE SYNTAX COLORS ======= */
+    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, 
+    body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { 
+      color: #8B008B !important; 
+    }
+    body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { 
+      color: #0000FF !important; 
+    }
+    body.light-mode .n { color: #000000 !important; }
+    body.light-mode .s, body.light-mode .sb, body.light-mode .sc, 
+    body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, 
+    body.light-mode .sa, body.light-mode .se { 
+      color: #008000 !important; 
+    }
+    body.light-mode .m, body.light-mode .mf, body.light-mode .mi, 
+    body.light-mode .il { 
+      color: #FF4500 !important; 
+    }
+    body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { 
+      color: #008000 !important; 
+      font-style: italic !important; 
+    }
+    body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     </style>
     
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+      // Create theme toggle button
+      var toggleBtn = document.createElement("button");
+      toggleBtn.className = "theme-toggle";
+      toggleBtn.innerHTML = "💡";
+      toggleBtn.title = "Toggle light/dark mode";
+      
+      // Default to dark mode
+      var isDarkMode = true;
+      
+      toggleBtn.addEventListener("click", function() {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+          document.body.classList.remove("light-mode");
+          toggleBtn.innerHTML = "💡";
+          toggleBtn.title = "Switch to light mode";
+        } else {
+          document.body.classList.add("light-mode");
+          toggleBtn.innerHTML = "🌙";
+          toggleBtn.title = "Switch to dark mode";
+        }
+      });
+      
+      document.body.appendChild(toggleBtn);
+      
+      // Add copy buttons to code blocks
       document.querySelectorAll("div.highlight").forEach(function(block) {
         var btn = document.createElement("button");
         btn.innerHTML = "Copy code";
@@ -8626,7 +8994,6 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
         btn.addEventListener("click", function(event) {
           event.stopPropagation();
     
-          // Prefer <code>, fallback to <pre>
           var codeBlock = block.querySelector("code") || block.querySelector("pre");
           if (!codeBlock) return;
     
@@ -8634,10 +9001,10 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     
           navigator.clipboard.writeText(code).then(() => {
             btn.innerHTML = "Copied!";
-            btn.style.color = "#ffffff";
+            btn.style.color = isDarkMode ? "#ffffff" : "#000000";
             setTimeout(() => { 
               btn.innerHTML = "Copy code"; 
-              btn.style.color = "#d4d4d4"; 
+              btn.style.color = isDarkMode ? "#d4d4d4" : "#333333"; 
             }, 1500);
           });
         });

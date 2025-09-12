@@ -7572,7 +7572,7 @@ a.anchor-link {
                     font-size: 20px;
                     font-weight: bold;
                 ">
-                    11
+                    12
                 </div>
 <div style="
                     background: #333;
@@ -7580,7 +7580,7 @@ a.anchor-link {
                     padding: 4px 0;
                     font-size: 12px;
                 ">
-                    12:09:19 PM
+                    06:15:21 AM
                 </div>
 </div>
 </div>
@@ -7602,106 +7602,1344 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cd096f0d-9cf0-49ba-97eb-2ecf542fc73a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">toc_radial</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Navigation"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    OPTION 1: Radial/Circular Navigation</span>
+<span class="sd">    Ultra-minimal circular menu inspired by gaming interfaces and creative tools.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">header_id</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;!-- Radial Navigation Trigger --&gt;</span>
+<span class="s2">    &lt;div id="radial-trigger" onclick="toggleRadial()" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 30px;</span>
+<span class="s2">        left: 30px;</span>
+<span class="s2">        width: 24px;</span>
+<span class="s2">        height: 24px;</span>
+<span class="s2">        cursor: pointer;</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        font-size: 18px;</span>
+<span class="s2">        color: rgba(255,255,255,0.7);</span>
+<span class="s2">        transition: all 0.3s ease;</span>
+<span class="s2">        font-family: system-ui;</span>
+<span class="s2">    " onmouseover="this.style.color='rgba(255,255,255,1)'; this.style.transform='scale(1.2)'"</span>
+<span class="s2">       onmouseout="this.style.color='rgba(255,255,255,0.7)'; this.style.transform='scale(1)'"&gt;</span>
+<span class="s2">        ⊕</span>
+<span class="s2">    &lt;/div&gt;</span>
+
+<span class="s2">    &lt;!-- Radial Menu Container --&gt;</span>
+<span class="s2">    &lt;div id="radial-menu" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 30px;</span>
+<span class="s2">        left: 30px;</span>
+<span class="s2">        pointer-events: none;</span>
+<span class="s2">        z-index: 999;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        transition: opacity 0.3s ease;</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="c1"># Generate radial menu items</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">360</span> <span class="o">/</span> <span class="n">total</span><span class="p">)</span> <span class="o">-</span> <span class="mi">90</span>  <span class="c1"># Start from top (-90°)</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="mi">80</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">"#4ade80"</span>
+            <span class="n">dot_size</span> <span class="o">=</span> <span class="s2">"8px"</span>
+            <span class="n">opacity</span> <span class="o">=</span> <span class="s2">"1"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">"rgba(255,255,255,0.4)"</span>
+            <span class="n">dot_size</span> <span class="o">=</span> <span class="s2">"6px"</span> 
+            <span class="n">opacity</span> <span class="o">=</span> <span class="s2">"0.7"</span>
+            
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">        &lt;a href="#</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s2">" onclick="closeRadial()" style="</span>
+<span class="s2">            position: absolute;</span>
+<span class="s2">            left: </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">24</span><span class="si">}</span><span class="s2">px;</span>
+<span class="s2">            top: </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">24</span><span class="si">}</span><span class="s2">px;</span>
+<span class="s2">            width: </span><span class="si">{</span><span class="n">dot_size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            height: </span><span class="si">{</span><span class="n">dot_size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            background: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            border-radius: 50%;</span>
+<span class="s2">            pointer-events: auto;</span>
+<span class="s2">            opacity: </span><span class="si">{</span><span class="n">opacity</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            transition: all 0.3s ease;</span>
+<span class="s2">            transform: scale(0);</span>
+<span class="s2">            box-shadow: 0 0 0 0 </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">        " onmouseover="</span>
+<span class="s2">            this.style.transform = 'scale(1.5)';</span>
+<span class="s2">            this.style.boxShadow = '0 0 0 4px </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2">40';</span>
+<span class="s2">            showTooltip(this, '</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">');</span>
+<span class="s2">        " onmouseout="</span>
+<span class="s2">            this.style.transform = 'scale(1)';</span>
+<span class="s2">            this.style.boxShadow = '0 0 0 0 </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2">';</span>
+<span class="s2">            hideTooltip();</span>
+<span class="s2">        "&gt;&lt;/a&gt;</span>
+<span class="s2">        """</span>
+    
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">"""</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;!-- Tooltip --&gt;</span>
+<span class="s2">    &lt;div id="tooltip" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        background: rgba(0,0,0,0.9);</span>
+<span class="s2">        color: white;</span>
+<span class="s2">        padding: 6px 10px;</span>
+<span class="s2">        border-radius: 6px;</span>
+<span class="s2">        font-size: 12px;</span>
+<span class="s2">        font-family: system-ui;</span>
+<span class="s2">        pointer-events: none;</span>
+<span class="s2">        z-index: 1001;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        transition: opacity 0.2s ease;</span>
+<span class="s2">        white-space: nowrap;</span>
+<span class="s2">    "&gt;&lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">    let radialOpen = false;</span>
+<span class="s2">    </span>
+<span class="s2">    function toggleRadial() {</span>
+<span class="s2">        const menu = document.getElementById('radial-menu');</span>
+<span class="s2">        const items = menu.querySelectorAll('a');</span>
+<span class="s2">        </span>
+<span class="s2">        if (!radialOpen) {</span>
+<span class="s2">            menu.style.opacity = '1';</span>
+<span class="s2">            items.forEach((item, i) =&gt; {</span>
+<span class="s2">                setTimeout(() =&gt; {</span>
+<span class="s2">                    item.style.transform = 'scale(1)';</span>
+<span class="s2">                }, i * 50);</span>
+<span class="s2">            });</span>
+<span class="s2">            radialOpen = true;</span>
+<span class="s2">        } else {</span>
+<span class="s2">            closeRadial();</span>
+<span class="s2">        }</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function closeRadial() {</span>
+<span class="s2">        const menu = document.getElementById('radial-menu');</span>
+<span class="s2">        const items = menu.querySelectorAll('a');</span>
+<span class="s2">        </span>
+<span class="s2">        items.forEach(item =&gt; {</span>
+<span class="s2">            item.style.transform = 'scale(0)';</span>
+<span class="s2">        });</span>
+<span class="s2">        setTimeout(() =&gt; {</span>
+<span class="s2">            menu.style.opacity = '0';</span>
+<span class="s2">        }, 150);</span>
+<span class="s2">        radialOpen = false;</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function showTooltip(element, text) {</span>
+<span class="s2">        const tooltip = document.getElementById('tooltip');</span>
+<span class="s2">        const rect = element.getBoundingClientRect();</span>
+<span class="s2">        tooltip.textContent = text;</span>
+<span class="s2">        tooltip.style.left = (rect.left + rect.width + 10) + 'px';</span>
+<span class="s2">        tooltip.style.top = (rect.top + rect.height/2 - 10) + 'px';</span>
+<span class="s2">        tooltip.style.opacity = '1';</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function hideTooltip() {</span>
+<span class="s2">        document.getElementById('tooltip').style.opacity = '0';</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    // Close on outside click</span>
+<span class="s2">    document.addEventListener('click', (e) =&gt; {</span>
+<span class="s2">        if (!e.target.closest('#radial-trigger') &amp;&amp; !e.target.closest('#radial-menu')) {</span>
+<span class="s2">            closeRadial();</span>
+<span class="s2">        }</span>
+<span class="s2">    });</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">    body.light-mode #radial-trigger {</span>
+<span class="s2">        color: rgba(0,0,0,0.7) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #radial-trigger:hover {</span>
+<span class="s2">        color: rgba(0,0,0,1) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">toc_timeline</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Progress"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    OPTION 2: Horizontal Timeline Navigation</span>
+<span class="sd">    Minimal timeline inspired by video editing interfaces and project management tools.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">header_id</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;!-- Timeline Container --&gt;</span>
+<span class="s2">    &lt;div id="timeline-nav" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        bottom: 30px;</span>
+<span class="s2">        left: 50%;</span>
+<span class="s2">        transform: translateX(-50%);</span>
+<span class="s2">        background: rgba(20, 20, 20, 0.95);</span>
+<span class="s2">        backdrop-filter: blur(20px);</span>
+<span class="s2">        border-radius: 25px;</span>
+<span class="s2">        padding: 8px 16px;</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        transition: all 0.3s ease;</span>
+<span class="s2">        border: 1px solid rgba(255,255,255,0.1);</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">        &lt;div style="display: flex; align-items: center; gap: 8px;"&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">dot_color</span> <span class="o">=</span> <span class="s2">"#4ade80"</span>
+            <span class="n">line_color</span> <span class="o">=</span> <span class="s2">"#4ade80"</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="s2">"8px"</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">dot_color</span> <span class="o">=</span> <span class="s2">"#fbbf24"</span>
+            <span class="n">line_color</span> <span class="o">=</span> <span class="s2">"#374151"</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="s2">"10px"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dot_color</span> <span class="o">=</span> <span class="s2">"#374151"</span>
+            <span class="n">line_color</span> <span class="o">=</span> <span class="s2">"#374151"</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="s2">"6px"</span>
+            
+        <span class="c1"># Add connecting line (except for first item)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">            &lt;div style="</span>
+<span class="s2">                width: 20px;</span>
+<span class="s2">                height: 2px;</span>
+<span class="s2">                background: </span><span class="si">{</span><span class="n">line_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                transition: all 0.3s ease;</span>
+<span class="s2">            "&gt;&lt;/div&gt;</span>
+<span class="s2">            """</span>
+        
+        <span class="c1"># Add task dot</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">        &lt;a href="#</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s2">" style="</span>
+<span class="s2">            width: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            height: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            background: </span><span class="si">{</span><span class="n">dot_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            border-radius: 50%;</span>
+<span class="s2">            display: block;</span>
+<span class="s2">            transition: all 0.3s ease;</span>
+<span class="s2">            text-decoration: none;</span>
+<span class="s2">            position: relative;</span>
+<span class="s2">        " onmouseover="</span>
+<span class="s2">            this.style.transform = 'scale(1.5)';</span>
+<span class="s2">            this.style.boxShadow = '0 0 0 4px </span><span class="si">{</span><span class="n">dot_color</span><span class="si">}</span><span class="s2">40';</span>
+<span class="s2">            showTimelineTooltip(this, '</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">', </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">);</span>
+<span class="s2">        " onmouseout="</span>
+<span class="s2">            this.style.transform = 'scale(1)';</span>
+<span class="s2">            this.style.boxShadow = 'none';</span>
+<span class="s2">            hideTimelineTooltip();</span>
+<span class="s2">        "&gt;&lt;/a&gt;</span>
+<span class="s2">        """</span>
+    
+    <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;!-- Timeline Tooltip --&gt;</span>
+<span class="s2">    &lt;div id="timeline-tooltip" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        background: rgba(0,0,0,0.9);</span>
+<span class="s2">        color: white;</span>
+<span class="s2">        padding: 8px 12px;</span>
+<span class="s2">        border-radius: 8px;</span>
+<span class="s2">        font-size: 12px;</span>
+<span class="s2">        font-family: system-ui;</span>
+<span class="s2">        pointer-events: none;</span>
+<span class="s2">        z-index: 1001;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">        white-space: nowrap;</span>
+<span class="s2">        transform: translateY(-10px);</span>
+<span class="s2">    "&gt;&lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">    function showTimelineTooltip(element, text, step) </span><span class="se">{{</span>
+<span class="s2">        const tooltip = document.getElementById('timeline-tooltip');</span>
+<span class="s2">        const rect = element.getBoundingClientRect();</span>
+<span class="s2">        tooltip.innerHTML = `&lt;div style="font-weight: 600;"&gt;Step $</span><span class="se">{{</span><span class="s2">step</span><span class="se">}}</span><span class="s2">&lt;/div&gt;&lt;div style="opacity: 0.8;"&gt;$</span><span class="se">{{</span><span class="s2">text</span><span class="se">}}</span><span class="s2">&lt;/div&gt;`;</span>
+<span class="s2">        tooltip.style.left = (rect.left + rect.width/2) + 'px';</span>
+<span class="s2">        tooltip.style.top = (rect.top - 10) + 'px';</span>
+<span class="s2">        tooltip.style.transform = 'translateX(-50%) translateY(-100%)';</span>
+<span class="s2">        tooltip.style.opacity = '1';</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    </span>
+<span class="s2">    function hideTimelineTooltip() </span><span class="se">{{</span>
+<span class="s2">        document.getElementById('timeline-tooltip').style.opacity = '0';</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">    body.light-mode #timeline-nav </span><span class="se">{{</span>
+<span class="s2">        background: rgba(255, 255, 255, 0.95) !important;</span>
+<span class="s2">        border-color: rgba(0,0,0,0.1) !important;</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">toc_floating_dots</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Navigation"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    OPTION 3: Floating Contextual Dots</span>
+<span class="sd">    Minimal floating indicators inspired by reading progress and spatial navigation.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">header_id</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;!-- Floating Navigation Dots --&gt;</span>
+<span class="s2">    &lt;div id="floating-nav" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        right: 30px;</span>
+<span class="s2">        top: 50%;</span>
+<span class="s2">        transform: translateY(-50%);</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        display: flex;</span>
+<span class="s2">        flex-direction: column;</span>
+<span class="s2">        gap: 12px;</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">dot_color</span> <span class="o">=</span> <span class="s2">"#4ade80"</span>
+            <span class="n">dot_size</span> <span class="o">=</span> <span class="s2">"6px"</span>
+            <span class="n">ring_size</span> <span class="o">=</span> <span class="s2">"16px"</span>
+            <span class="n">ring_opacity</span> <span class="o">=</span> <span class="s2">"0.3"</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">dot_color</span> <span class="o">=</span> <span class="s2">"#fbbf24"</span>
+            <span class="n">dot_size</span> <span class="o">=</span> <span class="s2">"8px"</span>
+            <span class="n">ring_size</span> <span class="o">=</span> <span class="s2">"20px"</span>
+            <span class="n">ring_opacity</span> <span class="o">=</span> <span class="s2">"0.5"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dot_color</span> <span class="o">=</span> <span class="s2">"rgba(255,255,255,0.3)"</span>
+            <span class="n">dot_size</span> <span class="o">=</span> <span class="s2">"4px"</span>
+            <span class="n">ring_size</span> <span class="o">=</span> <span class="s2">"12px"</span>
+            <span class="n">ring_opacity</span> <span class="o">=</span> <span class="s2">"0.2"</span>
+            
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">        &lt;div style="position: relative;"&gt;</span>
+<span class="s2">            &lt;a href="#</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s2">" style="</span>
+<span class="s2">                width: </span><span class="si">{</span><span class="n">ring_size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                height: </span><span class="si">{</span><span class="n">ring_size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                border: 1px solid </span><span class="si">{</span><span class="n">dot_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                border-radius: 50%;</span>
+<span class="s2">                display: flex;</span>
+<span class="s2">                align-items: center;</span>
+<span class="s2">                justify-content: center;</span>
+<span class="s2">                text-decoration: none;</span>
+<span class="s2">                transition: all 0.3s ease;</span>
+<span class="s2">                opacity: </span><span class="si">{</span><span class="n">ring_opacity</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                background: rgba(0,0,0,0.1);</span>
+<span class="s2">                backdrop-filter: blur(10px);</span>
+<span class="s2">            " onmouseover="</span>
+<span class="s2">                this.style.opacity = '1';</span>
+<span class="s2">                this.style.transform = 'scale(1.2)';</span>
+<span class="s2">                this.style.background = '</span><span class="si">{</span><span class="n">dot_color</span><span class="si">}</span><span class="s2">20';</span>
+<span class="s2">                showFloatingTooltip(this, '</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">');</span>
+<span class="s2">            " onmouseout="</span>
+<span class="s2">                this.style.opacity = '</span><span class="si">{</span><span class="n">ring_opacity</span><span class="si">}</span><span class="s2">';</span>
+<span class="s2">                this.style.transform = 'scale(1)';</span>
+<span class="s2">                this.style.background = 'rgba(0,0,0,0.1)';</span>
+<span class="s2">                hideFloatingTooltip();</span>
+<span class="s2">            "&gt;</span>
+<span class="s2">                &lt;div style="</span>
+<span class="s2">                    width: </span><span class="si">{</span><span class="n">dot_size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                    height: </span><span class="si">{</span><span class="n">dot_size</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                    background: </span><span class="si">{</span><span class="n">dot_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                    border-radius: 50%;</span>
+<span class="s2">                    transition: all 0.3s ease;</span>
+<span class="s2">                "&gt;&lt;/div&gt;</span>
+<span class="s2">            &lt;/a&gt;</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">        """</span>
+    
+    <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;!-- Floating Tooltip --&gt;</span>
+<span class="s2">    &lt;div id="floating-tooltip" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        background: rgba(0,0,0,0.9);</span>
+<span class="s2">        color: white;</span>
+<span class="s2">        padding: 6px 10px;</span>
+<span class="s2">        border-radius: 6px;</span>
+<span class="s2">        font-size: 12px;</span>
+<span class="s2">        font-family: system-ui;</span>
+<span class="s2">        pointer-events: none;</span>
+<span class="s2">        z-index: 1001;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">        white-space: nowrap;</span>
+<span class="s2">        backdrop-filter: blur(10px);</span>
+<span class="s2">    "&gt;&lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">    function showFloatingTooltip(element, text) </span><span class="se">{{</span>
+<span class="s2">        const tooltip = document.getElementById('floating-tooltip');</span>
+<span class="s2">        const rect = element.getBoundingClientRect();</span>
+<span class="s2">        tooltip.textContent = text;</span>
+<span class="s2">        tooltip.style.right = (window.innerWidth - rect.left + 10) + 'px';</span>
+<span class="s2">        tooltip.style.top = (rect.top + rect.height/2 - 10) + 'px';</span>
+<span class="s2">        tooltip.style.opacity = '1';</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    </span>
+<span class="s2">    function hideFloatingTooltip() </span><span class="se">{{</span>
+<span class="s2">        document.getElementById('floating-tooltip').style.opacity = '0';</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">    body.light-mode #floating-tooltip </span><span class="se">{{</span>
+<span class="s2">        background: rgba(255, 255, 255, 0.95) !important;</span>
+<span class="s2">        color: #333 !important;</span>
+<span class="s2">    </span><span class="se">}}</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">toc_command_palette</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">done</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Quick Navigation"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    OPTION 4: Command Palette Style</span>
+<span class="sd">    Terminal-inspired minimal interface, similar to VS Code command palette.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">header_id</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;!-- Command Palette Trigger --&gt;</span>
+<span class="s2">    &lt;div id="cmd-trigger" onclick="toggleCommandPalette()" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 30px;</span>
+<span class="s2">        left: 30px;</span>
+<span class="s2">        font-size: 16px;</span>
+<span class="s2">        color: rgba(255,255,255,0.6);</span>
+<span class="s2">        cursor: pointer;</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        font-family: 'Monaco', 'Menlo', monospace;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">    " onmouseover="this.style.color='rgba(255,255,255,0.9)'"</span>
+<span class="s2">       onmouseout="this.style.color='rgba(255,255,255,0.6)'"&gt;</span>
+<span class="s2">        ⌘</span>
+<span class="s2">    &lt;/div&gt;</span>
+
+<span class="s2">    &lt;!-- Command Palette --&gt;</span>
+<span class="s2">    &lt;div id="cmd-palette" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 50%;</span>
+<span class="s2">        left: 50%;</span>
+<span class="s2">        transform: translate(-50%, -50%) scale(0.9);</span>
+<span class="s2">        width: 400px;</span>
+<span class="s2">        background: rgba(20, 20, 20, 0.98);</span>
+<span class="s2">        border: 1px solid rgba(255,255,255,0.1);</span>
+<span class="s2">        border-radius: 8px;</span>
+<span class="s2">        backdrop-filter: blur(20px);</span>
+<span class="s2">        z-index: 1001;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        visibility: hidden;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">        font-family: 'Monaco', 'Menlo', monospace;</span>
+<span class="s2">        font-size: 13px;</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">        &lt;!-- Header --&gt;</span>
+<span class="s2">        &lt;div style="</span>
+<span class="s2">            padding: 12px 16px;</span>
+<span class="s2">            border-bottom: 1px solid rgba(255,255,255,0.1);</span>
+<span class="s2">            color: rgba(255,255,255,0.7);</span>
+<span class="s2">            font-size: 11px;</span>
+<span class="s2">            text-transform: uppercase;</span>
+<span class="s2">            letter-spacing: 1px;</span>
+<span class="s2">        "&gt;</span>
+<span class="s2">            Quick Navigation (</span><span class="si">{</span><span class="n">done</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">)</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">        </span>
+<span class="s2">        &lt;!-- Navigation Items --&gt;</span>
+<span class="s2">        &lt;div style="max-height: 300px; overflow-y: auto;"&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s2">"✓"</span>
+            <span class="n">status_color</span> <span class="o">=</span> <span class="s2">"#4ade80"</span>
+            <span class="n">text_color</span> <span class="o">=</span> <span class="s2">"rgba(255,255,255,0.9)"</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s2">"→"</span>
+            <span class="n">status_color</span> <span class="o">=</span> <span class="s2">"#fbbf24"</span>
+            <span class="n">text_color</span> <span class="o">=</span> <span class="s2">"rgba(255,255,255,1)"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s2">"○"</span>
+            <span class="n">status_color</span> <span class="o">=</span> <span class="s2">"rgba(255,255,255,0.3)"</span>
+            <span class="n">text_color</span> <span class="o">=</span> <span class="s2">"rgba(255,255,255,0.5)"</span>
+            
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">        &lt;a href="#</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s2">" onclick="closeCommandPalette()" style="</span>
+<span class="s2">            display: flex;</span>
+<span class="s2">            align-items: center;</span>
+<span class="s2">            padding: 10px 16px;</span>
+<span class="s2">            text-decoration: none;</span>
+<span class="s2">            color: </span><span class="si">{</span><span class="n">text_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">            transition: all 0.2s ease;</span>
+<span class="s2">            border-left: 2px solid transparent;</span>
+<span class="s2">        " onmouseover="</span>
+<span class="s2">            this.style.background = 'rgba(255,255,255,0.05)';</span>
+<span class="s2">            this.style.borderLeftColor = '</span><span class="si">{</span><span class="n">status_color</span><span class="si">}</span><span class="s2">';</span>
+<span class="s2">        " onmouseout="</span>
+<span class="s2">            this.style.background = 'transparent';</span>
+<span class="s2">            this.style.borderLeftColor = 'transparent';</span>
+<span class="s2">        "&gt;</span>
+<span class="s2">            &lt;span style="</span>
+<span class="s2">                color: </span><span class="si">{</span><span class="n">status_color</span><span class="si">}</span><span class="s2">;</span>
+<span class="s2">                margin-right: 12px;</span>
+<span class="s2">                width: 16px;</span>
+<span class="s2">                text-align: center;</span>
+<span class="s2">            "&gt;</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">            &lt;span style="flex: 1;"&gt;</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">            &lt;span style="</span>
+<span class="s2">                color: rgba(255,255,255,0.3);</span>
+<span class="s2">                font-size: 11px;</span>
+<span class="s2">            "&gt;</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">        &lt;/a&gt;</span>
+<span class="s2">        """</span>
+    
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">"""</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;!-- Overlay --&gt;</span>
+<span class="s2">    &lt;div id="cmd-overlay" onclick="closeCommandPalette()" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 0;</span>
+<span class="s2">        left: 0;</span>
+<span class="s2">        width: 100vw;</span>
+<span class="s2">        height: 100vh;</span>
+<span class="s2">        background: rgba(0,0,0,0.5);</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        visibility: hidden;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">    "&gt;&lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">    function toggleCommandPalette() {</span>
+<span class="s2">        const palette = document.getElementById('cmd-palette');</span>
+<span class="s2">        const overlay = document.getElementById('cmd-overlay');</span>
+<span class="s2">        </span>
+<span class="s2">        if (palette.style.visibility === 'visible') {</span>
+<span class="s2">            closeCommandPalette();</span>
+<span class="s2">        } else {</span>
+<span class="s2">            overlay.style.opacity = '1';</span>
+<span class="s2">            overlay.style.visibility = 'visible';</span>
+<span class="s2">            palette.style.opacity = '1';</span>
+<span class="s2">            palette.style.visibility = 'visible';</span>
+<span class="s2">            palette.style.transform = 'translate(-50%, -50%) scale(1)';</span>
+<span class="s2">        }</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function closeCommandPalette() {</span>
+<span class="s2">        const palette = document.getElementById('cmd-palette');</span>
+<span class="s2">        const overlay = document.getElementById('cmd-overlay');</span>
+<span class="s2">        </span>
+<span class="s2">        palette.style.opacity = '0';</span>
+<span class="s2">        palette.style.transform = 'translate(-50%, -50%) scale(0.9)';</span>
+<span class="s2">        overlay.style.opacity = '0';</span>
+<span class="s2">        </span>
+<span class="s2">        setTimeout(() =&gt; {</span>
+<span class="s2">            palette.style.visibility = 'hidden';</span>
+<span class="s2">            overlay.style.visibility = 'hidden';</span>
+<span class="s2">        }, 200);</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    // Keyboard shortcut (Cmd/Ctrl + K)</span>
+<span class="s2">    document.addEventListener('keydown', (e) =&gt; {</span>
+<span class="s2">        if ((e.metaKey || e.ctrlKey) &amp;&amp; e.key === 'k') {</span>
+<span class="s2">            e.preventDefault();</span>
+<span class="s2">            toggleCommandPalette();</span>
+<span class="s2">        }</span>
+<span class="s2">        if (e.key === 'Escape') {</span>
+<span class="s2">            closeCommandPalette();</span>
+<span class="s2">        }</span>
+<span class="s2">    });</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">    body.light-mode #cmd-trigger {</span>
+<span class="s2">        color: rgba(0,0,0,0.6) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #cmd-trigger:hover {</span>
+<span class="s2">        color: rgba(0,0,0,0.9) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #cmd-palette {</span>
+<span class="s2">        background: rgba(255, 255, 255, 0.98) !important;</span>
+<span class="s2">        border-color: rgba(0,0,0,0.1) !important;</span>
+<span class="s2">        color: #333 !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3580c85b-9207-4d13-af2a-021937e623f6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">toc_command_palette</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Quick Navigation"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Smart Command Palette with automatic progress tracking based on scroll position.</span>
+<span class="sd">    Automatically detects which section you're viewing and updates status indicators.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">header_id</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;!-- Command Palette Trigger --&gt;</span>
+<span class="s2">    &lt;div id="cmd-trigger" onclick="toggleCommandPalette()" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 30px;</span>
+<span class="s2">        left: 30px;</span>
+<span class="s2">        font-size: 16px;</span>
+<span class="s2">        color: rgba(255,255,255,0.6);</span>
+<span class="s2">        cursor: pointer;</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        font-family: 'Monaco', 'Menlo', monospace;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">        user-select: none;</span>
+<span class="s2">    " onmouseover="this.style.color='rgba(255,255,255,0.9)'"</span>
+<span class="s2">       onmouseout="this.style.color='rgba(255,255,255,0.6)'"&gt;</span>
+<span class="s2">        ⌘</span>
+<span class="s2">    &lt;/div&gt;</span>
+
+<span class="s2">    &lt;!-- Progress indicator in trigger --&gt;</span>
+<span class="s2">    &lt;div id="progress-ring" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 26px;</span>
+<span class="s2">        left: 26px;</span>
+<span class="s2">        width: 24px;</span>
+<span class="s2">        height: 24px;</span>
+<span class="s2">        z-index: 999;</span>
+<span class="s2">        pointer-events: none;</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">        &lt;svg width="24" height="24" style="transform: rotate(-90deg);"&gt;</span>
+<span class="s2">            &lt;circle cx="12" cy="12" r="10" fill="none" </span>
+<span class="s2">                    stroke="rgba(255,255,255,0.1)" stroke-width="2"/&gt;</span>
+<span class="s2">            &lt;circle id="progress-circle" cx="12" cy="12" r="10" fill="none" </span>
+<span class="s2">                    stroke="#4ade80" stroke-width="2"</span>
+<span class="s2">                    stroke-dasharray="0, 62.83"</span>
+<span class="s2">                    style="transition: stroke-dasharray 0.5s ease;"/&gt;</span>
+<span class="s2">        &lt;/svg&gt;</span>
+<span class="s2">    &lt;/div&gt;</span>
+
+<span class="s2">    &lt;!-- Command Palette --&gt;</span>
+<span class="s2">    &lt;div id="cmd-palette" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 50%;</span>
+<span class="s2">        left: 50%;</span>
+<span class="s2">        transform: translate(-50%, -50%) scale(0.9);</span>
+<span class="s2">        width: 450px;</span>
+<span class="s2">        background: rgba(20, 20, 20, 0.98);</span>
+<span class="s2">        border: 1px solid rgba(255,255,255,0.1);</span>
+<span class="s2">        border-radius: 8px;</span>
+<span class="s2">        backdrop-filter: blur(20px);</span>
+<span class="s2">        z-index: 1001;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        visibility: hidden;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">        font-family: 'Monaco', 'Menlo', monospace;</span>
+<span class="s2">        font-size: 13px;</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">        &lt;!-- Header --&gt;</span>
+<span class="s2">        &lt;div style="</span>
+<span class="s2">            padding: 12px 16px;</span>
+<span class="s2">            border-bottom: 1px solid rgba(255,255,255,0.1);</span>
+<span class="s2">            color: rgba(255,255,255,0.7);</span>
+<span class="s2">            font-size: 11px;</span>
+<span class="s2">            text-transform: uppercase;</span>
+<span class="s2">            letter-spacing: 1px;</span>
+<span class="s2">            display: flex;</span>
+<span class="s2">            justify-content: space-between;</span>
+<span class="s2">            align-items: center;</span>
+<span class="s2">        "&gt;</span>
+<span class="s2">            &lt;span&gt;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">            &lt;span id="progress-text"&gt;0/</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">        </span>
+<span class="s2">        &lt;!-- Navigation Items --&gt;</span>
+<span class="s2">        &lt;div style="max-height: 300px; overflow-y: auto;" id="nav-items"&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">        &lt;a href="#</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s2">" onclick="closeCommandPalette()" </span>
+<span class="s2">           data-task-index="</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">" class="nav-item" style="</span>
+<span class="s2">            display: flex;</span>
+<span class="s2">            align-items: center;</span>
+<span class="s2">            padding: 10px 16px;</span>
+<span class="s2">            text-decoration: none;</span>
+<span class="s2">            color: rgba(255,255,255,0.5);</span>
+<span class="s2">            transition: all 0.2s ease;</span>
+<span class="s2">            border-left: 2px solid transparent;</span>
+<span class="s2">        " onmouseover="</span>
+<span class="s2">            this.style.background = 'rgba(255,255,255,0.05)';</span>
+<span class="s2">        " onmouseout="</span>
+<span class="s2">            this.style.background = 'transparent';</span>
+<span class="s2">        "&gt;</span>
+<span class="s2">            &lt;span class="status-icon" style="</span>
+<span class="s2">                color: rgba(255,255,255,0.3);</span>
+<span class="s2">                margin-right: 12px;</span>
+<span class="s2">                width: 16px;</span>
+<span class="s2">                text-align: center;</span>
+<span class="s2">                transition: all 0.3s ease;</span>
+<span class="s2">            "&gt;○&lt;/span&gt;</span>
+<span class="s2">            &lt;span style="flex: 1;"&gt;</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">            &lt;span style="</span>
+<span class="s2">                color: rgba(255,255,255,0.3);</span>
+<span class="s2">                font-size: 11px;</span>
+<span class="s2">            "&gt;</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">        &lt;/a&gt;</span>
+<span class="s2">        """</span>
+    
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">"""</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;!-- Overlay --&gt;</span>
+<span class="s2">    &lt;div id="cmd-overlay" onclick="closeCommandPalette()" style="</span>
+<span class="s2">        position: fixed;</span>
+<span class="s2">        top: 0;</span>
+<span class="s2">        left: 0;</span>
+<span class="s2">        width: 100vw;</span>
+<span class="s2">        height: 100vh;</span>
+<span class="s2">        background: rgba(0,0,0,0.5);</span>
+<span class="s2">        z-index: 1000;</span>
+<span class="s2">        opacity: 0;</span>
+<span class="s2">        visibility: hidden;</span>
+<span class="s2">        transition: all 0.2s ease;</span>
+<span class="s2">    "&gt;&lt;/div&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">    let currentTaskIndex = -1;</span>
+<span class="s2">    let completedTasks = new Set();</span>
+<span class="s2">    let observer;</span>
+<span class="s2">    </span>
+<span class="s2">    function initProgressTracking() {</span>
+<span class="s2">        // Create intersection observer to track which sections are visible</span>
+<span class="s2">        observer = new IntersectionObserver((entries) =&gt; {</span>
+<span class="s2">            entries.forEach(entry =&gt; {</span>
+<span class="s2">                if (entry.isIntersecting) {</span>
+<span class="s2">                    const headingId = entry.target.id;</span>
+<span class="s2">                    updateCurrentTask(headingId);</span>
+<span class="s2">                }</span>
+<span class="s2">            });</span>
+<span class="s2">        }, {</span>
+<span class="s2">            threshold: 0.5,</span>
+<span class="s2">            rootMargin: '-20% 0px -70% 0px'</span>
+<span class="s2">        });</span>
+<span class="s2">        </span>
+<span class="s2">        // Observe all headings that match our task IDs</span>
+<span class="s2">        const taskIds = """</span> <span class="o">+</span> <span class="nb">str</span><span class="p">([</span><span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s1">"'</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">])</span> <span class="o">+</span> <span class="s2">""";</span>
+<span class="s2">        taskIds.forEach(taskId =&gt; {</span>
+<span class="s2">            const element = document.getElementById(taskId);</span>
+<span class="s2">            if (element) {</span>
+<span class="s2">                observer.observe(element);</span>
+<span class="s2">            } else {</span>
+<span class="s2">                // If exact ID not found, try to find heading with similar text</span>
+<span class="s2">                const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');</span>
+<span class="s2">                headings.forEach(heading =&gt; {</span>
+<span class="s2">                    if (heading.textContent.toLowerCase().includes(taskId.replace('-', ' '))) {</span>
+<span class="s2">                        heading.id = taskId; // Set the ID for future reference</span>
+<span class="s2">                        observer.observe(heading);</span>
+<span class="s2">                    }</span>
+<span class="s2">                });</span>
+<span class="s2">            }</span>
+<span class="s2">        });</span>
+<span class="s2">        </span>
+<span class="s2">        // Initial update</span>
+<span class="s2">        updateProgressDisplay();</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function updateCurrentTask(headingId) {</span>
+<span class="s2">        const taskIds = """</span> <span class="o">+</span> <span class="nb">str</span><span class="p">([</span><span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">header_id</span><span class="p">(</span><span class="n">task</span><span class="p">)</span><span class="si">}</span><span class="s1">"'</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">])</span> <span class="o">+</span> <span class="s2">""";</span>
+<span class="s2">        const newIndex = taskIds.indexOf(headingId);</span>
+<span class="s2">        </span>
+<span class="s2">        if (newIndex !== -1 &amp;&amp; newIndex !== currentTaskIndex) {</span>
+<span class="s2">            // Mark previous tasks as completed</span>
+<span class="s2">            for (let i = 0; i &lt; newIndex; i++) {</span>
+<span class="s2">                completedTasks.add(i);</span>
+<span class="s2">            }</span>
+<span class="s2">            </span>
+<span class="s2">            currentTaskIndex = newIndex;</span>
+<span class="s2">            updateProgressDisplay();</span>
+<span class="s2">        }</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function updateProgressDisplay() {</span>
+<span class="s2">        const navItems = document.querySelectorAll('.nav-item');</span>
+<span class="s2">        const progressText = document.getElementById('progress-text');</span>
+<span class="s2">        const progressCircle = document.getElementById('progress-circle');</span>
+<span class="s2">        </span>
+<span class="s2">        let completedCount = completedTasks.size;</span>
+<span class="s2">        </span>
+<span class="s2">        navItems.forEach((item, index) =&gt; {</span>
+<span class="s2">            const statusIcon = item.querySelector('.status-icon');</span>
+<span class="s2">            </span>
+<span class="s2">            if (completedTasks.has(index)) {</span>
+<span class="s2">                // Completed task</span>
+<span class="s2">                statusIcon.textContent = '✓';</span>
+<span class="s2">                statusIcon.style.color = '#4ade80';</span>
+<span class="s2">                item.style.color = 'rgba(255,255,255,0.7)';</span>
+<span class="s2">                item.style.borderLeftColor = 'transparent';</span>
+<span class="s2">            } else if (index === currentTaskIndex) {</span>
+<span class="s2">                // Current task</span>
+<span class="s2">                statusIcon.textContent = '→';</span>
+<span class="s2">                statusIcon.style.color = '#fbbf24';</span>
+<span class="s2">                item.style.color = 'rgba(255,255,255,1)';</span>
+<span class="s2">                item.style.borderLeftColor = '#fbbf24';</span>
+<span class="s2">                item.style.background = 'rgba(251, 191, 36, 0.1)';</span>
+<span class="s2">            } else {</span>
+<span class="s2">                // Future task</span>
+<span class="s2">                statusIcon.textContent = '○';</span>
+<span class="s2">                statusIcon.style.color = 'rgba(255,255,255,0.3)';</span>
+<span class="s2">                item.style.color = 'rgba(255,255,255,0.5)';</span>
+<span class="s2">                item.style.borderLeftColor = 'transparent';</span>
+<span class="s2">                item.style.background = 'transparent';</span>
+<span class="s2">            }</span>
+<span class="s2">        });</span>
+<span class="s2">        </span>
+<span class="s2">        // Update progress text and circle</span>
+<span class="s2">        progressText.textContent = `$</span><span class="si">{completedCount}</span><span class="s2">/${"""</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"""}`;</span>
+<span class="s2">        </span>
+<span class="s2">        const circumference = 2 * Math.PI * 10; // radius = 10</span>
+<span class="s2">        const progressPercent = completedCount / """</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="o">+</span> <span class="s2">""";</span>
+<span class="s2">        const strokeDasharray = `${progressPercent * circumference}, $</span><span class="si">{circumference}</span><span class="s2">`;</span>
+<span class="s2">        progressCircle.style.strokeDasharray = strokeDasharray;</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function toggleCommandPalette() {</span>
+<span class="s2">        const palette = document.getElementById('cmd-palette');</span>
+<span class="s2">        const overlay = document.getElementById('cmd-overlay');</span>
+<span class="s2">        </span>
+<span class="s2">        if (palette.style.visibility === 'visible') {</span>
+<span class="s2">            closeCommandPalette();</span>
+<span class="s2">        } else {</span>
+<span class="s2">            overlay.style.opacity = '1';</span>
+<span class="s2">            overlay.style.visibility = 'visible';</span>
+<span class="s2">            palette.style.opacity = '1';</span>
+<span class="s2">            palette.style.visibility = 'visible';</span>
+<span class="s2">            palette.style.transform = 'translate(-50%, -50%) scale(1)';</span>
+<span class="s2">            </span>
+<span class="s2">            // Scroll current task into view in palette</span>
+<span class="s2">            if (currentTaskIndex &gt;= 0) {</span>
+<span class="s2">                const currentItem = document.querySelector(`[data-task-index="$</span><span class="si">{currentTaskIndex}</span><span class="s2">"]`);</span>
+<span class="s2">                if (currentItem) {</span>
+<span class="s2">                    currentItem.scrollIntoView({ block: 'center', behavior: 'smooth' });</span>
+<span class="s2">                }</span>
+<span class="s2">            }</span>
+<span class="s2">        }</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    function closeCommandPalette() {</span>
+<span class="s2">        const palette = document.getElementById('cmd-palette');</span>
+<span class="s2">        const overlay = document.getElementById('cmd-overlay');</span>
+<span class="s2">        </span>
+<span class="s2">        palette.style.opacity = '0';</span>
+<span class="s2">        palette.style.transform = 'translate(-50%, -50%) scale(0.9)';</span>
+<span class="s2">        overlay.style.opacity = '0';</span>
+<span class="s2">        </span>
+<span class="s2">        setTimeout(() =&gt; {</span>
+<span class="s2">            palette.style.visibility = 'hidden';</span>
+<span class="s2">            overlay.style.visibility = 'hidden';</span>
+<span class="s2">        }, 200);</span>
+<span class="s2">    }</span>
+<span class="s2">    </span>
+<span class="s2">    // Keyboard shortcuts</span>
+<span class="s2">    document.addEventListener('keydown', (e) =&gt; {</span>
+<span class="s2">        if ((e.metaKey || e.ctrlKey) &amp;&amp; e.key === 'k') {</span>
+<span class="s2">            e.preventDefault();</span>
+<span class="s2">            toggleCommandPalette();</span>
+<span class="s2">        }</span>
+<span class="s2">        if (e.key === 'Escape') {</span>
+<span class="s2">            closeCommandPalette();</span>
+<span class="s2">        }</span>
+<span class="s2">    });</span>
+<span class="s2">    </span>
+<span class="s2">    // Initialize when DOM is ready</span>
+<span class="s2">    if (document.readyState === 'loading') {</span>
+<span class="s2">        document.addEventListener('DOMContentLoaded', initProgressTracking);</span>
+<span class="s2">    } else {</span>
+<span class="s2">        // DOM already loaded</span>
+<span class="s2">        setTimeout(initProgressTracking, 1000); // Small delay to ensure content is rendered</span>
+<span class="s2">    }</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">    </span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">    body.light-mode #cmd-trigger {</span>
+<span class="s2">        color: rgba(0,0,0,0.6) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #cmd-trigger:hover {</span>
+<span class="s2">        color: rgba(0,0,0,0.9) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #cmd-palette {</span>
+<span class="s2">        background: rgba(255, 255, 255, 0.98) !important;</span>
+<span class="s2">        border-color: rgba(0,0,0,0.1) !important;</span>
+<span class="s2">        color: #333 !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #cmd-palette .nav-item {</span>
+<span class="s2">        color: rgba(0,0,0,0.7) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #cmd-palette .nav-item:hover {</span>
+<span class="s2">        background: rgba(0,0,0,0.05) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    body.light-mode #progress-ring circle:first-child {</span>
+<span class="s2">        stroke: rgba(0,0,0,0.1) !important;</span>
+<span class="s2">    }</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    """</span>
+    
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8e38a201-8765-4fbe-9f25-f4573e8f5625">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># toc_radial(["Data Loading", "Analysis", "Visualization", "Results"])</span>
+<span class="c1"># toc_timeline(["Data Loading", "Analysis", "Visualization", "Results"], done=2)</span>
+<span class="c1"># toc_floating_dots(["Data Loading", "Analysis", "Visualization", "Results"], done=1)</span>
+<span class="n">toc_command_palette</span><span class="p">([</span><span class="s2">"Data Loading"</span><span class="p">,</span> <span class="s2">"Analysis"</span><span class="p">,</span> <span class="s2">"Visualization"</span><span class="p">,</span> <span class="s2">"Results"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div id="toc-box" style="
-        position:fixed; 
-        top:40px; right:10px; 
-        background:#1e1e1e; 
-        border-left:4px solid #4caf50; 
-        border-radius:8px; 
-        box-shadow:0 2px 8px rgba(0,0,0,0.35); 
-        font-family:'Fira Code', Consolas, monospace;
-        z-index:9999;
-        width:50px; /* collapsed width */
-        transition: width 0.3s ease;
-        overflow:hidden;
-        color:#d4d4d4;
+<!-- Command Palette Trigger -->
+<div id="cmd-trigger" onclick="toggleCommandPalette()" onmouseout="this.style.color='rgba(255,255,255,0.6)'" onmouseover="this.style.color='rgba(255,255,255,0.9)'" style="
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        font-size: 16px;
+        color: rgba(255,255,255,0.6);
+        cursor: pointer;
+        z-index: 1000;
+        font-family: 'Monaco', 'Menlo', monospace;
+        transition: all 0.2s ease;
+        user-select: none;
     ">
-<div onclick="
-        var box=document.getElementById('toc-box');
-        var content=document.getElementById('toc-box-content');
-        if(content.style.display=='none'){
-            content.style.display='block';
-            box.style.width='400px';
-        } else {
-            content.style.display='none';
-            box.style.width='50px';
-        }
-    " style="display:flex; align-items:center; justify-content:center; 
-             padding:8px; cursor:pointer; user-select:none;">
-<svg height="32" style="transform: rotate(-90deg);" viewbox="0 0 36 36" width="32">
-<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#333" stroke-width="3"></circle>
-<circle cx="18" cy="18" fill="none" r="15.9155" stroke="#4caf50" stroke-dasharray="25, 100" stroke-width="3"></circle>
-<text fill="#d4d4d4" font-family="Arial" font-size="9" text-anchor="middle" transform="rotate(90,18,18)" x="18" y="21">1/4</text>
+        ⌘
+    </div>
+<!-- Progress indicator in trigger -->
+<div id="progress-ring" style="
+        position: fixed;
+        top: 26px;
+        left: 26px;
+        width: 24px;
+        height: 24px;
+        z-index: 999;
+        pointer-events: none;
+    ">
+<svg height="24" style="transform: rotate(-90deg);" width="24">
+<circle cx="12" cy="12" fill="none" r="10" stroke="rgba(255,255,255,0.1)" stroke-width="2"></circle>
+<circle cx="12" cy="12" fill="none" id="progress-circle" r="10" stroke="#4ade80" stroke-dasharray="0, 62.83" stroke-width="2" style="transition: stroke-dasharray 0.5s ease;"></circle>
 </svg>
 </div>
-<div id="toc-box-content" style="display:none; padding:0 15px 12px 15px; 
-                max-height:60vh; overflow-y:auto;">
-<div style="font-weight:bold; font-size:14px; margin-bottom:10px; color:#ffffff;">
-            Table of Contents
-        </div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
+<!-- Command Palette -->
+<div id="cmd-palette" style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        width: 450px;
+        background: rgba(20, 20, 20, 0.98);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        backdrop-filter: blur(20px);
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 13px;
+    ">
+<!-- Header -->
 <div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#4caf50; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">✓</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Source" style="color:#4caf50; text-decoration:none;">Source</a>
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        ">
+<span>Quick Navigation</span>
+<span id="progress-text">0/4</span>
+</div>
+<!-- Navigation Items -->
+<div id="nav-items" style="max-height: 300px; overflow-y: auto;">
+<a class="nav-item" data-task-index="0" href="#data-loading" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span class="status-icon" style="
+                color: rgba(255,255,255,0.3);
+                margin-right: 12px;
+                width: 16px;
+                text-align: center;
+                transition: all 0.3s ease;
+            ">○</span>
+<span style="flex: 1;">Data Loading</span>
+<span style="
+                color: rgba(255,255,255,0.3);
+                font-size: 11px;
+            ">01</span>
+</a>
+<a class="nav-item" data-task-index="1" href="#analysis" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span class="status-icon" style="
+                color: rgba(255,255,255,0.3);
+                margin-right: 12px;
+                width: 16px;
+                text-align: center;
+                transition: all 0.3s ease;
+            ">○</span>
+<span style="flex: 1;">Analysis</span>
+<span style="
+                color: rgba(255,255,255,0.3);
+                font-size: 11px;
+            ">02</span>
+</a>
+<a class="nav-item" data-task-index="2" href="#visualization" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span class="status-icon" style="
+                color: rgba(255,255,255,0.3);
+                margin-right: 12px;
+                width: 16px;
+                text-align: center;
+                transition: all 0.3s ease;
+            ">○</span>
+<span style="flex: 1;">Visualization</span>
+<span style="
+                color: rgba(255,255,255,0.3);
+                font-size: 11px;
+            ">03</span>
+</a>
+<a class="nav-item" data-task-index="3" href="#results" onclick="closeCommandPalette()" onmouseout="
+            this.style.background = 'transparent';
+        " onmouseover="
+            this.style.background = 'rgba(255,255,255,0.05)';
+        " style="
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        ">
+<span class="status-icon" style="
+                color: rgba(255,255,255,0.3);
+                margin-right: 12px;
+                width: 16px;
+                text-align: center;
+                transition: all 0.3s ease;
+            ">○</span>
+<span style="flex: 1;">Results</span>
+<span style="
+                color: rgba(255,255,255,0.3);
+                font-size: 11px;
+            ">04</span>
+</a>
 </div>
 </div>
-<div style="width:2px; height:20px; background:#4caf50; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#Motivation" style="color:#999; text-decoration:none;">Motivation</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#AIM" style="color:#999; text-decoration:none;">AIM</a>
-</div>
-</div>
-<div style="width:2px; height:20px; background:#444; margin-left:9px; margin-top:-4px;"></div>
-</div>
-<div>
-<div style="display:flex; align-items:center; margin-bottom:0;">
-<div style="
-                    width:20px; height:20px; border-radius:50%; 
-                    background:#2d2d2d; color:white; 
-                    display:flex; align-items:center; justify-content:center;
-                    font-size:10px; font-weight:bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
-                ">○</div>
-<div style="margin-left:10px; font:12px 'Fira Code', monospace; font-weight:500;">
-<a href="#" style="color:#999; text-decoration:none;"></a>
-</div>
-</div>
-</div>
-</div></div>
+<!-- Overlay -->
+<div id="cmd-overlay" onclick="closeCommandPalette()" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+    "></div>
+<script>
+    let currentTaskIndex = -1;
+    let completedTasks = new Set();
+    let observer;
+    
+    function initProgressTracking() {
+        // Create intersection observer to track which sections are visible
+        observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const headingId = entry.target.id;
+                    updateCurrentTask(headingId);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '-20% 0px -70% 0px'
+        });
+        
+        // Observe all headings that match our task IDs
+        const taskIds = ['"data-loading"', '"analysis"', '"visualization"', '"results"'];
+        taskIds.forEach(taskId => {
+            const element = document.getElementById(taskId);
+            if (element) {
+                observer.observe(element);
+            } else {
+                // If exact ID not found, try to find heading with similar text
+                const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                headings.forEach(heading => {
+                    if (heading.textContent.toLowerCase().includes(taskId.replace('-', ' '))) {
+                        heading.id = taskId; // Set the ID for future reference
+                        observer.observe(heading);
+                    }
+                });
+            }
+        });
+        
+        // Initial update
+        updateProgressDisplay();
+    }
+    
+    function updateCurrentTask(headingId) {
+        const taskIds = ['"data-loading"', '"analysis"', '"visualization"', '"results"'];
+        const newIndex = taskIds.indexOf(headingId);
+        
+        if (newIndex !== -1 && newIndex !== currentTaskIndex) {
+            // Mark previous tasks as completed
+            for (let i = 0; i < newIndex; i++) {
+                completedTasks.add(i);
+            }
+            
+            currentTaskIndex = newIndex;
+            updateProgressDisplay();
+        }
+    }
+    
+    function updateProgressDisplay() {
+        const navItems = document.querySelectorAll('.nav-item');
+        const progressText = document.getElementById('progress-text');
+        const progressCircle = document.getElementById('progress-circle');
+        
+        let completedCount = completedTasks.size;
+        
+        navItems.forEach((item, index) => {
+            const statusIcon = item.querySelector('.status-icon');
+            
+            if (completedTasks.has(index)) {
+                // Completed task
+                statusIcon.textContent = '✓';
+                statusIcon.style.color = '#4ade80';
+                item.style.color = 'rgba(255,255,255,0.7)';
+                item.style.borderLeftColor = 'transparent';
+            } else if (index === currentTaskIndex) {
+                // Current task
+                statusIcon.textContent = '→';
+                statusIcon.style.color = '#fbbf24';
+                item.style.color = 'rgba(255,255,255,1)';
+                item.style.borderLeftColor = '#fbbf24';
+                item.style.background = 'rgba(251, 191, 36, 0.1)';
+            } else {
+                // Future task
+                statusIcon.textContent = '○';
+                statusIcon.style.color = 'rgba(255,255,255,0.3)';
+                item.style.color = 'rgba(255,255,255,0.5)';
+                item.style.borderLeftColor = 'transparent';
+                item.style.background = 'transparent';
+            }
+        });
+        
+        // Update progress text and circle
+        progressText.textContent = `${completedCount}/${4}`;
+        
+        const circumference = 2 * Math.PI * 10; // radius = 10
+        const progressPercent = completedCount / 4;
+        const strokeDasharray = `${progressPercent * circumference}, ${circumference}`;
+        progressCircle.style.strokeDasharray = strokeDasharray;
+    }
+    
+    function toggleCommandPalette() {
+        const palette = document.getElementById('cmd-palette');
+        const overlay = document.getElementById('cmd-overlay');
+        
+        if (palette.style.visibility === 'visible') {
+            closeCommandPalette();
+        } else {
+            overlay.style.opacity = '1';
+            overlay.style.visibility = 'visible';
+            palette.style.opacity = '1';
+            palette.style.visibility = 'visible';
+            palette.style.transform = 'translate(-50%, -50%) scale(1)';
+            
+            // Scroll current task into view in palette
+            if (currentTaskIndex >= 0) {
+                const currentItem = document.querySelector(`[data-task-index="${currentTaskIndex}"]`);
+                if (currentItem) {
+                    currentItem.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                }
+            }
+        }
+    }
+    
+    function closeCommandPalette() {
+        const palette = document.getElementById('cmd-palette');
+        const overlay = document.getElementById('cmd-overlay');
+        
+        palette.style.opacity = '0';
+        palette.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        overlay.style.opacity = '0';
+        
+        setTimeout(() => {
+            palette.style.visibility = 'hidden';
+            overlay.style.visibility = 'hidden';
+        }, 200);
+    }
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            toggleCommandPalette();
+        }
+        if (e.key === 'Escape') {
+            closeCommandPalette();
+        }
+    });
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProgressTracking);
+    } else {
+        // DOM already loaded
+        setTimeout(initProgressTracking, 1000); // Small delay to ensure content is rendered
+    }
+    </script>
+<style>
+    body.light-mode #cmd-trigger {
+        color: rgba(0,0,0,0.6) !important;
+    }
+    body.light-mode #cmd-trigger:hover {
+        color: rgba(0,0,0,0.9) !important;
+    }
+    body.light-mode #cmd-palette {
+        background: rgba(255, 255, 255, 0.98) !important;
+        border-color: rgba(0,0,0,0.1) !important;
+        color: #333 !important;
+    }
+    body.light-mode #cmd-palette .nav-item {
+        color: rgba(0,0,0,0.7) !important;
+    }
+    body.light-mode #cmd-palette .nav-item:hover {
+        background: rgba(0,0,0,0.05) !important;
+    }
+    body.light-mode #progress-ring circle:first-child {
+        stroke: rgba(0,0,0,0.1) !important;
+    }
+    </style>
 </div>
 </div>
 </div>
@@ -8205,17 +9443,57 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
 </main>
 
     <style>
-    /* ======= DARK THEME (Markdown, Outputs) ======= */
+    /* ======= THEME TOGGLE BUTTON ======= */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 2px solid #444;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .theme-toggle:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+    
+    body.light-mode .theme-toggle {
+      background: #f5f5f5;
+      color: #333;
+      border-color: #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    body.light-mode .theme-toggle:hover {
+      background: #e0e0e0;
+    }
+    
+    /* ======= DARK THEME (Default) ======= */
     body {
       background-color: #1e1e1e !important;
       color: #d4d4d4 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea {
       background: #1e1e1e !important;
       color: #d4d4d4 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .jp-RenderedHTMLCommon, .jp-OutputArea-output {
       color: #d4d4d4 !important;
+      transition: color 0.3s ease;
     }
     
     /* Links */
@@ -8234,6 +9512,7 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
       font-style: italic;
       color: #cccccc;
       background: #2a2a2a;
+      transition: all 0.3s ease;
     }
     
     /* Tables */
@@ -8242,25 +9521,82 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
       width: 100%;
       background: #1e1e1e;
       color: #d4d4d4;
+      transition: all 0.3s ease;
     }
     table, th, td {
       border: 1px solid #444;
       padding: 6px 10px;
+      transition: border-color 0.3s ease;
     }
     th {
       background: #2d2d2d;
       font-weight: bold;
+      transition: background-color 0.3s ease;
     }
     tr:nth-child(even) {
       background: #242424;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* ======= LIGHT MODE OVERRIDES ======= */
+    body.light-mode {
+      background-color: #ffffff !important;
+      color: #333333 !important;
+    }
+    body.light-mode .jp-Notebook, 
+    body.light-mode .jp-Cell, 
+    body.light-mode .jp-InputArea, 
+    body.light-mode .jp-OutputArea {
+      background: #ffffff !important;
+      color: #333333 !important;
+    }
+    body.light-mode .jp-RenderedHTMLCommon, 
+    body.light-mode .jp-OutputArea-output {
+      color: #333333 !important;
+    }
+    
+    /* Light mode links */
+    body.light-mode a:link, 
+    body.light-mode a:visited {
+      color: #0066cc !important;
+    }
+    body.light-mode a:hover, 
+    body.light-mode a:active {
+      color: #004499 !important;
+    }
+    
+    /* Light mode blockquotes */
+    body.light-mode blockquote {
+      border-left: 4px solid #0066cc;
+      color: #555;
+      background: #f5f5f5;
+    }
+    
+    /* Light mode tables */
+    body.light-mode table {
+      background: #ffffff;
+      color: #333333;
+    }
+    body.light-mode table, 
+    body.light-mode th, 
+    body.light-mode td {
+      border: 1px solid #ddd;
+    }
+    body.light-mode th {
+      background: #f5f5f5;
+    }
+    body.light-mode tr:nth-child(even) {
+      background: #f9f9f9;
     }
     
     /* ======= CODE CELLS ======= */
     div.highlight {
-      position: relative;   /* container relative for copy btn */
-      overflow-x: auto;     /* enable horizontal scroll */
-      padding: 0.2px 0.2px;      /* inner padding around code */
+      position: relative;
+      overflow-x: auto;
+      padding: 0.2px 0.2px;
+      transition: background-color 0.3s ease;
     }
+    
     pre, code {
       background-color: #1e1e1e !important;
       border: none !important;
@@ -8268,10 +9604,18 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
       font-family: "Fira Code", Consolas, monospace !important;
       font-size: 13px;
       line-height: 1.5;
-      white-space: pre;     /* preserve spacing, no wrapping */
-      display: block;       /* ensure block for scrolling */
-      overflow-x: auto;     /* horizontal scrolling if needed */
-      max-width: 100%;      /* don’t overflow container */
+      white-space: pre;
+      display: block;
+      overflow-x: auto;
+      max-width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    /* Light mode code */
+    body.light-mode pre, 
+    body.light-mode code {
+      background-color: #f8f8f8 !important;
+      color: #333333 !important;
     }
     
     /* Copy Button */
@@ -8288,25 +9632,84 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
       cursor: pointer;
       opacity: 0.6;
       z-index: 5;
-      transition: opacity 0.2s ease-in-out, color 0.2s;
+      transition: all 0.3s ease;
     }
     .copy-btn:hover {
       opacity: 1;
       background: #3a3a3a;
     }
     
-    /* ======= SYNTAX COLORS ======= */
-    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } /* Keywords */
-    .nf, .nc, .nn { color: #4fc1ff !important; }               /* Functions */
-    .n { color: #ffffff !important; }                          /* Variables */
-    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } /* Strings */
-    .m, .mf, .mi, .il { color: #d19a66 !important; }           /* Numbers */
-    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } /* Comments */
-    .o, .p { color: #d4d4d4 !important; }                      /* Operators */
+    /* Light mode copy button */
+    body.light-mode .copy-btn {
+      background: #e0e0e0;
+      color: #333;
+      border-color: #ccc;
+    }
+    body.light-mode .copy-btn:hover {
+      background: #d0d0d0;
+    }
+    
+    /* ======= DARK MODE SYNTAX COLORS ======= */
+    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; }
+    .nf, .nc, .nn { color: #4fc1ff !important; }
+    .n { color: #ffffff !important; }
+    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; }
+    .m, .mf, .mi, .il { color: #d19a66 !important; }
+    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; }
+    .o, .p { color: #d4d4d4 !important; }
+    
+    /* ======= LIGHT MODE SYNTAX COLORS ======= */
+    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, 
+    body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { 
+      color: #8B008B !important; 
+    }
+    body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { 
+      color: #0000FF !important; 
+    }
+    body.light-mode .n { color: #000000 !important; }
+    body.light-mode .s, body.light-mode .sb, body.light-mode .sc, 
+    body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, 
+    body.light-mode .sa, body.light-mode .se { 
+      color: #008000 !important; 
+    }
+    body.light-mode .m, body.light-mode .mf, body.light-mode .mi, 
+    body.light-mode .il { 
+      color: #FF4500 !important; 
+    }
+    body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { 
+      color: #008000 !important; 
+      font-style: italic !important; 
+    }
+    body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     </style>
     
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+      // Create theme toggle button
+      var toggleBtn = document.createElement("button");
+      toggleBtn.className = "theme-toggle";
+      toggleBtn.innerHTML = "💡";
+      toggleBtn.title = "Toggle light/dark mode";
+      
+      // Default to dark mode
+      var isDarkMode = true;
+      
+      toggleBtn.addEventListener("click", function() {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+          document.body.classList.remove("light-mode");
+          toggleBtn.innerHTML = "💡";
+          toggleBtn.title = "Switch to light mode";
+        } else {
+          document.body.classList.add("light-mode");
+          toggleBtn.innerHTML = "🌙";
+          toggleBtn.title = "Switch to dark mode";
+        }
+      });
+      
+      document.body.appendChild(toggleBtn);
+      
+      // Add copy buttons to code blocks
       document.querySelectorAll("div.highlight").forEach(function(block) {
         var btn = document.createElement("button");
         btn.innerHTML = "Copy code";
@@ -8316,7 +9719,6 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
         btn.addEventListener("click", function(event) {
           event.stopPropagation();
     
-          // Prefer <code>, fallback to <pre>
           var codeBlock = block.querySelector("code") || block.querySelector("pre");
           if (!codeBlock) return;
     
@@ -8324,10 +9726,10 @@ If you are tossing the coin every second then the outcome is discrete (Head/Tail
     
           navigator.clipboard.writeText(code).then(() => {
             btn.innerHTML = "Copied!";
-            btn.style.color = "#ffffff";
+            btn.style.color = isDarkMode ? "#ffffff" : "#000000";
             setTimeout(() => { 
               btn.innerHTML = "Copy code"; 
-              btn.style.color = "#d4d4d4"; 
+              btn.style.color = isDarkMode ? "#d4d4d4" : "#333333"; 
             }, 1500);
           });
         });

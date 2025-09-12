@@ -52,23 +52,64 @@ def strip_hidden_code_cells_and_tag_keywords(html_content: str) -> (str, int, st
 
 def inject_css(html: str) -> str:
     """
-    Apply a static dark theme to nbconvert HTML output.
+    Apply a toggleable dark/light theme to nbconvert HTML output.
     - Code cells: VSCode Dark+ style with custom colors + Copy button.
-    - Markdown/output cells: simple dark mode.
+    - Markdown/output cells: simple dark/light mode toggle.
+    - Bulb icon to toggle between themes (defaults to dark).
     """
-    dark_css = """
+    theme_css = """
     <style>
-    /* ======= DARK THEME (Markdown, Outputs) ======= */
+    /* ======= THEME TOGGLE BUTTON ======= */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 2px solid #444;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .theme-toggle:hover {
+      background: #3a3a3a;
+      transform: scale(1.1);
+    }
+    
+    body.light-mode .theme-toggle {
+      background: #f5f5f5;
+      color: #333;
+      border-color: #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    body.light-mode .theme-toggle:hover {
+      background: #e0e0e0;
+    }
+    
+    /* ======= DARK THEME (Default) ======= */
     body {
       background-color: #1e1e1e !important;
       color: #d4d4d4 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea {
       background: #1e1e1e !important;
       color: #d4d4d4 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .jp-RenderedHTMLCommon, .jp-OutputArea-output {
       color: #d4d4d4 !important;
+      transition: color 0.3s ease;
     }
     
     /* Links */
@@ -87,6 +128,7 @@ def inject_css(html: str) -> str:
       font-style: italic;
       color: #cccccc;
       background: #2a2a2a;
+      transition: all 0.3s ease;
     }
     
     /* Tables */
@@ -95,25 +137,82 @@ def inject_css(html: str) -> str:
       width: 100%;
       background: #1e1e1e;
       color: #d4d4d4;
+      transition: all 0.3s ease;
     }
     table, th, td {
       border: 1px solid #444;
       padding: 6px 10px;
+      transition: border-color 0.3s ease;
     }
     th {
       background: #2d2d2d;
       font-weight: bold;
+      transition: background-color 0.3s ease;
     }
     tr:nth-child(even) {
       background: #242424;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* ======= LIGHT MODE OVERRIDES ======= */
+    body.light-mode {
+      background-color: #ffffff !important;
+      color: #333333 !important;
+    }
+    body.light-mode .jp-Notebook, 
+    body.light-mode .jp-Cell, 
+    body.light-mode .jp-InputArea, 
+    body.light-mode .jp-OutputArea {
+      background: #ffffff !important;
+      color: #333333 !important;
+    }
+    body.light-mode .jp-RenderedHTMLCommon, 
+    body.light-mode .jp-OutputArea-output {
+      color: #333333 !important;
+    }
+    
+    /* Light mode links */
+    body.light-mode a:link, 
+    body.light-mode a:visited {
+      color: #0066cc !important;
+    }
+    body.light-mode a:hover, 
+    body.light-mode a:active {
+      color: #004499 !important;
+    }
+    
+    /* Light mode blockquotes */
+    body.light-mode blockquote {
+      border-left: 4px solid #0066cc;
+      color: #555;
+      background: #f5f5f5;
+    }
+    
+    /* Light mode tables */
+    body.light-mode table {
+      background: #ffffff;
+      color: #333333;
+    }
+    body.light-mode table, 
+    body.light-mode th, 
+    body.light-mode td {
+      border: 1px solid #ddd;
+    }
+    body.light-mode th {
+      background: #f5f5f5;
+    }
+    body.light-mode tr:nth-child(even) {
+      background: #f9f9f9;
     }
     
     /* ======= CODE CELLS ======= */
     div.highlight {
-      position: relative;   /* container relative for copy btn */
-      overflow-x: auto;     /* enable horizontal scroll */
-      padding: 0.2px 0.2px;      /* inner padding around code */
+      position: relative;
+      overflow-x: auto;
+      padding: 0.2px 0.2px;
+      transition: background-color 0.3s ease;
     }
+    
     pre, code {
       background-color: #1e1e1e !important;
       border: none !important;
@@ -121,10 +220,18 @@ def inject_css(html: str) -> str:
       font-family: "Fira Code", Consolas, monospace !important;
       font-size: 13px;
       line-height: 1.5;
-      white-space: pre;     /* preserve spacing, no wrapping */
-      display: block;       /* ensure block for scrolling */
-      overflow-x: auto;     /* horizontal scrolling if needed */
-      max-width: 100%;      /* don’t overflow container */
+      white-space: pre;
+      display: block;
+      overflow-x: auto;
+      max-width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    /* Light mode code */
+    body.light-mode pre, 
+    body.light-mode code {
+      background-color: #f8f8f8 !important;
+      color: #333333 !important;
     }
     
     /* Copy Button */
@@ -141,27 +248,86 @@ def inject_css(html: str) -> str:
       cursor: pointer;
       opacity: 0.6;
       z-index: 5;
-      transition: opacity 0.2s ease-in-out, color 0.2s;
+      transition: all 0.3s ease;
     }
     .copy-btn:hover {
       opacity: 1;
       background: #3a3a3a;
     }
     
-    /* ======= SYNTAX COLORS ======= */
-    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } /* Keywords */
-    .nf, .nc, .nn { color: #4fc1ff !important; }               /* Functions */
-    .n { color: #ffffff !important; }                          /* Variables */
-    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } /* Strings */
-    .m, .mf, .mi, .il { color: #d19a66 !important; }           /* Numbers */
-    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } /* Comments */
-    .o, .p { color: #d4d4d4 !important; }                      /* Operators */
+    /* Light mode copy button */
+    body.light-mode .copy-btn {
+      background: #e0e0e0;
+      color: #333;
+      border-color: #ccc;
+    }
+    body.light-mode .copy-btn:hover {
+      background: #d0d0d0;
+    }
+    
+    /* ======= DARK MODE SYNTAX COLORS ======= */
+    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; }
+    .nf, .nc, .nn { color: #4fc1ff !important; }
+    .n { color: #ffffff !important; }
+    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; }
+    .m, .mf, .mi, .il { color: #d19a66 !important; }
+    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; }
+    .o, .p { color: #d4d4d4 !important; }
+    
+    /* ======= LIGHT MODE SYNTAX COLORS ======= */
+    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, 
+    body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { 
+      color: #8B008B !important; 
+    }
+    body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { 
+      color: #0000FF !important; 
+    }
+    body.light-mode .n { color: #000000 !important; }
+    body.light-mode .s, body.light-mode .sb, body.light-mode .sc, 
+    body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, 
+    body.light-mode .sa, body.light-mode .se { 
+      color: #008000 !important; 
+    }
+    body.light-mode .m, body.light-mode .mf, body.light-mode .mi, 
+    body.light-mode .il { 
+      color: #FF4500 !important; 
+    }
+    body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { 
+      color: #008000 !important; 
+      font-style: italic !important; 
+    }
+    body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     </style>
     """
   
-    copy_js = """
+    toggle_js = """
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+      // Create theme toggle button
+      var toggleBtn = document.createElement("button");
+      toggleBtn.className = "theme-toggle";
+      toggleBtn.innerHTML = "💡";
+      toggleBtn.title = "Toggle light/dark mode";
+      
+      // Default to dark mode
+      var isDarkMode = true;
+      
+      toggleBtn.addEventListener("click", function() {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+          document.body.classList.remove("light-mode");
+          toggleBtn.innerHTML = "💡";
+          toggleBtn.title = "Switch to light mode";
+        } else {
+          document.body.classList.add("light-mode");
+          toggleBtn.innerHTML = "🌙";
+          toggleBtn.title = "Switch to dark mode";
+        }
+      });
+      
+      document.body.appendChild(toggleBtn);
+      
+      // Add copy buttons to code blocks
       document.querySelectorAll("div.highlight").forEach(function(block) {
         var btn = document.createElement("button");
         btn.innerHTML = "Copy code";
@@ -171,7 +337,6 @@ def inject_css(html: str) -> str:
         btn.addEventListener("click", function(event) {
           event.stopPropagation();
     
-          // Prefer <code>, fallback to <pre>
           var codeBlock = block.querySelector("code") || block.querySelector("pre");
           if (!codeBlock) return;
     
@@ -179,10 +344,10 @@ def inject_css(html: str) -> str:
     
           navigator.clipboard.writeText(code).then(() => {
             btn.innerHTML = "Copied!";
-            btn.style.color = "#ffffff";
+            btn.style.color = isDarkMode ? "#ffffff" : "#000000";
             setTimeout(() => { 
               btn.innerHTML = "Copy code"; 
-              btn.style.color = "#d4d4d4"; 
+              btn.style.color = isDarkMode ? "#d4d4d4" : "#333333"; 
             }, 1500);
           });
         });
@@ -193,7 +358,7 @@ def inject_css(html: str) -> str:
     </script>
     """
   
-    return html.replace("</body>", dark_css + copy_js + "\n</body>")
+    return html.replace("</body>", theme_css + toggle_js + "\n</body>")
 
 def export_clean_html(ipynb_path: Path):
     html_output_dir = root_dir / "htmls"
