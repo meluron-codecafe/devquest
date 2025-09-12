@@ -7592,243 +7592,14 @@ a.anchor-link {
 <div class="hc-header">Last modified</div>
 <div class="hc-month">Sep, 2025</div>
 <div class="hc-day">12</div>
-<div class="hc-time">06:25:41 AM</div>
+<div class="hc-time">04:00:26 PM</div>
 </div>
 <!-- Header text -->
 <div style="flex: 1;">
-<h2 class="hc-title">Comparing Pitch Trackers</h2>
+<h1 class="hc-title">Comparing Pitch Trackers
 <p class="hc-keywords keywords">praat-parselmouth; pyreaper; librosa; pyworld; libtsm;</p>
+</h1></div>
 </div>
-</div>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<!-- TOC Trigger -->
-<button class="toc-toggle" id="toc-trigger" onclick="toggleCommandPalette()" title="Open TOC">
-      ☰
-    </button>
-<!-- Command Palette -->
-<div id="cmd-palette" style="
-	    position: fixed;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%) scale(0.9);
-	    width: 90%;
-	    max-width: 450px;
-	    min-width: 280px;
-	    background: rgba(20, 20, 20, 0.98);
-	    border: 1px solid rgba(255,255,255,0.1);
-	    border-radius: 8px;
-	    backdrop-filter: blur(20px);
-	    z-index: 1001;
-	    opacity: 0;
-	    visibility: hidden;
-	    transition: all 0.2s ease;
-	    font-family: 'Monaco', 'Menlo', monospace;
-	    font-size: 13px;
-	">
-<!-- Header -->
-<div style="
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.7);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        ">
-<span>1</span>
-<span>3 sections</span>
-</div>
-<!-- Navigation Items -->
-<div id="nav-items" style="max-height: 300px; overflow-y: auto;">
-<a class="nav-item" href="#References" onclick="closeCommandPalette()" onmouseout="
-            this.style.background = 'transparent';
-            this.style.borderLeftColor = 'transparent';
-        " onmouseover="
-            this.style.background = 'rgba(255,255,255,0.05)';
-            this.style.borderLeftColor = '#4aa3ff';
-        " style="
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            text-decoration: none;
-            color: rgba(255,255,255,0.85);
-            transition: all 0.2s ease;
-            border-left: 2px solid transparent;
-        ">
-<span style="
-                color: rgba(255,255,255,0.6);
-                margin-right: 12px;
-                width: 20px;
-                text-align: center;
-                font-size: 12px;
-            ">01</span>
-<span style="flex: 1;">References</span>
-</a>
-<a class="nav-item" href="#AIM" onclick="closeCommandPalette()" onmouseout="
-            this.style.background = 'transparent';
-            this.style.borderLeftColor = 'transparent';
-        " onmouseover="
-            this.style.background = 'rgba(255,255,255,0.05)';
-            this.style.borderLeftColor = '#4aa3ff';
-        " style="
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            text-decoration: none;
-            color: rgba(255,255,255,0.85);
-            transition: all 0.2s ease;
-            border-left: 2px solid transparent;
-        ">
-<span style="
-                color: rgba(255,255,255,0.6);
-                margin-right: 12px;
-                width: 20px;
-                text-align: center;
-                font-size: 12px;
-            ">02</span>
-<span style="flex: 1;">AIM</span>
-</a>
-<a class="nav-item" href="#Uncontrolled-Test" onclick="closeCommandPalette()" onmouseout="
-            this.style.background = 'transparent';
-            this.style.borderLeftColor = 'transparent';
-        " onmouseover="
-            this.style.background = 'rgba(255,255,255,0.05)';
-            this.style.borderLeftColor = '#4aa3ff';
-        " style="
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            text-decoration: none;
-            color: rgba(255,255,255,0.85);
-            transition: all 0.2s ease;
-            border-left: 2px solid transparent;
-        ">
-<span style="
-                color: rgba(255,255,255,0.6);
-                margin-right: 12px;
-                width: 20px;
-                text-align: center;
-                font-size: 12px;
-            ">03</span>
-<span style="flex: 1;">Uncontrolled Test</span>
-</a>
-</div>
-</div>
-<!-- Overlay -->
-<div id="cmd-overlay" onclick="closeCommandPalette()" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0.5);
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.2s ease;
-    "></div>
-<script>
-    function toggleCommandPalette() {
-        const palette = document.getElementById('cmd-palette');
-        const overlay = document.getElementById('cmd-overlay');
-
-        if (palette.style.visibility === 'visible') {
-            closeCommandPalette();
-        } else {
-            overlay.style.opacity = '1';
-            overlay.style.visibility = 'visible';
-            palette.style.opacity = '1';
-            palette.style.visibility = 'visible';
-            palette.style.transform = 'translate(-50%, -50%) scale(1)';
-        }
-    }
-
-    function closeCommandPalette() {
-        const palette = document.getElementById('cmd-palette');
-        const overlay = document.getElementById('cmd-overlay');
-
-        palette.style.opacity = '0';
-        palette.style.transform = 'translate(-50%, -50%) scale(0.9)';
-        overlay.style.opacity = '0';
-
-        setTimeout(() => {
-            palette.style.visibility = 'hidden';
-            overlay.style.visibility = 'hidden';
-        }, 200);
-    }
-
-    // Keyboard shortcut (Cmd/Ctrl + K)
-    document.addEventListener('keydown', (e) => {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-            e.preventDefault();
-            toggleCommandPalette();
-        }
-        if (e.key === 'Escape') {
-            closeCommandPalette();
-        }
-    });
-    </script>
-<style>
-    /* TOC Trigger styled same as theme-toggle */
-    .toc-toggle {
-      position: fixed;
-      top: 20px;
-      right: 80px;  /* left of theme-toggle */
-      background: #2d2d2d;
-      color: #d4d4d4;
-      border: 2px solid #444;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-    .toc-toggle:hover {
-      background: #3a3a3a;
-      transform: scale(1.1);
-    }
-
-    /* Light mode styling for TOC trigger + palette */
-    body.light-mode .toc-toggle {
-      background: #f5f5f5;
-      color: #333;
-      border-color: #ddd;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    body.light-mode .toc-toggle:hover {
-      background: #e0e0e0;
-    }
-    body.light-mode #cmd-palette {
-      background: rgba(255, 255, 255, 0.98) !important;
-      border-color: rgba(0,0,0,0.1) !important;
-      color: #333 !important;
-    }
-    body.light-mode #cmd-palette .nav-item {
-      color: rgba(0,0,0,0.85) !important;
-    }
-    body.light-mode #cmd-palette .nav-item span:first-child {
-      color: rgba(0,0,0,0.5) !important;
-    }
-    body.light-mode #cmd-palette .nav-item:hover {
-      background: rgba(0,0,0,0.05) !important;
-    }
-    body.light-mode #cmd-palette div[style*="border-bottom"] {
-      border-bottom-color: rgba(0,0,0,0.1) !important;
-      color: rgba(0,0,0,0.7) !important;
-    }
-    </style>
 </div>
 </div>
 </div>
@@ -7886,7 +7657,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">parselmouth</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pm</span>
@@ -8029,7 +7800,7 @@ Pyreaper runtime: 12.437392 sec
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># To better observe how these pitch trackers perform, we also look at the spectrogram</span>
-<span class="n">N</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">160</span>
+<span class="n">N</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">160</span> <span class="c1"># 64 ms, 10 ms</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">lb</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">win_length</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">S_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">sr</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span>
@@ -8096,304 +7867,330 @@ Pyreaper runtime: 12.437392 sec
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=96003d88-2651-4e64-b5b5-25fccb2fec46">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id=""><a class="anchor-link" href="#">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d02a96f8-aef5-442b-8f51-e3e820840e82">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4c498f6f-25ec-4dc8-923f-61c392855407">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=35a82082-67dd-4003-b447-9b3a32633f7b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </main>
 
-    <style>
-    /* ======= THEME TOGGLE BUTTON ======= */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #2d2d2d;
-      color: #d4d4d4;
-      border: 2px solid #444;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
+  <style>
+  /* ======= THEME TOGGLE BUTTON ======= */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 2px solid #444;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .theme-toggle:hover { background: #3a3a3a; transform: scale(1.1); }
+  body.light-mode .theme-toggle { background: #f5f5f5; color: #333; border-color: #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  body.light-mode .theme-toggle:hover { background: #e0e0e0; }
+  
+  /* ======= VERTICAL TIMELINE TOC (RIGHT) ======= */
+  #timeline-nav {
+    position: fixed !important; top: 50% !important; right: 25px !important; transform: translateY(-50%) !important;
+    background: rgba(20, 20, 20, 0.95) !important; backdrop-filter: blur(20px) !important;
+    border-radius: 25px !important; padding: 20px 12px !important; z-index: 999 !important;
+    transition: all 0.3s ease !important; border: 1px solid rgba(255,255,255,0.1) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; display: flex !important; flex-direction: column !important;
+    align-items: center !important; gap: 8px !important;
+  }
+
+  .timeline-dot {
+    width: 20px;
+    height: 20px;
+    background: #374151;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 444;
+    color: red !important; /* default for dark mode */
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: -8px;
+  }
+  
+  .timeline-dot,
+  .timeline-dot:link,
+  .timeline-dot:visited,
+  .timeline-dot:hover,
+  .timeline-dot:active {
+    color: white !important;  /* dark mode */
+    text-decoration: none;    /* remove underline */
+  }
+  
+  body.light-mode .timeline-dot,
+  body.light-mode .timeline-dot:link,
+  body.light-mode .timeline-dot:visited,
+  body.light-mode .timeline-dot:hover,
+  body.light-mode .timeline-dot:active {
+    color: white !important;  /* light mode */
+  }
     
-    .theme-toggle:hover {
-      background: #3a3a3a;
-      transform: scale(1.1);
-    }
-    
-    body.light-mode .theme-toggle {
-      background: #f5f5f5;
-      color: #333;
-      border-color: #ddd;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    body.light-mode .theme-toggle:hover {
-      background: #e0e0e0;
-    }
-    
-    /* ======= DARK THEME (Default) ======= */
-    body {
-      background-color: #1e1e1e !important;
-      color: #d4d4d4 !important;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea {
-      background: #1e1e1e !important;
-      color: #d4d4d4 !important;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .jp-RenderedHTMLCommon, .jp-OutputArea-output {
-      color: #d4d4d4 !important;
-      transition: color 0.3s ease;
-    }
-    
-    /* Links */
-    a:link, a:visited {
-      color: #4aa3ff !important;
-    }
-    a:hover, a:active {
-      color: #82c7ff !important;
-    }
-    
-    /* Blockquotes */
-    blockquote {
-      border-left: 4px solid #569cd6;
-      padding-left: 12px;
-      margin-left: 0;
-      font-style: italic;
-      color: #cccccc;
-      background: #2a2a2a;
-      transition: all 0.3s ease;
-    }
-    
-    /* Tables */
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      background: #1e1e1e;
-      color: #d4d4d4;
-      transition: all 0.3s ease;
-    }
-    table, th, td {
-      border: 1px solid #444;
-      padding: 6px 10px;
-      transition: border-color 0.3s ease;
-    }
-    th {
-      background: #2d2d2d;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    tr:nth-child(even) {
-      background: #242424;
-      transition: background-color 0.3s ease;
-    }
-    
-    /* ======= LIGHT MODE OVERRIDES ======= */
-    body.light-mode {
-      background-color: #ffffff !important;
-      color: #333333 !important;
-    }
-    body.light-mode .jp-Notebook, 
-    body.light-mode .jp-Cell, 
-    body.light-mode .jp-InputArea, 
-    body.light-mode .jp-OutputArea {
-      background: #ffffff !important;
-      color: #333333 !important;
-    }
-    body.light-mode .jp-RenderedHTMLCommon, 
-    body.light-mode .jp-OutputArea-output {
-      color: #333333 !important;
-    }
-    
-    /* Light mode links */
-    body.light-mode a:link, 
-    body.light-mode a:visited {
-      color: #0066cc !important;
-    }
-    body.light-mode a:hover, 
-    body.light-mode a:active {
-      color: #004499 !important;
-    }
-    
-    /* Light mode blockquotes */
-    body.light-mode blockquote {
-      border-left: 4px solid #0066cc;
-      color: #555;
-      background: #f5f5f5;
-    }
-    
-    /* Light mode tables */
-    body.light-mode table {
-      background: #ffffff;
-      color: #333333;
-    }
-    body.light-mode table, 
-    body.light-mode th, 
-    body.light-mode td {
-      border: 1px solid #ddd;
-    }
-    body.light-mode th {
-      background: #f5f5f5;
-    }
-    body.light-mode tr:nth-child(even) {
-      background: #f9f9f9;
-    }
-    
-    /* ======= CODE CELLS ======= */
-    div.highlight {
-      position: relative;
-      overflow-x: auto;
-      padding: 0.2px 0.2px;
-      transition: background-color 0.3s ease;
-    }
-    
-    pre, code {
-      background-color: #1e1e1e !important;
-      border: none !important;
-      color: #d4d4d4 !important;
-      font-family: "Fira Code", Consolas, monospace !important;
-      font-size: 13px;
-      line-height: 1.5;
-      white-space: pre;
-      display: block;
-      overflow-x: auto;
-      max-width: 100%;
-      transition: all 0.3s ease;
-    }
-    
-    /* Light mode code */
-    body.light-mode pre, 
-    body.light-mode code {
-      background-color: #f8f8f8 !important;
-      color: #333333 !important;
-    }
-    
-    /* Copy Button */
-    .copy-btn {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      background: #2d2d2d;
-      color: #d4d4d4;
-      border: 1px solid #444;
-      border-radius: 6px;
-      font-size: 11px;
-      padding: 2px 6px;
-      cursor: pointer;
-      opacity: 0.6;
-      z-index: 5;
-      transition: all 0.3s ease;
-    }
-    .copy-btn:hover {
-      opacity: 1;
-      background: #3a3a3a;
-    }
-    
-    /* Light mode copy button */
-    body.light-mode .copy-btn {
-      background: #e0e0e0;
-      color: #333;
-      border-color: #ccc;
-    }
-    body.light-mode .copy-btn:hover {
-      background: #d0d0d0;
-    }
-    
-    /* ======= DARK MODE SYNTAX COLORS ======= */
-    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; }
-    .nf, .nc, .nn { color: #4fc1ff !important; }
-    .n { color: #ffffff !important; }
-    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; }
-    .m, .mf, .mi, .il { color: #d19a66 !important; }
-    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; }
-    .o, .p { color: #d4d4d4 !important; }
-    
-    /* ======= LIGHT MODE SYNTAX COLORS ======= */
-    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, 
-    body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { 
-      color: #8B008B !important; 
-    }
-    body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { 
-      color: #0000FF !important; 
-    }
-    body.light-mode .n { color: #000000 !important; }
-    body.light-mode .s, body.light-mode .sb, body.light-mode .sc, 
-    body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, 
-    body.light-mode .sa, body.light-mode .se { 
-      color: #008000 !important; 
-    }
-    body.light-mode .m, body.light-mode .mf, body.light-mode .mi, 
-    body.light-mode .il { 
-      color: #FF4500 !important; 
-    }
-    body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { 
-      color: #008000 !important; 
-      font-style: italic !important; 
-    }
-    body.light-mode .o, body.light-mode .p { color: #333333 !important; }
-    </style>
-    
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Create theme toggle button
-      var toggleBtn = document.createElement("button");
-      toggleBtn.className = "theme-toggle";
-      toggleBtn.innerHTML = "💡";
-      toggleBtn.title = "Toggle light/dark mode";
-      
-      // Default to dark mode
-      var isDarkMode = true;
-      
-      toggleBtn.addEventListener("click", function() {
-        isDarkMode = !isDarkMode;
-        if (isDarkMode) {
-          document.body.classList.remove("light-mode");
-          toggleBtn.innerHTML = "💡";
-          toggleBtn.title = "Switch to light mode";
-        } else {
-          document.body.classList.add("light-mode");
-          toggleBtn.innerHTML = "🌙";
-          toggleBtn.title = "Switch to dark mode";
-        }
-      });
-      
-      document.body.appendChild(toggleBtn);
-      
-      // Add copy buttons to code blocks
-      document.querySelectorAll("div.highlight").forEach(function(block) {
-        var btn = document.createElement("button");
-        btn.innerHTML = "Copy code";
-        btn.className = "copy-btn";
-        btn.title = "Copy code";
-    
-        btn.addEventListener("click", function(event) {
-          event.stopPropagation();
-    
-          var codeBlock = block.querySelector("code") || block.querySelector("pre");
-          if (!codeBlock) return;
-    
-          var code = codeBlock.innerText;
-    
-          navigator.clipboard.writeText(code).then(() => {
-            btn.innerHTML = "Copied!";
-            btn.style.color = isDarkMode ? "#ffffff" : "#000000";
-            setTimeout(() => { 
-              btn.innerHTML = "Copy code"; 
-              btn.style.color = isDarkMode ? "#d4d4d4" : "#333333"; 
-            }, 1500);
-          });
-        });
-    
-        block.appendChild(btn);
-      });
+  .timeline-dot.completed { background: #228B22; color: black; }
+  .timeline-dot.current { background: #fd8a09; color: black; }
+  .timeline-dot.future { background: #374151; color: white; }
+  .timeline-dot:hover { transform: scale(1.4) !important; }
+  .timeline-dot.completed:hover { box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.3) !important; }
+  .timeline-dot.current:hover { box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.3) !important; }
+  .timeline-dot.future:hover { box-shadow: 0 0 0 4px rgba(55, 65, 81, 0.3) !important; }
+  body.light-mode .timeline-dot { color: black !important; }
+
+  .timeline-line { width: 2px; height: 25px; background: #374151; transition: all 0.3s ease; flex-shrink: 0; }
+  .timeline-line.completed { background: #4ade80; }
+
+  /* Timeline Tooltip (for single dots) */
+  #timeline-tooltip {
+    position: fixed; background: rgba(0,0,0,0.9); color: white; padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none;
+    z-index: 1001; opacity: 0; transition: all 0.2s ease; white-space: nowrap;
+  }
+  .tooltip-text { opacity: 0.9; font-size: 11px; font-weight: 600; }
+
+  /* Timeline Full List */
+  #timeline-full-list {
+    position: fixed; background: rgba(20,20,20,0.95); color: white; padding: 12px 16px; border-radius: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; backdrop-filter: blur(20px);
+    z-index: 1002; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    max-height: 80vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1);
+  }
+  #timeline-full-list ul { list-style: none; padding: 0; margin: 0; font-size: 11px; }
+  #timeline-full-list li { padding: 4px 0; opacity: 0.8; white-space: nowrap; }
+
+  /* Light mode timeline styles */
+  body.light-mode #timeline-nav { background: rgba(255,255,255,0.95) !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important; }
+  body.light-mode .timeline-dot.future { background: #d1d5db; }
+  body.light-mode .timeline-line { background: #d1d5db; }
+  body.light-mode #timeline-tooltip { background: rgba(255,255,255,0.95); color: #333; border: 1px solid rgba(0,0,0,0.1); }
+  body.light-mode #timeline-full-list { background: rgba(255,255,255,0.95); color: #333; border: 1px solid rgba(0,0,0,0.1); }
+
+  /* ======= GENERAL DARK/LIGHT STYLES ======= */
+  body { background-color: #1e1e1e !important; color: #d4d4d4 !important; transition: background-color 0.3s ease, color 0.3s ease; }
+  .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea { background: #1e1e1e !important; color: #d4d4d4 !important; transition: background-color 0.3s ease, color 0.3s ease; }
+  .jp-RenderedHTMLCommon, .jp-OutputArea-output { color: #d4d4d4 !important; transition: color 0.3s ease; }
+  html { scroll-behavior: smooth; } h1, h2, h3, h4, h5, h6 { scroll-margin-top: 20px; }
+  a:link, a:visited { color: #4aa3ff !important; } a:hover, a:active { color: #82c7ff !important; }
+  blockquote { border-left: 4px solid #569cd6; padding-left: 12px; margin-left: 0; font-style: italic; color: #cccccc; background: #2a2a2a; transition: all 0.3s ease; }
+  table { border-collapse: collapse; width: 100%; background: #1e1e1e; color: #d4d4d4; transition: all 0.3s ease; }
+  table, th, td { border: 1px solid #444; padding: 6px 10px; transition: border-color 0.3s ease; }
+  th { background: #2d2d2d; font-weight: bold; transition: background-color 0.3s ease; }
+  tr:nth-child(even) { background: #242424; transition: background-color 0.3s ease; }
+  body.light-mode { background-color: #ffffff !important; color: #333333 !important; }
+  body.light-mode .jp-Notebook, body.light-mode .jp-Cell, body.light-mode .jp-InputArea, body.light-mode .jp-OutputArea { background: #ffffff !important; color: #333333 !important; }
+  body.light-mode .jp-RenderedHTMLCommon, body.light-mode .jp-OutputArea-output { color: #333333 !important; }
+  body.light-mode a:link, body.light-mode a:visited { color: #0066cc !important; }
+  body.light-mode a:hover, body.light-mode a:active { color: #004499 !important; }
+  body.light-mode blockquote { border-left: 4px solid #0066cc; color: #555; background: #f5f5f5; }
+  body.light-mode table { background: #ffffff; color: #333333; }
+  body.light-mode table, body.light-mode th, body.light-mode td { border: 1px solid #ddd; }
+  body.light-mode th { background: #f5f5f5; }
+  body.light-mode tr:nth-child(even) { background: #f9f9f9; }
+  div.highlight { position: relative; overflow-x: auto; padding: 0.2px 0.2px; transition: background-color 0.3s ease; }
+  pre, code { background-color: #1e1e1e !important; border: none !important; color: #d4d4d4 !important; font-family: "Fira Code", Consolas, monospace !important; font-size: 13px; line-height: 1.5; white-space: pre; display: block; overflow-x: auto; max-width: 100%; transition: all 0.3s ease; }
+  body.light-mode pre, body.light-mode code { background-color: #f8f8f8 !important; color: #333333 !important; }
+  .copy-btn { position: absolute; top: 6px; right: 8px; background: #2d2d2d; color: #d4d4d4; border: 1px solid #444; border-radius: 6px; font-size: 11px; padding: 2px 6px; cursor: pointer; opacity: 0.6; z-index: 5; transition: all 0.3s ease; }
+  .copy-btn:hover { opacity: 1; background: #3a3a3a; }
+  body.light-mode .copy-btn { background: #e0e0e0; color: #333; border-color: #ccc; }
+  body.light-mode .copy-btn:hover { background: #d0d0d0; }
+  .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } .nf, .nc, .nn { color: #4fc1ff !important; } .n { color: #ffffff !important; } .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } .m, .mf, .mi, .il { color: #d19a66 !important; } .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } .o, .p { color: #d4d4d4 !important; }
+  body.light-mode .k, body.light-mode .kp, body.light-mode .kt, body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { color: #8B008B !important; } body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { color: #0000FF !important; } body.light-mode .n { color: #000000 !important; } body.light-mode .s, body.light-mode .sb, body.light-mode .sc, body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, body.light-mode .sa, body.light-mode .se { color: #008000 !important; } body.light-mode .m, body.light-mode .mf, body.light-mode .mi, body.light-mode .il { color: #FF4500 !important; } body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } body.light-mode .o, body.light-mode .p { color: #333333 !important; }
+  @media (max-width: 768px) { #timeline-nav { right: 10px !important; padding: 15px 8px !important; gap: 6px !important; } .timeline-line { height: 15px !important; } .theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 16px; } @media (max-width: 480px) { #timeline-nav { display: none !important; } } }
+
+  </style>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var themeToggle = document.createElement("button");
+    themeToggle.className = "theme-toggle";
+    themeToggle.innerHTML = "💡";
+    themeToggle.title = "Toggle light/dark mode";
+    var isDarkMode = true;
+    themeToggle.addEventListener("click", function() {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle("light-mode", !isDarkMode);
+      themeToggle.innerHTML = isDarkMode ? "💡" : "🌙";
+      themeToggle.title = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
     });
-    </script>
-    
+    document.body.appendChild(themeToggle);
+
+    var timelineNav = document.createElement("div");
+    timelineNav.id = "timeline-nav";
+    document.body.appendChild(timelineNav);
+
+    var tooltip = document.createElement("div");
+    tooltip.id = "timeline-tooltip";
+    document.body.appendChild(tooltip);
+
+    var fullList = document.createElement("div");
+    fullList.id = "timeline-full-list";
+    document.body.appendChild(fullList);
+
+    var headings = [];
+
+    function generateTimeline() {
+      headings = Array.from(document.querySelectorAll("h2"));
+      if (headings.length === 0) return;
+
+      headings.forEach(function(heading, index) {
+        if (!heading.id) heading.id = "heading-" + index;
+        if (index > 0) {
+          var line = document.createElement("div");
+          line.className = "timeline-line";
+          timelineNav.appendChild(line);
+        }
+        var dot = document.createElement("a");
+        dot.className = "timeline-dot future";
+        dot.href = "#" + heading.id;
+        dot.textContent = index + 1;  // number inside circle
+
+        dot.addEventListener("click", (e) => {
+          e.preventDefault();
+          heading.scrollIntoView({ behavior: "smooth" });
+        });
+
+        function cleanHeadingText(heading) {
+          let text = heading.textContent.trim();
+          // Remove pilcrow or any trailing symbols typically added by nbconvert
+          text = text.replace(/[¶]/g, ''); 
+          return text;
+        }
+
+        let hoverTimeout;
+        dot.addEventListener("mouseenter", () => {
+          // Show single tooltip
+          var text = cleanHeadingText(heading);
+          if (text.length > 40) text = text.substring(0, 40) + "...";
+          var rect = dot.getBoundingClientRect();
+          tooltip.innerHTML = '<div class="tooltip-text">' + text + '</div>';
+          tooltip.style.top = (rect.top + rect.height / 2 - tooltip.offsetHeight / 2) + 'px';
+          tooltip.style.left = (rect.left - tooltip.offsetWidth - 10) + 'px';
+          tooltip.style.opacity = '1';
+
+          // Show full list after 3s
+          hoverTimeout = setTimeout(() => {
+            fullList.innerHTML = "<ul>" + headings.map((h,i) => "<li>" + (i+1) + ". " + cleanHeadingText(h) + "</li>").join("") + "</ul>";
+            var navRect = timelineNav.getBoundingClientRect();
+            fullList.style.top = navRect.top + 'px';
+            fullList.style.left = (navRect.left - fullList.offsetWidth - 15) + 'px';
+            fullList.style.opacity = '1';
+          }, 1500);
+        });
+
+        dot.addEventListener("mouseleave", () => {
+          clearTimeout(hoverTimeout);
+          tooltip.style.opacity = '0';
+          fullList.style.opacity = '0';
+        });
+
+        timelineNav.appendChild(dot);
+      });
+
+      updateTimeline();
+    }
+
+    function updateTimeline() {
+      if (headings.length === 0) return;
+      var scrollPos = window.scrollY + (window.innerHeight / 2);
+      var currentIndex = -1;
+      for (var i = 0; i < headings.length; i++) { if (headings[i].offsetTop <= scrollPos) currentIndex = i; }
+
+      timelineNav.querySelectorAll(".timeline-dot").forEach((dot, index) => {
+        dot.className = "timeline-dot";
+        if (index < currentIndex) dot.classList.add("completed");
+        else if (index === currentIndex) dot.classList.add("current");
+        else dot.classList.add("future");
+      });
+
+      timelineNav.querySelectorAll(".timeline-line").forEach((line, index) => {
+        line.classList.toggle("completed", index < currentIndex);
+      });
+    }
+
+    var scrollTimeout;
+    window.addEventListener("scroll", () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(updateTimeline, 50); });
+
+    document.querySelectorAll("div.highlight").forEach(block => {
+      var btn = document.createElement("button");
+      btn.innerHTML = "Copy"; btn.className = "copy-btn"; btn.title = "Copy code";
+      btn.addEventListener("click", e => {
+        e.stopPropagation();
+        var code = block.querySelector("pre, code").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          btn.innerHTML = "Copied!";
+          setTimeout(() => { btn.innerHTML = "Copy"; }, 1500);
+        });
+      });
+      block.appendChild(btn);
+    });
+
+    generateTimeline();
+  });
+  </script>
+  
 </body>
 </html>

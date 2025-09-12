@@ -92,7 +92,7 @@ def hc(title: str, keywords: list[str] = []):
         
         <!-- Header text -->
         <div style="flex: 1;">
-            <h2 class="hc-title">{title}</h2>
+            <h1 class="hc-title">{title}</h2>
             <p class="hc-keywords">{keywords_str}</p>
         </div>
     </div>
