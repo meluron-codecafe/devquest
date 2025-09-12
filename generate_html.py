@@ -248,8 +248,6 @@ def inject_css(html: str) -> str:
       .jp-Cell {
         margin-right: 0 !important;
       }
-      
-      #timeline-nav { display: none !important; } 
     }
     </style>
     """
