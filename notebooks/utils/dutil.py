@@ -122,22 +122,24 @@ def toc(tasks, title="Quick Navigation"):
 
     <!-- Command Palette -->
     <div id="cmd-palette" style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
-        width: 450px;
-        background: rgba(20, 20, 20, 0.98);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 8px;
-        backdrop-filter: blur(20px);
-        z-index: 1001;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.2s ease;
-        font-family: 'Monaco', 'Menlo', monospace;
-        font-size: 13px;
-    ">
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%) scale(0.9);
+	    width: 90%;
+	    max-width: 450px;
+	    min-width: 280px;
+	    background: rgba(20, 20, 20, 0.98);
+	    border: 1px solid rgba(255,255,255,0.1);
+	    border-radius: 8px;
+	    backdrop-filter: blur(20px);
+	    z-index: 1001;
+	    opacity: 0;
+	    visibility: hidden;
+	    transition: all 0.2s ease;
+	    font-family: 'Monaco', 'Menlo', monospace;
+	    font-size: 13px;
+	">
         <!-- Header -->
         <div style="
             padding: 12px 16px;

@@ -7523,81 +7523,81 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div style="
+<style>
+    .hc-wrapper {
         display: flex;
         align-items: center;
         font-family: 'Georgia', serif;
-        border-left: 3px solid #ccc;
+        border-left: 3px solid #666;
         padding-left: 12px;
+        margin-top: 1em;  /* prevent overlap with buttons */
         margin-bottom: 1em;
         gap: 20px;
-    ">
-<!-- Calendar on the left (dark mode only) -->
-<div style="
-            display: inline-block;
-            font-family: 'Arial', sans-serif;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 1px 1px 6px rgba(0,0,0,0.6);
-            width: 120px;
-            font-size: 12px;
-            text-align: center;
-            flex-shrink: 0;
-        ">
-<!-- Last modified label -->
-<div style="
-                background: #333;
-                color: #ddd;
-                padding: 4px 0;
-                font-weight: bold;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            ">
-                Last modified
-            </div>
-<!-- Main calendar -->
-<div>
-<div style="
-                    background: #007acc;
-                    color: white;
-                    padding: 5px 0;
-                    font-weight: bold;
-                ">
-                    Sep, 2025
-                </div>
-<div style="
-                    background: #2d2d2d;
-                    color: #ddd;
-                    padding: 8px 0;
-                    font-size: 20px;
-                    font-weight: bold;
-                ">
-                    12
-                </div>
-<div style="
-                    background: #333;
-                    color: #ddd;
-                    padding: 4px 0;
-                    font-size: 12px;
-                ">
-                    06:15:21 AM
-                </div>
+    }
+    .hc-calendar {
+        display: inline-block;
+        font-family: 'Arial', sans-serif;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #2d2d2d;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        width: 120px;
+        font-size: 12px;
+        text-align: center;
+        flex-shrink: 0;
+        border: 1px solid #444;
+    }
+    .hc-header {
+        background: #333;
+        color: #ddd;
+        padding: 4px 0;
+        font-weight: bold;
+        font-size: 11px;
+    }
+    .hc-month {
+        background: #4aa3ff;
+        color: #fff;
+        padding: 5px 0;
+        font-weight: bold;
+    }
+    .hc-day {
+        background: #3a3a3a;
+        color: #eee;
+        padding: 8px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .hc-time {
+        background: #333;
+        color: #bbb;
+        padding: 4px 0;
+        font-size: 12px;
+    }
+    .hc-title {
+        margin: 0;
+        color: #EF8C00;
+        font-size: 2.4em;
+        line-height: 1.2em;
+        word-break: break-word;
+    }
+    .hc-keywords {
+        margin: 0.5em 0 0 0;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+    </style>
+<div class="hc-wrapper">
+<!-- Calendar -->
+<div class="hc-calendar">
+<div class="hc-header">Last modified</div>
+<div class="hc-month">Sep, 2025</div>
+<div class="hc-day">12</div>
+<div class="hc-time">06:25:28 AM</div>
 </div>
-</div>
-<!-- Header content on the right (unchanged) -->
+<!-- Header text -->
 <div style="flex: 1;">
-<h2 style="
-                margin: 0;
-                color: #EF8C00;
-                font-size: 2.4em;
-                padding-left: 0;
-                text-indent: 0;
-            ">
-                Probability
-            </h2>
-<p class="keywords" style="margin: 0.5em 0 0 0;">
-                ;
-            </p>
+<h2 class="hc-title">Probability</h2>
+<p class="hc-keywords keywords">;</p>
 </div>
 </div>
 </div>
