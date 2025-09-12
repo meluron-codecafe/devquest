@@ -154,6 +154,21 @@
     }
     
     /* Tooltip styles */
+    .info-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid var(--link-color);
+        background: transparent;
+        color: var(--link-color);
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
     .tooltip {
         position: absolute;
         background: var(--container-bg);
@@ -284,7 +299,7 @@
                 <th>
                     <div class="category-header">
                         Category
-                        <span class="info-icon" id="categoryInfo">i</span>
+                        <span class="info-icon" id="categoryInfo">?</span>
                     </div>
                 </th>
                 <th>Topic</th>
@@ -297,6 +312,7 @@
     
     <!-- Tooltip for category info -->
     <div id="categoryTooltip" class="tooltip"></div>
+    
 </div>
     
 <div class="footer">
