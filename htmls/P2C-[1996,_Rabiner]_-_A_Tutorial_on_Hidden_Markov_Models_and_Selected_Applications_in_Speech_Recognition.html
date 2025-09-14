@@ -8448,6 +8448,7 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       text-decoration: none;
       box-shadow: none;
       color: #ccc;
+      flex-shrink: 0; /* Prevent button from shrinking */
     }
     
     .report-issue-btn:hover {
@@ -8611,7 +8612,7 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     body.light-mode .copy-btn { background: #e0e0e0; color: #333; border-color: #ccc; }
     body.light-mode .copy-btn:hover { background: #d0d0d0; }
     .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } .nf, .nc, .nn { color: #4fc1ff !important; } .n { color: #ffffff !important; } .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } .m, .mf, .mi, .il { color: #d19a66 !important; } .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } .o, .p { color: #d4d4d4 !important; }
-    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { color: #8B008B !important; } body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { color: #0000FF !important; } body.light-mode .n { color: #000000 !important; } body.light-mode .s, body.light-mode .sb, body.light-mode .sc, body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, body.light-mode .sa, body.light-mode .se { color: #008000 !important; } body.light-mode .m, body.light-mode .mf, body.light-mode .mi, body.light-mode .il { color: #FF4500 !important; } body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } body.light-mode .o, body.light-mode .p { color: #333333 !important; }
+    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { color: #8B008B !important; } body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { color: #0000FF !important; } body.light-mode .n { color: #000000 !important; } body.light-mode .s, body.light-mode .sb, body.light-mode .sc, body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, body.light-mode .sa, body.light-mode .se { color: #008000 !important; } body.light-mode .m, body.light-mode .mf, body.light-mode .mi, body.light-mode .il { color: #d19a66 !important; } body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     
     /* ======= MOBILE RESPONSIVE ======= */
     @media (max-width: 768px) { 
@@ -8668,38 +8669,44 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     
     @media (max-width: 480px) { 
       body {
-        margin-right: 0 !important; /* No margin on phones since timeline is hidden */
+        margin-right: 50px !important; /* Keep some space for timeline on phones */
       }
       
       .jp-Notebook {
-        max-width: 100% !important;
+        max-width: calc(100% - 50px) !important; /* Account for timeline space */
       }
       
       .jp-Cell {
-        margin-right: 0 !important;
+        margin-right: 5px !important; /* Small margin on phones */
       }
       
       .button-container {
-        flex-direction: column;
-        gap: 6px;
-        padding: 6px;
+        /* Keep horizontal layout on phones - don't force vertical */
+        flex-direction: row !important; /* Override any column direction */
+        gap: 8px; /* Maintain horizontal spacing */
+        padding: 8px;
         top: 10px;
         right: 10px;
+        /* Make container more compact but keep horizontal layout */
+        align-items: center;
+        justify-content: center;
       }
       
       .switch-container {
-        flex-direction: column;
-        gap: 4px;
+        /* Keep horizontal layout for switch container too */
+        flex-direction: row !important;
+        gap: 6px;
+        align-items: center;
       }
       
       .switch {
-        width: 44px;
-        height: 22px;
+        width: 42px;
+        height: 20px;
       }
       
       .switch-knob {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
       }
       
       .switch.on .switch-knob {
@@ -8708,7 +8715,7 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       
       .switch-icons {
         font-size: 14px;
-        gap: 2px;
+        gap: 3px;
       }
       
       .report-issue-btn {
@@ -8717,7 +8724,96 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
         font-size: 14px;
       }
       
-      #timeline-nav { display: none !important; } /* Hide timeline on small screens */
+      /* Make timeline more compact on phones but keep it visible */
+      #timeline-nav { 
+        right: 5px !important; 
+        padding: 10px 6px !important; 
+        gap: 4px !important;
+        /* Make timeline smaller but still functional */
+        transform: translateY(-50%) scale(0.9) !important;
+        border-radius: 20px !important;
+      } 
+      
+      .timeline-dot {
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 10px !important;
+        margin: -6px !important;
+      }
+      
+      .timeline-line { 
+        height: 12px !important; 
+        width: 1px !important;
+      }
+      
+      /* Adjust tooltip positioning for smaller timeline */
+      #timeline-tooltip {
+        font-size: 10px !important;
+        padding: 6px 8px !important;
+      }
+      
+      #timeline-full-list {
+        font-size: 10px !important;
+        padding: 8px 10px !important;
+        max-height: 60vh !important;
+      }
+    }
+    
+    /* Extra small phones - timeline becomes even more compact */
+    @media (max-width: 360px) {
+      body {
+        margin-right: 40px !important;
+      }
+      
+      .jp-Notebook {
+        max-width: calc(100% - 40px) !important;
+      }
+      
+      .button-container {
+        gap: 6px;
+        padding: 6px;
+      }
+      
+      .switch {
+        width: 38px;
+        height: 18px;
+      }
+      
+      .switch-knob {
+        width: 14px;
+        height: 14px;
+      }
+      
+      .switch.on .switch-knob {
+        transform: translateX(20px);
+      }
+      
+      .switch-icons {
+        font-size: 12px;
+        gap: 2px;
+      }
+      
+      .report-issue-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+      
+      #timeline-nav {
+        transform: translateY(-50%) scale(0.8) !important;
+        padding: 8px 4px !important;
+        gap: 3px !important;
+      }
+      
+      .timeline-dot {
+        width: 14px !important;
+        height: 14px !important;
+        font-size: 9px !important;
+      }
+      
+      .timeline-line {
+        height: 10px !important;
+      }
     }
     </style>
     
