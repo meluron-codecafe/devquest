@@ -8440,54 +8440,145 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
 </main>
 
     <style>
-    /* ======= THEME TOGGLE BUTTON ======= */
-    .theme-toggle {
+    /* ======= BUTTON CONTAINER ======= */
+    .button-container {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: #2d2d2d;
-      color: #d4d4d4;
+      background: rgba(45, 45, 45, 0.95);
       border: 2px solid #444;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      cursor: pointer;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
       z-index: 1000;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .button-container:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+    }
+
+    /* ======= SWITCH TOGGLE STYLES ======= */
+    .switch-container {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
     }
-    .theme-toggle:hover { background: #3a3a3a; transform: scale(1.1); }
-    body.light-mode .theme-toggle { background: #f5f5f5; color: #333; border-color: #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    body.light-mode .theme-toggle:hover { background: #e0e0e0; }
     
-    /* ======= REPORT ISSUE BUTTON (SAME STYLE AS THEME TOGGLE) ======= */
-    .report-issue-btn {
-      position: fixed;
-      top: 20px;
-      right: 80px;
-      background: #2d2d2d;
-      color: #d4d4d4;
-      border: 2px solid #444;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
+    .switch {
+      position: relative;
+      width: 54px;
+      height: 28px;
+      background: #666;
+      border-radius: 14px;
       cursor: pointer;
-      z-index: 1000;
+      transition: background-color 0.3s ease;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+    
+    .switch.on {
+      background: #4ea3ff;
+    }
+    
+    .switch-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      pointer-events: none;
+    }
+    
+    .switch.on .switch-knob {
+      transform: translateX(26px);
+    }
+    
+    .switch-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 18px;
+      pointer-events: none;
+    }
+    
+    .switch-icon {
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    
+    .switch.on .switch-icon.light {
+      opacity: 1;
+    }
+    
+    .switch:not(.on) .switch-icon.dark {
+      opacity: 1;
+    }
+
+    /* ======= REPORT ISSUE BUTTON ======= */
+    .report-issue-btn {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      font-size: 18px;
+      transition: transform 0.3s ease, color 0.3s ease;
       text-decoration: none;
+      box-shadow: none;
+      color: #ccc;
     }
-    .report-issue-btn:hover { background: #3a3a3a; transform: scale(1.1); }
-    body.light-mode .report-issue-btn { background: #f5f5f5; color: #333; border-color: #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    body.light-mode .report-issue-btn:hover { background: #e0e0e0; }
+    
+    .report-issue-btn:hover {
+      transform: scale(1.1);
+      background: transparent;
+    }
+
+    /* ======= LIGHT MODE BUTTON STYLES ======= */
+    body.light-mode .button-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: #ddd;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    body.light-mode .switch {
+      background: #ccc;
+    }
+    
+    body.light-mode .switch.on {
+      background: #4ea3ff;
+    }
+    
+    body.light-mode .report-issue-btn {
+      background: transparent !important;
+      color: #333;
+      border: none !important;
+      border-radius: 0;
+      box-shadow: none !important;
+    }
+    
+    body.light-mode .report-issue-btn:hover {
+      background: transparent !important;
+      box-shadow: none !important;
+      transform: scale(1.1);
+    }
+
     
     /* ======= CONTENT SPACING FOR TIMELINE ======= */
     body {
@@ -8496,12 +8587,12 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
     }
     
     .jp-Notebook {
-      max-width: calc(100% - 80px) !important; /* Ensure notebook doesn't extend into timeline area */
+      max-width: calc(100% - 200px) !important; /* Ensure notebook doesn't extend into timeline area */
       margin-right: 0 !important;
     }
     
     .jp-Cell {
-      margin-right: 20px !important; /* Additional margin for cells */
+      margin-right: 40px !important; /* Additional margin for cells */
     }
     
     /* ======= VERTICAL TIMELINE TOC (RIGHT) ======= */
@@ -8610,7 +8701,7 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
     div.highlight { position: relative; overflow-x: auto; padding: 0.2px 0.2px; transition: background-color 0.3s ease; }
     pre, code { background-color: #1e1e1e !important; border: none !important; color: #d4d4d4 !important; font-family: "Fira Code", Consolas, monospace !important; font-size: 13px; line-height: 1.5; white-space: pre; display: block; overflow-x: auto; max-width: 100%; transition: all 0.3s ease; }
     body.light-mode pre, body.light-mode code { background-color: #f8f8f8 !important; color: #333333 !important; }
-    .copy-btn { position: absolute; top: 6px; right: 8px; background: #2d2d2d; color: #d4d4d4; border: 1px solid #444; border-radius: 6px; font-size: 11px; padding: 2px 6px; cursor: pointer; opacity: 0.6; z-index: 5; transition: all 0.3s ease; }
+    .copy-btn { position: absolute; top: 6px; right: 8px; background: #2d2d2d; color: #d4d4d4; border: 1px solid #444; border-radius: 6px; font-size: 14px; padding: 2px 6px; cursor: pointer; opacity: 0.6; z-index: 5; transition: all 0.3s ease; }
     .copy-btn:hover { opacity: 1; background: #3a3a3a; }
     body.light-mode .copy-btn { background: #e0e0e0; color: #333; border-color: #ccc; }
     body.light-mode .copy-btn:hover { background: #d0d0d0; }
@@ -8631,20 +8722,43 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
         margin-right: 10px !important; /* Less margin on tablets */
       }
       
+      .button-container {
+        top: 10px;
+        right: 10px;
+        padding: 8px;
+        gap: 8px;
+      }
+      
+      .switch {
+        width: 48px;
+        height: 24px;
+      }
+      
+      .switch-knob {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .switch.on .switch-knob {
+        transform: translateX(24px);
+      }
+      
+      .switch-icons {
+        font-size: 16px;
+      }
+      
+      .report-issue-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+      
       #timeline-nav { 
         right: 10px !important; 
         padding: 15px 8px !important; 
         gap: 6px !important; 
       } 
-      .timeline-line { height: 15px !important; } 
-      .theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 16px; } 
-      .report-issue-btn { 
-        top: 10px; 
-        right: 60px; 
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
+      .timeline-line { height: 15px !important; }
     }
     
     @media (max-width: 480px) { 
@@ -8660,34 +8774,93 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
         margin-right: 0 !important;
       }
       
-      .theme-toggle { top: 10px; right: 10px; }
-      .report-issue-btn { 
-        top: 60px; 
-        right: 10px; 
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+      .button-container {
+        flex-direction: column;
+        gap: 6px;
+        padding: 6px;
+        top: 10px;
+        right: 10px;
       }
+      
+      .switch-container {
+        flex-direction: column;
+        gap: 4px;
+      }
+      
+      .switch {
+        width: 44px;
+        height: 22px;
+      }
+      
+      .switch-knob {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .switch.on .switch-knob {
+        transform: translateX(22px);
+      }
+      
+      .switch-icons {
+        font-size: 14px;
+        gap: 2px;
+      }
+      
+      .report-issue-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+      }
+      
+      #timeline-nav { display: none !important; } /* Hide timeline on small screens */
     }
     </style>
     
   <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Theme toggle button
-    var themeToggle = document.createElement("button");
-    themeToggle.className = "theme-toggle";
-    themeToggle.innerHTML = "💡";
-    themeToggle.title = "Toggle light/dark mode";
+    // Create button container
+    var buttonContainer = document.createElement("div");
+    buttonContainer.className = "button-container";
+
+    // Theme toggle switch
+    var switchContainer = document.createElement("div");
+    switchContainer.className = "switch-container";
+    
+    var switchIcons = document.createElement("div");
+    switchIcons.className = "switch-icons";
+    
+    var darkIcon = document.createElement("span");
+    darkIcon.className = "switch-icon dark";
+    darkIcon.innerHTML = "🌙";
+    
+    var switchElement = document.createElement("div");
+    switchElement.className = "switch";
+    
+    var switchKnob = document.createElement("div");
+    switchKnob.className = "switch-knob";
+    switchElement.appendChild(switchKnob);
+    
+    var lightIcon = document.createElement("span");
+    lightIcon.className = "switch-icon light";
+    lightIcon.innerHTML = "☀️";
+    
+    switchIcons.appendChild(darkIcon);
+    switchIcons.appendChild(switchElement);
+    switchIcons.appendChild(lightIcon);
+    switchContainer.appendChild(switchIcons);
+    
     var isDarkMode = true;
-    themeToggle.addEventListener("click", function() {
+    
+    function toggleTheme() {
       isDarkMode = !isDarkMode;
       document.body.classList.toggle("light-mode", !isDarkMode);
-      themeToggle.innerHTML = isDarkMode ? "💡" : "🌙";
-      themeToggle.title = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
-    });
-    document.body.appendChild(themeToggle);
+      switchElement.classList.toggle("on", !isDarkMode);
+    }
+    
+    switchElement.addEventListener("click", toggleTheme);
+    switchContainer.addEventListener("click", toggleTheme);
 
-    // Report issue button - SAME STYLE AS THEME TOGGLE
+    // Report issue button
     var reportIssueBtn = document.createElement("a");
     reportIssueBtn.className = "report-issue-btn";
     reportIssueBtn.innerHTML = "⚠️";
@@ -8700,8 +8873,12 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
     var issueBody = encodeURIComponent("Tutorial Page: " + window.location.href + "\n\nMention Issue: \n");
     reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + issueTitle + "&body=" + issueBody;
     
-    document.body.appendChild(reportIssueBtn);
+    // Add components to container and container to body
+    buttonContainer.appendChild(switchContainer);
+    buttonContainer.appendChild(reportIssueBtn);
+    document.body.appendChild(buttonContainer);
 
+    // Timeline functionality
     var timelineNav = document.createElement("div");
     timelineNav.id = "timeline-nav";
     document.body.appendChild(timelineNav);
@@ -8755,7 +8932,7 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
           tooltip.style.left = (rect.left - tooltip.offsetWidth - 10) + 'px';
           tooltip.style.opacity = '1';
 
-          // Show full list after 3s
+          // Show full list after 1.5s
           hoverTimeout = setTimeout(() => {
             fullList.innerHTML = "<ul>" + headings.map((h,i) => "<li>" + (i+1) + ". " + cleanHeadingText(h) + "</li>").join("") + "</ul>";
             var navRect = timelineNav.getBoundingClientRect();
@@ -8798,6 +8975,7 @@ Cell <span class="ansi-green-fg">In[27], line 1</span>
     var scrollTimeout;
     window.addEventListener("scroll", () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(updateTimeline, 50); });
 
+    // Copy button functionality for code blocks
     document.querySelectorAll("div.highlight").forEach(block => {
       var btn = document.createElement("button");
       btn.innerHTML = "Copy"; btn.className = "copy-btn"; btn.title = "Copy code";
