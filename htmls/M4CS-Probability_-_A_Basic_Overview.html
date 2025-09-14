@@ -7591,13 +7591,13 @@ a.anchor-link {
 <div class="hc-calendar">
 <div class="hc-header">Last modified</div>
 <div class="hc-month">Sep, 2025</div>
-<div class="hc-day">12</div>
-<div class="hc-time">07:10:40 PM</div>
+<div class="hc-day">14</div>
+<div class="hc-time">05:03:13 PM</div>
 </div>
 <!-- Header text -->
 <div style="flex: 1;">
 <h1 class="hc-title">Probability - A Basic Overview</h1>
-<p class="hc-keywords keywords">;</p>
+<p class="hc-keywords keywords"></p>
 </div>
 </div>
 </div>
@@ -7858,7 +7858,7 @@ $\{\phi, \{H\}, \{T\}, \{H, T\}\}$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>As mentioned above, sample space is a <em>set</em> of outcomes, event is a subset of <em>sample space</em>. It is going to be helpful if we learn some basics of set. In this section we discuss about some operations that we can perform on a set.</p>
 <p>A set is a collection of unique (no repetition) objects with no ordering. The objects are also known as elements of the set. If an element $a$ belongs to the set $S$ then we denote it as $a \in S$ (read as 'a' belongs to 'S').</p>
-<p>We will discuss set opertation in context to events (which is nothing but a set) to build some intuition for the subject of study (Probability).</p>
+<p>We will discuss set opertation in context to events (which is nothing but a set) to build some intuition for the subject of our focus (Probability).</p>
 </div>
 </div>
 </div>
@@ -7880,7 +7880,8 @@ $\{\phi, \{H\}, \{T\}, \{H, T\}\}$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>A <strong>union</strong> of events $A, B, C$ is an event say $Z$ consiting of all the outcomes in all these events.</p>
+<p>A <strong>union</strong> of events $A, B, C, ...$ is an event say $Z$ consiting of all the outcomes in all these events. So the probabality of $Z$ to occur is the probability that any of $A, B, C, ...$ occurs. Union corresponds to <strong>OR</strong> and is denoted by $\cup$. Mathematically, we write <br/>
+$Z = A \cup B \cup C \cup ...$</p>
 </div>
 </div>
 </div>
@@ -7891,6 +7892,8 @@ $\{\phi, \{H\}, \{T\}, \{H, T\}\}$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Intersection">Intersection<a class="anchor-link" href="#Intersection">¶</a></h3><p>An <strong>intesection</strong> of events $A, B, C, ...$ is an event say $Z$ consisting of outcomes that are common in all these events. So the probability of $Z$ to occur is the probability that all of $A, B, C, ...$ occurs. Intersection corresponds to <strong>AND</strong> and is denoted by $\cap$. Mathematically we write <br/>
+$Z = A \cap B \cap C \cap ...$</p>
 </div>
 </div>
 </div>
@@ -7901,6 +7904,81 @@ $\{\phi, \{H\}, \{T\}, \{H, T\}\}$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Complement">Complement<a class="anchor-link" href="#Complement">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=30b6f511-87ad-4a99-8a27-bace074f98cc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>A <strong>complement</strong> of an event $A$ is an event say $Z$ that occurs when $A$ does not occur. So the probality of the complement to occur is $1$ minus the probability of $A$ to occur. Complement corresponds to <strong>NOT</strong> and is denoted by $\bar A$. Mathematically we write <br/>
+$Z = \bar A$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a298848e-e394-4ac9-86da-b902101eb49d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Difference">Difference<a class="anchor-link" href="#Difference">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b060fd88-a2c6-4f91-a556-044da49717a6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>A difference of events $A$ and $B$ is an event say $Z$ consisting of all the outcomes in $A$ but not in $B$. So the probablity of the difference of $A$ and $B$ is the probability that $A$ occurs but not $B$. Difference corresponds to <strong>BUT NOT</strong> and is denoted by $A$ \ $B$. Mathematically, we write <br/>
+$Z = A - B$</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=decc2b12-1f70-4626-8f87-df7949ca345d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5cc8ee41-e970-478d-9b0a-3bf54338a896">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Exercise</strong>: Write a python class to demonstrate all the set operations, along with a method to visualise them as venn diagram.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5e75b89d-a7d5-4f7a-a771-cedfc8ccc875">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>

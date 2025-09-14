@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:a2e90fa7d9b1209e0f1c58dcddea687d87f02a9bcdbc7445a86d1d3c68c5aef3"
+content_hash = "sha256:b901bfd098dbc322de8d5655393a9d5b91f145fb0e173752d69f80932b7c3060"
 
 [[metadata.targets]]
 requires_python = "==3.10.*"
@@ -1004,6 +1004,19 @@ dependencies = [
 files = [
     {file = "matplotlib_inline-0.1.7-py3-none-any.whl", hash = "sha256:df192d39a4ff8f21b1895d72e6a13f5fcc5099f00fa84384e0ea28c2cc0653ca"},
     {file = "matplotlib_inline-0.1.7.tar.gz", hash = "sha256:8423b23ec666be3d16e16b60bdd8ac4e86e840ebd1dd11a30b9f117f2fa0ab90"},
+]
+
+[[package]]
+name = "matplotlib-venn"
+version = "1.1.2"
+summary = ""
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "scipy",
+]
+files = [
+    {file = "matplotlib-venn-1.1.2.tar.gz", hash = "sha256:6f2b07a03e9bb5a62de2f32f965216739e175176f9d654dd19e7af2c22ec36e3"},
 ]
 
 [[package]]

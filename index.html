@@ -11,6 +11,7 @@
         --border-color: #555;
         --hover-bg: #2a2a2a;
         --link-color: #4ea3ff;
+        --topic-link-color: #aad4ff;
         --table-header-bg: #2b2b2b;
         --quote-color: #bbb;
         --footer-color: #999;
@@ -22,6 +23,7 @@
         --border-color: #ccc;
         --hover-bg: #fafafa;
         --link-color: #0066cc;
+        --topic-link-color: #0066cc;
         --table-header-bg: #f5f5f5;
         --quote-color: #777;
         --footer-color: #777;
@@ -238,10 +240,9 @@
     
     /* Table links (topics) */
     #tutorialTable a {
-        color: #aad4ff; /* lighter, softer blue */
-        text-decoration: none; /* remove underline by default */
-        font-weight: 500; /* optional: slightly bold */
-        word-break: break-word; /* break long topic names nicely */
+        color: var(--topic-link-color);
+        text-decoration: none;
+        font-weight: 500;
     }
     
     #tutorialTable a:hover {

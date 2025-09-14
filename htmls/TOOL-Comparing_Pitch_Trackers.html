@@ -7947,6 +7947,31 @@ Pyreaper runtime: 12.437392 sec
     body.light-mode .theme-toggle { background: #f5f5f5; color: #333; border-color: #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
     body.light-mode .theme-toggle:hover { background: #e0e0e0; }
     
+    /* ======= REPORT ISSUE BUTTON (SAME STYLE AS THEME TOGGLE) ======= */
+    .report-issue-btn {
+      position: fixed;
+      top: 20px;
+      right: 80px;
+      background: #2d2d2d;
+      color: #d4d4d4;
+      border: 2px solid #444;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      text-decoration: none;
+    }
+    .report-issue-btn:hover { background: #3a3a3a; transform: scale(1.1); }
+    body.light-mode .report-issue-btn { background: #f5f5f5; color: #333; border-color: #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    body.light-mode .report-issue-btn:hover { background: #e0e0e0; }
+    
     /* ======= CONTENT SPACING FOR TIMELINE ======= */
     body {
       margin-right: 80px !important; /* Space for timeline */
@@ -8018,7 +8043,7 @@ Pyreaper runtime: 12.437392 sec
   
     .timeline-line { width: 2px; height: 25px; background: #374151; transition: all 0.3s ease; flex-shrink: 0; }
     .timeline-line.completed { background: #4ade80; }
-  
+
     /* Timeline Tooltip (for single dots) */
     #timeline-tooltip {
       position: fixed; background: rgba(0,0,0,0.9); color: white; padding: 8px 12px; border-radius: 8px;
@@ -8096,6 +8121,13 @@ Pyreaper runtime: 12.437392 sec
       } 
       .timeline-line { height: 15px !important; } 
       .theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 16px; } 
+      .report-issue-btn { 
+        top: 10px; 
+        right: 60px; 
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
     
     @media (max-width: 480px) { 
@@ -8110,11 +8142,21 @@ Pyreaper runtime: 12.437392 sec
       .jp-Cell {
         margin-right: 0 !important;
       }
+      
+      .theme-toggle { top: 10px; right: 10px; }
+      .report-issue-btn { 
+        top: 60px; 
+        right: 10px; 
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
     </style>
     
   <script>
   document.addEventListener("DOMContentLoaded", function() {
+    // Theme toggle button
     var themeToggle = document.createElement("button");
     themeToggle.className = "theme-toggle";
     themeToggle.innerHTML = "💡";
@@ -8127,6 +8169,21 @@ Pyreaper runtime: 12.437392 sec
       themeToggle.title = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
     });
     document.body.appendChild(themeToggle);
+
+    // Report issue button - SAME STYLE AS THEME TOGGLE
+    var reportIssueBtn = document.createElement("a");
+    reportIssueBtn.className = "report-issue-btn";
+    reportIssueBtn.innerHTML = "⚠️";
+    reportIssueBtn.title = "Report an issue in this notebook";
+    reportIssueBtn.target = "_blank";
+    reportIssueBtn.rel = "noopener noreferrer";
+    
+    // Construct GitHub URL
+    var issueTitle = "[Tutorial Content Issue]";
+    var issueBody = encodeURIComponent("Tutorial Page: " + window.location.href + "\n\nMention Issue: \n");
+    reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + issueTitle + "&body=" + issueBody;
+    
+    document.body.appendChild(reportIssueBtn);
 
     var timelineNav = document.createElement("div");
     timelineNav.id = "timeline-nav";
