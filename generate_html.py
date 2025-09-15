@@ -57,7 +57,7 @@ def inject_css(html: str) -> str:
   - Markdown/output cells: simple dark/light mode toggle.
   - Right Vertical Timeline TOC: Vertical progress timeline on the right.
   - Hover for 3s on timeline to see all headings (numbered).
-  - Button container with switch toggle for themes and report issue button.
+  - Button container with switch toggle for themes, report issue button, and aligned download button with arrow-only rotation.
   """
   theme_css = """
     <style>
@@ -164,12 +164,63 @@ def inject_css(html: str) -> str:
       text-decoration: none;
       box-shadow: none;
       color: #ccc;
-      flex-shrink: 0; /* Prevent button from shrinking */
+      flex-shrink: 0;
     }
     
     .report-issue-btn:hover {
       transform: scale(1.1);
       background: transparent;
+    }
+
+    /* ======= DOWNLOAD BUTTON STYLES ======= */
+    .download-btn {
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      width: 40px !important;
+      height: 40px !important;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white !important;
+      text-decoration: none;
+      transition: none;
+      flex-shrink: 0;
+      padding: 0;
+      gap: 2px;
+    }
+    
+    .download-btn:hover {
+      transform: none;
+      background: transparent !important;
+    }
+    
+    .download-btn .download-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5px;
+      margin-top: -5px;
+    }
+    
+    .download-btn .download-arrow {
+      font-size: 20px;
+      color: white !important;
+      transition: transform 0.6s ease;
+    }
+    
+    .download-btn.clicked .download-arrow {
+      transform: rotate(360deg);
+    }
+    
+    .download-btn .download-line {
+      width: 14px;
+      height: 3px;
+      background: white !important;
+      transition: background 0.3s ease;
     }
 
     /* ======= LIGHT MODE BUTTON STYLES ======= */
@@ -201,20 +252,38 @@ def inject_css(html: str) -> str:
       transform: scale(1.1);
     }
 
+    body.light-mode .download-btn {
+      color: black !important;
+      background: transparent !important;
+      border: none !important;
+    }
     
+    body.light-mode .download-btn .download-arrow {
+      color: black !important;
+    }
+    
+    body.light-mode .download-btn .download-line {
+      background: black !important;
+    }
+    
+    body.light-mode .download-btn:hover {
+      background: transparent !important;
+      transform: none;
+    }
+
     /* ======= CONTENT SPACING FOR TIMELINE ======= */
     body {
-      margin-right: 80px !important; /* Space for timeline */
+      margin-right: 80px !important;
       transition: margin-right 0.3s ease;
     }
     
     .jp-Notebook {
-      max-width: calc(100% - 200px) !important; /* Ensure notebook doesn't extend into timeline area */
+      max-width: calc(100% - 240px) !important;
       margin-right: 0 !important;
     }
     
     .jp-Cell {
-      margin-right: 40px !important; /* Additional margin for cells */
+      margin-right: 40px !important;
     }
     
     /* ======= VERTICAL TIMELINE TOC (RIGHT) ======= */
@@ -237,7 +306,7 @@ def inject_css(html: str) -> str:
       justify-content: center;
       font-size: 11px;
       font-weight: 444;
-      color: red !important; /* default for dark mode */
+      color: white !important;
       transition: all 0.3s ease;
       text-decoration: none;
       cursor: pointer;
@@ -250,8 +319,8 @@ def inject_css(html: str) -> str:
     .timeline-dot:visited,
     .timeline-dot:hover,
     .timeline-dot:active {
-      color: white !important;  /* dark mode */
-      text-decoration: none;    /* remove underline */
+      color: white !important;
+      text-decoration: none;
     }
     
     body.light-mode .timeline-dot,
@@ -259,7 +328,7 @@ def inject_css(html: str) -> str:
     body.light-mode .timeline-dot:visited,
     body.light-mode .timeline-dot:hover,
     body.light-mode .timeline-dot:active {
-      color: white !important;  /* light mode */
+      color: white !important;
     }
       
     .timeline-dot.completed { background: #228B22; color: black; }
@@ -274,7 +343,7 @@ def inject_css(html: str) -> str:
     .timeline-line { width: 2px; height: 25px; background: #374151; transition: all 0.3s ease; flex-shrink: 0; }
     .timeline-line.completed { background: #4ade80; }
 
-    /* Timeline Tooltip (for single dots) */
+    /* Timeline Tooltip */
     #timeline-tooltip {
       position: fixed; background: rgba(0,0,0,0.9); color: white; padding: 8px 12px; border-radius: 8px;
       font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none;
@@ -333,7 +402,7 @@ def inject_css(html: str) -> str:
     /* ======= MOBILE RESPONSIVE ======= */
     @media (max-width: 768px) { 
       body {
-        margin-right: 60px !important; /* Less space on tablets */
+        margin-right: 60px !important;
       }
       
       .jp-Notebook {
@@ -341,7 +410,7 @@ def inject_css(html: str) -> str:
       }
       
       .jp-Cell {
-        margin-right: 10px !important; /* Less margin on tablets */
+        margin-right: 10px !important;
       }
       
       .button-container {
@@ -375,6 +444,21 @@ def inject_css(html: str) -> str:
         font-size: 16px;
       }
       
+      .download-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 18px;
+      }
+      
+      .download-btn .download-arrow {
+        font-size: 18px;
+      }
+      
+      .download-btn .download-line {
+        width: 12px;
+        height: 2px;
+      }
+      
       #timeline-nav { 
         right: 10px !important; 
         padding: 15px 8px !important; 
@@ -385,31 +469,28 @@ def inject_css(html: str) -> str:
     
     @media (max-width: 480px) { 
       body {
-        margin-right: 50px !important; /* Keep some space for timeline on phones */
+        margin-right: 50px !important;
       }
       
       .jp-Notebook {
-        max-width: calc(100% - 50px) !important; /* Account for timeline space */
+        max-width: calc(100% - 50px) !important;
       }
       
       .jp-Cell {
-        margin-right: 5px !important; /* Small margin on phones */
+        margin-right: 5px !important;
       }
       
       .button-container {
-        /* Keep horizontal layout on phones - don't force vertical */
-        flex-direction: row !important; /* Override any column direction */
-        gap: 8px; /* Maintain horizontal spacing */
+        flex-direction: row !important;
+        gap: 8px;
         padding: 8px;
         top: 10px;
         right: 10px;
-        /* Make container more compact but keep horizontal layout */
         align-items: center;
         justify-content: center;
       }
       
       .switch-container {
-        /* Keep horizontal layout for switch container too */
         flex-direction: row !important;
         gap: 6px;
         align-items: center;
@@ -440,12 +521,25 @@ def inject_css(html: str) -> str:
         font-size: 14px;
       }
       
-      /* Make timeline more compact on phones but keep it visible */
+      .download-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 16px;
+      }
+      
+      .download-btn .download-arrow {
+        font-size: 16px;
+      }
+      
+      .download-btn .download-line {
+        width: 10px;
+        height: 2px;
+      }
+      
       #timeline-nav { 
         right: 5px !important; 
         padding: 10px 6px !important; 
         gap: 4px !important;
-        /* Make timeline smaller but still functional */
         transform: translateY(-50%) scale(0.9) !important;
         border-radius: 20px !important;
       } 
@@ -462,7 +556,6 @@ def inject_css(html: str) -> str:
         width: 1px !important;
       }
       
-      /* Adjust tooltip positioning for smaller timeline */
       #timeline-tooltip {
         font-size: 10px !important;
         padding: 6px 8px !important;
@@ -475,7 +568,6 @@ def inject_css(html: str) -> str:
       }
     }
     
-    /* Extra small phones - timeline becomes even more compact */
     @media (max-width: 360px) {
       body {
         margin-right: 40px !important;
@@ -513,6 +605,21 @@ def inject_css(html: str) -> str:
         width: 24px;
         height: 24px;
         font-size: 12px;
+      }
+      
+      .download-btn {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 14px;
+      }
+      
+      .download-btn .download-arrow {
+        font-size: 14px;
+      }
+      
+      .download-btn .download-line {
+        width: 8px;
+        height: 2px;
       }
       
       #timeline-nav {
@@ -579,6 +686,29 @@ def inject_css(html: str) -> str:
     switchElement.addEventListener("click", toggleTheme);
     switchContainer.addEventListener("click", toggleTheme);
 
+    // Extract filenames
+    function getNotebookName() {
+      var url = window.location.href;
+      var filename = url.split('/').pop();
+      if (filename.includes('.html')) {
+        var name = filename.replace('.html', '').replace(/^EXP-/, '');
+        return name.replace(/[_-]/g, ' ')
+                  .split(' ')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                  .join(' ');
+      }
+      return 'Unknown Notebook';
+    }
+    
+    function getIpynbFilename() {
+      var url = window.location.href;
+      var filename = url.split('/').pop();
+      if (filename.includes('.html')) {
+        return filename.replace('.html', '.ipynb');
+      }
+      return 'notebook.ipynb';
+    }
+
     // Report issue button
     var reportIssueBtn = document.createElement("a");
     reportIssueBtn.className = "report-issue-btn";
@@ -587,14 +717,48 @@ def inject_css(html: str) -> str:
     reportIssueBtn.target = "_blank";
     reportIssueBtn.rel = "noopener noreferrer";
     
-    // Construct GitHub URL
-    var issueTitle = "[Tutorial Content Issue]";
-    var issueBody = encodeURIComponent("Tutorial Page: " + window.location.href + "\\n\\nMention Issue: \\n");
-    reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + issueTitle + "&body=" + issueBody;
+    var notebookName = getNotebookName();
+    var issueTitle = "[Tutorial Content Issue] " + notebookName;
+    var issueBody = encodeURIComponent("[" + notebookName + "](" + window.location.href + ")\\n\\nIssue Description: \\n");
+    reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + encodeURIComponent(issueTitle) + "&body=" + issueBody;
+
+    // Download button with arrow-only rotation animation
+    var downloadBtn = document.createElement("a");
+    downloadBtn.className = "download-btn";
+    downloadBtn.title = "Download .ipynb file";
+    downloadBtn.target = "_blank";
+    downloadBtn.rel = "noopener noreferrer";
     
-    // Add components to container and container to body
+    var downloadIcon = document.createElement("div");
+    downloadIcon.className = "download-icon";
+    
+    var downloadArrow = document.createElement("span");
+    downloadArrow.className = "download-arrow";
+    downloadArrow.innerHTML = "⬇";
+    
+    var downloadLine = document.createElement("div");
+    downloadLine.className = "download-line";
+    
+    downloadIcon.appendChild(downloadArrow);
+    downloadIcon.appendChild(downloadLine);
+    downloadBtn.appendChild(downloadIcon);
+    
+    var ipynbFilename = getIpynbFilename();
+    downloadBtn.href = "../notebooks/" + ipynbFilename;
+    downloadBtn.download = ipynbFilename;
+
+    // Add rotation animation on click (arrow only)
+    downloadBtn.addEventListener("click", function() {
+      downloadBtn.classList.add("clicked");
+      setTimeout(function() {
+        downloadBtn.classList.remove("clicked");
+      }, 600);
+    });
+    
+    // Add components to container (Theme Toggle → Report Issue → Download)
     buttonContainer.appendChild(switchContainer);
     buttonContainer.appendChild(reportIssueBtn);
+    buttonContainer.appendChild(downloadBtn);
     document.body.appendChild(buttonContainer);
 
     // Timeline functionality
@@ -626,7 +790,7 @@ def inject_css(html: str) -> str:
         var dot = document.createElement("a");
         dot.className = "timeline-dot future";
         dot.href = "#" + heading.id;
-        dot.textContent = index + 1;  // number inside circle
+        dot.textContent = index + 1;
 
         dot.addEventListener("click", (e) => {
           e.preventDefault();
@@ -635,14 +799,12 @@ def inject_css(html: str) -> str:
 
         function cleanHeadingText(heading) {
           let text = heading.textContent.trim();
-          // Remove pilcrow or any trailing symbols typically added by nbconvert
           text = text.replace(/[\u00B6]/g, ''); 
           return text;
         }
 
         let hoverTimeout;
         dot.addEventListener("mouseenter", () => {
-          // Show single tooltip
           var text = cleanHeadingText(heading);
           if (text.length > 40) text = text.substring(0, 40) + "...";
           var rect = dot.getBoundingClientRect();
@@ -651,7 +813,6 @@ def inject_css(html: str) -> str:
           tooltip.style.left = (rect.left - tooltip.offsetWidth - 10) + 'px';
           tooltip.style.opacity = '1';
 
-          // Show full list after 1.5s
           hoverTimeout = setTimeout(() => {
             fullList.innerHTML = "<ul>" + headings.map((h,i) => "<li>" + (i+1) + ". " + cleanHeadingText(h) + "</li>").join("") + "</ul>";
             var navRect = timelineNav.getBoundingClientRect();
@@ -677,7 +838,9 @@ def inject_css(html: str) -> str:
       if (headings.length === 0) return;
       var scrollPos = window.scrollY + (window.innerHeight / 2);
       var currentIndex = -1;
-      for (var i = 0; i < headings.length; i++) { if (headings[i].offsetTop <= scrollPos) currentIndex = i; }
+      for (var i = 0; i < headings.length; i++) { 
+        if (headings[i].offsetTop <= scrollPos) currentIndex = i; 
+      }
 
       timelineNav.querySelectorAll(".timeline-dot").forEach((dot, index) => {
         dot.className = "timeline-dot";
@@ -692,12 +855,17 @@ def inject_css(html: str) -> str:
     }
 
     var scrollTimeout;
-    window.addEventListener("scroll", () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(updateTimeline, 50); });
+    window.addEventListener("scroll", () => { 
+      clearTimeout(scrollTimeout); 
+      scrollTimeout = setTimeout(updateTimeline, 50); 
+    });
 
     // Copy button functionality for code blocks
     document.querySelectorAll("div.highlight").forEach(block => {
       var btn = document.createElement("button");
-      btn.innerHTML = "Copy"; btn.className = "copy-btn"; btn.title = "Copy code";
+      btn.innerHTML = "Copy"; 
+      btn.className = "copy-btn"; 
+      btn.title = "Copy code";
       btn.addEventListener("click", e => {
         e.stopPropagation();
         var code = block.querySelector("pre, code").innerText;
