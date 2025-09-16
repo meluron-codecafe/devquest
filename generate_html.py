@@ -80,7 +80,7 @@ def inject_css(html: str) -> str:
       background: rgba(45, 45, 45, 0.95);
       border: 2px solid #444;
       border-radius: 18px;
-      padding: 12px;
+      padding: 2px;
       display: flex;
       gap: 1px;
       align-items: center;
