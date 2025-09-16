@@ -61,6 +61,7 @@ def inject_css(html: str) -> str:
     - Collapsible code cells: Show first line + expand icon, just like Jupyter notebook environment.
     - Code visibility toggle: Hide/show all code cells while keeping outputs.
     - Uses SVG icons for consistent cross-device rendering.
+    - Preserves scroll position when toggling code visibility.
     """
     theme_css = """
     <style>
@@ -745,22 +746,65 @@ def inject_css(html: str) -> str:
       
       var codeVisible = true;
       
-      // Code toggle functionality
+      // Code toggle functionality with scroll position preservation
       function toggleCodeVisibility() {
+        // Capture scroll position before toggling
+        var scrollBefore = window.pageYOffset;
+        var referenceElement = null;
+        var elementOffsetBefore = 0;
+        
+        // Find a good reference element (visible heading or markdown content)
+        var potentialRefs = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .jp-RenderedHTMLCommon p, .jp-OutputArea');
+        for (var i = 0; i < potentialRefs.length; i++) {
+          var rect = potentialRefs[i].getBoundingClientRect();
+          if (rect.top >= 0 && rect.top <= window.innerHeight) {
+            referenceElement = potentialRefs[i];
+            elementOffsetBefore = rect.top;
+            break;
+          }
+        }
+        
+        // If no element in viewport, use the first visible one above viewport
+        if (!referenceElement) {
+          for (var i = 0; i < potentialRefs.length; i++) {
+            var rect = potentialRefs[i].getBoundingClientRect();
+            if (rect.bottom > 0) {
+              referenceElement = potentialRefs[i];
+              elementOffsetBefore = rect.top;
+              break;
+            }
+          }
+        }
+        
         codeVisible = !codeVisible;
         
         if (codeVisible) {
-          // Show code - use wider content to match hidden state
+          // Show code
           document.body.classList.remove('code-hidden');
           codeToggleBtn.classList.remove('code-hidden');
           codeToggleBtn.innerHTML = createCodeIcon();
           codeToggleBtn.title = "Hide code cells";
         } else {
-          // Hide code - use same width as visible state
+          // Hide code
           document.body.classList.add('code-hidden');
           codeToggleBtn.classList.add('code-hidden');
           codeToggleBtn.innerHTML = createCodeHiddenIcon();
           codeToggleBtn.title = "Show code cells";
+        }
+        
+        // Restore scroll position relative to reference element
+        if (referenceElement) {
+          // Use requestAnimationFrame to ensure DOM has updated
+          requestAnimationFrame(function() {
+            var elementOffsetAfter = referenceElement.getBoundingClientRect().top;
+            var scrollAdjustment = elementOffsetAfter - elementOffsetBefore;
+            // Instant scroll with no animation
+            window.scrollTo({
+              top: window.pageYOffset + scrollAdjustment,
+              left: 0,
+              behavior: 'instant'
+            });
+          });
         }
         
         // Save preference
