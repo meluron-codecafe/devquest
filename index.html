@@ -65,36 +65,6 @@
         transition: opacity 0.3s ease;
     }
 
-    .logo:hover {
-        opacity: 0.8;
-    }
-
-    /* Logo tooltip */
-    .logo-tooltip {
-        position: absolute;
-        background: var(--container-bg);
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        z-index: 1000;
-        font-size: 13px;
-        line-height: 1.4;
-        display: none;
-        white-space: nowrap;
-        top: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: var(--text-color);
-        font-style: italic;
-        backdrop-filter: blur(10px);
-    }
-
-    .logo-tooltip.visible {
-        display: block;
-        animation: fadeIn 0.3s ease;
-    }
-
     @keyframes fadeIn {
         from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
         to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -503,10 +473,6 @@
             height: 35px;
             font-size: 16px;
         }
-        .logo-tooltip {
-            font-size: 12px;
-            padding: 10px 14px;
-        }
         .description {
             margin: 15px auto 20px auto;
             padding: 12px 16px;
@@ -538,9 +504,6 @@
     <div class="header">
         <div style="position: relative;">
             <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon.png" class="logo" id="logo">
-            <div id="logoTooltip" class="logo-tooltip">
-                Explore Python, Audio DSP, and AI/ML concepts through interactive, notebook-driven learning journeys.
-            </div>
         </div>
         <div class="button-container">
             <button id="themeToggle" class="theme-toggle-btn" title="Theme: System">
@@ -561,7 +524,7 @@
 
     <!-- DevQuest Description -->
     <div class="description">
-        <strong>DevQuest</strong> offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through interactive Jupyter notebooks.
+        <strong>DevQuest</strong> offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through Jupyter notebooks.
     </div>
 
     <div class="controls">
@@ -727,31 +690,6 @@
             if (currentTheme === 'system') {
                 applyTheme('system');
             }
-        });
-        
-        // Logo tooltip functionality
-        const logo = document.getElementById("logo");
-        const logoTooltip = document.getElementById("logoTooltip");
-        let logoTooltipTimeout;
-        
-        logo.addEventListener("mouseenter", () => {
-            clearTimeout(logoTooltipTimeout);
-            logoTooltip.classList.add("visible");
-        });
-        
-        logo.addEventListener("mouseleave", () => {
-            logoTooltipTimeout = setTimeout(() => {
-                logoTooltip.classList.remove("visible");
-            }, 300);
-        });
-        
-        // Keep tooltip visible when hovering over it
-        logoTooltip.addEventListener("mouseenter", () => {
-            clearTimeout(logoTooltipTimeout);
-        });
-        
-        logoTooltip.addEventListener("mouseleave", () => {
-            logoTooltip.classList.remove("visible");
         });
         
         // Category info tooltip functionality

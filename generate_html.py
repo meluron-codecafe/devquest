@@ -57,7 +57,7 @@ def inject_css(html: str) -> str:
     - Markdown/output cells: simple dark/light mode toggle.
     - Right Vertical Timeline TOC: Vertical progress timeline on the right.
     - Hover for 3s on timeline to see all headings (numbered).
-    - Button container with theme toggle button, report issue button, and aligned download button with arrow-only rotation.
+    - Button container with theme toggle button, report issue button, and aligned download button with pure CSS arrow.
     """
     theme_css = """
     <style>
@@ -178,7 +178,6 @@ def inject_css(html: str) -> str:
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
       color: white !important;
       text-decoration: none;
       transition: none;
@@ -191,14 +190,19 @@ def inject_css(html: str) -> str:
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5px;
-      margin-top: -5px;
+      gap: 1px;
+      margin-top: -2px;
     }
     
+    /* Pure CSS Arrow */
     .download-btn .download-arrow {
-      font-size: 20px;
-      color: white !important;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid white;
       transition: transform 0.6s ease;
+      margin-bottom: 1px;
     }
     
     .download-btn.clicked .download-arrow {
@@ -250,7 +254,7 @@ def inject_css(html: str) -> str:
     }
     
     body.light-mode .download-btn .download-arrow {
-      color: black !important;
+      border-top-color: black !important;
     }
     
     body.light-mode .download-btn .download-line {
@@ -426,11 +430,12 @@ def inject_css(html: str) -> str:
       .download-btn {
         width: 32px !important;
         height: 32px !important;
-        font-size: 18px;
       }
       
       .download-btn .download-arrow {
-        font-size: 18px;
+        border-left-width: 5px;
+        border-right-width: 5px;
+        border-top-width: 7px;
       }
       
       .download-btn .download-line {
@@ -484,11 +489,12 @@ def inject_css(html: str) -> str:
       .download-btn {
         width: 28px !important;
         height: 28px !important;
-        font-size: 16px;
       }
       
       .download-btn .download-arrow {
-        font-size: 16px;
+        border-left-width: 4px;
+        border-right-width: 4px;
+        border-top-width: 6px;
       }
       
       .download-btn .download-line {
@@ -557,11 +563,12 @@ def inject_css(html: str) -> str:
       .download-btn {
         width: 24px !important;
         height: 24px !important;
-        font-size: 14px;
       }
       
       .download-btn .download-arrow {
-        font-size: 14px;
+        border-left-width: 3px;
+        border-right-width: 3px;
+        border-top-width: 5px;
       }
       
       .download-btn .download-line {
@@ -732,7 +739,7 @@ def inject_css(html: str) -> str:
       var issueBody = encodeURIComponent("[" + notebookName + "](" + window.location.href + ")\\n\\nIssue Description: \\n");
       reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + encodeURIComponent(issueTitle) + "&body=" + issueBody;
 
-      // Download button with arrow-only rotation animation
+      // Download button with pure CSS arrow
       var downloadBtn = document.createElement("a");
       downloadBtn.className = "download-btn";
       downloadBtn.title = "Download .ipynb file";
@@ -742,9 +749,9 @@ def inject_css(html: str) -> str:
       var downloadIcon = document.createElement("div");
       downloadIcon.className = "download-icon";
       
-      var downloadArrow = document.createElement("span");
+      // Create pure CSS arrow using div with borders
+      var downloadArrow = document.createElement("div");
       downloadArrow.className = "download-arrow";
-      downloadArrow.innerHTML = "⬇";
       
       var downloadLine = document.createElement("div");
       downloadLine.className = "download-line";
