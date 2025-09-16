@@ -115,7 +115,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
     }
-    
+
     /* ======= THEME TOGGLE BUTTON STYLES ======= */
     .theme-toggle-btn {
         background: transparent;
@@ -154,7 +154,7 @@
         width: 24px;
         height: 24px;
     }
-    
+
     .theme-icon.system .moon {
         font-size: 20px;
         position: absolute;
@@ -320,105 +320,6 @@
     }
     .tooltip p:last-child {
         margin-bottom: 0;
-    }
-
-    /* Preview tooltip styles */
-    .preview-tooltip {
-        position: absolute;
-        background: var(--container-bg);
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-        z-index: 1001;
-        max-width: 450px;
-        font-size: 13px;
-        line-height: 1.5;
-        display: none;
-        backdrop-filter: blur(10px);
-        transition: opacity 0.3s ease;
-    }
-    
-    .preview-tooltip.visible {
-        display: block;
-        animation: fadeInUp 0.3s ease;
-    }
-    
-    @keyframes fadeInUp {
-        from { 
-            opacity: 0; 
-            transform: translateY(10px);
-        }
-        to { 
-            opacity: 1; 
-            transform: translateY(0);
-        }
-    }
-    
-    .preview-tooltip .preview-title {
-        font-weight: bold;
-        color: var(--link-color);
-        margin-bottom: 12px;
-        font-size: 14px;
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 6px;
-    }
-    
-    .preview-tooltip .preview-section {
-        margin-bottom: 12px;
-    }
-    
-    .preview-tooltip .preview-section:last-child {
-        margin-bottom: 0;
-    }
-    
-    .preview-tooltip .section-title {
-        font-weight: 600;
-        color: var(--text-color);
-        margin-bottom: 4px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .preview-tooltip .section-content {
-        color: var(--quote-color);
-        margin-left: 8px;
-    }
-    
-    .preview-tooltip .section-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 4px;
-        margin: 8px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    
-    .preview-tooltip .preview-html {
-        color: var(--text-color);
-        margin-left: 0;
-    }
-    
-    .preview-tooltip .preview-html img {
-        max-width: 100%;
-        height: auto;
-        max-height: 200px;
-        border-radius: 4px;
-        margin: 8px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        object-fit: contain;
-    }
-    
-    .preview-tooltip .loading {
-        text-align: center;
-        color: var(--quote-color);
-        font-style: italic;
-    }
-    
-    .preview-tooltip .error {
-        text-align: center;
-        color: #f87171;
-        font-style: italic;
     }
     
     .quote-box {
@@ -590,9 +491,6 @@
     
     <!-- Tooltip for category info -->
     <div id="categoryTooltip" class="tooltip"></div>
-    
-    <!-- Preview tooltip for topics -->
-    <div id="previewTooltip" class="preview-tooltip"></div>
     
 </div>
     
@@ -802,183 +700,7 @@
             tooltipVisible = false;
         }
         
-        // Preview functionality
-        const previewTooltip = document.getElementById("previewTooltip");
-        let previewCache = new Map(); // Cache to avoid re-fetching same content
-        let previewTimeout;
-        let currentPreviewTarget = null;
-
-        // Extract preview content from HTML content
-        function extractPreviewContent(htmlContent) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            
-            let previewText = '';
-            let previewHTML = '';
-            
-            // Look for PREVIEW section specifically
-            const cells = doc.querySelectorAll('.jp-Cell, .cell, td, div, p');
-            
-            for (let cell of cells) {
-                const text = cell.textContent || cell.innerText || '';
-                const lowerText = text.toLowerCase();
-                
-                // Check for preview section
-                if (lowerText.includes('preview')) {
-                    // Get the parent element that contains the preview content
-                    let previewContainer = cell;
-                    
-                    // Try to find a more specific container if this is just a header
-                    if (text.trim().toLowerCase() === 'preview' || text.trim().toLowerCase().startsWith('preview:')) {
-                        // Look for the next sibling or parent that contains actual content
-                        previewContainer = cell.nextElementSibling || cell.parentElement;
-                    }
-                    
-                    if (previewContainer) {
-                        // Extract both text and HTML
-                        previewText = previewContainer.textContent || previewContainer.innerText || '';
-                        previewHTML = previewContainer.innerHTML || '';
-                        
-                        // Clean up text - remove "PREVIEW" word and pilcrow characters
-                        previewText = previewText
-                            .replace(/preview[:\s]*/gi, '')
-                            .replace(/¶/g, '')
-                            .trim();
-                        
-                        // Clean up HTML - remove script tags and other potentially harmful elements
-                        previewHTML = previewHTML
-                            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-                            .replace(/<link[^>]*>/gi, '')
-                            .replace(/preview[:\s]*/gi, '')
-                            .replace(/¶/g, '');
-                        
-                        // If we found content, break
-                        if (previewText || previewHTML.includes('<img')) {
-                            break;
-                        }
-                    }
-                }
-            }
-            
-            return { 
-                text: previewText.substring(0, 300), 
-                html: previewHTML,
-                hasImages: previewHTML.includes('<img')
-            };
-        }
-
-        // Show preview tooltip
-        async function showPreview(element, filename) {
-            currentPreviewTarget = element;
-            
-            // Position tooltip near the element
-            const rect = element.getBoundingClientRect();
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-            
-            previewTooltip.style.left = (rect.left - containerRect.left) + "px";
-            previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
-            
-            // Show loading state
-            previewTooltip.innerHTML = `
-                <div class="preview-title">${element.textContent}</div>
-                <div class="loading">Loading preview...</div>
-            `;
-            previewTooltip.classList.add("visible");
-            
-            // Check cache first
-            if (previewCache.has(filename)) {
-                const cached = previewCache.get(filename);
-                displayPreview(element.textContent, cached);
-                return;
-            }
-            
-            try {
-                // Fetch the HTML file
-                const response = await fetch(`htmls/${filename}`);
-                if (!response.ok) throw new Error('Failed to load');
-                
-                const htmlContent = await response.text();
-                const preview = extractPreviewContent(htmlContent);
-                
-                // Cache the result
-                previewCache.set(filename, preview);
-                
-                // Only show if we're still hovering the same element
-                if (currentPreviewTarget === element) {
-                    displayPreview(element.textContent, preview);
-                }
-                
-            } catch (error) {
-                if (currentPreviewTarget === element) {
-                    previewTooltip.innerHTML = `
-                        <div class="preview-title">${element.textContent}</div>
-                        <div class="error">Preview not available</div>
-                    `;
-                }
-            }
-        }
-
-        function displayPreview(title, content) {
-            let html = `<div class="preview-title">${title}</div>`;
-            
-            if (content.html && content.hasImages) {
-                // If there are images, show the full HTML content
-                html += `
-                    <div class="preview-section">
-                        <div class="preview-html">${content.html}</div>
-                    </div>
-                `;
-            } else if (content.text) {
-                // If no images, show text content
-                html += `
-                    <div class="preview-section">
-                        <div class="section-content">${content.text}${content.text.length >= 300 ? '...' : ''}</div>
-                    </div>
-                `;
-            } else {
-                html += `<div class="error">No preview content found</div>`;
-            }
-            
-            previewTooltip.innerHTML = html;
-        }
-
-        function hidePreview() {
-            previewTooltip.classList.remove("visible");
-            currentPreviewTarget = null;
-        }
-
-        // Add event listeners to topic links
-        function addPreviewListeners() {
-            const topicLinks = document.querySelectorAll('#tutorialTable a');
-            
-            topicLinks.forEach(link => {
-                const filename = link.getAttribute('href').replace('htmls/', '');
-                
-                link.addEventListener('mouseenter', () => {
-                    clearTimeout(previewTimeout);
-                    previewTimeout = setTimeout(() => {
-                        showPreview(link, filename);
-                    }, 500); // 500ms delay before showing preview
-                });
-                
-                link.addEventListener('mouseleave', () => {
-                    clearTimeout(previewTimeout);
-                    previewTimeout = setTimeout(() => {
-                        hidePreview();
-                    }, 200); // 200ms delay before hiding
-                });
-            });
-        }
-
-        // Keep preview visible when hovering over it
-        previewTooltip.addEventListener('mouseenter', () => {
-            clearTimeout(previewTimeout);
-        });
-
-        previewTooltip.addEventListener('mouseleave', () => {
-            hidePreview();
-        });
+        // Hide tooltip when clicking elsewhere
         document.addEventListener("click", (e) => {
             if (!categoryInfo.contains(e.target) && !categoryTooltip.contains(e.target)) {
                 hideTooltip();
@@ -1016,9 +738,6 @@
             });
             
             renderTable();
-            
-            // Add preview listeners after rendering table
-            setTimeout(addPreviewListeners, 100);
         });
         
         function renderTable() {
@@ -1046,14 +765,8 @@
             });
         }
         
-        document.getElementById('categoryFilter').addEventListener('change', () => {
-            renderTable();
-            setTimeout(addPreviewListeners, 100);
-        });
-        document.getElementById('searchBox').addEventListener('input', () => {
-            renderTable();
-            setTimeout(addPreviewListeners, 100);
-        });
+        document.getElementById('categoryFilter').addEventListener('change', renderTable);
+        document.getElementById('searchBox').addEventListener('input', renderTable);
         
         // Request Topic button dynamic title
         document.getElementById('requestTopicBtn').addEventListener('click', function(e) {

@@ -3,5 +3,6 @@ EXP,Spectral Footprints of Spoken Alphabets,,EXP-Spectral_Footprints_of_Spoken_A
 M4CS,Probability - Theory + Code,,M4CS-Probability_-_Theory_+_Code.html
 P2C,"[1967, Cover] - Nearest Neighbor Pattern Classification",;,"P2C-[1967,_Cover]_-_Nearest_Neighbor_Pattern_Classification.html"
 P2C,"[1996, Rabiner] - A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition",;,"P2C-[1996,_Rabiner]_-_A_Tutorial_on_Hidden_Markov_Models_and_Selected_Applications_in_Speech_Recognition.html"
+P2C,"[2016, Morise] - D4C, a band-aperiodicity estimator for high-quality speech synthesis",The text to explain probability,"P2C-[2016, Morise] - D4C, a band-aperiodicity estimator for high-quality speech synthesis.html"
 TOOL,Comparing Pitch Trackers,praat-parselmouth; pyreaper; librosa; pyworld; libtsm;,TOOL-Comparing_Pitch_Trackers.html
 TOOL,F0 Conditioned Vocal Synthesis with WORLD Vocoder,,TOOL-F0_Conditioned_Vocal_Synthesis_with_WORLD_Vocoder.html
