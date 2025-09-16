@@ -110,6 +110,11 @@
         opacity: 0;
         transform: scale(0.5) rotate(180deg);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
     }
 
     .theme-icon.active {
@@ -117,28 +122,14 @@
         transform: scale(1) rotate(0deg);
     }
 
-    /* System mode shows both icons - sun inside moon curve */
-    .theme-icon.system {
-        position: relative;
-        font-size: 16px;
-        width: 24px;
-        height: 24px;
-    }
-    
-    .theme-icon.system .moon {
-        font-size: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
-    
-    .theme-icon.system .sun {
-        font-size: 12px;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        z-index: 2;
+    /* SVG icon styling */
+    .theme-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        fill: none;
+        transition: all 0.2s ease;
+        color: inherit;
     }
 
     .github-btn {
@@ -163,6 +154,12 @@
         background: rgba(255, 255, 255, 0.95);
         border-color: var(--border-color);
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Light mode SVG colors */
+    body.light-theme .theme-icon svg {
+        stroke: #333333;
+        color: #333333;
     }
 
     /* DevQuest Description */
@@ -506,12 +503,24 @@
             <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon.png" class="logo" id="logo">
         </div>
         <div class="button-container">
-            <button id="themeToggle" class="theme-toggle-btn" title="Theme: System">
-                <div class="theme-icon dark">🌙</div>
-                <div class="theme-icon light">☀️</div>
-                <div class="theme-icon system active">
-                    <span class="moon">🌙</span>
-                    <span class="sun">☀️</span>
+            <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme">
+                <div class="theme-icon dark">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+                <div class="theme-icon light">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
                 </div>
             </button>
             <a href="https://github.com/meluron-codecafe/DevQuest" target="_blank" class="github-btn" title="View on GitHub">
@@ -615,14 +624,13 @@
             });
         }
         
-        // Theme management
-        let currentTheme = 'system'; // 'dark', 'light', 'system'
+        // Theme management - only dark and light
+        let currentTheme = 'dark'; // Will be set based on system preference
         
         const themeToggle = document.getElementById("themeToggle");
         const themeIcons = {
             dark: document.querySelector(".theme-icon.dark"),
-            light: document.querySelector(".theme-icon.light"),
-            system: document.querySelector(".theme-icon.system")
+            light: document.querySelector(".theme-icon.light")
         };
         
         // Check for system preference
@@ -635,13 +643,8 @@
             // Remove all theme classes
             document.body.classList.remove('light-theme', 'dark-theme');
             
-            let actualTheme = theme;
-            if (theme === 'system') {
-                actualTheme = getSystemTheme();
-            }
-            
             // Apply the theme class
-            if (actualTheme === 'light') {
+            if (theme === 'light') {
                 document.body.classList.add('light-theme');
             } else {
                 document.body.classList.add('dark-theme');
@@ -651,45 +654,50 @@
         // Update theme toggle UI
         function updateThemeToggle() {
             // Remove active class from all icons
-            Object.values(themeIcons).forEach(icon => icon.classList.remove('active'));
+            Object.keys(themeIcons).forEach(function(key) {
+                themeIcons[key].classList.remove('active');
+            });
             
             // Add active class to current theme icon
             themeIcons[currentTheme].classList.add('active');
             
             // Update tooltip
-            const themeNames = {
+            var themeNames = {
                 dark: 'Theme: Dark',
-                light: 'Theme: Light', 
-                system: 'Theme: System'
+                light: 'Theme: Light'
             };
             themeToggle.title = themeNames[currentTheme];
         }
         
-        // Theme toggle click handler
-        themeToggle.addEventListener("click", () => {
-            const themes = ['system', 'dark', 'light'];
-            const currentIndex = themes.indexOf(currentTheme);
-            const nextIndex = (currentIndex + 1) % themes.length;
-            currentTheme = themes[nextIndex];
+        // Theme toggle click handler - only toggle between dark and light
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             applyTheme(currentTheme);
             updateThemeToggle();
             
             // Save preference
             localStorage.setItem('theme-preference', currentTheme);
-        });
+        }
         
-        // Initialize theme from localStorage or default to system
-        const savedTheme = localStorage.getItem('theme-preference') || 'system';
-        currentTheme = savedTheme;
+        themeToggle.addEventListener("click", toggleTheme);
+        
+        // Initialize theme - always start with system preference on page load
+        currentTheme = getSystemTheme();
         applyTheme(currentTheme);
         updateThemeToggle();
         
-        // Listen for system theme changes when in system mode
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            if (currentTheme === 'system') {
-                applyTheme('system');
-            }
+        // Real-time system theme change detection - updates without page reload
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            // Automatically detect and apply system theme changes
+            currentTheme = getSystemTheme();
+            applyTheme(currentTheme);
+            updateThemeToggle();
+            
+            // Optional: Clear any saved manual preference since we're following system
+            localStorage.removeItem('theme-preference');
+            
+            console.log('System theme changed to:', currentTheme); // For debugging
         });
         
         // Category info tooltip functionality

@@ -60,6 +60,7 @@ def inject_css(html: str) -> str:
     - Button container with code toggle, theme toggle button, report issue button, and aligned download button.
     - Collapsible code cells: Show first line + expand icon, just like Jupyter notebook environment.
     - Code visibility toggle: Hide/show all code cells while keeping outputs.
+    - Uses SVG icons for consistent cross-device rendering.
     """
     theme_css = """
     <style>
@@ -157,6 +158,20 @@ def inject_css(html: str) -> str:
         overflow: hidden !important;
     }
 
+    /* ======= SVG ICON STYLING ======= */
+    .code-toggle-btn svg,
+    .theme-toggle-btn svg,
+    .report-issue-btn svg,
+    .download-btn svg {
+        width: 20px !important;
+        height: 20px !important;
+        stroke: currentColor !important;
+        fill: none !important;
+        transition: all 0.2s ease !important;
+        flex-shrink: 0 !important;
+        color: inherit !important;
+    }
+
     /* ======= HOVER STATES ======= */
     .code-toggle-btn:hover,
     .theme-toggle-btn:hover,
@@ -167,13 +182,16 @@ def inject_css(html: str) -> str:
         scale: none !important;
     }
 
+    .code-toggle-btn:hover svg,
+    .theme-toggle-btn:hover svg,
+    .report-issue-btn:hover svg,
+    .download-btn:hover svg {
+        transform: none !important;
+        scale: 1 !important;
+    }
+
     /* ======= CODE TOGGLE SPECIFIC STYLES ======= */
     .code-toggle-btn {
-        font-family: 'Courier New', monospace !important;
-        font-size: 14px !important;
-        font-weight: 700 !important;
-        white-space: nowrap !important;
-        letter-spacing: 0 !important;
         vertical-align: top !important;
     }
     
@@ -190,7 +208,6 @@ def inject_css(html: str) -> str:
         height: var(--button-size) !important;
         transform: none !important;
         scale: none !important;
-        font-size: 14px !important;
         min-width: var(--button-size) !important;
         max-width: var(--button-size) !important;
         vertical-align: top !important;
@@ -202,7 +219,6 @@ def inject_css(html: str) -> str:
 
     /* ======= THEME TOGGLE SPECIFIC STYLES ======= */
     .theme-toggle-btn {
-        font-size: 18px !important;
         vertical-align: top !important;
     }
     
@@ -213,14 +229,15 @@ def inject_css(html: str) -> str:
         transform: translate(-50%, -50%) !important;
         opacity: 0;
         transition: opacity 0.3s ease;
-        font-size: 18px;
         line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
-    /* Both theme icons have the same size */
-    .theme-icon.dark,
-    .theme-icon.light {
-        font-size: 18px;
+    .theme-icon svg {
+        position: static !important;
+        transform: none !important;
     }
     
     .theme-icon.active {
@@ -229,7 +246,6 @@ def inject_css(html: str) -> str:
 
     /* ======= REPORT ISSUE SPECIFIC STYLES ======= */
     .report-issue-btn {
-        font-size: 18px !important;
         font-weight: 700 !important;
         vertical-align: top !important;
         color: var(--text-color) !important;
@@ -250,7 +266,6 @@ def inject_css(html: str) -> str:
 
     /* ======= DOWNLOAD BUTTON SPECIFIC STYLES ======= */
     .download-btn {
-        font-size: 18px !important;
         font-weight: 400 !important;
         vertical-align: top !important;
         color: var(--text-color) !important;
@@ -270,13 +285,6 @@ def inject_css(html: str) -> str:
         color: var(--text-color) !important;
         text-decoration: none !important;
     }
-    
-    /* Remove any leftover download icon styles */
-    .download-btn .download-icon,
-    .download-btn .download-arrow,
-    .download-btn .download-line {
-        display: none !important;
-    }
 
     /* ======= LIGHT MODE STYLES ======= */
     body.light-mode .button-container {
@@ -290,6 +298,15 @@ def inject_css(html: str) -> str:
     body.light-mode .theme-toggle-btn,
     body.light-mode .report-issue-btn,
     body.light-mode .download-btn {
+        color: #333333 !important;
+    }
+    
+    /* SVG colors in light mode */
+    body.light-mode .code-toggle-btn svg,
+    body.light-mode .theme-toggle-btn svg,
+    body.light-mode .report-issue-btn svg,
+    body.light-mode .download-btn svg {
+        stroke: #333333 !important;
         color: #333333 !important;
     }
     
@@ -572,13 +589,13 @@ def inject_css(html: str) -> str:
     }
     .copy-btn { 
       position: absolute; 
-      top: 6px; 
+      top: 3px; 
       right: 8px; 
       background: #2d2d2d; 
       color: #d4d4d4; 
       border: 1px solid #444; 
       border-radius: 6px; 
-      font-size: 14px; 
+      font-size: 12px; 
       padding: 2px 6px; 
       cursor: pointer; 
       opacity: 0.6; 
@@ -610,7 +627,13 @@ def inject_css(html: str) -> str:
       .jp-Notebook { max-width: calc(100% - 60px) !important; }
       .jp-Cell { margin-right: 10px !important; }
       .button-container { top: 10px; right: 10px; padding: 6px; gap: 2px; }
-      .code-toggle-btn { font-size: 12px !important; }
+      .code-toggle-btn svg,
+      .theme-toggle-btn svg,
+      .report-issue-btn svg,
+      .download-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+      }
       #timeline-nav { right: 10px !important; padding: 15px 8px !important; gap: 6px !important; } 
       .timeline-line { height: 15px !important; }
     }
@@ -621,7 +644,13 @@ def inject_css(html: str) -> str:
       .jp-Notebook { max-width: calc(100% - 50px) !important; }
       .jp-Cell { margin-right: 5px !important; }
       .button-container { padding: 4px; gap: 2px; top: 10px; right: 10px; }
-      .code-toggle-btn { font-size: 10px !important; }
+      .code-toggle-btn svg,
+      .theme-toggle-btn svg,
+      .report-issue-btn svg,
+      .download-btn svg {
+        width: 16px !important;
+        height: 16px !important;
+      }
       #timeline-nav { right: 5px !important; padding: 10px 6px !important; gap: 4px !important; transform: translateY(-50%) scale(0.9) !important; border-radius: 20px !important; } 
       .timeline-dot { width: 16px !important; height: 16px !important; font-size: 10px !important; margin: -6px !important; }
       .timeline-line { height: 12px !important; width: 1px !important; }
@@ -634,7 +663,13 @@ def inject_css(html: str) -> str:
       body { margin-right: 40px !important; }
       .jp-Notebook { max-width: calc(100% - 40px) !important; }
       .button-container { gap: 1px; padding: 3px; }
-      .code-toggle-btn { font-size: 8px !important; }
+      .code-toggle-btn svg,
+      .theme-toggle-btn svg,
+      .report-issue-btn svg,
+      .download-btn svg {
+        width: 14px !important;
+        height: 14px !important;
+      }
       #timeline-nav { transform: translateY(-50%) scale(0.8) !important; padding: 8px 4px !important; gap: 3px !important; }
       .timeline-dot { width: 14px !important; height: 14px !important; font-size: 9px !important; }
       .timeline-line { height: 10px !important; }
@@ -645,6 +680,59 @@ def inject_css(html: str) -> str:
     toggle_js = """
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+      
+      // SVG Icon Functions
+      function createCodeIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6,7 2,12 6,17"></polyline>
+          <line x1="13" y1="5" x2="11" y2="19"></line>
+          <polyline points="18,7 22,12 18,17"></polyline>
+        </svg>`;
+      }
+
+      function createCodeHiddenIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="8,6 2,12 8,18"></polyline>
+          <polyline points="16,6 22,12 16,18"></polyline>
+        </svg>`;
+      }
+
+      function createSunIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>`;
+      }
+
+      function createMoonIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>`;
+      }
+
+      function createQuestionIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <circle cx="12" cy="17" r="0.5" fill="currentColor"></circle>
+        </svg>`;
+      }
+
+      function createDownloadIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7,10 12,15 17,10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>`;
+      }
+
       // Create button container
       var buttonContainer = document.createElement("div");
       buttonContainer.className = "button-container";
@@ -652,7 +740,7 @@ def inject_css(html: str) -> str:
       // Code toggle button (first button)
       var codeToggleBtn = document.createElement("button");
       codeToggleBtn.className = "code-toggle-btn";
-      codeToggleBtn.innerHTML = "&lt;/&gt;";
+      codeToggleBtn.innerHTML = createCodeIcon();
       codeToggleBtn.title = "Hide code cells";
       
       var codeVisible = true;
@@ -665,13 +753,13 @@ def inject_css(html: str) -> str:
           // Show code - use wider content to match hidden state
           document.body.classList.remove('code-hidden');
           codeToggleBtn.classList.remove('code-hidden');
-          codeToggleBtn.innerHTML = "&lt;/&gt;";
+          codeToggleBtn.innerHTML = createCodeIcon();
           codeToggleBtn.title = "Hide code cells";
         } else {
           // Hide code - use same width as visible state
           document.body.classList.add('code-hidden');
           codeToggleBtn.classList.add('code-hidden');
-          codeToggleBtn.innerHTML = "&lt;&nbsp;&gt;";
+          codeToggleBtn.innerHTML = createCodeHiddenIcon();
           codeToggleBtn.title = "Show code cells";
         }
         
@@ -696,11 +784,11 @@ def inject_css(html: str) -> str:
       // Create theme icons - only dark and light modes
       var darkIcon = document.createElement("span");
       darkIcon.className = "theme-icon dark";
-      darkIcon.innerHTML = "●";  // Solid circle for dark theme
+      darkIcon.innerHTML = createMoonIcon();
       
       var lightIcon = document.createElement("span");
       lightIcon.className = "theme-icon light";
-      lightIcon.innerHTML = "○";  // Hollow circle for light theme
+      lightIcon.innerHTML = createSunIcon();
       
       themeToggleBtn.appendChild(darkIcon);
       themeToggleBtn.appendChild(lightIcon);
@@ -779,20 +867,25 @@ def inject_css(html: str) -> str:
         console.log('System theme changed to:', currentTheme); // For debugging
       });
 
-      // Extract filenames
+      // Extract notebook name
       function getNotebookName() {
         var url = window.location.href;
         var filename = url.split('/').pop();
+      
         if (filename.includes('.html')) {
-          var name = filename.replace('.html', '').replace(/^EXP-/, '');
-          return name.replace(/[_-]/g, ' ')
-                    .split(' ')
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                    .join(' ');
+          // Remove extension
+          var nameWithoutExt = filename.replace('.html', '');
+      
+          // Take everything after the first '-'
+          var parts = nameWithoutExt.split('-');
+          var titlePart = parts.slice(1).join('-'); // everything after first "-"
+      
+          // Replace underscores with spaces, leave everything else as is
+          return titlePart.replace(/_/g, ' ');
         }
         return 'Unknown Notebook';
       }
-      
+
       function getIpynbFilename() {
         var url = window.location.href;
         var filename = url.split('/').pop();
@@ -802,24 +895,24 @@ def inject_css(html: str) -> str:
         return 'notebook.ipynb';
       }
 
-      // Report issue button - simple question mark
+      // Report issue button - question mark icon
       var reportIssueBtn = document.createElement("a");
       reportIssueBtn.className = "report-issue-btn";
-      reportIssueBtn.innerHTML = "?";  // Question mark for help/issues
-      reportIssueBtn.title = "Report an issue in this notebook";
+      reportIssueBtn.innerHTML = createQuestionIcon();
+      reportIssueBtn.title = "Have questions about this notebook?";
       reportIssueBtn.target = "_blank";
       reportIssueBtn.rel = "noopener noreferrer";
       reportIssueBtn.style.color = "inherit";  // Ensure it inherits the right color
       
       var notebookName = getNotebookName();
       var issueTitle = "[Tutorial Content Issue] " + notebookName;
-      var issueBody = encodeURIComponent("[" + notebookName + "](" + window.location.href + ")\\n\\nIssue Description: \\n");
+      var issueBody = encodeURIComponent("[" + notebookName + "](" + window.location.href + ")\\n\\nMention your queries below: \\n");
       reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + encodeURIComponent(issueTitle) + "&body=" + issueBody;
 
-      // Download button - simple down arrow
+      // Download button - down arrow icon
       var downloadBtn = document.createElement("a");
       downloadBtn.className = "download-btn";
-      downloadBtn.innerHTML = "↓";  // Down arrow for download
+      downloadBtn.innerHTML = createDownloadIcon();
       downloadBtn.title = "Download .ipynb file";
       downloadBtn.target = "_blank";
       downloadBtn.rel = "noopener noreferrer";
