@@ -8234,6 +8234,7 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     :root {
         --text-color: #d4d4d4;
         --bg-color: #1e1e1e;
+        --button-size: 40px;
     }
     
     body.light-mode {
@@ -8247,192 +8248,254 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       top: 20px;
       right: 20px;
       background: rgba(45, 45, 45, 0.95);
-      border: 2px solid #444;
-      border-radius: 18px;
+      border: 1px solid #555;
+      border-radius: 12px;
       padding: 2px;
       display: flex;
-      gap: 1px;
+      gap: 0px;
       align-items: center;
+      justify-content: center;
       z-index: 1000;
       backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
+      height: auto;
+      width: auto;
     }
 
     .button-container:hover {
-      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     }
 
-    /* ======= THEME TOGGLE BUTTON STYLES ======= */
-    .theme-toggle-btn {
-        background: transparent;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        transition: all 0.3s ease;
-        color: var(--text-color);
-        position: relative;
-        overflow: hidden;
+    /* ======= BASE BUTTON RESET AND SIZING ======= */
+    .code-toggle-btn,
+    .theme-toggle-btn,
+    .report-issue-btn,
+    .download-btn {
+        /* Reset all properties */
+        all: unset;
+        
+        /* Set exact dimensions */
+        width: var(--button-size) !important;
+        height: var(--button-size) !important;
+        min-width: var(--button-size) !important;
+        min-height: var(--button-size) !important;
+        max-width: var(--button-size) !important;
+        max-height: var(--button-size) !important;
+        
+        /* Layout */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+        
+        /* Positioning and spacing */
+        position: relative !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        
+        /* Appearance */
+        background: transparent !important;
+        border: none !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+        
+        /* Typography */
+        color: var(--text-color) !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        line-height: 1 !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        vertical-align: top !important;
+        
+        /* Prevent any transformations */
+        transform: none !important;
+        scale: none !important;
+        rotate: none !important;
+        translate: none !important;
+        
+        /* Transitions */
+        transition: background-color 0.2s ease !important;
+        
+        /* Overflow */
+        overflow: hidden !important;
+    }
+
+    /* ======= HOVER STATES ======= */
+    .code-toggle-btn:hover,
+    .theme-toggle-btn:hover,
+    .report-issue-btn:hover,
+    .download-btn:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        transform: none !important;
+        scale: none !important;
+    }
+
+    /* ======= CODE TOGGLE SPECIFIC STYLES ======= */
+    .code-toggle-btn {
+        font-family: 'Courier New', monospace !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        letter-spacing: 0 !important;
+        vertical-align: top !important;
     }
     
-    /* Theme icon container for smooth transitions */
+    /* Ensure code toggle button never changes size or position */
+    .code-toggle-btn,
+    .code-toggle-btn:hover,
+    .code-toggle-btn:active,
+    .code-toggle-btn:focus,
+    .code-toggle-btn.code-hidden,
+    .code-toggle-btn.code-hidden:hover,
+    .code-toggle-btn.code-hidden:active,
+    .code-toggle-btn.code-hidden:focus {
+        width: var(--button-size) !important;
+        height: var(--button-size) !important;
+        transform: none !important;
+        scale: none !important;
+        font-size: 14px !important;
+        min-width: var(--button-size) !important;
+        max-width: var(--button-size) !important;
+        vertical-align: top !important;
+    }
+    
+    .code-toggle-btn.code-hidden {
+        opacity: 0.6 !important;
+    }
+
+    /* ======= THEME TOGGLE SPECIFIC STYLES ======= */
+    .theme-toggle-btn {
+        font-size: 18px !important;
+        vertical-align: top !important;
+    }
+    
     .theme-icon {
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
         opacity: 0;
-        transform: scale(0.5) rotate(180deg);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 0.3s ease;
+        font-size: 18px;
+        line-height: 1;
     }
+    
+    /* Both theme icons have the same size */
+    .theme-icon.dark,
+    .theme-icon.light {
+        font-size: 18px;
+    }
+    
     .theme-icon.active {
         opacity: 1;
-        transform: scale(1) rotate(0deg);
-    }
-    /* System mode shows both icons - sun inside moon curve */
-    .theme-icon.system {
-        position: relative;
-        font-size: 16px;
-        width: 24px;
-        height: 24px;
-    }
-    
-    .theme-icon.system .moon {
-        font-size: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
-    
-    .theme-icon.system .sun {
-        font-size: 12px;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        z-index: 2;
     }
 
-    /* ======= REPORT ISSUE BUTTON ======= */
+    /* ======= REPORT ISSUE SPECIFIC STYLES ======= */
     .report-issue-btn {
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      transition: transform 0.3s ease, color 0.3s ease;
-      text-decoration: none;
-      box-shadow: none;
-      color: #ccc;
-      flex-shrink: 0;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        vertical-align: top !important;
+        color: var(--text-color) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Override any link styles */
+    .report-issue-btn,
+    .report-issue-btn:link,
+    .report-issue-btn:visited,
+    .report-issue-btn:hover,
+    .report-issue-btn:active {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
     }
 
-    /* ======= DOWNLOAD BUTTON STYLES ======= */
+    /* ======= DOWNLOAD BUTTON SPECIFIC STYLES ======= */
     .download-btn {
-      background: transparent !important;
-      border: none !important;
-      border-radius: 0 !important;
-      width: 40px !important;
-      height: 40px !important;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white !important;
-      text-decoration: none;
-      transition: none;
-      flex-shrink: 0;
-      padding: 0;
-      gap: 2px;
+        font-size: 18px !important;
+        font-weight: 400 !important;
+        vertical-align: top !important;
+        color: var(--text-color) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: row !important;
+        gap: 0 !important;
     }
     
-    .download-btn .download-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1px;
-      margin-top: -2px;
+    /* Override any link styles */
+    .download-btn,
+    .download-btn:link,
+    .download-btn:visited,
+    .download-btn:hover,
+    .download-btn:active {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
     }
     
-    /* Pure CSS Arrow */
-    .download-btn .download-arrow {
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 8px solid white;
-      transition: transform 0.6s ease;
-      margin-bottom: 1px;
-    }
-    
-    .download-btn.clicked .download-arrow {
-      transform: rotate(360deg);
-    }
-    
+    /* Remove any leftover download icon styles */
+    .download-btn .download-icon,
+    .download-btn .download-arrow,
     .download-btn .download-line {
-      width: 14px;
-      height: 3px;
-      background: white !important;
-      transition: background 0.3s ease;
+        display: none !important;
     }
 
-    /* ======= LIGHT MODE BUTTON STYLES ======= */
+    /* ======= LIGHT MODE STYLES ======= */
     body.light-mode .button-container {
-      background: rgba(255, 255, 255, 0.95);
-      border-color: #ddd;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.95);
+        border-color: #ccc;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
     
-    body.light-mode .theme-toggle-btn {
-      color: var(--text-color);
-    }
-    
-    body.light-mode .report-issue-btn {
-      background: transparent !important;
-      color: #333;
-      border: none !important;
-      border-radius: 0;
-      box-shadow: none !important;
-    }
-    
-    body.light-mode .report-issue-btn:hover {
-      background: transparent !important;
-      box-shadow: none !important;
-      transform: scale(1.1);
-    }
-
+    /* Force all buttons to have correct colors in light mode */
+    body.light-mode .code-toggle-btn,
+    body.light-mode .theme-toggle-btn,
+    body.light-mode .report-issue-btn,
     body.light-mode .download-btn {
-      color: black !important;
-      background: transparent !important;
-      border: none !important;
+        color: #333333 !important;
+    }
+    
+    /* Extra specific overrides for report issue button in light mode */
+    body.light-mode .report-issue-btn,
+    body.light-mode .report-issue-btn:link,
+    body.light-mode .report-issue-btn:visited,
+    body.light-mode .report-issue-btn:hover,
+    body.light-mode .report-issue-btn:active,
+    body.light-mode .report-issue-btn:focus {
+        color: #333333 !important;
+        text-decoration: none !important;
+    }
+    
+    /* Extra specific overrides for download button in light mode */
+    body.light-mode .download-btn,
+    body.light-mode .download-btn:link,
+    body.light-mode .download-btn:visited,
+    body.light-mode .download-btn:hover,
+    body.light-mode .download-btn:active,
+    body.light-mode .download-btn:focus {
+        color: #333333 !important;
+        text-decoration: none !important;
+    }
+    
+    body.light-mode .code-toggle-btn:hover,
+    body.light-mode .theme-toggle-btn:hover,
+    body.light-mode .report-issue-btn:hover,
+    body.light-mode .download-btn:hover {
+        background: rgba(0, 0, 0, 0.05) !important;
     }
 
-    body.light-mode .download-btn:hover {
-      background: transparent !important;
-      box-shadow: none !important;
-      transform: scale(1.1) !important;
+    /* ======= CODE VISIBILITY TOGGLE ======= */
+    .code-hidden .jp-Cell:has(.jp-InputArea div.highlight) .jp-InputArea {
+      display: none !important;
     }
     
-    body.light-mode .download-btn .download-arrow {
-      border-top-color: black !important;
-    }
-    
-    body.light-mode .download-btn .download-line {
-      background: black !important;
-    }
-    
-    body.light-mode .download-btn:hover {
-      background: transparent !important;
-      transform: none;
+    .code-hidden .jp-InputArea:has(div.highlight) {
+      display: none !important;
     }
 
     /* ======= CONTENT SPACING FOR TIMELINE ======= */
@@ -8452,12 +8515,22 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     
     /* ======= VERTICAL TIMELINE TOC (RIGHT) ======= */
     #timeline-nav {
-      position: fixed !important; top: 50% !important; right: 25px !important; transform: translateY(-50%) !important;
-      background: rgba(20, 20, 20, 0.95) !important; backdrop-filter: blur(20px) !important;
-      border-radius: 25px !important; padding: 20px 12px !important; z-index: 999 !important;
-      transition: all 0.3s ease !important; border: 1px solid rgba(255,255,255,0.1) !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; display: flex !important; flex-direction: column !important;
-      align-items: center !important; gap: 8px !important;
+      position: fixed !important; 
+      top: 50% !important; 
+      right: 25px !important; 
+      transform: translateY(-50%) !important;
+      background: rgba(20, 20, 20, 0.95) !important; 
+      backdrop-filter: blur(20px) !important;
+      border-radius: 25px !important; 
+      padding: 20px 12px !important; 
+      z-index: 999 !important;
+      transition: all 0.3s ease !important; 
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; 
+      display: flex !important; 
+      flex-direction: column !important;
+      align-items: center !important; 
+      gap: 8px !important;
     }
   
     .timeline-dot {
@@ -8504,262 +8577,234 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     .timeline-dot.future:hover { box-shadow: 0 0 0 4px rgba(55, 65, 81, 0.3) !important; }
     body.light-mode .timeline-dot { color: black !important; }
   
-    .timeline-line { width: 2px; height: 25px; background: #374151; transition: all 0.3s ease; flex-shrink: 0; }
+    .timeline-line { 
+      width: 2px; 
+      height: 25px; 
+      background: #374151; 
+      transition: all 0.3s ease; 
+      flex-shrink: 0; 
+    }
     .timeline-line.completed { background: #4ade80; }
 
-    /* Timeline Tooltip */
     #timeline-tooltip {
-      position: fixed; background: rgba(0,0,0,0.9); color: white; padding: 8px 12px; border-radius: 8px;
-      font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none;
-      z-index: 1001; opacity: 0; transition: all 0.2s ease; white-space: nowrap;
+      position: fixed; 
+      background: rgba(0,0,0,0.9); 
+      color: white; 
+      padding: 8px 12px; 
+      border-radius: 8px;
+      font-size: 12px; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+      pointer-events: none;
+      z-index: 1001; 
+      opacity: 0; 
+      transition: all 0.2s ease; 
+      white-space: nowrap;
     }
     .tooltip-text { opacity: 0.9; font-size: 11px; font-weight: 600; }
   
-    /* Timeline Full List */
     #timeline-full-list {
-      position: fixed; background: rgba(20,20,20,0.95); color: white; padding: 12px 16px; border-radius: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; backdrop-filter: blur(20px);
-      z-index: 1002; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-      max-height: 80vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1);
+      position: fixed; 
+      background: rgba(20,20,20,0.95); 
+      color: white; 
+      padding: 12px 16px; 
+      border-radius: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+      backdrop-filter: blur(20px);
+      z-index: 1002; 
+      opacity: 0; 
+      pointer-events: none; 
+      transition: opacity 0.3s ease;
+      max-height: 80vh; 
+      overflow-y: auto; 
+      border: 1px solid rgba(255,255,255,0.1);
     }
     #timeline-full-list ul { list-style: none; padding: 0; margin: 0; font-size: 11px; }
     #timeline-full-list li { padding: 4px 0; opacity: 0.8; white-space: nowrap; }
   
-    /* Light mode timeline styles */
-    body.light-mode #timeline-nav { background: rgba(255,255,255,0.95) !important; border-color: rgba(0,0,0,0.1) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important; }
+    body.light-mode #timeline-nav { 
+      background: rgba(255,255,255,0.95) !important; 
+      border-color: rgba(0,0,0,0.1) !important; 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important; 
+    }
     body.light-mode .timeline-dot.future { background: #d1d5db; }
     body.light-mode .timeline-line { background: #d1d5db; }
-    body.light-mode #timeline-tooltip { background: rgba(255,255,255,0.95); color: #333; border: 1px solid rgba(0,0,0,0.1); }
-    body.light-mode #timeline-full-list { background: rgba(255,255,255,0.95); color: #333; border: 1px solid rgba(0,0,0,0.1); }
+    body.light-mode #timeline-tooltip { 
+      background: rgba(255,255,255,0.95); 
+      color: #333; 
+      border: 1px solid rgba(0,0,0,0.1); 
+    }
+    body.light-mode #timeline-full-list { 
+      background: rgba(255,255,255,0.95); 
+      color: #333; 
+      border: 1px solid rgba(0,0,0,0.1); 
+    }
   
     /* ======= GENERAL DARK/LIGHT STYLES ======= */
-    body { background-color: #1e1e1e !important; color: #d4d4d4 !important; transition: background-color 0.3s ease, color 0.3s ease; }
-    .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea { background: #1e1e1e !important; color: #d4d4d4 !important; transition: background-color 0.3s ease, color 0.3s ease; }
-    .jp-RenderedHTMLCommon, .jp-OutputArea-output { color: #d4d4d4 !important; transition: color 0.3s ease; }
-    html { scroll-behavior: smooth; } h1, h2, h3, h4, h5, h6 { scroll-margin-top: 20px; }
-    a:link, a:visited { color: #4aa3ff !important; } a:hover, a:active { color: #82c7ff !important; }
-    blockquote { border-left: 4px solid #569cd6; padding-left: 12px; margin-left: 0; font-style: italic; color: #cccccc; background: #2a2a2a; transition: all 0.3s ease; }
-    table { border-collapse: collapse; width: 100%; background: #1e1e1e; color: #d4d4d4; transition: all 0.3s ease; }
-    table, th, td { border: 1px solid #444; padding: 6px 10px; transition: border-color 0.3s ease; }
-    th { background: #2d2d2d; font-weight: bold; transition: background-color 0.3s ease; }
-    tr:nth-child(even) { background: #242424; transition: background-color 0.3s ease; }
-    body.light-mode { background-color: #ffffff !important; color: #333333 !important; }
-    body.light-mode .jp-Notebook, body.light-mode .jp-Cell, body.light-mode .jp-InputArea, body.light-mode .jp-OutputArea { background: #ffffff !important; color: #333333 !important; }
-    body.light-mode .jp-RenderedHTMLCommon, body.light-mode .jp-OutputArea-output { color: #333333 !important; }
+    body { 
+      background-color: #1e1e1e !important; 
+      color: #d4d4d4 !important; 
+      transition: background-color 0.3s ease, color 0.3s ease; 
+    }
+    .jp-Notebook, .jp-Cell, .jp-InputArea, .jp-OutputArea { 
+      background: #1e1e1e !important; 
+      color: #d4d4d4 !important; 
+      transition: background-color 0.3s ease, color 0.3s ease; 
+    }
+    .jp-RenderedHTMLCommon, .jp-OutputArea-output { 
+      color: #d4d4d4 !important; 
+      transition: color 0.3s ease; 
+    }
+    html { scroll-behavior: smooth; } 
+    h1, h2, h3, h4, h5, h6 { scroll-margin-top: 20px; }
+    a:link, a:visited { color: #4aa3ff !important; } 
+    a:hover, a:active { color: #82c7ff !important; }
+    blockquote { 
+      border-left: 4px solid #569cd6; 
+      padding-left: 12px; 
+      margin-left: 0; 
+      font-style: italic; 
+      color: #cccccc; 
+      background: #2a2a2a; 
+      transition: all 0.3s ease; 
+    }
+    table { 
+      border-collapse: collapse; 
+      width: 100%; 
+      background: #1e1e1e; 
+      color: #d4d4d4; 
+      transition: all 0.3s ease; 
+    }
+    table, th, td { 
+      border: 1px solid #444; 
+      padding: 6px 10px; 
+      transition: border-color 0.3s ease; 
+    }
+    th { 
+      background: #2d2d2d; 
+      font-weight: bold; 
+      transition: background-color 0.3s ease; 
+    }
+    tr:nth-child(even) { 
+      background: #242424; 
+      transition: background-color 0.3s ease; 
+    }
+    body.light-mode { 
+      background-color: #ffffff !important; 
+      color: #333333 !important; 
+    }
+    body.light-mode .jp-Notebook, 
+    body.light-mode .jp-Cell, 
+    body.light-mode .jp-InputArea, 
+    body.light-mode .jp-OutputArea { 
+      background: #ffffff !important; 
+      color: #333333 !important; 
+    }
+    body.light-mode .jp-RenderedHTMLCommon, 
+    body.light-mode .jp-OutputArea-output { 
+      color: #333333 !important; 
+    }
     body.light-mode a:link, body.light-mode a:visited { color: #0066cc !important; }
     body.light-mode a:hover, body.light-mode a:active { color: #004499 !important; }
-    body.light-mode blockquote { border-left: 4px solid #0066cc; color: #555; background: #f5f5f5; }
+    body.light-mode blockquote { 
+      border-left: 4px solid #0066cc; 
+      color: #555; 
+      background: #f5f5f5; 
+    }
     body.light-mode table { background: #ffffff; color: #333333; }
     body.light-mode table, body.light-mode th, body.light-mode td { border: 1px solid #ddd; }
     body.light-mode th { background: #f5f5f5; }
     body.light-mode tr:nth-child(even) { background: #f9f9f9; }
-    div.highlight { position: relative; overflow-x: auto; padding: 0.2px 0.2px; transition: background-color 0.3s ease; }
-    pre, code { background-color: #1e1e1e !important; border: none !important; color: #d4d4d4 !important; font-family: "Fira Code", Consolas, monospace !important; font-size: 13px; line-height: 1.5; white-space: pre; display: block; overflow-x: auto; max-width: 100%; transition: all 0.3s ease; }
-    body.light-mode pre, body.light-mode code { background-color: #f8f8f8 !important; color: #333333 !important; }
-    .copy-btn { position: absolute; top: 6px; right: 8px; background: #2d2d2d; color: #d4d4d4; border: 1px solid #444; border-radius: 6px; font-size: 14px; padding: 2px 6px; cursor: pointer; opacity: 0.6; z-index: 5; transition: all 0.3s ease; }
+    div.highlight { 
+      position: relative; 
+      overflow-x: auto; 
+      padding: 0.2px 0.2px; 
+      transition: background-color 0.3s ease; 
+    }
+    pre, code { 
+      background-color: #1e1e1e !important; 
+      border: none !important; 
+      color: #d4d4d4 !important; 
+      font-family: "Fira Code", Consolas, monospace !important; 
+      font-size: 13px; 
+      line-height: 1.5; 
+      white-space: pre; 
+      display: block; 
+      overflow-x: auto; 
+      max-width: 100%; 
+      transition: all 0.3s ease; 
+    }
+    body.light-mode pre, body.light-mode code { 
+      background-color: #f8f8f8 !important; 
+      color: #333333 !important; 
+    }
+    .copy-btn { 
+      position: absolute; 
+      top: 6px; 
+      right: 8px; 
+      background: #2d2d2d; 
+      color: #d4d4d4; 
+      border: 1px solid #444; 
+      border-radius: 6px; 
+      font-size: 14px; 
+      padding: 2px 6px; 
+      cursor: pointer; 
+      opacity: 0.6; 
+      z-index: 5; 
+      transition: all 0.3s ease; 
+    }
     .copy-btn:hover { opacity: 1; background: #3a3a3a; }
     body.light-mode .copy-btn { background: #e0e0e0; color: #333; border-color: #ccc; }
     body.light-mode .copy-btn:hover { background: #d0d0d0; }
-    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } .nf, .nc, .nn { color: #4fc1ff !important; } .n { color: #ffffff !important; } .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } .m, .mf, .mi, .il { color: #d19a66 !important; } .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } .o, .p { color: #d4d4d4 !important; }
-    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { color: #8B008B !important; } body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { color: #0000FF !important; } body.light-mode .n { color: #000000 !important; } body.light-mode .s, body.light-mode .sb, body.light-mode .sc, body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, body.light-mode .sa, body.light-mode .se { color: #008000 !important; } body.light-mode .m, body.light-mode .mf, body.light-mode .mi, body.light-mode .il { color: #d19a66 !important; } body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } body.light-mode .o, body.light-mode .p { color: #333333 !important; }
+    .k, .kp, .kt, .kc, .kd, .kn { color: #c586c0 !important; } 
+    .nf, .nc, .nn { color: #4fc1ff !important; } 
+    .n { color: #ffffff !important; } 
+    .s, .sb, .sc, .sd, .s1, .s2, .sa, .se { color: #6a9955 !important; } 
+    .m, .mf, .mi, .il { color: #d19a66 !important; } 
+    .c, .cm, .cpf { color: #6a9955 !important; font-style: italic !important; } 
+    .o, .p { color: #d4d4d4 !important; }
+    body.light-mode .k, body.light-mode .kp, body.light-mode .kt, body.light-mode .kc, body.light-mode .kd, body.light-mode .kn { color: #8B008B !important; } 
+    body.light-mode .nf, body.light-mode .nc, body.light-mode .nn { color: #0000FF !important; } 
+    body.light-mode .n { color: #000000 !important; } 
+    body.light-mode .s, body.light-mode .sb, body.light-mode .sc, body.light-mode .sd, body.light-mode .s1, body.light-mode .s2, body.light-mode .sa, body.light-mode .se { color: #008000 !important; } 
+    body.light-mode .m, body.light-mode .mf, body.light-mode .mi, body.light-mode .il { color: #d19a66 !important; } 
+    body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } 
+    body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     
     /* ======= MOBILE RESPONSIVE ======= */
     @media (max-width: 768px) { 
-      body {
-        margin-right: 60px !important;
-      }
-      
-      .jp-Notebook {
-        max-width: calc(100% - 60px) !important;
-      }
-      
-      .jp-Cell {
-        margin-right: 10px !important;
-      }
-      
-      .button-container {
-        top: 10px;
-        right: 10px;
-        padding: 8px;
-        gap: 8px;
-      }
-      
-      .theme-toggle-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
-      }
-      
-      .report-issue-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
-      }
-      
-      .download-btn {
-        width: 32px !important;
-        height: 32px !important;
-      }
-      
-      .download-btn .download-arrow {
-        border-left-width: 5px;
-        border-right-width: 5px;
-        border-top-width: 7px;
-      }
-      
-      .download-btn .download-line {
-        width: 12px;
-        height: 2px;
-      }
-      
-      #timeline-nav { 
-        right: 10px !important; 
-        padding: 15px 8px !important; 
-        gap: 6px !important; 
-      } 
+      :root { --button-size: 36px; }
+      body { margin-right: 60px !important; }
+      .jp-Notebook { max-width: calc(100% - 60px) !important; }
+      .jp-Cell { margin-right: 10px !important; }
+      .button-container { top: 10px; right: 10px; padding: 6px; gap: 2px; }
+      .code-toggle-btn { font-size: 12px !important; }
+      #timeline-nav { right: 10px !important; padding: 15px 8px !important; gap: 6px !important; } 
       .timeline-line { height: 15px !important; }
     }
     
     @media (max-width: 480px) { 
-      body {
-        margin-right: 50px !important;
-      }
-      
-      .jp-Notebook {
-        max-width: calc(100% - 50px) !important;
-      }
-      
-      .jp-Cell {
-        margin-right: 5px !important;
-      }
-      
-      .button-container {
-        flex-direction: row !important;
-        gap: 8px;
-        padding: 8px;
-        top: 10px;
-        right: 10px;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .theme-toggle-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
-      }
-      
-      .report-issue-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
-      }
-      
-      .download-btn {
-        width: 28px !important;
-        height: 28px !important;
-      }
-      
-      .download-btn .download-arrow {
-        border-left-width: 4px;
-        border-right-width: 4px;
-        border-top-width: 6px;
-      }
-      
-      .download-btn .download-line {
-        width: 10px;
-        height: 2px;
-      }
-      
-      #timeline-nav { 
-        right: 5px !important; 
-        padding: 10px 6px !important; 
-        gap: 4px !important;
-        transform: translateY(-50%) scale(0.9) !important;
-        border-radius: 20px !important;
-      } 
-      
-      .timeline-dot {
-        width: 16px !important;
-        height: 16px !important;
-        font-size: 10px !important;
-        margin: -6px !important;
-      }
-      
-      .timeline-line { 
-        height: 12px !important; 
-        width: 1px !important;
-      }
-      
-      #timeline-tooltip {
-        font-size: 10px !important;
-        padding: 6px 8px !important;
-      }
-      
-      #timeline-full-list {
-        font-size: 10px !important;
-        padding: 8px 10px !important;
-        max-height: 60vh !important;
-      }
+      :root { --button-size: 32px; }
+      body { margin-right: 50px !important; }
+      .jp-Notebook { max-width: calc(100% - 50px) !important; }
+      .jp-Cell { margin-right: 5px !important; }
+      .button-container { padding: 4px; gap: 2px; top: 10px; right: 10px; }
+      .code-toggle-btn { font-size: 10px !important; }
+      #timeline-nav { right: 5px !important; padding: 10px 6px !important; gap: 4px !important; transform: translateY(-50%) scale(0.9) !important; border-radius: 20px !important; } 
+      .timeline-dot { width: 16px !important; height: 16px !important; font-size: 10px !important; margin: -6px !important; }
+      .timeline-line { height: 12px !important; width: 1px !important; }
+      #timeline-tooltip { font-size: 10px !important; padding: 6px 8px !important; }
+      #timeline-full-list { font-size: 10px !important; padding: 8px 10px !important; max-height: 60vh !important; }
     }
     
     @media (max-width: 360px) {
-      body {
-        margin-right: 40px !important;
-      }
-      
-      .jp-Notebook {
-        max-width: calc(100% - 40px) !important;
-      }
-      
-      .button-container {
-        gap: 6px;
-        padding: 6px;
-      }
-      
-      .theme-toggle-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 12px;
-      }
-      
-      .report-issue-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 12px;
-      }
-      
-      .download-btn {
-        width: 24px !important;
-        height: 24px !important;
-      }
-      
-      .download-btn .download-arrow {
-        border-left-width: 3px;
-        border-right-width: 3px;
-        border-top-width: 5px;
-      }
-      
-      .download-btn .download-line {
-        width: 8px;
-        height: 2px;
-      }
-      
-      #timeline-nav {
-        transform: translateY(-50%) scale(0.8) !important;
-        padding: 8px 4px !important;
-        gap: 3px !important;
-      }
-      
-      .timeline-dot {
-        width: 14px !important;
-        height: 14px !important;
-        font-size: 9px !important;
-      }
-      
-      .timeline-line {
-        height: 10px !important;
-      }
+      :root { --button-size: 28px; }
+      body { margin-right: 40px !important; }
+      .jp-Notebook { max-width: calc(100% - 40px) !important; }
+      .button-container { gap: 1px; padding: 3px; }
+      .code-toggle-btn { font-size: 8px !important; }
+      #timeline-nav { transform: translateY(-50%) scale(0.8) !important; padding: 8px 4px !important; gap: 3px !important; }
+      .timeline-dot { width: 14px !important; height: 14px !important; font-size: 9px !important; }
+      .timeline-line { height: 10px !important; }
     }
     </style>
     
@@ -8769,34 +8814,67 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       var buttonContainer = document.createElement("div");
       buttonContainer.className = "button-container";
 
+      // Code toggle button (first button)
+      var codeToggleBtn = document.createElement("button");
+      codeToggleBtn.className = "code-toggle-btn";
+      codeToggleBtn.innerHTML = "&lt;/&gt;";
+      codeToggleBtn.title = "Hide code cells";
+      
+      var codeVisible = true;
+      
+      // Code toggle functionality
+      function toggleCodeVisibility() {
+        codeVisible = !codeVisible;
+        
+        if (codeVisible) {
+          // Show code - use wider content to match hidden state
+          document.body.classList.remove('code-hidden');
+          codeToggleBtn.classList.remove('code-hidden');
+          codeToggleBtn.innerHTML = "&lt;/&gt;";
+          codeToggleBtn.title = "Hide code cells";
+        } else {
+          // Hide code - use same width as visible state
+          document.body.classList.add('code-hidden');
+          codeToggleBtn.classList.add('code-hidden');
+          codeToggleBtn.innerHTML = "&lt;&nbsp;&gt;";
+          codeToggleBtn.title = "Show code cells";
+        }
+        
+        // Save preference
+        localStorage.setItem('code-visibility', codeVisible ? 'visible' : 'hidden');
+      }
+      
+      codeToggleBtn.addEventListener("click", toggleCodeVisibility);
+      
+      // Initialize code visibility from localStorage
+      var savedCodeVisibility = localStorage.getItem('code-visibility') || 'visible';
+      if (savedCodeVisibility === 'hidden') {
+        codeVisible = true; // Will be toggled to false
+        toggleCodeVisibility();
+      }
+
       // Theme toggle button
       var themeToggleBtn = document.createElement("button");
       themeToggleBtn.className = "theme-toggle-btn";
-      themeToggleBtn.title = "Theme: System";
+      themeToggleBtn.title = "Toggle theme";
       
-      // Create theme icons
+      // Create theme icons - only dark and light modes
       var darkIcon = document.createElement("span");
       darkIcon.className = "theme-icon dark";
-      darkIcon.innerHTML = "🌙";
+      darkIcon.innerHTML = "●";  // Solid circle for dark theme
       
       var lightIcon = document.createElement("span");
       lightIcon.className = "theme-icon light";
-      lightIcon.innerHTML = "☀️";
-      
-      var systemIcon = document.createElement("span");
-      systemIcon.className = "theme-icon system active";
-      systemIcon.innerHTML = '<span class="moon">🌙</span><span class="sun">☀️</span>';
+      lightIcon.innerHTML = "○";  // Hollow circle for light theme
       
       themeToggleBtn.appendChild(darkIcon);
       themeToggleBtn.appendChild(lightIcon);
-      themeToggleBtn.appendChild(systemIcon);
       
-      // Theme management
-      var currentTheme = 'system'; // 'dark', 'light', 'system'
+      // Theme management - only dark and light
+      var currentTheme = 'dark'; // Will be set based on system preference
       var themeIcons = {
         dark: darkIcon,
-        light: lightIcon,
-        system: systemIcon
+        light: lightIcon
       };
       
       // Check for system preference
@@ -8809,13 +8887,8 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
         // Remove all theme classes
         document.body.classList.remove('light-mode', 'dark-mode');
         
-        var actualTheme = theme;
-        if (theme === 'system') {
-          actualTheme = getSystemTheme();
-        }
-        
         // Apply the theme class
-        if (actualTheme === 'light') {
+        if (theme === 'light') {
           document.body.classList.add('light-mode');
         } else {
           document.body.classList.add('dark-mode');
@@ -8835,18 +8908,14 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
         // Update tooltip
         var themeNames = {
           dark: 'Theme: Dark',
-          light: 'Theme: Light', 
-          system: 'Theme: System'
+          light: 'Theme: Light'
         };
         themeToggleBtn.title = themeNames[currentTheme];
       }
       
-      // Theme toggle click handler
+      // Theme toggle click handler - only toggle between dark and light
       function toggleTheme() {
-        var themes = ['system', 'dark', 'light'];
-        var currentIndex = themes.indexOf(currentTheme);
-        var nextIndex = (currentIndex + 1) % themes.length;
-        currentTheme = themes[nextIndex];
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         applyTheme(currentTheme);
         updateThemeToggle();
@@ -8857,17 +8926,22 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       
       themeToggleBtn.addEventListener("click", toggleTheme);
       
-      // Initialize theme from localStorage or default to system
-      var savedTheme = localStorage.getItem('theme-preference') || 'system';
-      currentTheme = savedTheme;
+      // Initialize theme - always start with system preference on page load
+      currentTheme = getSystemTheme();
       applyTheme(currentTheme);
       updateThemeToggle();
       
-      // Listen for system theme changes when in system mode
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-        if (currentTheme === 'system') {
-          applyTheme('system');
-        }
+      // Real-time system theme change detection - updates without page reload
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        // Automatically detect and apply system theme changes
+        currentTheme = getSystemTheme();
+        applyTheme(currentTheme);
+        updateThemeToggle();
+        
+        // Optional: Clear any saved manual preference since we're following system
+        localStorage.removeItem('theme-preference');
+        
+        console.log('System theme changed to:', currentTheme); // For debugging
       });
 
       // Extract filenames
@@ -8893,53 +8967,36 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
         return 'notebook.ipynb';
       }
 
-      // Report issue button
+      // Report issue button - simple question mark
       var reportIssueBtn = document.createElement("a");
       reportIssueBtn.className = "report-issue-btn";
-      reportIssueBtn.innerHTML = "⚠️";
+      reportIssueBtn.innerHTML = "?";  // Question mark for help/issues
       reportIssueBtn.title = "Report an issue in this notebook";
       reportIssueBtn.target = "_blank";
       reportIssueBtn.rel = "noopener noreferrer";
+      reportIssueBtn.style.color = "inherit";  // Ensure it inherits the right color
       
       var notebookName = getNotebookName();
       var issueTitle = "[Tutorial Content Issue] " + notebookName;
       var issueBody = encodeURIComponent("[" + notebookName + "](" + window.location.href + ")\n\nIssue Description: \n");
       reportIssueBtn.href = "https://github.com/meluron-codecafe/DevQuest/issues/new?assignees=ankit0anand0&labels=tutorials&projects=&template=&title=" + encodeURIComponent(issueTitle) + "&body=" + issueBody;
 
-      // Download button with pure CSS arrow
+      // Download button - simple down arrow
       var downloadBtn = document.createElement("a");
       downloadBtn.className = "download-btn";
+      downloadBtn.innerHTML = "↓";  // Down arrow for download
       downloadBtn.title = "Download .ipynb file";
       downloadBtn.target = "_blank";
       downloadBtn.rel = "noopener noreferrer";
-      
-      var downloadIcon = document.createElement("div");
-      downloadIcon.className = "download-icon";
-      
-      // Create pure CSS arrow using div with borders
-      var downloadArrow = document.createElement("div");
-      downloadArrow.className = "download-arrow";
-      
-      var downloadLine = document.createElement("div");
-      downloadLine.className = "download-line";
-      
-      downloadIcon.appendChild(downloadArrow);
-      downloadIcon.appendChild(downloadLine);
-      downloadBtn.appendChild(downloadIcon);
+      downloadBtn.style.color = "inherit";  // Ensure it inherits the right color
       
       var ipynbFilename = getIpynbFilename();
       downloadBtn.href = "../notebooks/" + ipynbFilename;
       downloadBtn.download = ipynbFilename;
 
-      // Add rotation animation on click (arrow only)
-      downloadBtn.addEventListener("click", function() {
-        downloadBtn.classList.add("clicked");
-        setTimeout(function() {
-          downloadBtn.classList.remove("clicked");
-        }, 600);
-      });
       
-      // Add components to container (Theme Toggle → Report Issue → Download)
+      // Add components to container (Code Toggle → Theme Toggle → Report Issue → Download)
+      buttonContainer.appendChild(codeToggleBtn);
       buttonContainer.appendChild(themeToggleBtn);
       buttonContainer.appendChild(reportIssueBtn);
       buttonContainer.appendChild(downloadBtn);
@@ -9061,6 +9118,7 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
         block.appendChild(btn);
       });
 
+      // Initialize everything
       generateTimeline();
     });
     </script>
