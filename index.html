@@ -15,7 +15,29 @@
         --table-header-bg: #2b2b2b;
         --quote-color: #bbb;
         --footer-color: #999;
+        
+        /* Typography scale */
+        --font-size-xs: 12px;
+        --font-size-sm: 13px;
+        --font-size-base: 14px;
+        --font-size-lg: 16px;
+        --font-size-xl: 18px;
+        
+        /* Spacing scale */
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 12px;
+        --space-lg: 10px;
+        --space-xl: 20px;
+        --space-2xl: 24px;
+        
+        /* Border radius scale */
+        --radius-sm: 4px;
+        --radius-md: 6px;
+        --radius-lg: 8px;
+        --radius-xl: 12px;
     }
+    
     body.light-theme {
         --bg-color: #f2f2f2;
         --text-color: #333;
@@ -29,45 +51,59 @@
         --footer-color: #777;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
     body {
-        font-family: "Segoe UI", Tahoma, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: var(--font-size-base);
+        line-height: 1.5;
         background-color: var(--bg-color);
         color: var(--text-color);
         margin: 0;
-        padding: 20px;
-        transition: background-color 0.3s, color 0.3s;
+        padding: var(--space-xl);
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
+    
     .container {
         max-width: 900px;
         margin: 0 auto;
         background: var(--container-bg);
         border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 20px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        border-radius: var(--radius-lg);
+        padding: var(--space-2xl);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         position: relative;
-        transition: background 0.3s, border 0.3s;
+        transition: background 0.3s ease, border 0.3s ease;
     }
+    
     .header {
         display: flex;
-        justify-content: center; /* center logo */
+        justify-content: center;
         align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: var(--space-md);
         position: relative;
     }
+    
     .logo {
         max-width: 80px;
         height: auto;
         display: block;
         margin: 0 auto;
         cursor: pointer;
-        position: relative;
         transition: opacity 0.3s ease;
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
-        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        from { 
+            opacity: 0; 
+            transform: translateX(-50%) translateY(-5px); 
+        }
+        to { 
+            opacity: 1; 
+            transform: translateX(-50%) translateY(0); 
+        }
     }
 
     /* ======= BUTTON CONTAINER ======= */
@@ -77,12 +113,12 @@
         right: -15px;
         background: rgba(45, 45, 45, 0.95);
         border: 2px solid var(--border-color);
-        border-radius: 12px;
+        border-radius: var(--radius-xl);
         padding: 2px;
         display: flex;
         z-index: 1000;
         backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         transition: all 0.3s ease;
     }
     
@@ -97,11 +133,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
+        font-size: var(--font-size-xl);
         transition: all 0.3s ease;
         color: var(--text-color);
         position: relative;
         overflow: hidden;
+    }
+
+    .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
 
     /* Theme icon container for smooth transitions */
@@ -122,31 +162,33 @@
         transform: scale(1) rotate(0deg);
     }
 
-    /* SVG icon styling */
     .theme-icon svg {
         width: 20px;
         height: 20px;
         stroke: currentColor;
         fill: none;
         transition: all 0.2s ease;
-        color: inherit;
     }
 
     .github-btn {
         background: transparent !important;
         color: var(--text-color);
         border: none !important;
-        border-radius: 0;
+        border-radius: 50%;
         width: 40px;
         height: 40px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        transition: transform 0.3s ease, color 0.3s ease;
+        font-size: var(--font-size-lg);
+        transition: all 0.3s ease;
         text-decoration: none;
-        box-shadow: none !important;
+    }
+
+    .github-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.05);
     }
 
     /* Light theme button styles */
@@ -156,24 +198,23 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
-    /* Light mode SVG colors */
-    body.light-theme .theme-icon svg {
-        stroke: #333333;
-        color: #333333;
+    body.light-theme .theme-toggle-btn:hover,
+    body.light-theme .github-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
     }
 
     /* DevQuest Description */
     .description {
         text-align: center;
-        margin: 20px auto 25px auto;
-        padding: 6px 0px;
-        background: rgba(77, 163, 255, 0.1);
-        border: 1px solid rgba(77, 163, 255, 0.3);
-        border-radius: 8px;
+        margin: var(--space-xl) auto var(--space-2xl) auto;
+        padding: var(--space-lg);
+        background: rgba(77, 163, 255, 0.08);
+        border: 1px solid rgba(77, 163, 255, 0.25);
+        border-radius: var(--radius-lg);
         color: var(--text-color);
-        font-size: 14px;
+        font-size: var(--font-size-base);
         line-height: 1.6;
-        max-width: 575px;
+        max-width: 600px;
     }
 
     .description strong {
@@ -182,7 +223,7 @@
     }
 
     body.light-theme .description {
-        background: rgba(77, 163, 255, 0.05);
+        background: rgba(77, 163, 255, 0.04);
         border-color: rgba(77, 163, 255, 0.2);
     }
 
@@ -190,125 +231,167 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: var(--space-lg);
+        gap: var(--space-lg);
         flex-wrap: wrap;
     }
+    
     .right-controls {
         display: flex;
-        gap: 10px;
+        gap: var(--space-md);
         align-items: center;
     }
+    
     .request-topic-btn {
         background-color: #fd8a09;
         color: white;
-        padding: 8px 16px;
+        padding: var(--space-sm) var(--space-lg);
         border: none;
-        border-radius: 4px;
-        font-size: 14px;
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-base);
+        font-weight: 500;
         cursor: pointer;
         text-decoration: none;
         display: inline-block;
-        transition: background-color 0.3s;
+        transition: all 0.3s ease;
         white-space: nowrap;
     }
+    
     .request-topic-btn:hover {
         background-color: #e6750a;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(253, 138, 9, 0.3);
     }
+    
     select, input {
-        padding: 6px 8px;
-        font-size: 14px;
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--font-size-base);
+        font-family: inherit;
         border: 1px solid var(--border-color);
-        border-radius: 4px;
+        border-radius: var(--radius-sm);
         background: var(--container-bg);
         color: var(--text-color);
-        transition: background 0.3s, color 0.3s;
+        transition: all 0.3s ease;
     }
+    
+    select:focus, input:focus {
+        outline: none;
+        border-color: var(--link-color);
+        box-shadow: 0 0 0 2px rgba(78, 163, 255, 0.2);
+    }
+    
     #searchBox {
         width: 250px;
     }
+    
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+        margin-top: var(--space-md);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    
     th, td {
         border-bottom: 1px solid var(--border-color);
-        padding: 8px 10px;
+        padding: var(--space-md) var(--space-lg);
         text-align: left;
-        font-size: 14px;
+        font-size: var(--font-size-base);
+        line-height: 1.4;
     }
+    
     th {
         background-color: var(--table-header-bg);
         color: var(--text-color);
+        font-weight: 600;
+        font-size: var(--font-size-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         position: relative;
     }
+    
     tr:hover {
         background-color: var(--hover-bg);
     }
+    
+    tr:last-child td {
+        border-bottom: none;
+    }
+    
     a {
         color: var(--link-color);
+        text-decoration: none;
+        transition: color 0.2s ease;
     }
+    
     a:hover {
         text-decoration: underline;
+        color: #66b3ff;
     }
     
     /* Category info icon styles */
     .category-header {
         display: flex;
         align-items: center;
-        gap: 5px;
-    }
-    .info-icon {
-        cursor: pointer;
-        font-size: 14px;
-        color: var(--link-color);
-        opacity: 0.7;
-        transition: opacity 0.3s;
-    }
-    .info-icon:hover {
-        opacity: 1;
+        gap: var(--space-sm);
     }
     
-    /* Tooltip styles */
     .info-icon {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        width: 15px;
-        height: 15px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         border: 1px solid var(--link-color);
         background: transparent;
         color: var(--link-color);
-        font-size: 12px;
+        font-size: var(--font-size-xs);
         font-weight: bold;
         cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .info-icon:hover {
+        background: var(--link-color);
+        color: white;
+        transform: scale(1.1);
     }
 
+    /* Tooltip styles */
     .tooltip {
         position: absolute;
         background: var(--container-bg);
-        border: 4px solid var(--border-color);
-        border-radius: 6px;
-        padding: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: var(--space-lg);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         z-index: 1000;
-        max-width: 300px;
-        font-size: 12px;
-        line-height: 1.4;
+        max-width: 400px;
+        font-size: var(--font-size-sm);
+        line-height: 1.5;
         display: none;
     }
+    
     .tooltip.visible {
         display: block;
+        animation: fadeInUp 0.3s ease;
     }
+    
     .tooltip h4 {
-        margin: 0 0 8px 0;
+        margin: 0 0 var(--space-sm) 0;
         color: var(--link-color);
-        font-size: 14px;
+        font-size: var(--font-size-base);
+        font-weight: 600;
     }
+    
     .tooltip p {
-        margin: 0 0 8px 0;
+        margin: 0 0 var(--space-md) 0;
+        color: var(--text-color);
     }
+    
     .tooltip p:last-child {
         margin-bottom: 0;
     }
@@ -318,16 +401,15 @@
         position: absolute;
         background: var(--container-bg);
         border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        border-radius: var(--radius-lg);
+        padding: var(--space-lg);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.25);
         z-index: 1001;
         max-width: 450px;
-        font-size: 13px;
+        font-size: var(--font-size-sm);
         line-height: 1.5;
         display: none;
         backdrop-filter: blur(10px);
-        transition: opacity 0.3s ease;
     }
     
     .preview-tooltip.visible {
@@ -347,16 +429,16 @@
     }
     
     .preview-tooltip .preview-title {
-        font-weight: bold;
+        font-weight: 600;
         color: var(--link-color);
-        margin-bottom: 12px;
-        font-size: 14px;
+        margin-bottom: var(--space-md);
+        font-size: var(--font-size-base);
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 6px;
+        padding-bottom: var(--space-sm);
     }
     
     .preview-tooltip .preview-section {
-        margin-bottom: 12px;
+        margin-bottom: var(--space-md);
     }
     
     .preview-tooltip .preview-section:last-child {
@@ -366,23 +448,25 @@
     .preview-tooltip .section-title {
         font-weight: 600;
         color: var(--text-color);
-        margin-bottom: 4px;
-        font-size: 12px;
+        margin-bottom: var(--space-xs);
+        font-size: var(--font-size-xs);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     
     .preview-tooltip .section-content {
         color: var(--quote-color);
-        margin-left: 8px;
+        margin-left: var(--space-sm);
+        font-size: var(--font-size-sm);
+        line-height: 1.4;
     }
     
     .preview-tooltip .section-content img {
         max-width: 100%;
         height: auto;
-        border-radius: 4px;
-        margin: 8px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        border-radius: var(--radius-sm);
+        margin: var(--space-sm) 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .preview-tooltip .preview-html {
@@ -394,9 +478,9 @@
         max-width: 100%;
         height: auto;
         max-height: 200px;
-        border-radius: 4px;
-        margin: 8px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        border-radius: var(--radius-sm);
+        margin: var(--space-sm) 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         object-fit: contain;
     }
     
@@ -404,26 +488,32 @@
         text-align: center;
         color: var(--quote-color);
         font-style: italic;
+        font-size: var(--font-size-sm);
     }
     
     .preview-tooltip .error {
         text-align: center;
         color: #f87171;
         font-style: italic;
+        font-size: var(--font-size-sm);
     }
     
     .footer {
         text-align: center;
-        margin-top: 30px;
-        padding-top: 20px;
+        margin-top: var(--space-2xl);
+        padding-top: var(--space-xl);
         border-top: 1px solid var(--border-color);
         color: var(--footer-color);
-        font-size: 14px;
+        font-size: var(--font-size-base);
+        line-height: 1.6;
     }
+    
     .footer a {
         color: #fd8a09;
         text-decoration: none;
+        font-weight: 500;
     }
+    
     .footer a:hover {
         text-decoration: underline;
     }
@@ -433,6 +523,7 @@
         color: var(--topic-link-color);
         text-decoration: none;
         font-weight: 500;
+        transition: all 0.2s ease;
     }
     
     #tutorialTable a:hover {
@@ -440,57 +531,79 @@
         color: #4ea3ff;
     }
     
+    /* Category column styling */
+    .category {
+        font-weight: 600;
+        font-size: var(--font-size-sm);
+        letter-spacing: 0.5px;
+    }
+    
+    /* Responsive design */
     @media (max-width: 768px) {
+        body {
+            padding: var(--space-md);
+        }
+        
+        .container {
+            padding: var(--space-lg);
+        }
+        
         .controls {
             flex-direction: column;
             align-items: stretch;
+            gap: var(--space-md);
         }
+        
         .right-controls {
             justify-content: flex-start;
-            margin-top: 10px;
         }
+        
         #searchBox {
             width: 100%;
         }
+        
         .tooltip {
             max-width: 250px;
         }
+        
         .button-container {
-            top: 10px;
-            right: 10px;
-            padding: 6px;
+            top: var(--space-md);
+            right: var(--space-md);
+            padding: var(--space-sm);
         }
-        .theme-toggle-btn {
-            width: 40px;
-            height: 40px;
-            font-size: 18px;
-        }
-        .github-btn {
-            width: 35px;
-            height: 35px;
-            font-size: 16px;
-        }
+        
         .description {
-            margin: 15px auto 20px auto;
-            padding: 12px 16px;
-            font-size: 13px;
+            margin: var(--space-lg) auto var(--space-xl) auto;
+            padding: var(--space-md);
+            font-size: var(--font-size-sm);
+        }
+        
+        th, td {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-size-sm);
         }
     }
 
     @media (max-width: 480px) {
         .button-container {
             flex-direction: column;
-            gap: 6px;
+            gap: var(--space-sm);
         }
-        .theme-toggle-btn {
+        
+        .theme-toggle-btn,
+        .github-btn {
             width: 36px;
             height: 36px;
-            font-size: 16px;
+            font-size: var(--font-size-base);
         }
-        .github-btn {
-            width: 32px;
-            height: 32px;
-            font-size: 14px;
+        
+        .right-controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .request-topic-btn {
+            text-align: center;
         }
     }
 </style>
@@ -581,7 +694,8 @@
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     
     <script>
-        const categoryColors = [
+        // Category colors for dark theme
+        const categoryColorsDark = [
             "#fd8a09", // orange
             "#4ade80", // green
             "#60a5fa", // light blue
@@ -590,6 +704,18 @@
             "#a78bfa", // purple
             "#34d399", // teal
             "#f87171", // red
+        ];
+        
+        // Category colors for light theme (darker, more contrast)
+        const categoryColorsLight = [
+            "#dc6803", // darker orange
+            "#15803d", // darker green
+            "#2563eb", // darker blue
+            "#db2777", // darker pink
+            "#ca8a04", // darker yellow
+            "#7c3aed", // darker purple
+            "#0f766e", // darker teal
+            "#dc2626", // darker red
         ];
         
         let tutorials = [];
@@ -619,8 +745,9 @@
         
         function assignCategoryColors() {
             const uniqueCategories = [...new Set(tutorials.map(t => t.category))].sort();
+            const colors = currentTheme === 'light' ? categoryColorsLight : categoryColorsDark;
             uniqueCategories.forEach((cat, idx) => {
-                categoryColorMap[cat] = categoryColors[idx % categoryColors.length];
+                categoryColorMap[cat] = colors[idx % colors.length];
             });
         }
         
@@ -676,6 +803,13 @@
             applyTheme(currentTheme);
             updateThemeToggle();
             
+            // Reassign colors for new theme and re-render table
+            if (tutorials.length > 0) {
+                assignCategoryColors();
+                renderTable();
+                setTimeout(addPreviewListeners, 100);
+            }
+            
             // Save preference
             localStorage.setItem('theme-preference', currentTheme);
         }
@@ -693,6 +827,13 @@
             currentTheme = getSystemTheme();
             applyTheme(currentTheme);
             updateThemeToggle();
+            
+            // Reassign colors for new theme and re-render table
+            if (tutorials.length > 0) {
+                assignCategoryColors();
+                renderTable();
+                setTimeout(addPreviewListeners, 100);
+            }
             
             // Optional: Clear any saved manual preference since we're following system
             localStorage.removeItem('theme-preference');
@@ -968,6 +1109,7 @@
         previewTooltip.addEventListener('mouseleave', () => {
             hidePreview();
         });
+        
         document.addEventListener("click", (e) => {
             if (!categoryInfo.contains(e.target) && !categoryTooltip.contains(e.target)) {
                 hideTooltip();
@@ -1023,7 +1165,7 @@
                 const tr = document.createElement('tr');
                 const color = categoryColorMap[t.category] || "#ddd"; // fallback color
                 tr.innerHTML = `
-                <td class="category" style="color: ${color}; font-weight: bold;">
+                <td class="category" style="color: ${color};">
                     ${t.category}
                 </td>
                 <td><a href="htmls/${t.filename}" target="_blank">${t.topic}</a></td>

@@ -49,7 +49,7 @@ def hc(title: str, keywords: list[str] = []):
         font-size: 11px;
     }}
     .hc-month {{
-        background: #4aa3ff;
+        background: #EF8C00;
         color: #fff;
         padding: 5px 0;
         font-weight: bold;
