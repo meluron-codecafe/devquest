@@ -7622,6 +7622,17 @@ a.anchor-link {
 </main>
 
     <style>
+    /* ======= CSS CUSTOM PROPERTIES ======= */
+    :root {
+        --text-color: #d4d4d4;
+        --bg-color: #1e1e1e;
+    }
+    
+    body.light-mode {
+        --text-color: #333333;
+        --bg-color: #ffffff;
+    }
+
     /* ======= BUTTON CONTAINER ======= */
     .button-container {
       position: fixed;
@@ -7644,70 +7655,57 @@ a.anchor-link {
       box-shadow: 0 6px 25px rgba(0,0,0,0.4);
     }
 
-    /* ======= FIXED SWITCH TOGGLE STYLES ======= */
-    .switch-container {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      user-select: none;
+    /* ======= THEME TOGGLE BUTTON STYLES ======= */
+    .theme-toggle-btn {
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        color: var(--text-color);
+        position: relative;
+        overflow: hidden;
     }
     
-    .switch {
-      position: relative;
-      width: 52px;
-      height: 24px;
-      background: #666;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-      user-select: none;
-      display: flex;
-      align-items: center;
+    /* Theme icon container for smooth transitions */
+    .theme-icon {
+        position: absolute;
+        opacity: 0;
+        transform: scale(0.5) rotate(180deg);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .theme-icon.active {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    /* System mode shows both icons - sun inside moon curve */
+    .theme-icon.system {
+        position: relative;
+        font-size: 16px;
+        width: 24px;
+        height: 24px;
     }
     
-    .switch.on {
-      background: #4ea3ff;
+    .theme-icon.system .moon {
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
     }
     
-    .switch-knob {
-      position: absolute;
-      left: 2px;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-      pointer-events: none;
-    }
-    
-    .switch.on .switch-knob {
-      transform: translateX(26px);
-    }
-    
-    .switch-icons {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 18px;
-      pointer-events: none;
-    }
-    
-    .switch-icon {
-      opacity: 0.6;
-      transition: opacity 0.3s ease;
-      cursor: pointer;
-      pointer-events: auto;
-    }
-    
-    .switch.on .switch-icon.light {
-      opacity: 1;
-    }
-    
-    .switch:not(.on) .switch-icon.dark {
-      opacity: 1;
+    .theme-icon.system .sun {
+        font-size: 12px;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        z-index: 2;
     }
 
     /* ======= REPORT ISSUE BUTTON ======= */
@@ -7727,11 +7725,6 @@ a.anchor-link {
       box-shadow: none;
       color: #ccc;
       flex-shrink: 0;
-    }
-    
-    .report-issue-btn:hover {
-      transform: scale(1.1);
-      background: transparent;
     }
 
     /* ======= DOWNLOAD BUTTON STYLES ======= */
@@ -7753,11 +7746,6 @@ a.anchor-link {
       flex-shrink: 0;
       padding: 0;
       gap: 2px;
-    }
-    
-    .download-btn:hover {
-      transform: scale(1.1);
-      background: transparent;
     }
     
     .download-btn .download-icon {
@@ -7792,12 +7780,8 @@ a.anchor-link {
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
     
-    body.light-mode .switch {
-      background: #ccc;
-    }
-    
-    body.light-mode .switch.on {
-      background: #4ea3ff;
+    body.light-mode .theme-toggle-btn {
+      color: var(--text-color);
     }
     
     body.light-mode .report-issue-btn {
@@ -7988,23 +7972,9 @@ a.anchor-link {
         gap: 8px;
       }
       
-      .switch {
-        width: 48px;
-        height: 24px;
-        border-radius: 12px;
-      }
-      
-      .switch-knob {
-        width: 20px;
-        height: 20px;
-        left: 2px;
-      }
-      
-      .switch.on .switch-knob {
-        transform: translateX(24px);
-      }
-      
-      .switch-icons {
+      .theme-toggle-btn {
+        width: 32px;
+        height: 32px;
         font-size: 16px;
       }
       
@@ -8060,31 +8030,10 @@ a.anchor-link {
         justify-content: center;
       }
       
-      .switch-container {
-        flex-direction: row !important;
-        gap: 6px;
-        align-items: center;
-      }
-      
-      .switch {
-        width: 42px;
-        height: 20px;
-        border-radius: 10px;
-      }
-      
-      .switch-knob {
-        width: 16px;
-        height: 16px;
-        left: 2px;
-      }
-      
-      .switch.on .switch-knob {
-        transform: translateX(22px);
-      }
-      
-      .switch-icons {
+      .theme-toggle-btn {
+        width: 28px;
+        height: 28px;
         font-size: 14px;
-        gap: 3px;
       }
       
       .report-issue-btn {
@@ -8154,25 +8103,10 @@ a.anchor-link {
         padding: 6px;
       }
       
-      .switch {
-        width: 38px;
-        height: 18px;
-        border-radius: 9px;
-      }
-      
-      .switch-knob {
-        width: 16px;
-        height: 16px;
-        left: 2px;
-      }
-      
-      .switch.on .switch-knob {
-        transform: translateX(20px);
-      }
-      
-      .switch-icons {
+      .theme-toggle-btn {
+        width: 24px;
+        height: 24px;
         font-size: 12px;
-        gap: 2px;
       }
       
       .report-issue-btn {
@@ -8220,43 +8154,106 @@ a.anchor-link {
       var buttonContainer = document.createElement("div");
       buttonContainer.className = "button-container";
 
-      // Theme toggle switch
-      var switchContainer = document.createElement("div");
-      switchContainer.className = "switch-container";
+      // Theme toggle button
+      var themeToggleBtn = document.createElement("button");
+      themeToggleBtn.className = "theme-toggle-btn";
+      themeToggleBtn.title = "Theme: System";
       
-      var switchIcons = document.createElement("div");
-      switchIcons.className = "switch-icons";
-      
+      // Create theme icons
       var darkIcon = document.createElement("span");
-      darkIcon.className = "switch-icon dark";
+      darkIcon.className = "theme-icon dark";
       darkIcon.innerHTML = "🌙";
       
-      var switchElement = document.createElement("div");
-      switchElement.className = "switch";
-      
-      var switchKnob = document.createElement("div");
-      switchKnob.className = "switch-knob";
-      switchElement.appendChild(switchKnob);
-      
       var lightIcon = document.createElement("span");
-      lightIcon.className = "switch-icon light";
+      lightIcon.className = "theme-icon light";
       lightIcon.innerHTML = "☀️";
       
-      switchIcons.appendChild(darkIcon);
-      switchIcons.appendChild(switchElement);
-      switchIcons.appendChild(lightIcon);
-      switchContainer.appendChild(switchIcons);
+      var systemIcon = document.createElement("span");
+      systemIcon.className = "theme-icon system active";
+      systemIcon.innerHTML = '<span class="moon">🌙</span><span class="sun">☀️</span>';
       
-      var isDarkMode = true;
+      themeToggleBtn.appendChild(darkIcon);
+      themeToggleBtn.appendChild(lightIcon);
+      themeToggleBtn.appendChild(systemIcon);
       
-      function toggleTheme() {
-        isDarkMode = !isDarkMode;
-        document.body.classList.toggle("light-mode", !isDarkMode);
-        switchElement.classList.toggle("on", !isDarkMode);
+      // Theme management
+      var currentTheme = 'system'; // 'dark', 'light', 'system'
+      var themeIcons = {
+        dark: darkIcon,
+        light: lightIcon,
+        system: systemIcon
+      };
+      
+      // Check for system preference
+      function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
       
-      switchElement.addEventListener("click", toggleTheme);
-      switchContainer.addEventListener("click", toggleTheme);
+      // Apply theme to DOM
+      function applyTheme(theme) {
+        // Remove all theme classes
+        document.body.classList.remove('light-mode', 'dark-mode');
+        
+        var actualTheme = theme;
+        if (theme === 'system') {
+          actualTheme = getSystemTheme();
+        }
+        
+        // Apply the theme class
+        if (actualTheme === 'light') {
+          document.body.classList.add('light-mode');
+        } else {
+          document.body.classList.add('dark-mode');
+        }
+      }
+      
+      // Update theme toggle UI
+      function updateThemeToggle() {
+        // Remove active class from all icons
+        Object.keys(themeIcons).forEach(function(key) {
+          themeIcons[key].classList.remove('active');
+        });
+        
+        // Add active class to current theme icon
+        themeIcons[currentTheme].classList.add('active');
+        
+        // Update tooltip
+        var themeNames = {
+          dark: 'Theme: Dark',
+          light: 'Theme: Light', 
+          system: 'Theme: System'
+        };
+        themeToggleBtn.title = themeNames[currentTheme];
+      }
+      
+      // Theme toggle click handler
+      function toggleTheme() {
+        var themes = ['system', 'dark', 'light'];
+        var currentIndex = themes.indexOf(currentTheme);
+        var nextIndex = (currentIndex + 1) % themes.length;
+        currentTheme = themes[nextIndex];
+        
+        applyTheme(currentTheme);
+        updateThemeToggle();
+        
+        // Save preference
+        localStorage.setItem('theme-preference', currentTheme);
+      }
+      
+      themeToggleBtn.addEventListener("click", toggleTheme);
+      
+      // Initialize theme from localStorage or default to system
+      var savedTheme = localStorage.getItem('theme-preference') || 'system';
+      currentTheme = savedTheme;
+      applyTheme(currentTheme);
+      updateThemeToggle();
+      
+      // Listen for system theme changes when in system mode
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        if (currentTheme === 'system') {
+          applyTheme('system');
+        }
+      });
 
       // Extract filenames
       function getNotebookName() {
@@ -8328,7 +8325,7 @@ a.anchor-link {
       });
       
       // Add components to container (Theme Toggle → Report Issue → Download)
-      buttonContainer.appendChild(switchContainer);
+      buttonContainer.appendChild(themeToggleBtn);
       buttonContainer.appendChild(reportIssueBtn);
       buttonContainer.appendChild(downloadBtn);
       document.body.appendChild(buttonContainer);

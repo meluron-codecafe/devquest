@@ -195,6 +195,30 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
+    /* DevQuest Description */
+    .description {
+        text-align: center;
+        margin: 20px auto 25px auto;
+        padding: 6px 0px;
+        background: rgba(77, 163, 255, 0.1);
+        border: 1px solid rgba(77, 163, 255, 0.3);
+        border-radius: 8px;
+        color: var(--text-color);
+        font-size: 14px;
+        line-height: 1.6;
+        max-width: 700px;
+    }
+
+    .description strong {
+        color: var(--link-color);
+        font-weight: 600;
+    }
+
+    body.light-theme .description {
+        background: rgba(77, 163, 255, 0.05);
+        border-color: rgba(77, 163, 255, 0.2);
+    }
+
     .controls {
         display: flex;
         justify-content: space-between;
@@ -421,29 +445,6 @@
         font-style: italic;
     }
     
-    .quote-box {
-        display: inline-block;
-        font-style: italic;
-        color: var(--quote-color);
-        margin: 15px auto 25px auto;
-        font-size: 14px;
-        min-height: 30px;
-        text-align: center;
-        position: relative;
-    }
-    .quote-box::after {
-        content: "";
-        display: inline-block;
-        width: 1px;
-        height: 1.2em;
-        background: var(--quote-color);
-        margin-left: 5px;
-        vertical-align: bottom;
-    }
-    .quote-box.selected {
-        background-color: #cfe3ff;
-        color: #333;
-    }
     .footer {
         text-align: center;
         margin-top: 30px;
@@ -506,6 +507,11 @@
             font-size: 12px;
             padding: 10px 14px;
         }
+        .description {
+            margin: 15px auto 20px auto;
+            padding: 12px 16px;
+            font-size: 13px;
+        }
     }
 
     @media (max-width: 480px) {
@@ -553,9 +559,9 @@
         </div>
     </div>
 
-    <!-- Quote box centered -->
-    <div style="display: flex; justify-content: center;">
-        <div id="quoteBox" class="quote-box"></div>
+    <!-- DevQuest Description -->
+    <div class="description">
+        <strong>DevQuest</strong> offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through interactive Jupyter notebooks.
     </div>
 
     <div class="controls">
@@ -997,8 +1003,6 @@
                 category: row.category || '',
                 topic: row.topic || '',
                 tags: row.tags || '',
-                number: row.number || '',
-                notebook: row.notebook || '',
                 filename: row.html || ''
             }));
             
@@ -1070,54 +1074,6 @@
             });
             window.open(`${baseUrl}?${params.toString()}`, "_blank");
         });
-        
-        // Quotes feature
-        const quotes = [
-            '"A good dot product is all you need."',
-            '"Learn it the hard way."',
-            '"Work with people who resonate with you."',
-            '"Clarity over quantity."',
-            '"Learning without context is forgettable."'
-        ];
-        
-        // Shuffle quotes
-        for (let i = quotes.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [quotes[i], quotes[j]] = [quotes[j], quotes[i]];
-        }
-        
-        let currentQuoteIndex = 0;
-        let charIndex = 0;
-        const quoteBox = document.getElementById("quoteBox");
-        const typingSpeed = 150;
-        const delayBetweenQuotes = 3000;
-        const selectionDuration = 800;
-        
-        function typeQuote() {
-            if (charIndex < quotes[currentQuoteIndex].length) {
-                quoteBox.textContent = quotes[currentQuoteIndex].substring(0, charIndex + 1);
-                charIndex++;
-                setTimeout(typeQuote, typingSpeed);
-            } else {
-                setTimeout(selectQuote, delayBetweenQuotes);
-            }
-        }
-        
-        function selectQuote() {
-            quoteBox.classList.add("selected");
-            setTimeout(deleteQuote, selectionDuration);
-        }
-        
-        function deleteQuote() {
-            quoteBox.textContent = "";
-            quoteBox.classList.remove("selected");
-            charIndex = 0;
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-            setTimeout(typeQuote, typingSpeed);
-        }
-        
-        // Start animation
-        typeQuote();
     </script>
 
 </body>
