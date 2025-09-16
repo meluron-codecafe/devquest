@@ -752,10 +752,35 @@
         let previewTimeout;
         let currentPreviewTarget = null;
 
-        // Extract preview content from HTML content
-        function extractPreviewContent(htmlContent) {
+        // Fix image paths in HTML content
+        function fixImagePaths(htmlContent, filename) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlContent, 'text/html');
+            
+            // Find all img tags
+            const images = doc.querySelectorAll('img');
+            
+            images.forEach(img => {
+                const src = img.getAttribute('src');
+                if (src && src.startsWith('../')) {
+                    // Convert relative path to absolute path
+                    // If notebook is in htmls/ and uses ../data/images/file.png
+                    // We need to resolve this to data/images/file.png
+                    const newSrc = src.replace('../', '');
+                    img.setAttribute('src', newSrc);
+                }
+            });
+            
+            return doc.documentElement.innerHTML;
+        }
+
+        // Extract preview content from HTML content
+        function extractPreviewContent(htmlContent, filename) {
+            // First, fix the image paths
+            const fixedHtmlContent = fixImagePaths(htmlContent, filename);
+            
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(fixedHtmlContent, 'text/html');
             
             let previewText = '';
             let previewHTML = '';
@@ -795,6 +820,18 @@
                             .replace(/<link[^>]*>/gi, '')
                             .replace(/preview[:\s]*/gi, '')
                             .replace(/¶/g, '');
+                        
+                        // Fix image paths in the preview HTML as well
+                        const tempDoc = parser.parseFromString(previewHTML, 'text/html');
+                        const previewImages = tempDoc.querySelectorAll('img');
+                        previewImages.forEach(img => {
+                            const src = img.getAttribute('src');
+                            if (src && src.startsWith('../')) {
+                                const newSrc = src.replace('../', '');
+                                img.setAttribute('src', newSrc);
+                            }
+                        });
+                        previewHTML = tempDoc.documentElement.innerHTML;
                         
                         // If we found content, break
                         if (previewText || previewHTML.includes('<img')) {
@@ -843,7 +880,7 @@
                 if (!response.ok) throw new Error('Failed to load');
                 
                 const htmlContent = await response.text();
-                const preview = extractPreviewContent(htmlContent);
+                const preview = extractPreviewContent(htmlContent, filename);
                 
                 // Cache the result
                 previewCache.set(filename, preview);
