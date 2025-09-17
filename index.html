@@ -674,7 +674,7 @@
                     </div>
                 </th>
                 <th>Topic</th>
-                <th>Tags</th>
+                <th>Keywords</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -1129,7 +1129,7 @@
             tutorials = parsed.data.map(row => ({
                 category: row.category || '',
                 topic: row.topic || '',
-                tags: row.tags || '',
+                keywords: row.keywords || '',
                 filename: row.html || ''
             }));
             
@@ -1161,7 +1161,7 @@
             tutorials
             .filter(t =>
                 (!categoryFilter || t.category.toLowerCase() === categoryFilter) &&
-                (!searchQuery || (t.topic + ' ' + t.tags).toLowerCase().includes(searchQuery))
+                (!searchQuery || (t.topic + ' ' + t.keywords).toLowerCase().includes(searchQuery))
             )
             .forEach(t => {
                 const tr = document.createElement('tr');
@@ -1171,7 +1171,7 @@
                     ${t.category}
                 </td>
                 <td><a href="htmls/${t.filename}" target="_blank">${t.topic}</a></td>
-                <td>${t.tags || '-'}</td>
+                <td>${t.keywords || '-'}</td>
             `;
                 tableBody.appendChild(tr);
             });
