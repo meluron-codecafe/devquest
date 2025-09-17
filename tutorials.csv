@@ -5,4 +5,4 @@ P2C,A Tutorial on Hidden Markov Models and Selected Applications in Speech Recog
 P2C,D4C - a band-aperiodicity estimator for high-quality speech synthesis,,P2C-D4C_-_a_band-aperiodicity_estimator_for_high-quality_speech_synthesis.html
 P2C,Nearest Neighbor Pattern Classification,;,P2C-Nearest_Neighbor_Pattern_Classification.html
 TOOL,Comparing Pitch Trackers,praat-parselmouth; pyreaper; librosa; pyworld; libtsm;,TOOL-Comparing_Pitch_Trackers.html
-TOOL,F0-Conditioned Vocal Synthesis with WORLD Vocoder,,TOOL-F0-Conditioned_Vocal_Synthesis_with_WORLD_Vocoder.html
+TOOL,F0-Conditioned Vocal Synthesis Using WORLD Software,,TOOL-F0-Conditioned_Vocal_Synthesis_Using_WORLD_Software.html
