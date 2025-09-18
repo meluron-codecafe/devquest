@@ -993,7 +993,7 @@
             }
             
             return { 
-                text: previewText.substring(0, 300), 
+                text: previewText.substring(0, 500), 
                 html: previewHTML,
                 hasImages: previewHTML.includes('<img')
             };
@@ -1065,7 +1065,7 @@
                 // If no images, show text content
                 html += `
                     <div class="preview-section">
-                        <div class="section-content">${content.text}${content.text.length >= 300 ? '...' : ''}</div>
+                        <div class="section-content">${content.text}${content.text.length >= 750 ? '...' : ''}</div>
                     </div>
                 `;
             } else {
