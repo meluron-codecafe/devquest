@@ -170,7 +170,7 @@
         transition: all 0.2s ease;
     }
 
-    .github-btn {
+    .github-btn, .about-btn {
         background: transparent !important;
         color: var(--text-color);
         border: none !important;
@@ -186,13 +186,11 @@
         text-decoration: none;
     }
 
-    .github-btn:hover {
+    .github-btn:hover, .about-btn:hover {
         background: rgba(255, 255, 255, 0.1) !important;
         color: var(--text-color) !important;
         text-decoration: none !important;
     }
-
-
 
     /* Light theme button styles */
     body.light-theme .button-container {
@@ -202,72 +200,21 @@
     }
 
     body.light-theme .theme-toggle-btn:hover,
-    body.light-theme .github-btn:hover {
+    body.light-theme .github-btn:hover,
+    body.light-theme .about-btn:hover {
         background: rgba(0, 0, 0, 0.05);
-    }
-
-    /* DevQuest Description */
-    .description {
-        text-align: center;
-        margin: var(--space-xl) auto var(--space-2xl) auto;
-        padding: var(--space-lg);
-        background: rgba(77, 163, 255, 0.08);
-        border: 1px solid rgba(77, 163, 255, 0.25);
-        border-radius: var(--radius-lg);
-        color: var(--text-color);
-        font-size: var(--font-size-base);
-        line-height: 1.6;
-        max-width: 600px;
-    }
-
-    .description strong {
-        color: var(--link-color);
-        font-weight: 600;
-    }
-
-    body.light-theme .description {
-        background: rgba(77, 163, 255, 0.04);
-        border-color: rgba(77, 163, 255, 0.2);
     }
 
     .controls {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         margin-bottom: var(--space-lg);
         gap: var(--space-lg);
         flex-wrap: wrap;
     }
     
-    .right-controls {
-        display: flex;
-        gap: var(--space-md);
-        align-items: center;
-    }
-    
-    .request-topic-btn {
-        background-color: #fd8a09;
-        color: white;
-        padding: var(--space-sm) var(--space-lg);
-        border: none;
-        border-radius: var(--radius-sm);
-        font-size: var(--font-size-base);
-        font-weight: 500;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-    }
-    
-    .request-topic-btn:hover {
-        background-color: #e6750a;
-        color: white;
-        text-decoration: none;
-        box-shadow: 0 4px 12px rgba(253, 138, 9, 0.3);
-    }
-    
-    select, input {
+    input {
         padding: var(--space-sm) var(--space-md);
         font-size: var(--font-size-base);
         font-family: inherit;
@@ -278,14 +225,15 @@
         transition: all 0.3s ease;
     }
     
-    select:focus, input:focus {
+    input:focus {
         outline: none;
         border-color: var(--link-color);
         box-shadow: 0 0 0 2px rgba(78, 163, 255, 0.2);
     }
     
     #searchBox {
-        width: 250px;
+        width: 100%;
+        max-width: 500px;
     }
     
     table {
@@ -334,68 +282,263 @@
         color: #66b3ff;
     }
     
-    /* Category info icon styles */
+    /* Category filter icon styles */
     .category-header {
         display: flex;
         align-items: center;
         gap: var(--space-sm);
     }
     
-    .info-icon {
+    .filter-icon {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
-        border: 1px solid var(--link-color);
+        border: 1px solid #fd8a09;
         background: transparent;
-        color: var(--link-color);
-        font-size: var(--font-size-xs);
-        font-weight: bold;
+        color: #fd8a09;
         cursor: pointer;
         transition: all 0.2s ease;
+        padding: 2px;
     }
     
-    .info-icon:hover {
-        background: var(--link-color);
+    .filter-icon:hover {
+        background: #fd8a09;
         color: white;
     }
 
-    /* Tooltip styles */
-    .tooltip {
+    .filter-icon.active {
+        background: #fd8a09;
+        color: white;
+    }
+
+    .filter-icon svg {
+        width: 12px;
+        height: 12px;
+        stroke: currentColor;
+        fill: none;
+    }
+
+    /* Category filter dropdown */
+    .category-filter-dropdown {
         position: absolute;
         background: var(--container-bg);
         border: 2px solid var(--border-color);
         border-radius: var(--radius-md);
-        padding: var(--space-lg);
         box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         z-index: 1000;
-        max-width: 400px;
+        max-width: 200px;
         font-size: var(--font-size-sm);
         line-height: 1.5;
         display: none;
+        backdrop-filter: blur(10px);
     }
     
-    .tooltip.visible {
+    .category-filter-dropdown.visible {
         display: block;
         animation: fadeInUp 0.3s ease;
     }
-    
-    .tooltip h4 {
-        margin: 0 0 var(--space-sm) 0;
-        color: var(--link-color);
-        font-size: var(--font-size-base);
-        font-weight: 600;
+
+    .filter-option {
+        padding: var(--space-sm) var(--space-md);
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border-bottom: 1px solid var(--border-color);
     }
-    
-    .tooltip p {
+
+    .filter-option:last-child {
+        border-bottom: none;
+    }
+
+    .filter-option:hover {
+        background-color: var(--hover-bg);
+    }
+
+    .filter-option.active {
+        background-color: var(--link-color);
+        color: white;
+    }
+
+    /* No results message */
+    .no-results {
+        text-align: center;
+        padding: var(--space-2xl);
+        color: var(--quote-color);
+        font-style: italic;
+        border: 2px dashed var(--border-color);
+        border-radius: var(--radius-lg);
+        margin-top: var(--space-lg);
+    }
+
+    .no-results .request-link {
+        color: var(--quote-color);
+        text-decoration: underline;
+        font-weight: normal;
+        margin-top: var(--space-md);
+        display: inline-block;
+        transition: color 0.3s ease;
+        cursor: pointer;
+        font-size: var(--font-size-sm);
+    }
+
+    .no-results .request-link:hover {
+        color: #fd8a09;
+        text-decoration: underline;
+    }
+
+    /* About modal styles */
+    .about-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        backdrop-filter: blur(0px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .about-modal.visible {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .about-modal-content {
+        background: var(--container-bg);
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: var(--space-2xl);
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        transform: scale(0.95);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .about-modal.visible .about-modal-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .about-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-xl);
+        padding-bottom: var(--space-lg);
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .about-modal-title {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--link-color);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+
+    .about-modal-close {
+        background: transparent;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-color);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+    .about-modal-close:hover {
+        background: var(--hover-bg);
+    }
+
+    .about-modal-body {
+        line-height: 1.6;
+        color: var(--text-color);
+    }
+
+    .about-section {
+        margin-bottom: var(--space-xl);
+    }
+
+    .about-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .about-section h3 {
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        color: var(--link-color);
+        margin: 0 0 var(--space-md) 0;
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+    }
+
+    .about-section p {
         margin: 0 0 var(--space-md) 0;
         color: var(--text-color);
     }
-    
-    .tooltip p:last-child {
+
+    .about-section p:last-child {
         margin-bottom: 0;
+    }
+
+    .about-section ul {
+        margin: var(--space-md) 0;
+        padding-left: var(--space-xl);
+    }
+
+    .about-section li {
+        margin-bottom: var(--space-sm);
+        color: var(--text-color);
+    }
+
+    .about-highlight {
+        color: var(--link-color);
+        font-weight: 600;
+    }
+
+    .about-tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+        margin: var(--space-md) 0;
+    }
+
+    .tech-tag {
+        background: rgba(77, 163, 255, 0.1);
+        border: 1px solid rgba(77, 163, 255, 0.3);
+        color: var(--link-color);
+        padding: var(--space-xs) var(--space-md);
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+    }
+
+    body.light-theme .tech-tag {
+        background: rgba(77, 163, 255, 0.05);
+        border-color: rgba(77, 163, 255, 0.2);
     }
 
     /* Preview tooltip styles */
@@ -556,15 +699,11 @@
             gap: var(--space-md);
         }
         
-        .right-controls {
-            justify-content: flex-start;
-        }
-        
         #searchBox {
             width: 100%;
         }
         
-        .tooltip {
+        .category-filter-dropdown {
             max-width: 250px;
         }
         
@@ -574,38 +713,38 @@
             padding: var(--space-sm);
         }
         
-        .description {
-            margin: var(--space-lg) auto var(--space-xl) auto;
-            padding: var(--space-md);
-            font-size: var(--font-size-sm);
-        }
-        
         th, td {
             padding: var(--space-sm) var(--space-md);
             font-size: var(--font-size-sm);
         }
-    }
 
-    @media (max-width: 480px) {
+        .about-modal-content {
+            width: 95%;
+            padding: var(--space-lg);
+            max-height: 90vh;
+        }
+
+        .about-modal-title {
+            font-size: var(--font-size-lg);
+        }
+
+        .about-section h3 {
+            font-size: var(--font-size-base);
+        }
+
         .button-container {
             flex-direction: column;
             gap: var(--space-sm);
         }
-        
+    }
+
+    @media (max-width: 480px) {
         .theme-toggle-btn,
-        .github-btn {
+        .github-btn,
+        .about-btn {
             width: 36px;
             height: 36px;
             font-size: var(--font-size-base);
-        }
-        
-        .right-controls {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        
-        .request-topic-btn {
-            text-align: center;
         }
     }
 </style>
@@ -618,6 +757,13 @@
             <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon.png" class="logo" id="logo">
         </div>
         <div class="button-container">
+            <button id="aboutBtn" class="about-btn" title="About DevQuest">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                </svg>
+            </button>
             <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme">
                 <div class="theme-icon dark">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -646,22 +792,8 @@
         </div>
     </div>
 
-    <!-- DevQuest Description -->
-    <div class="description">
-        DevQuest offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through Jupyter notebooks.
-    </div>
-
     <div class="controls">
-        <!-- Left -->
-        <select id="categoryFilter">
-            <option value="">All Categories</option>
-        </select>
-
-        <!-- Right -->
-        <div class="right-controls">
-            <input type="text" id="searchBox" placeholder="Search topics or subtopics...">
-            <a href="#" id="requestTopicBtn" class="request-topic-btn">Request Topic</a>
-        </div>
+        <input type="text" id="searchBox" placeholder="Search topics or subtopics...">
     </div>
 
     <table id="tutorialTable">
@@ -670,7 +802,11 @@
                 <th>
                     <div class="category-header">
                         Category
-                        <span class="info-icon" id="categoryInfo">?</span>
+                        <span class="filter-icon" id="categoryFilter" title="Filter by category">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
+                            </svg>
+                        </span>
                     </div>
                 </th>
                 <th>Topic</th>
@@ -680,9 +816,45 @@
         <tbody></tbody>
     </table>
 
+    <!-- No results message -->
+    <div id="noResults" class="no-results" style="display: none;">
+        <div>No tutorials found for your search.</div>
+        <span id="requestTopicLink" class="request-link">Click here to request this topic</span>
+    </div>
+
+    <!-- About modal -->
+    <div id="aboutModal" class="about-modal">
+        <div class="about-modal-content">
+            <div class="about-modal-header">
+                <h2 class="about-modal-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16v-4"></path>
+                        <path d="M12 8h.01"></path>
+                    </svg>
+                </h2>
+                <button class="about-modal-close" id="aboutModalClose">&times;</button>
+            </div>
+            <div class="about-modal-body">
+                <div class="about-section">
+                    <h3>What is DevQuest?</h3>
+                    <p>DevQuest offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through Jupyter notebooks.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>Categories</h3>
+                    <p><strong>EXP (Experiments):</strong> Conducting experiments, exploring ideas, and uncovering insights on various topics.</p>
+                    <p><strong>P2C (Paper to Code):</strong> Breaking down research papers into practical, working implementations.</p>
+                    <p><strong>M4CS (Math for CS):</strong> Exploring mathematical concepts that form the backbone of computer science.</p>
+                    <p><strong>TOOL:</strong> Discovering and experimenting with tools to solve real-world problems efficiently.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
     
-    <!-- Tooltip for category info -->
-    <div id="categoryTooltip" class="tooltip"></div>
+    <!-- Category filter dropdown -->
+    <div id="categoryFilterDropdown" class="category-filter-dropdown"></div>
     
     <!-- Preview tooltip for topics -->
     <div id="previewTooltip" class="preview-tooltip"></div>
@@ -693,477 +865,510 @@
     An initiative by <a href="https://github.com/meluron" target="_blank">meluron</a> to bring context to learning.
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<script>
+    // Category colors for dark theme
+    const categoryColorsDark = [
+        "#fd8a09", // orange
+        "#4ade80", // green
+        "#60a5fa", // light blue
+        "#f472b6", // pink
+        "#facc15", // yellow
+        "#a78bfa", // purple
+        "#34d399", // teal
+        "#f87171", // red
+    ];
     
-    <script>
-        // Category colors for dark theme
-        const categoryColorsDark = [
-            "#fd8a09", // orange
-            "#4ade80", // green
-            "#60a5fa", // light blue
-            "#f472b6", // pink
-            "#facc15", // yellow
-            "#a78bfa", // purple
-            "#34d399", // teal
-            "#f87171", // red
-        ];
+    // Category colors for light theme (darker, more contrast)
+    const categoryColorsLight = [
+        "#dc6803", // darker orange
+        "#15803d", // darker green
+        "#2563eb", // darker blue
+        "#db2777", // darker pink
+        "#ca8a04", // darker yellow
+        "#7c3aed", // darker purple
+        "#0f766e", // darker teal
+        "#dc2626", // darker red
+    ];
+    
+    let tutorials = [];
+    let currentCategoryFilter = '';
+    
+    // Dynamic category-color map
+    const categoryColorMap = {};
+    
+    function assignCategoryColors() {
+        const uniqueCategories = [...new Set(tutorials.map(t => t.category))].sort();
+        const colors = currentTheme === 'light' ? categoryColorsLight : categoryColorsDark;
+        uniqueCategories.forEach((cat, idx) => {
+            categoryColorMap[cat] = colors[idx % colors.length];
+        });
+    }
+    
+    // Theme management - only dark and light
+    let currentTheme = 'dark'; // Will be set based on system preference
+    
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcons = {
+        dark: document.querySelector(".theme-icon.dark"),
+        light: document.querySelector(".theme-icon.light")
+    };
+    
+    // Check for system preference
+    function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    
+    // Apply theme to DOM
+    function applyTheme(theme) {
+        // Remove all theme classes
+        document.body.classList.remove('light-theme', 'dark-theme');
         
-        // Category colors for light theme (darker, more contrast)
-        const categoryColorsLight = [
-            "#dc6803", // darker orange
-            "#15803d", // darker green
-            "#2563eb", // darker blue
-            "#db2777", // darker pink
-            "#ca8a04", // darker yellow
-            "#7c3aed", // darker purple
-            "#0f766e", // darker teal
-            "#dc2626", // darker red
-        ];
+        // Apply the theme class
+        if (theme === 'light') {
+            document.body.classList.add('light-theme');
+        } else {
+            document.body.classList.add('dark-theme');
+        }
+    }
+    
+    // Update theme toggle UI
+    function updateThemeToggle() {
+        // Remove active class from all icons
+        Object.keys(themeIcons).forEach(function(key) {
+            themeIcons[key].classList.remove('active');
+        });
         
-        let tutorials = [];
+        // Add active class to current theme icon
+        themeIcons[currentTheme].classList.add('active');
         
-        // Category descriptions dictionary
-        const categoryDescriptions = {
-            "EXP": {
-                "title": "EXP",
-                "description": "Experiments: Conducting experiments, exploring ideas, and uncovering insights on various topics."
-            },
-            "P2C": {
-                "title": "P2C",
-                "description": "Paper to Code: Breaking down research papers into practical, working implementations."
-            },
-            "M4CS": {
-                "title": "M4CS",
-                "description": "Math for CS: Exploring math concepts that form the backbone of computer science and programming."
-            },
-            "TOOL": {
-                "title": "TOOL",
-                "description": "Discovering and experimenting with tools to solve real-world problems efficiently."
-            }
+        // Update tooltip
+        var themeNames = {
+            dark: 'Theme: Dark',
+            light: 'Theme: Light'
         };
+        themeToggle.title = themeNames[currentTheme];
+    }
+    
+    // Theme toggle click handler - only toggle between dark and light
+    function toggleTheme() {
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        // Dynamic category-color map
-        const categoryColorMap = {};
+        applyTheme(currentTheme);
+        updateThemeToggle();
         
-        function assignCategoryColors() {
-            const uniqueCategories = [...new Set(tutorials.map(t => t.category))].sort();
-            const colors = currentTheme === 'light' ? categoryColorsLight : categoryColorsDark;
-            uniqueCategories.forEach((cat, idx) => {
-                categoryColorMap[cat] = colors[idx % colors.length];
-            });
+        // Reassign colors for new theme and re-render table
+        if (tutorials.length > 0) {
+            assignCategoryColors();
+            renderTable();
+            setTimeout(addPreviewListeners, 100);
         }
         
-        // Theme management - only dark and light
-        let currentTheme = 'dark'; // Will be set based on system preference
-        
-        const themeToggle = document.getElementById("themeToggle");
-        const themeIcons = {
-            dark: document.querySelector(".theme-icon.dark"),
-            light: document.querySelector(".theme-icon.light")
-        };
-        
-        // Check for system preference
-        function getSystemTheme() {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        
-        // Apply theme to DOM
-        function applyTheme(theme) {
-            // Remove all theme classes
-            document.body.classList.remove('light-theme', 'dark-theme');
-            
-            // Apply the theme class
-            if (theme === 'light') {
-                document.body.classList.add('light-theme');
-            } else {
-                document.body.classList.add('dark-theme');
-            }
-        }
-        
-        // Update theme toggle UI
-        function updateThemeToggle() {
-            // Remove active class from all icons
-            Object.keys(themeIcons).forEach(function(key) {
-                themeIcons[key].classList.remove('active');
-            });
-            
-            // Add active class to current theme icon
-            themeIcons[currentTheme].classList.add('active');
-            
-            // Update tooltip
-            var themeNames = {
-                dark: 'Theme: Dark',
-                light: 'Theme: Light'
-            };
-            themeToggle.title = themeNames[currentTheme];
-        }
-        
-        // Theme toggle click handler - only toggle between dark and light
-        function toggleTheme() {
-            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            applyTheme(currentTheme);
-            updateThemeToggle();
-            
-            // Reassign colors for new theme and re-render table
-            if (tutorials.length > 0) {
-                assignCategoryColors();
-                renderTable();
-                setTimeout(addPreviewListeners, 100);
-            }
-            
-            // Save preference
-            localStorage.setItem('theme-preference', currentTheme);
-        }
-        
-        themeToggle.addEventListener("click", toggleTheme);
-        
-        // Initialize theme - always start with system preference on page load
+        // Save preference
+        localStorage.setItem('theme-preference', currentTheme);
+    }
+    
+    themeToggle.addEventListener("click", toggleTheme);
+    
+    // Initialize theme - always start with system preference on page load
+    currentTheme = getSystemTheme();
+    applyTheme(currentTheme);
+    updateThemeToggle();
+    
+    // Real-time system theme change detection - updates without page reload
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        // Automatically detect and apply system theme changes
         currentTheme = getSystemTheme();
         applyTheme(currentTheme);
         updateThemeToggle();
         
-        // Real-time system theme change detection - updates without page reload
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-            // Automatically detect and apply system theme changes
-            currentTheme = getSystemTheme();
-            applyTheme(currentTheme);
-            updateThemeToggle();
-            
-            // Reassign colors for new theme and re-render table
-            if (tutorials.length > 0) {
-                assignCategoryColors();
+        // Reassign colors for new theme and re-render table
+        if (tutorials.length > 0) {
+            assignCategoryColors();
+            renderTable();
+            setTimeout(addPreviewListeners, 100);
+        }
+        
+        // Optional: Clear any saved manual preference since we're following system
+        localStorage.removeItem('theme-preference');
+        
+        console.log('System theme changed to:', currentTheme); // For debugging
+    });
+    
+    // About modal functionality
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutModal = document.getElementById("aboutModal");
+    const aboutModalClose = document.getElementById("aboutModalClose");
+    
+    aboutBtn.addEventListener("click", () => {
+        aboutModal.classList.add("visible");
+        document.body.style.overflow = "hidden"; // Prevent background scrolling
+    });
+    
+    function closeAboutModal() {
+        aboutModal.classList.remove("visible");
+        document.body.style.overflow = ""; // Restore scrolling
+    }
+    
+    aboutModalClose.addEventListener("click", closeAboutModal);
+    
+    // Close modal when clicking outside
+    aboutModal.addEventListener("click", (e) => {
+        if (e.target === aboutModal) {
+            closeAboutModal();
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && aboutModal.classList.contains("visible")) {
+            closeAboutModal();
+        }
+    });
+    
+    // Category filter functionality
+    const categoryFilterIcon = document.getElementById("categoryFilter");
+    const categoryFilterDropdown = document.getElementById("categoryFilterDropdown");
+    let filterDropdownVisible = false;
+    
+    categoryFilterIcon.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (filterDropdownVisible) {
+            hideCategoryFilter();
+        } else {
+            showCategoryFilter(e);
+        }
+    });
+    
+    function showCategoryFilter(e) {
+        const categories = [...new Set(tutorials.map(t => t.category))].sort();
+        let dropdownContent = `<div class="filter-option ${currentCategoryFilter === '' ? 'active' : ''}" data-category="">All Categories</div>`;
+        
+        categories.forEach(cat => {
+            dropdownContent += `<div class="filter-option ${currentCategoryFilter === cat ? 'active' : ''}" data-category="${cat}">${cat}</div>`;
+        });
+        
+        categoryFilterDropdown.innerHTML = dropdownContent;
+        
+        // Position dropdown
+        const rect = categoryFilterIcon.getBoundingClientRect();
+        const container = document.querySelector('.container');
+        const containerRect = container.getBoundingClientRect();
+        
+        categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
+        categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
+        
+        categoryFilterDropdown.classList.add("visible");
+        categoryFilterIcon.classList.add("active");
+        filterDropdownVisible = true;
+        
+        // Add click listeners to filter options
+        categoryFilterDropdown.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const category = e.target.getAttribute('data-category');
+                currentCategoryFilter = category;
                 renderTable();
                 setTimeout(addPreviewListeners, 100);
+                hideCategoryFilter();
+            });
+        });
+    }
+    
+    function hideCategoryFilter() {
+        categoryFilterDropdown.classList.remove("visible");
+        categoryFilterIcon.classList.remove("active");
+        filterDropdownVisible = false;
+    }
+    
+    // Preview functionality
+    const previewTooltip = document.getElementById("previewTooltip");
+    let previewCache = new Map(); // Cache to avoid re-fetching same content
+    let previewTimeout;
+    let currentPreviewTarget = null;
+
+    // Fix image paths in HTML content
+    function fixImagePaths(htmlContent, filename) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, 'text/html');
+        
+        // Find all img tags
+        const images = doc.querySelectorAll('img');
+        
+        images.forEach(img => {
+            const src = img.getAttribute('src');
+            if (src && src.startsWith('../')) {
+                // Convert relative path to absolute path
+                // If notebook is in htmls/ and uses ../data/images/file.png
+                // We need to resolve this to data/images/file.png
+                const newSrc = src.replace('../', '');
+                img.setAttribute('src', newSrc);
             }
-            
-            // Optional: Clear any saved manual preference since we're following system
-            localStorage.removeItem('theme-preference');
-            
-            console.log('System theme changed to:', currentTheme); // For debugging
         });
         
-        // Category info tooltip functionality
-        const categoryInfo = document.getElementById("categoryInfo");
-        const categoryTooltip = document.getElementById("categoryTooltip");
-        let tooltipVisible = false;
-        
-        categoryInfo.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (tooltipVisible) {
-                hideTooltip();
-            } else {
-                showCategoryTooltip(e);
-            }
-        });
-        
-        function showCategoryTooltip(e) {
-            const categories = [...new Set(tutorials.map(t => t.category))].sort();
-            let tooltipContent = "";
-            
-            categories.forEach(cat => {
-                const info = categoryDescriptions[cat];
-                if (info) {
-                    tooltipContent += `
-                    <h4>${info.title}</h4>
-                    <p>${info.description}</p>
-                `;
-                } else {
-                    tooltipContent += `
-                    <h4>${cat}</h4>
-                    <p>Category description not available.</p>
-                `;
-                }
-            });
-            
-            categoryTooltip.innerHTML = tooltipContent;
-            
-            // Position tooltip
-            const rect = categoryInfo.getBoundingClientRect();
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-            
-            categoryTooltip.style.left = (rect.left - containerRect.left + 20) + "px";
-            categoryTooltip.style.top = (rect.bottom - containerRect.top + 5) + "px";
-            
-            categoryTooltip.classList.add("visible");
-            tooltipVisible = true;
-        }
-        
-        function hideTooltip() {
-            categoryTooltip.classList.remove("visible");
-            tooltipVisible = false;
-        }
-        
-        // Preview functionality
-        const previewTooltip = document.getElementById("previewTooltip");
-        let previewCache = new Map(); // Cache to avoid re-fetching same content
-        let previewTimeout;
-        let currentPreviewTarget = null;
+        return doc.documentElement.innerHTML;
+    }
 
-        // Fix image paths in HTML content
-        function fixImagePaths(htmlContent, filename) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
+    // Extract preview content from HTML content
+    function extractPreviewContent(htmlContent, filename) {
+        // First, fix the image paths
+        const fixedHtmlContent = fixImagePaths(htmlContent, filename);
+        
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(fixedHtmlContent, 'text/html');
+        
+        let previewText = '';
+        let previewHTML = '';
+        
+        // Look for PREVIEW section specifically
+        const cells = doc.querySelectorAll('.jp-Cell, .cell, td, div, p');
+        
+        for (let cell of cells) {
+            const text = cell.textContent || cell.innerText || '';
+            const lowerText = text.toLowerCase();
             
-            // Find all img tags
-            const images = doc.querySelectorAll('img');
-            
-            images.forEach(img => {
-                const src = img.getAttribute('src');
-                if (src && src.startsWith('../')) {
-                    // Convert relative path to absolute path
-                    // If notebook is in htmls/ and uses ../data/images/file.png
-                    // We need to resolve this to data/images/file.png
-                    const newSrc = src.replace('../', '');
-                    img.setAttribute('src', newSrc);
-                }
-            });
-            
-            return doc.documentElement.innerHTML;
-        }
-
-        // Extract preview content from HTML content
-        function extractPreviewContent(htmlContent, filename) {
-            // First, fix the image paths
-            const fixedHtmlContent = fixImagePaths(htmlContent, filename);
-            
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(fixedHtmlContent, 'text/html');
-            
-            let previewText = '';
-            let previewHTML = '';
-            
-            // Look for PREVIEW section specifically
-            const cells = doc.querySelectorAll('.jp-Cell, .cell, td, div, p');
-            
-            for (let cell of cells) {
-                const text = cell.textContent || cell.innerText || '';
-                const lowerText = text.toLowerCase();
+            // Check for preview section
+            if (lowerText.includes('preview')) {
+                // Get the parent element that contains the preview content
+                let previewContainer = cell;
                 
-                // Check for preview section
-                if (lowerText.includes('preview')) {
-                    // Get the parent element that contains the preview content
-                    let previewContainer = cell;
+                // Try to find a more specific container if this is just a header
+                if (text.trim().toLowerCase() === 'preview' || text.trim().toLowerCase().startsWith('preview:')) {
+                    // Look for the next sibling or parent that contains actual content
+                    previewContainer = cell.nextElementSibling || cell.parentElement;
+                }
+                
+                if (previewContainer) {
+                    // Extract both text and HTML
+                    previewText = previewContainer.textContent || previewContainer.innerText || '';
+                    previewHTML = previewContainer.innerHTML || '';
                     
-                    // Try to find a more specific container if this is just a header
-                    if (text.trim().toLowerCase() === 'preview' || text.trim().toLowerCase().startsWith('preview:')) {
-                        // Look for the next sibling or parent that contains actual content
-                        previewContainer = cell.nextElementSibling || cell.parentElement;
-                    }
+                    // Clean up text - remove "PREVIEW" word and pilcrow characters
+                    previewText = previewText
+                        .replace(/preview[:\s]*/gi, '')
+                        .replace(/¶/g, '')
+                        .trim();
                     
-                    if (previewContainer) {
-                        // Extract both text and HTML
-                        previewText = previewContainer.textContent || previewContainer.innerText || '';
-                        previewHTML = previewContainer.innerHTML || '';
-                        
-                        // Clean up text - remove "PREVIEW" word and pilcrow characters
-                        previewText = previewText
-                            .replace(/preview[:\s]*/gi, '')
-                            .replace(/¶/g, '')
-                            .trim();
-                        
-                        // Clean up HTML - remove script tags and other potentially harmful elements
-                        previewHTML = previewHTML
-                            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-                            .replace(/<link[^>]*>/gi, '')
-                            .replace(/preview[:\s]*/gi, '')
-                            .replace(/¶/g, '');
-                        
-                        // Fix image paths in the preview HTML as well
-                        const tempDoc = parser.parseFromString(previewHTML, 'text/html');
-                        const previewImages = tempDoc.querySelectorAll('img');
-                        previewImages.forEach(img => {
-                            const src = img.getAttribute('src');
-                            if (src && src.startsWith('../')) {
-                                const newSrc = src.replace('../', '');
-                                img.setAttribute('src', newSrc);
-                            }
-                        });
-                        previewHTML = tempDoc.documentElement.innerHTML;
-                        
-                        // If we found content, break
-                        if (previewText || previewHTML.includes('<img')) {
-                            break;
+                    // Clean up HTML - remove script tags and other potentially harmful elements
+                    previewHTML = previewHTML
+                        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+                        .replace(/<link[^>]*>/gi, '')
+                        .replace(/preview[:\s]*/gi, '')
+                        .replace(/¶/g, '');
+                    
+                    // Fix image paths in the preview HTML as well
+                    const tempDoc = parser.parseFromString(previewHTML, 'text/html');
+                    const previewImages = tempDoc.querySelectorAll('img');
+                    previewImages.forEach(img => {
+                        const src = img.getAttribute('src');
+                        if (src && src.startsWith('../')) {
+                            const newSrc = src.replace('../', '');
+                            img.setAttribute('src', newSrc);
                         }
+                    });
+                    previewHTML = tempDoc.documentElement.innerHTML;
+                    
+                    // If we found content, break
+                    if (previewText || previewHTML.includes('<img')) {
+                        break;
                     }
                 }
             }
-            
-            return { 
-                text: previewText.substring(0, 500), 
-                html: previewHTML,
-                hasImages: previewHTML.includes('<img')
-            };
         }
+        
+        return { 
+            text: previewText.substring(0, 500), 
+            html: previewHTML,
+            hasImages: previewHTML.includes('<img')
+        };
+    }
 
-        // Show preview tooltip
-        async function showPreview(element, filename) {
-            currentPreviewTarget = element;
+    // Show preview tooltip
+    async function showPreview(element, filename) {
+        currentPreviewTarget = element;
+        
+        // Position tooltip near the element
+        const rect = element.getBoundingClientRect();
+        const container = document.querySelector('.container');
+        const containerRect = container.getBoundingClientRect();
+        
+        previewTooltip.style.left = (rect.left - containerRect.left) + "px";
+        previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
+        
+        // Show loading state
+        previewTooltip.innerHTML = `
+            <div class="preview-title">${element.textContent}</div>
+            <div class="loading">Loading preview...</div>
+        `;
+        previewTooltip.classList.add("visible");
+        
+        // Check cache first
+        if (previewCache.has(filename)) {
+            const cached = previewCache.get(filename);
+            displayPreview(element.textContent, cached);
+            return;
+        }
+        
+        try {
+            // Fetch the HTML file
+            const response = await fetch(`htmls/${filename}`);
+            if (!response.ok) throw new Error('Failed to load');
             
-            // Position tooltip near the element
-            const rect = element.getBoundingClientRect();
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
+            const htmlContent = await response.text();
+            const preview = extractPreviewContent(htmlContent, filename);
             
-            previewTooltip.style.left = (rect.left - containerRect.left) + "px";
-            previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
+            // Cache the result
+            previewCache.set(filename, preview);
             
-            // Show loading state
-            previewTooltip.innerHTML = `
-                <div class="preview-title">${element.textContent}</div>
-                <div class="loading">Loading preview...</div>
+            // Only show if we're still hovering the same element
+            if (currentPreviewTarget === element) {
+                displayPreview(element.textContent, preview);
+            }
+            
+        } catch (error) {
+            if (currentPreviewTarget === element) {
+                previewTooltip.innerHTML = `
+                    <div class="preview-title">${element.textContent}</div>
+                    <div class="error">Preview not available</div>
+                `;
+            }
+        }
+    }
+
+    function displayPreview(title, content) {
+        let html = `<div class="preview-title">${title}</div>`;
+        
+        if (content.html && content.hasImages) {
+            // If there are images, show the full HTML content
+            html += `
+                <div class="preview-section">
+                    <div class="preview-html">${content.html}</div>
+                </div>
             `;
-            previewTooltip.classList.add("visible");
-            
-            // Check cache first
-            if (previewCache.has(filename)) {
-                const cached = previewCache.get(filename);
-                displayPreview(element.textContent, cached);
-                return;
-            }
-            
-            try {
-                // Fetch the HTML file
-                const response = await fetch(`htmls/${filename}`);
-                if (!response.ok) throw new Error('Failed to load');
-                
-                const htmlContent = await response.text();
-                const preview = extractPreviewContent(htmlContent, filename);
-                
-                // Cache the result
-                previewCache.set(filename, preview);
-                
-                // Only show if we're still hovering the same element
-                if (currentPreviewTarget === element) {
-                    displayPreview(element.textContent, preview);
-                }
-                
-            } catch (error) {
-                if (currentPreviewTarget === element) {
-                    previewTooltip.innerHTML = `
-                        <div class="preview-title">${element.textContent}</div>
-                        <div class="error">Preview not available</div>
-                    `;
-                }
-            }
+        } else if (content.text) {
+            // If no images, show text content
+            html += `
+                <div class="preview-section">
+                    <div class="section-content">${content.text}${content.text.length >= 750 ? '...' : ''}</div>
+                </div>
+            `;
+        } else {
+            html += `<div class="error">No preview content found</div>`;
         }
+        
+        previewTooltip.innerHTML = html;
+    }
 
-        function displayPreview(title, content) {
-            let html = `<div class="preview-title">${title}</div>`;
+    function hidePreview() {
+        previewTooltip.classList.remove("visible");
+        currentPreviewTarget = null;
+    }
+
+    // Add event listeners to topic links
+    function addPreviewListeners() {
+        const topicLinks = document.querySelectorAll('#tutorialTable a');
+        
+        topicLinks.forEach(link => {
+            const filename = link.getAttribute('href').replace('htmls/', '');
             
-            if (content.html && content.hasImages) {
-                // If there are images, show the full HTML content
-                html += `
-                    <div class="preview-section">
-                        <div class="preview-html">${content.html}</div>
-                    </div>
-                `;
-            } else if (content.text) {
-                // If no images, show text content
-                html += `
-                    <div class="preview-section">
-                        <div class="section-content">${content.text}${content.text.length >= 750 ? '...' : ''}</div>
-                    </div>
-                `;
-            } else {
-                html += `<div class="error">No preview content found</div>`;
-            }
+            link.addEventListener('mouseenter', () => {
+                clearTimeout(previewTimeout);
+                previewTimeout = setTimeout(() => {
+                    showPreview(link, filename);
+                }, 500); // 500ms delay before showing preview
+            });
             
-            previewTooltip.innerHTML = html;
+            link.addEventListener('mouseleave', () => {
+                clearTimeout(previewTimeout);
+                previewTimeout = setTimeout(() => {
+                    hidePreview();
+                }, 200); // 200ms delay before hiding
+            });
+        });
+    }
+
+    // Keep preview visible when hovering over it
+    previewTooltip.addEventListener('mouseenter', () => {
+        clearTimeout(previewTimeout);
+    });
+
+    previewTooltip.addEventListener('mouseleave', () => {
+        hidePreview();
+    });
+    
+    document.addEventListener("click", (e) => {
+        if (!categoryFilterIcon.contains(e.target) && !categoryFilterDropdown.contains(e.target)) {
+            hideCategoryFilter();
         }
-
-        function hidePreview() {
-            previewTooltip.classList.remove("visible");
-            currentPreviewTarget = null;
-        }
-
-        // Add event listeners to topic links
-        function addPreviewListeners() {
-            const topicLinks = document.querySelectorAll('#tutorialTable a');
+    });
+    
+    fetch('tutorials.csv')
+    .then(response => response.text())
+    .then(data => {
+        const parsed = Papa.parse(data, {
+            header: true,
+            skipEmptyLines: true
+        });
+        
+        tutorials = parsed.data.map(row => ({
+            category: row.category || '',
+            topic: row.topic || '',
+            keywords: row.keywords || '',
+            filename: row.html || ''
+        }));
+        
+        // Assign colors to categories dynamically
+        assignCategoryColors();
+        
+        renderTable();
+        
+        // Add preview listeners after rendering table
+        setTimeout(addPreviewListeners, 100);
+    });
+    
+    function renderTable() {
+        const searchQuery = document.getElementById('searchBox').value.toLowerCase();
+        const tableBody = document.querySelector('#tutorialTable tbody');
+        const noResultsDiv = document.getElementById('noResults');
+        const table = document.getElementById('tutorialTable');
+        
+        tableBody.innerHTML = '';
+        
+        const filteredTutorials = tutorials.filter(t =>
+            (!currentCategoryFilter || t.category.toLowerCase() === currentCategoryFilter.toLowerCase()) &&
+            (!searchQuery || (t.topic + ' ' + t.keywords).toLowerCase().includes(searchQuery))
+        );
+        
+        if (filteredTutorials.length === 0) {
+            // Show no results message
+            table.style.display = 'none';
+            noResultsDiv.style.display = 'block';
             
-            topicLinks.forEach(link => {
-                const filename = link.getAttribute('href').replace('htmls/', '');
-                
-                link.addEventListener('mouseenter', () => {
-                    clearTimeout(previewTimeout);
-                    previewTimeout = setTimeout(() => {
-                        showPreview(link, filename);
-                    }, 500); // 500ms delay before showing preview
+            // Update request link
+            const requestLink = document.getElementById('requestTopicLink');
+            const searchValue = searchQuery.trim();
+            const capitalizedValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+            
+            requestLink.onclick = function(e) {
+                e.preventDefault();
+                const baseUrl = "https://github.com/meluron-codecafe/DevQuest/issues/new";
+                const params = new URLSearchParams({
+                    assignees: "ankit0anand0",
+                    labels: "tutorials",
+                    projects: "",
+                    template: "",
+                    title: searchValue ? `[TUTORIAL REQUEST] ${capitalizedValue}` : "[TUTORIAL REQUEST]"
                 });
-                
-                link.addEventListener('mouseleave', () => {
-                    clearTimeout(previewTimeout);
-                    previewTimeout = setTimeout(() => {
-                        hidePreview();
-                    }, 200); // 200ms delay before hiding
-                });
-            });
-        }
-
-        // Keep preview visible when hovering over it
-        previewTooltip.addEventListener('mouseenter', () => {
-            clearTimeout(previewTimeout);
-        });
-
-        previewTooltip.addEventListener('mouseleave', () => {
-            hidePreview();
-        });
-        
-        document.addEventListener("click", (e) => {
-            if (!categoryInfo.contains(e.target) && !categoryTooltip.contains(e.target)) {
-                hideTooltip();
-            }
-        });
-        
-        fetch('tutorials.csv')
-        .then(response => response.text())
-        .then(data => {
-            const parsed = Papa.parse(data, {
-                header: true,
-                skipEmptyLines: true
-            });
+                window.open(`${baseUrl}?${params.toString()}`, "_blank");
+            };
+        } else {
+            // Show table with results
+            table.style.display = 'table';
+            noResultsDiv.style.display = 'none';
             
-            tutorials = parsed.data.map(row => ({
-                category: row.category || '',
-                topic: row.topic || '',
-                keywords: row.keywords || '',
-                filename: row.html || ''
-            }));
-            
-            // Assign colors to categories dynamically
-            assignCategoryColors();
-            
-            // Populate category filter
-            const categorySelect = document.getElementById('categoryFilter');
-            const categories = [...new Set(tutorials.map(t => t.category))].sort();
-            categories.forEach(cat => {
-                const option = document.createElement('option');
-                option.value = cat;
-                option.textContent = cat;
-                categorySelect.appendChild(option);
-            });
-            
-            renderTable();
-            
-            // Add preview listeners after rendering table
-            setTimeout(addPreviewListeners, 100);
-        });
-        
-        function renderTable() {
-            const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
-            const searchQuery = document.getElementById('searchBox').value.toLowerCase();
-            const tableBody = document.querySelector('#tutorialTable tbody');
-            tableBody.innerHTML = '';
-            
-            tutorials
-            .filter(t =>
-                (!categoryFilter || t.category.toLowerCase() === categoryFilter) &&
-                (!searchQuery || (t.topic + ' ' + t.keywords).toLowerCase().includes(searchQuery))
-            )
-            .forEach(t => {
+            filteredTutorials.forEach(t => {
                 const tr = document.createElement('tr');
                 const color = categoryColorMap[t.category] || "#ddd"; // fallback color
                 tr.innerHTML = `
@@ -1176,32 +1381,13 @@
                 tableBody.appendChild(tr);
             });
         }
-        
-        document.getElementById('categoryFilter').addEventListener('change', () => {
-            renderTable();
-            setTimeout(addPreviewListeners, 100);
-        });
-        document.getElementById('searchBox').addEventListener('input', () => {
-            renderTable();
-            setTimeout(addPreviewListeners, 100);
-        });
-        
-        // Request Topic button dynamic title
-        document.getElementById('requestTopicBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            const searchValue = document.getElementById('searchBox').value.trim();
-            const capitalizedValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
-            const baseUrl = "https://github.com/meluron-codecafe/DevQuest/issues/new";
-            const params = new URLSearchParams({
-                assignees: "ankit0anand0",
-                labels: "tutorials",
-                projects: "",
-                template: "",
-                title: searchValue ? `[TUTORIAL REQUEST] ${capitalizedValue}` : "[TUTORIAL REQUEST]"
-            });
-            window.open(`${baseUrl}?${params.toString()}`, "_blank");
-        });
-    </script>
+    }
+    
+    document.getElementById('searchBox').addEventListener('input', () => {
+        renderTable();
+        setTimeout(addPreviewListeners, 100);
+    });
+</script>
 
 </body>
 </html>
