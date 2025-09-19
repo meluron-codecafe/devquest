@@ -405,8 +405,6 @@
         outline: none;
     }
 
-
-    
     .category-header {
         display: flex;
         align-items: center;
@@ -903,8 +901,8 @@
             position: absolute;
             right: 2px;
             top: 2px;
-            height: 36px;
-            width: 36px;
+            height: 40px;
+            width: 40px;
             overflow: visible;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: transparent;
@@ -918,17 +916,17 @@
         .search-input-container.expanded {
             width: calc(100vw - 220px);
             padding-left: 0;
-            padding-right: 45px;
+            padding-right: 48px;
         }
 
         .search-input {
             width: 100%;
-            height: 32px;
+            height: 36px;
             background: transparent;
             border: none;
             outline: none;
             color: var(--text-color);
-            font-size: var(--font-size-sm);
+            font-size: var(--font-size-base);
             font-family: inherit;
             padding: 0 0px;
             opacity: 0;
@@ -940,33 +938,26 @@
             opacity: 1;
         }
 
-        .search-btn {
-            background: transparent !important;
-            color: var(--text-color);
-            border: none !important;
-            border-radius: 50%;
-            width: var(--touch-target);
-            height: var(--touch-target);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--font-size-lg);
-            transition: all 0.3s ease;
-            text-decoration: none;
+        /* FIXED: Consistent mobile button sizing */
+        .search-btn,
+        .about-btn,
+        .theme-toggle-btn,
+        .github-btn {
+            width: var(--touch-target) !important;
+            height: var(--touch-target) !important;
+            font-size: var(--font-size-lg) !important;
             flex-shrink: 0;
-            z-index: 1002;
-            position: relative;
-            min-height: var(--touch-target);
-            min-width: var(--touch-target);
+            border-radius: var(--radius-lg) !important;
+            min-height: var(--touch-target) !important;
+            min-width: var(--touch-target) !important;
         }
 
         .search-btn svg,
         .about-btn svg,
         .theme-toggle-btn svg,
         .github-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 24px !important;
+            height: 24px !important;
         }
 
         .search-btn:hover {
@@ -977,18 +968,6 @@
 
         .search-btn.active {
             background: rgba(255, 255, 255, 0.1) !important;
-        }
-
-        .theme-toggle-btn,
-        .github-btn,
-        .about-btn {
-            width: var(--touch-target);
-            height: var(--touch-target);
-            font-size: var(--font-size-lg);
-            flex-shrink: 0;
-            border-radius: var(--radius-lg);
-            min-height: var(--touch-target);
-            min-width: var(--touch-target);
         }
         
         .filter-icon {
@@ -1111,15 +1090,6 @@
             max-width: 120px;
         }
 
-        .theme-toggle-btn,
-        .github-btn,
-        .about-btn {
-            width: var(--touch-target);
-            height: var(--touch-target);
-            font-size: var(--font-size-lg);
-            flex-shrink: 0;
-        }
-
         .button-container {
             max-width: 320px;
             gap: var(--space-xs);
@@ -1144,9 +1114,15 @@
             padding-right: 48px;
         }
 
-        .search-btn {
-            width: var(--touch-target-sm);
-            height: var(--touch-target-sm);
+        /* FIXED: Ensure buttons maintain proper size on small screens */
+        .search-btn,
+        .about-btn,
+        .theme-toggle-btn,
+        .github-btn {
+            width: var(--touch-target) !important;
+            height: var(--touch-target) !important;
+            min-width: var(--touch-target) !important;
+            min-height: var(--touch-target) !important;
         }
 
         .about-modal {
