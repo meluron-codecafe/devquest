@@ -1123,8 +1123,15 @@
         }
 
         .footer {
-            font-size: var(--font-size-base);
-            padding: var(--space-2xl) var(--space-md);
+            font-size: var(--font-size-xs);
+            padding: var(--space-lg) var(--space-sm);
+            line-height: 1.4;
+        }
+
+        .footer a {
+            font-size: var(--font-size-xs);
+            padding: var(--space-xs) var(--space-sm);
+            min-height: var(--touch-target-sm);
         }
 
         .no-results {
@@ -1351,7 +1358,7 @@
             <!-- Search functionality -->
             <div class="search-container">
                 <div class="search-input-container" id="searchInputContainer">
-                    <input type="text" class="search-input" id="searchBox" placeholder="Search..." aria-label="Search tutorials">
+                    <input type="text" class="search-input" id="searchBox" placeholder="Search topics or keywords..." aria-label="Search tutorials">
                 </div>
                 <button id="searchBtn" class="search-btn" title="Search" aria-label="Toggle search">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
