@@ -120,7 +120,7 @@
         z-index: 1000;
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         align-items: center;
     }
 
@@ -134,22 +134,6 @@
     }
 
     /* When search is expanded, extend the button container visually */
-    .button-container {
-        position: absolute;
-        top: -15px;
-        right: -15px;
-        background: rgba(45, 45, 45, 0.95);
-        border: 2px solid var(--border-color);
-        border-radius: var(--radius-xl);
-        padding: 2px;
-        display: flex;
-        z-index: 1000;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        align-items: center;
-    }
-
     .button-container.search-expanded {
         padding-left: 240px;
     }
@@ -321,12 +305,6 @@
     }
 
     /* Light theme button styles */
-    body.light-theme .button-container {
-        background: rgba(255, 255, 255, 0.95);
-        border-color: var(--border-color);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-
     body.light-theme .theme-toggle-btn:hover,
     body.light-theme .github-btn:hover,
     body.light-theme .about-btn:hover {
@@ -348,6 +326,11 @@
         outline: none;
         border-color: var(--link-color);
         box-shadow: 0 0 0 2px rgba(78, 163, 255, 0.2);
+    }
+    
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     table {
@@ -806,75 +789,267 @@
     /* Responsive design */
     @media (max-width: 768px) {
         body {
-            padding: var(--space-md);
+            padding: var(--space-sm);
         }
         
         .container {
             padding: var(--space-lg);
+            margin: 0;
         }
         
-        .category-filter-dropdown {
-            max-width: 250px;
+        .header {
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .logo {
+            max-width: 120px;
+            margin-top: 0;
         }
         
         .button-container {
-            top: var(--space-md);
-            right: var(--space-md);
+            position: relative;
+            top: 0;
+            right: 0;
+            background: var(--container-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
             padding: var(--space-sm);
-            flex-direction: column;
-            gap: var(--space-xs);
+            display: flex;
+            flex-direction: row;
+            gap: var(--space-sm);
+            width: 100%;
+            max-width: 320px;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .button-container.search-expanded {
+            padding-left: var(--space-sm);
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .search-input-container {
+            position: relative;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+            background: var(--hover-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
         }
 
         .search-input-container.expanded {
-            width: 200px;
-            padding-right: 45px;
+            width: 100%;
+            padding-left: var(--space-md);
+            padding-right: 48px;
+        }
+
+        .search-input {
+            height: 42px;
+            padding: 0 var(--space-sm);
+            font-size: var(--font-size-base);
+            opacity: 1;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            width: 40px;
+            height: 40px;
+            background: var(--link-color) !important;
+            color: white !important;
+            border-radius: var(--radius-sm);
+        }
+
+        .search-btn:hover {
+            background: #66b3ff !important;
+        }
+        
+        .category-filter-dropdown {
+            max-width: 280px;
+            font-size: var(--font-size-base);
+        }
+        
+        /* Make table scroll horizontally on small screens */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: var(--space-md) 0;
+        }
+        
+        table {
+            min-width: 600px;
+            margin: 0;
         }
         
         th, td {
-            padding: var(--space-sm) var(--space-md);
-            font-size: var(--font-size-sm);
+            padding: var(--space-lg) var(--space-md);
+            font-size: var(--font-size-base);
+            white-space: nowrap;
+        }
+
+        th:first-child, td:first-child {
+            min-width: 80px;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            min-width: 200px;
+            white-space: normal;
+        }
+
+        th:nth-child(3), td:nth-child(3) {
+            min-width: 150px;
+            white-space: normal;
         }
 
         .about-modal-content {
             width: 95%;
-            padding: var(--space-lg);
+            padding: var(--space-xl);
             max-height: 90vh;
         }
 
         .about-modal-title {
-            font-size: var(--font-size-lg);
+            font-size: var(--font-size-xl);
         }
 
         .about-section h3 {
-            font-size: var(--font-size-base);
+            font-size: var(--font-size-lg);
         }
 
         .preview-tooltip {
-            max-width: 350px;
+            max-width: 90vw;
+            left: 5vw !important;
+            right: 5vw;
+        }
+
+        .footer {
+            font-size: var(--font-size-base);
+            padding: var(--space-xl) var(--space-md);
         }
     }
 
     @media (max-width: 480px) {
+        .container {
+            padding: var(--space-md);
+        }
+
         .theme-toggle-btn,
         .github-btn,
-        .about-btn,
+        .about-btn {
+            width: 44px;
+            height: 44px;
+            font-size: var(--font-size-lg);
+            flex-shrink: 0;
+        }
+
         .search-btn {
-            width: 36px;
-            height: 36px;
-            font-size: var(--font-size-base);
+            width: 40px;
+            height: 40px;
+        }
+
+        .button-container {
+            max-width: 280px;
+            gap: var(--space-xs);
+        }
+
+        .search-container {
+            max-width: 160px;
+        }
+
+        .search-input-container {
+            height: 40px;
+        }
+
+        .search-input {
+            height: 38px;
+            font-size: var(--font-size-sm);
         }
 
         .search-input-container.expanded {
-            width: 180px;
-            padding-right: 42px;
+            padding-left: var(--space-sm);
+            padding-right: 44px;
         }
 
-        /* Ensure about icon renders properly on small screens */
-        .about-btn svg {
-            width: 18px;
-            height: 18px;
-            stroke-width: 2.5;
+        /* Stack table data vertically on very small screens */
+        @media (max-width: 380px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            
+            table {
+                min-width: auto;
+            }
+            
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            tr {
+                border: 2px solid var(--border-color);
+                border-radius: var(--radius-md);
+                margin-bottom: var(--space-md);
+                padding: var(--space-md);
+                background: var(--container-bg);
+            }
+            
+            td {
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                position: relative;
+                padding-left: 80px;
+                padding-top: var(--space-sm);
+                padding-bottom: var(--space-sm);
+                white-space: normal;
+                min-width: auto;
+            }
+            
+            td:before {
+                content: attr(data-label) ": ";
+                position: absolute;
+                left: var(--space-md);
+                width: 60px;
+                padding-right: var(--space-sm);
+                white-space: nowrap;
+                font-weight: 600;
+                color: var(--text-color);
+            }
+            
+            td:last-child {
+                border-bottom: none;
+            }
         }
+
+        .about-modal-content {
+            width: 98%;
+            padding: var(--space-lg);
+        }
+
+        .about-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .preview-tooltip {
+            max-width: 95vw;
+            left: 2.5vw !important;
+            font-size: var(--font-size-base);
+        }
+    }
+
+    /* Light theme adjustments for mobile */
+    body.light-theme .button-container {
+        background: var(--container-bg);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 </style>
 </head>
@@ -932,25 +1107,27 @@
         </div>
     </div>
 
-    <table id="tutorialTable">
-        <thead>
-            <tr>
-                <th>
-                    <div class="category-header">
-                        Category
-                        <span class="filter-icon" id="categoryFilter" title="Filter by category">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
-                            </svg>
-                        </span>
-                    </div>
-                </th>
-                <th>Topic</th>
-                <th>Keywords</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="table-wrapper">
+        <table id="tutorialTable">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="category-header">
+                            Category
+                            <span class="filter-icon" id="categoryFilter" title="Filter by category">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
+                                </svg>
+                            </span>
+                        </div>
+                    </th>
+                    <th>Topic</th>
+                    <th>Keywords</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 
     <!-- No results message -->
     <div id="noResults" class="no-results" style="display: none;">
@@ -1670,7 +1847,7 @@
         const searchQuery = searchBox.value.toLowerCase();
         const tableBody = document.querySelector('#tutorialTable tbody');
         const noResultsDiv = document.getElementById('noResults');
-        const table = document.getElementById('tutorialTable');
+        const tableWrapper = document.querySelector('.table-wrapper');
         
         tableBody.innerHTML = '';
         
@@ -1681,7 +1858,7 @@
         
         if (filteredTutorials.length === 0) {
             // Show no results message
-            table.style.display = 'none';
+            tableWrapper.style.display = 'none';
             noResultsDiv.style.display = 'block';
             
             // Update request link
@@ -1703,18 +1880,18 @@
             };
         } else {
             // Show table with results
-            table.style.display = 'table';
+            tableWrapper.style.display = 'block';
             noResultsDiv.style.display = 'none';
             
             filteredTutorials.forEach(t => {
                 const tr = document.createElement('tr');
                 const color = categoryColorMap[t.category] || "#ddd"; // fallback color
                 tr.innerHTML = `
-                <td class="category" style="color: ${color};">
+                <td class="category" style="color: ${color};" data-label="Category">
                     ${t.category}
                 </td>
-                <td><a href="htmls/${t.filename}" target="_blank">${t.topic}</a></td>
-                <td>${t.keywords || '-'}</td>
+                <td data-label="Topic"><a href="htmls/${t.filename}" target="_blank">${t.topic}</a></td>
+                <td data-label="Keywords">${t.keywords || '-'}</td>
             `;
                 tableBody.appendChild(tr);
             });
