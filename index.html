@@ -938,30 +938,60 @@
             opacity: 1;
         }
 
-        /* FIXED: Ultra-specific button sizing to override any conflicts */
-        .button-container .search-btn,
-        .button-container .about-btn,
-        .button-container .theme-toggle-btn,
-        .button-container .github-btn {
-            width: 44px !important;
-            height: 44px !important;
-            font-size: 18px !important;
-            flex-shrink: 0 !important;
-            border-radius: 8px !important;
-            min-height: 44px !important;
-            min-width: 44px !important;
-            position: relative !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-
-        .button-container .search-btn svg,
-        .button-container .about-btn svg,
-        .button-container .theme-toggle-btn svg,
-        .button-container .github-btn svg {
-            width: 24px !important;
-            height: 24px !important;
+        /* COMPLETE MOBILE BUTTON FIX - Remove all constraints */
+        @media (max-width: 768px) {
+            .search-container {
+                min-width: 44px !important;
+                width: 44px !important;
+                height: 44px !important;
+            }
+            
+            .search-input-container {
+                position: absolute;
+                right: 0px !important;
+                top: 0px !important;
+                height: 44px !important;
+                width: 44px !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+            }
+            
+            .search-input-container.expanded {
+                width: calc(100vw - 220px) !important;
+                padding-right: 44px !important;
+            }
+            
+            /* Force all buttons to exact same size */
+            #searchBtn,
+            #aboutBtn, 
+            #themeToggle,
+            .github-btn {
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+                max-width: 44px !important;
+                max-height: 44px !important;
+                font-size: 18px !important;
+                border-radius: 8px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+                flex-shrink: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            #searchBtn svg,
+            #aboutBtn svg,
+            #themeToggle svg,
+            .github-btn svg {
+                width: 24px !important;
+                height: 24px !important;
+                flex-shrink: 0 !important;
+            }
         }
 
         .search-btn svg,
