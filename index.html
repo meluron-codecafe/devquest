@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
 <title>DevQuest</title>
 <style>
     :root {
@@ -16,26 +17,33 @@
         --quote-color: #bbb;
         --footer-color: #999;
         
-        /* Typography scale */
+        /* Typography scale - enhanced for mobile */
         --font-size-xs: 12px;
         --font-size-sm: 13px;
         --font-size-base: 14px;
         --font-size-lg: 16px;
         --font-size-xl: 18px;
+        --font-size-xxl: 20px;
         
-        /* Spacing scale */
+        /* Spacing scale - optimized for touch */
         --space-xs: 4px;
         --space-sm: 8px;
         --space-md: 12px;
-        --space-lg: 10px;
+        --space-lg: 16px;
         --space-xl: 20px;
         --space-2xl: 24px;
+        --space-3xl: 32px;
+        
+        /* Touch targets */
+        --touch-target: 44px;
+        --touch-target-sm: 40px;
         
         /* Border radius scale */
         --radius-sm: 4px;
         --radius-md: 6px;
         --radius-lg: 8px;
         --radius-xl: 12px;
+        --radius-2xl: 16px;
     }
     
     body.light-theme {
@@ -53,6 +61,16 @@
 
     * {
         box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    /* Remove focus outlines from all buttons and interactive elements */
+    button:focus,
+    a:focus,
+    .filter-icon:focus,
+    [role="button"]:focus {
+        outline: none !important;
+        box-shadow: none !important;
     }
 
     body {
@@ -64,6 +82,7 @@
         margin: 0;
         padding: var(--space-xl);
         transition: background-color 0.3s ease, color 0.3s ease;
+        overflow-x: hidden;
     }
     
     .container {
@@ -133,7 +152,6 @@
         min-width: 40px;
     }
 
-    /* When search is expanded, extend the button container visually */
     .button-container.search-expanded {
         padding-left: 240px;
     }
@@ -155,6 +173,8 @@
         flex-shrink: 0;
         z-index: 1002;
         position: relative;
+        min-height: var(--touch-target-sm);
+        min-width: var(--touch-target-sm);
     }
 
     .search-btn:hover {
@@ -219,7 +239,6 @@
         border: none;
     }
 
-    /* Light theme search styles */
     body.light-theme .button-container {
         background: rgba(255, 255, 255, 0.95);
         border-color: var(--border-color);
@@ -230,7 +249,8 @@
         color: rgba(51, 51, 51, 0.5);
     }
 
-    body.light-theme .search-btn:hover {
+    body.light-theme .search-btn:hover,
+    body.light-theme .search-btn:focus {
         background: rgba(0, 0, 0, 0.05) !important;
     }
     
@@ -250,13 +270,14 @@
         color: var(--text-color);
         position: relative;
         overflow: hidden;
+        min-height: var(--touch-target-sm);
+        min-width: var(--touch-target-sm);
     }
 
     .theme-toggle-btn:hover {
         background: rgba(255, 255, 255, 0.1);
     }
 
-    /* Theme icon container for smooth transitions */
     .theme-icon {
         position: absolute;
         opacity: 0;
@@ -296,6 +317,8 @@
         font-size: var(--font-size-lg);
         transition: all 0.3s ease;
         text-decoration: none;
+        min-height: var(--touch-target-sm);
+        min-width: var(--touch-target-sm);
     }
 
     .github-btn:hover, .about-btn:hover {
@@ -304,7 +327,6 @@
         text-decoration: none !important;
     }
 
-    /* Light theme button styles */
     body.light-theme .theme-toggle-btn:hover,
     body.light-theme .github-btn:hover,
     body.light-theme .about-btn:hover {
@@ -320,6 +342,7 @@
         background: var(--container-bg);
         color: var(--text-color);
         transition: all 0.3s ease;
+        min-height: var(--touch-target);
     }
     
     input:focus {
@@ -331,6 +354,8 @@
     .table-wrapper {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        border-radius: var(--radius-lg);
     }
     
     table {
@@ -374,12 +399,14 @@
         transition: color 0.2s ease;
     }
     
-    a:hover {
+    a:hover, a:focus {
         text-decoration: underline;
         color: #66b3ff;
+        outline: none;
     }
+
+
     
-    /* Category filter icon styles */
     .category-header {
         display: flex;
         align-items: center;
@@ -418,7 +445,6 @@
         fill: none;
     }
 
-    /* Category filter dropdown */
     .category-filter-dropdown {
         position: absolute;
         background: var(--container-bg);
@@ -431,6 +457,8 @@
         line-height: 1.5;
         display: none;
         backdrop-filter: blur(10px);
+        max-height: 50vh;
+        overflow-y: auto;
     }
     
     .category-filter-dropdown.visible {
@@ -439,18 +467,22 @@
     }
 
     .filter-option {
-        padding: var(--space-sm) var(--space-md);
+        padding: var(--space-md) var(--space-lg);
         cursor: pointer;
         transition: background-color 0.2s ease;
         border-bottom: 1px solid var(--border-color);
+        min-height: var(--touch-target);
+        display: flex;
+        align-items: center;
     }
 
     .filter-option:last-child {
         border-bottom: none;
     }
 
-    .filter-option:hover {
+    .filter-option:hover, .filter-option:focus {
         background-color: var(--hover-bg);
+        outline: none;
     }
 
     .filter-option.active {
@@ -458,34 +490,40 @@
         color: white;
     }
 
-    /* No results message */
     .no-results {
         text-align: center;
-        padding: var(--space-2xl);
+        padding: var(--space-3xl);
         color: var(--quote-color);
         font-style: italic;
         border: 2px dashed var(--border-color);
         border-radius: var(--radius-lg);
         margin-top: var(--space-lg);
+        font-size: var(--font-size-lg);
     }
 
     .no-results .request-link {
         color: var(--quote-color);
         text-decoration: underline;
         font-weight: normal;
-        margin-top: var(--space-md);
+        margin-top: var(--space-lg);
         display: inline-block;
         transition: color 0.3s ease;
         cursor: pointer;
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-base);
+        padding: var(--space-md) var(--space-lg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background: var(--container-bg);
+        min-height: var(--touch-target);
     }
 
-    .no-results .request-link:hover {
+    .no-results .request-link:hover, .no-results .request-link:focus {
         color: #fd8a09;
-        text-decoration: underline;
+        background: var(--hover-bg);
+        outline: none;
+        transform: translateY(-1px);
     }
 
-    /* About modal styles */
     .about-modal {
         position: fixed;
         top: 0;
@@ -501,6 +539,7 @@
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
+        padding: var(--space-lg);
     }
 
     .about-modal.visible {
@@ -516,8 +555,8 @@
         border-radius: var(--radius-xl);
         padding: var(--space-2xl);
         max-width: 600px;
-        width: 90%;
-        max-height: 80vh;
+        width: 100%;
+        max-height: calc(100vh - 2 * var(--space-lg));
         overflow-y: auto;
         position: relative;
         box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -556,8 +595,8 @@
         font-size: 24px;
         cursor: pointer;
         color: var(--text-color);
-        width: 32px;
-        height: 32px;
+        width: var(--touch-target);
+        height: var(--touch-target);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -565,13 +604,16 @@
         transition: all 0.2s ease;
     }
 
-    .about-modal-close:hover {
+    .about-modal-close:hover, .about-modal-close:focus {
         background: var(--hover-bg);
+        outline: none;
+        transform: scale(1.1);
     }
 
     .about-modal-body {
         line-height: 1.6;
         color: var(--text-color);
+        font-size: var(--font-size-base);
     }
 
     .about-section {
@@ -595,6 +637,7 @@
     .about-section p {
         margin: 0 0 var(--space-md) 0;
         color: var(--text-color);
+        font-size: var(--font-size-base);
     }
 
     .about-section p:last-child {
@@ -609,6 +652,7 @@
     .about-section li {
         margin-bottom: var(--space-sm);
         color: var(--text-color);
+        font-size: var(--font-size-base);
     }
 
     .about-highlight {
@@ -627,7 +671,7 @@
         background: rgba(77, 163, 255, 0.1);
         border: 1px solid rgba(77, 163, 255, 0.3);
         color: var(--link-color);
-        padding: var(--space-xs) var(--space-md);
+        padding: var(--space-sm) var(--space-md);
         border-radius: var(--radius-sm);
         font-size: var(--font-size-sm);
         font-weight: 500;
@@ -638,7 +682,6 @@
         border-color: rgba(77, 163, 255, 0.2);
     }
 
-    /* Preview tooltip styles */
     .preview-tooltip {
         position: absolute;
         background: var(--container-bg);
@@ -649,7 +692,7 @@
         z-index: 1001;
         max-width: 500px;
         font-size: var(--font-size-sm);
-        line-height: 0.9;
+        line-height: 1.4;
         display: none;
         backdrop-filter: blur(10px);
     }
@@ -749,7 +792,7 @@
     .footer {
         text-align: center;
         margin-top: var(--space-2xl);
-        padding-top: var(--space-xl);
+        padding: var(--space-xl) var(--space-md);
         border-top: 1px solid var(--border-color);
         color: var(--footer-color);
         font-size: var(--font-size-base);
@@ -760,13 +803,19 @@
         color: #fd8a09;
         text-decoration: none;
         font-weight: 500;
+        padding: var(--space-xs);
+        border-radius: var(--radius-sm);
+        min-height: var(--touch-target);
+        display: inline-flex;
+        align-items: center;
     }
     
-    .footer a:hover {
+    .footer a:hover, .footer a:focus {
         text-decoration: underline;
+        background: rgba(253, 138, 9, 0.1);
+        outline: none;
     }
     
-    /* Table links (topics) */
     #tutorialTable a {
         color: var(--topic-link-color);
         text-decoration: none;
@@ -774,38 +823,52 @@
         transition: all 0.2s ease;
     }
     
-    #tutorialTable a:hover {
+    #tutorialTable a:hover, #tutorialTable a:focus {
         text-decoration: underline;
         color: #4ea3ff;
     }
     
-    /* Category column styling */
     .category {
         font-weight: 600;
         font-size: var(--font-size-sm);
         letter-spacing: 0.5px;
     }
     
-    /* Responsive design */
+    /* Mobile-first responsive design */
     @media (max-width: 768px) {
+        :root {
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-xxl: 22px;
+            --space-md: 16px;
+            --space-lg: 20px;
+            --space-xl: 24px;
+            --space-2xl: 28px;
+            --space-3xl: 36px;
+        }
+
         body {
-            padding: var(--space-sm);
+            padding: var(--space-md);
+            font-size: var(--font-size-base);
         }
         
         .container {
             padding: var(--space-lg);
             margin: 0;
+            border-radius: var(--radius-lg);
         }
         
         .header {
             flex-direction: column;
             align-items: center;
-            gap: var(--space-lg);
-            margin-bottom: var(--space-xl);
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            padding-top: 0;
         }
         
         .logo {
-            max-width: 120px;
+            max-width: 130px;
             margin-top: 0;
         }
         
@@ -815,79 +878,141 @@
             right: 0;
             background: var(--container-bg);
             border: 2px solid var(--border-color);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             padding: var(--space-sm);
             display: flex;
             flex-direction: row;
             gap: var(--space-sm);
-            width: 100%;
-            max-width: 320px;
+            width: auto;
+            max-width: none;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
 
         .button-container.search-expanded {
-            padding-left: var(--space-sm);
+            padding-left: calc(100vw - 240px);
         }
 
         .search-container {
-            flex: 1;
-            max-width: 200px;
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .search-input-container {
-            position: relative;
-            right: 0;
-            top: 0;
-            width: 100%;
-            height: 44px;
-            background: var(--hover-bg);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            height: 36px;
+            width: 36px;
+            overflow: visible;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            border-radius: calc(var(--radius-xl) - 2px);
+            display: flex;
+            align-items: center;
+            z-index: 1001;
+            border: none;
         }
 
         .search-input-container.expanded {
-            width: 100%;
-            padding-left: var(--space-md);
-            padding-right: 48px;
+            width: calc(100vw - 220px);
+            padding-left: 0;
+            padding-right: 45px;
         }
 
         .search-input {
-            height: 42px;
-            padding: 0 var(--space-sm);
-            font-size: var(--font-size-base);
+            width: 100%;
+            height: 32px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-size: var(--font-size-sm);
+            font-family: inherit;
+            padding: 0 0px;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            border-radius: 0;
+        }
+
+        .search-input-container.expanded .search-input {
             opacity: 1;
         }
 
         .search-btn {
-            position: absolute;
-            right: 2px;
-            top: 2px;
+            background: transparent !important;
+            color: var(--text-color);
+            border: none !important;
+            border-radius: 50%;
             width: 40px;
             height: 40px;
-            background: var(--link-color) !important;
-            color: white !important;
-            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-lg);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            flex-shrink: 0;
+            z-index: 1002;
+            position: relative;
+            min-height: var(--touch-target-sm);
+            min-width: var(--touch-target-sm);
         }
 
         .search-btn:hover {
-            background: #66b3ff !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: var(--text-color) !important;
+            text-decoration: none !important;
+        }
+
+        .search-btn.active {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .theme-toggle-btn,
+        .github-btn,
+        .about-btn {
+            width: var(--touch-target);
+            height: var(--touch-target);
+            font-size: var(--font-size-lg);
+            flex-shrink: 0;
+            border-radius: var(--radius-lg);
+            min-height: var(--touch-target);
+            min-width: var(--touch-target);
+        }
+        
+        .filter-icon {
+            width: 24px;
+            height: 24px;
+            min-width: var(--touch-target-sm);
+            min-height: var(--touch-target-sm);
+        }
+        
+        .filter-icon:hover {
+            background: #fd8a09;
+            color: white;
+            transform: scale(1.05);
         }
         
         .category-filter-dropdown {
-            max-width: 280px;
+            max-width: 320px;
             font-size: var(--font-size-base);
+            left: 50% !important;
+            transform: translateX(-50%);
         }
         
-        /* Make table scroll horizontally on small screens */
         .table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            margin: var(--space-md) 0;
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
         }
         
         table {
-            min-width: 600px;
+            min-width: 650px;
             margin: 0;
         }
         
@@ -898,23 +1023,28 @@
         }
 
         th:first-child, td:first-child {
-            min-width: 80px;
+            min-width: 100px;
         }
 
         th:nth-child(2), td:nth-child(2) {
-            min-width: 200px;
+            min-width: 250px;
             white-space: normal;
         }
 
         th:nth-child(3), td:nth-child(3) {
-            min-width: 150px;
+            min-width: 180px;
             white-space: normal;
         }
 
+        .about-modal {
+            padding: var(--space-md);
+        }
+
         .about-modal-content {
-            width: 95%;
+            width: 100%;
             padding: var(--space-xl);
-            max-height: 90vh;
+            max-height: calc(100vh - 2 * var(--space-md));
+            border-radius: var(--radius-xl);
         }
 
         .about-modal-title {
@@ -926,113 +1056,99 @@
         }
 
         .preview-tooltip {
-            max-width: 90vw;
-            left: 5vw !important;
-            right: 5vw;
+            max-width: calc(100vw - 2 * var(--space-lg));
+            left: var(--space-lg) !important;
+            right: var(--space-lg);
+            font-size: var(--font-size-base);
         }
 
         .footer {
             font-size: var(--font-size-base);
-            padding: var(--space-xl) var(--space-md);
+            padding: var(--space-2xl) var(--space-md);
+        }
+
+        .no-results {
+            padding: var(--space-2xl);
+            font-size: var(--font-size-lg);
+        }
+
+        .no-results .request-link {
+            font-size: var(--font-size-base);
+            padding: var(--space-lg);
+            margin-top: var(--space-xl);
+            min-height: var(--touch-target);
         }
     }
 
     @media (max-width: 480px) {
+        :root {
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 20px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+            --space-3xl: 40px;
+        }
+
+        body {
+            padding: var(--space-sm);
+        }
+
         .container {
             padding: var(--space-md);
+            border-radius: var(--radius-md);
+        }
+
+        .logo {
+            max-width: 120px;
         }
 
         .theme-toggle-btn,
         .github-btn,
         .about-btn {
-            width: 44px;
-            height: 44px;
+            width: var(--touch-target);
+            height: var(--touch-target);
             font-size: var(--font-size-lg);
             flex-shrink: 0;
         }
 
-        .search-btn {
-            width: 40px;
-            height: 40px;
-        }
-
         .button-container {
-            max-width: 280px;
+            max-width: 320px;
             gap: var(--space-xs);
+            padding: var(--space-xs);
         }
 
         .search-container {
-            max-width: 160px;
+            max-width: 180px;
         }
 
         .search-input-container {
-            height: 40px;
+            height: var(--touch-target-sm);
         }
 
         .search-input {
-            height: 38px;
+            height: calc(var(--touch-target-sm) - 2px);
             font-size: var(--font-size-sm);
         }
 
         .search-input-container.expanded {
-            padding-left: var(--space-sm);
-            padding-right: 44px;
+            padding-left: var(--space-md);
+            padding-right: 48px;
         }
 
-        /* Stack table data vertically on very small screens */
-        @media (max-width: 380px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-            
-            table {
-                min-width: auto;
-            }
-            
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-            
-            tr {
-                border: 2px solid var(--border-color);
-                border-radius: var(--radius-md);
-                margin-bottom: var(--space-md);
-                padding: var(--space-md);
-                background: var(--container-bg);
-            }
-            
-            td {
-                border: none;
-                border-bottom: 1px solid var(--border-color);
-                position: relative;
-                padding-left: 80px;
-                padding-top: var(--space-sm);
-                padding-bottom: var(--space-sm);
-                white-space: normal;
-                min-width: auto;
-            }
-            
-            td:before {
-                content: attr(data-label) ": ";
-                position: absolute;
-                left: var(--space-md);
-                width: 60px;
-                padding-right: var(--space-sm);
-                white-space: nowrap;
-                font-weight: 600;
-                color: var(--text-color);
-            }
-            
-            td:last-child {
-                border-bottom: none;
-            }
+        .search-btn {
+            width: var(--touch-target-sm);
+            height: var(--touch-target-sm);
+        }
+
+        .about-modal {
+            padding: var(--space-sm);
         }
 
         .about-modal-content {
-            width: 98%;
+            width: 100%;
             padding: var(--space-lg);
+            max-height: calc(100vh - 2 * var(--space-sm));
         }
 
         .about-section {
@@ -1040,16 +1156,117 @@
         }
 
         .preview-tooltip {
-            max-width: 95vw;
-            left: 2.5vw !important;
+            max-width: calc(100vw - 2 * var(--space-md));
+            left: var(--space-md) !important;
             font-size: var(--font-size-base);
+        }
+
+        .footer {
+            padding: var(--space-xl) var(--space-sm);
         }
     }
 
-    /* Light theme adjustments for mobile */
+    /* Ultra-small screens - stack table data */
+    @media (max-width: 400px) {
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+        
+        table {
+            min-width: auto;
+        }
+        
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        
+        tr {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            padding: var(--space-md);
+            background: var(--container-bg);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        
+        td {
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            padding: var(--space-sm) 0;
+            white-space: normal;
+            min-width: auto;
+            display: block;
+        }
+        
+        td:before {
+            content: attr(data-label);
+            display: block;
+            font-weight: 600;
+            color: var(--quote-color);
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-xs);
+        }
+        
+        td:last-child {
+            border-bottom: none;
+        }
+
+        /* Category styling in mobile cards */
+        td[data-label="Category"]:before {
+            color: var(--quote-color);
+        }
+        
+        td[data-label="Topic"] a {
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            line-height: 1.4;
+            display: block;
+            padding: var(--space-xs) 0;
+        }
+        
+        td[data-label="Keywords"] {
+            font-size: var(--font-size-sm);
+            color: var(--quote-color);
+            font-style: italic;
+        }
+    }
+
+    /* Light theme mobile adjustments */
     body.light-theme .button-container {
         background: var(--container-bg);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    /* Enhanced accessibility for mobile */
+    @media (max-width: 768px) {
+        *:focus {
+            outline: 2px solid var(--link-color);
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 2px solid var(--link-color);
+            outline-offset: 2px;
+        }
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
     }
 </style>
 </head>
@@ -1057,14 +1274,14 @@
 <div class="container">
     <!-- Header -->
     <div class="header">
-        <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo" id="logo">
+        <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo" id="logo" alt="DevQuest Logo">
         <div class="button-container">
             <!-- Search functionality -->
             <div class="search-container">
                 <div class="search-input-container" id="searchInputContainer">
-                    <input type="text" class="search-input" id="searchBox" placeholder="Search topics or keywords...">
+                    <input type="text" class="search-input" id="searchBox" placeholder="Search topics or keywords..." aria-label="Search tutorials">
                 </div>
-                <button id="searchBtn" class="search-btn" title="Search">
+                <button id="searchBtn" class="search-btn" title="Search" aria-label="Toggle search">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
@@ -1072,14 +1289,14 @@
                 </button>
             </div>
             
-            <button id="aboutBtn" class="about-btn" title="About DevQuest">
+            <button id="aboutBtn" class="about-btn" title="About DevQuest" aria-label="About DevQuest">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="M12 16v-4"></path>
                     <path d="M12 8h.01"></path>
                 </svg>
             </button>
-            <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme">
+            <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle dark/light theme">
                 <div class="theme-icon dark">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -1099,7 +1316,7 @@
                     </svg>
                 </div>
             </button>
-            <a href="https://github.com/meluron-codecafe/DevQuest" target="_blank" class="github-btn" title="View on GitHub">
+            <a href="https://github.com/meluron-codecafe/DevQuest" target="_blank" class="github-btn" title="View on GitHub" aria-label="View DevQuest on GitHub">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
@@ -1114,7 +1331,7 @@
                     <th>
                         <div class="category-header">
                             Category
-                            <span class="filter-icon" id="categoryFilter" title="Filter by category">
+                            <span class="filter-icon" id="categoryFilter" title="Filter by category" aria-label="Filter by category" tabindex="0" role="button">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
                                 </svg>
@@ -1132,27 +1349,26 @@
     <!-- No results message -->
     <div id="noResults" class="no-results" style="display: none;">
         <div>No tutorials found for your search.</div>
-        <span id="requestTopicLink" class="request-link">Click here to request this topic</span>
+        <span id="requestTopicLink" class="request-link" role="button" tabindex="0">Click here to request this topic</span>
     </div>
 
     <!-- About modal -->
-    <div id="aboutModal" class="about-modal">
+    <div id="aboutModal" class="about-modal" role="dialog" aria-labelledby="aboutModalTitle" aria-hidden="true">
         <div class="about-modal-content">
             <div class="about-modal-header">
-                <h2 class="about-modal-title">
+                <h2 class="about-modal-title" id="aboutModalTitle">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M12 16v-4"></path>
                         <path d="M12 8h.01"></path>
                     </svg>
-                    About DevQuest
+                    About devQuest
                 </h2>
-                <button class="about-modal-close" id="aboutModalClose">&times;</button>
+                <button class="about-modal-close" id="aboutModalClose" aria-label="Close about modal">&times;</button>
             </div>
             <div class="about-modal-body">
                 <div class="about-section">
-                    <h3>What is DevQuest?</h3>
-                    <p>DevQuest offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through Jupyter notebooks.</p>
+                    <p>devQuest offers <strong>Python</strong>, <strong>Audio DSP</strong>, and <strong>AI/ML</strong> tutorials through Jupyter notebooks.</p>
                 </div>
                 
                 <div class="about-section">
@@ -1167,10 +1383,10 @@
     </div>
     
     <!-- Category filter dropdown -->
-    <div id="categoryFilterDropdown" class="category-filter-dropdown"></div>
+    <div id="categoryFilterDropdown" class="category-filter-dropdown" role="listbox"></div>
     
     <!-- Preview tooltip for topics -->
-    <div id="previewTooltip" class="preview-tooltip"></div>
+    <div id="previewTooltip" class="preview-tooltip" role="tooltip"></div>
     
 </div>
     
@@ -1183,33 +1399,18 @@
 <script>
     // Category colors for dark theme
     const categoryColorsDark = [
-        "#fd8a09", // orange
-        "#4ade80", // green
-        "#60a5fa", // light blue
-        "#f472b6", // pink
-        "#facc15", // yellow
-        "#a78bfa", // purple
-        "#34d399", // teal
-        "#f87171", // red
+        "#fd8a09", "#4ade80", "#60a5fa", "#f472b6", "#facc15", "#a78bfa", "#34d399", "#f87171"
     ];
     
-    // Category colors for light theme (darker, more contrast)
+    // Category colors for light theme
     const categoryColorsLight = [
-        "#dc6803", // darker orange
-        "#15803d", // darker green
-        "#2563eb", // darker blue
-        "#db2777", // darker pink
-        "#ca8a04", // darker yellow
-        "#7c3aed", // darker purple
-        "#0f766e", // darker teal
-        "#dc2626", // darker red
+        "#dc6803", "#15803d", "#2563eb", "#db2777", "#ca8a04", "#7c3aed", "#0f766e", "#dc2626"
     ];
     
     let tutorials = [];
     let currentCategoryFilter = '';
     let searchExpanded = false;
     
-    // Dynamic category-color map
     const categoryColorMap = {};
     
     function assignCategoryColors() {
@@ -1220,7 +1421,6 @@
         });
     }
     
-    // Search functionality - Initialize after DOM is loaded
     let searchBtn, searchInputContainer, searchBox;
     
     function initializeSearch() {
@@ -1232,18 +1432,20 @@
             searchBtn.addEventListener("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log("Search button clicked!"); // Debug log
                 toggleSearch();
             });
             
-            console.log("Search initialized successfully"); // Debug log
-        } else {
-            console.error("Search elements not found"); // Debug log
+            // Add keyboard support for search button
+            searchBtn.addEventListener("keydown", function(e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSearch();
+                }
+            });
         }
     }
     
     function toggleSearch() {
-        console.log("Toggle search called, current state:", searchExpanded); // Debug log
         searchExpanded = !searchExpanded;
         
         const buttonContainer = document.querySelector('.button-container');
@@ -1252,8 +1454,6 @@
             searchInputContainer.classList.add("expanded");
             searchBtn.classList.add("active");
             buttonContainer.classList.add("search-expanded");
-            console.log("Search expanded"); // Debug log
-            // Focus the input after animation completes
             setTimeout(() => {
                 searchBox.focus();
             }, 300);
@@ -1262,11 +1462,10 @@
             searchBtn.classList.remove("active");
             buttonContainer.classList.remove("search-expanded");
             searchBox.blur();
-            console.log("Search collapsed"); // Debug log
         }
     }
     
-    // Close search when clicking outside
+    // Enhanced click outside behavior
     document.addEventListener("click", (e) => {
         if (searchBtn && searchInputContainer && 
             !searchBtn.contains(e.target) && !searchInputContainer.contains(e.target)) {
@@ -1279,22 +1478,20 @@
         }
     });
     
-    // Handle escape key to close search
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && searchExpanded) {
             toggleSearch();
         }
     });
     
-    // Initialize search after DOM is loaded
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeSearch);
     } else {
         initializeSearch();
     }
     
-    // Theme management - only dark and light
-    let currentTheme = 'dark'; // Will be set based on system preference
+    // Theme management
+    let currentTheme = 'dark';
     
     const themeToggle = document.getElementById("themeToggle");
     const themeIcons = {
@@ -1302,17 +1499,13 @@
         light: document.querySelector(".theme-icon.light")
     };
     
-    // Check for system preference
     function getSystemTheme() {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     
-    // Apply theme to DOM
     function applyTheme(theme) {
-        // Remove all theme classes
         document.body.classList.remove('light-theme', 'dark-theme');
         
-        // Apply the theme class
         if (theme === 'light') {
             document.body.classList.add('light-theme');
         } else {
@@ -1320,17 +1513,13 @@
         }
     }
     
-    // Update theme toggle UI
     function updateThemeToggle() {
-        // Remove active class from all icons
         Object.keys(themeIcons).forEach(function(key) {
             themeIcons[key].classList.remove('active');
         });
         
-        // Add active class to current theme icon
         themeIcons[currentTheme].classList.add('active');
         
-        // Update tooltip
         var themeNames = {
             dark: 'Theme: Dark',
             light: 'Theme: Light'
@@ -1338,86 +1527,110 @@
         themeToggle.title = themeNames[currentTheme];
     }
     
-    // Theme toggle click handler - only toggle between dark and light
     function toggleTheme() {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         applyTheme(currentTheme);
         updateThemeToggle();
         
-        // Reassign colors for new theme and re-render table
         if (tutorials.length > 0) {
             assignCategoryColors();
             renderTable();
             setTimeout(addPreviewListeners, 100);
         }
         
-        // Save preference
         localStorage.setItem('theme-preference', currentTheme);
     }
     
     themeToggle.addEventListener("click", toggleTheme);
     
-    // Initialize theme - always start with system preference on page load
+    // Add keyboard support for theme toggle
+    themeToggle.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggleTheme();
+        }
+    });
+    
     currentTheme = getSystemTheme();
     applyTheme(currentTheme);
     updateThemeToggle();
     
-    // Real-time system theme change detection - updates without page reload
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-        // Automatically detect and apply system theme changes
         currentTheme = getSystemTheme();
         applyTheme(currentTheme);
         updateThemeToggle();
         
-        // Reassign colors for new theme and re-render table
         if (tutorials.length > 0) {
             assignCategoryColors();
             renderTable();
             setTimeout(addPreviewListeners, 100);
         }
         
-        // Optional: Clear any saved manual preference since we're following system
         localStorage.removeItem('theme-preference');
     });
     
-    // About modal functionality
+    // About modal with enhanced accessibility
     const aboutBtn = document.getElementById("aboutBtn");
     const aboutModal = document.getElementById("aboutModal");
     const aboutModalClose = document.getElementById("aboutModalClose");
     
-    aboutBtn.addEventListener("click", () => {
-        aboutModal.classList.add("visible");
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
+    aboutBtn.addEventListener("click", openAboutModal);
+    aboutBtn.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openAboutModal();
+        }
     });
+    
+    function openAboutModal() {
+        aboutModal.classList.add("visible");
+        aboutModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        aboutModalClose.focus();
+    }
     
     function closeAboutModal() {
         aboutModal.classList.remove("visible");
-        document.body.style.overflow = ""; // Restore scrolling
+        aboutModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        aboutBtn.focus();
     }
     
     aboutModalClose.addEventListener("click", closeAboutModal);
+    aboutModalClose.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            closeAboutModal();
+        }
+    });
     
-    // Close modal when clicking outside
     aboutModal.addEventListener("click", (e) => {
         if (e.target === aboutModal) {
             closeAboutModal();
         }
     });
     
-    // Close modal with Escape key
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && aboutModal.classList.contains("visible")) {
             closeAboutModal();
         }
     });
     
-    // Category filter functionality
+    // Category filter with enhanced mobile support
     const categoryFilterIcon = document.getElementById("categoryFilter");
     const categoryFilterDropdown = document.getElementById("categoryFilterDropdown");
     let filterDropdownVisible = false;
     
-    categoryFilterIcon.addEventListener("click", (e) => {
+    categoryFilterIcon.addEventListener("click", handleCategoryFilterToggle);
+    categoryFilterIcon.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleCategoryFilterToggle(e);
+        }
+    });
+    
+    function handleCategoryFilterToggle(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -1426,40 +1639,58 @@
         } else {
             showCategoryFilter(e);
         }
-    });
+    }
     
     function showCategoryFilter(e) {
         const categories = [...new Set(tutorials.map(t => t.category))].sort();
-        let dropdownContent = `<div class="filter-option ${currentCategoryFilter === '' ? 'active' : ''}" data-category="">All Categories</div>`;
+        let dropdownContent = `<div class="filter-option ${currentCategoryFilter === '' ? 'active' : ''}" data-category="" role="option">All Categories</div>`;
         
         categories.forEach(cat => {
-            dropdownContent += `<div class="filter-option ${currentCategoryFilter === cat ? 'active' : ''}" data-category="${cat}">${cat}</div>`;
+            dropdownContent += `<div class="filter-option ${currentCategoryFilter === cat ? 'active' : ''}" data-category="${cat}" role="option">${cat}</div>`;
         });
         
         categoryFilterDropdown.innerHTML = dropdownContent;
         
-        // Position dropdown
+        // Enhanced positioning for mobile
         const rect = categoryFilterIcon.getBoundingClientRect();
         const container = document.querySelector('.container');
         const containerRect = container.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
         
-        categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
-        categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
+        if (viewportWidth <= 768) {
+            // Center dropdown on mobile
+            categoryFilterDropdown.style.left = "50%";
+            categoryFilterDropdown.style.transform = "translateX(-50%)";
+            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+        } else {
+            categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
+            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
+            categoryFilterDropdown.style.transform = "none";
+        }
         
         categoryFilterDropdown.classList.add("visible");
         categoryFilterIcon.classList.add("active");
         filterDropdownVisible = true;
         
-        // Add click listeners to filter options
+        // Enhanced option handling
         categoryFilterDropdown.querySelectorAll('.filter-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const category = e.target.getAttribute('data-category');
-                currentCategoryFilter = category;
-                renderTable();
-                setTimeout(addPreviewListeners, 100);
-                hideCategoryFilter();
+            option.addEventListener('click', handleFilterOptionClick);
+            option.addEventListener('keydown', function(e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleFilterOptionClick.call(this, e);
+                }
             });
+            option.setAttribute('tabindex', '0');
         });
+    }
+    
+    function handleFilterOptionClick(e) {
+        const category = e.target.getAttribute('data-category');
+        currentCategoryFilter = category;
+        renderTable();
+        setTimeout(addPreviewListeners, 100);
+        hideCategoryFilter();
     }
     
     function hideCategoryFilter() {
@@ -1468,26 +1699,27 @@
         filterDropdownVisible = false;
     }
     
-    // Preview functionality
+    document.addEventListener("click", (e) => {
+        if (!categoryFilterIcon.contains(e.target) && !categoryFilterDropdown.contains(e.target)) {
+            hideCategoryFilter();
+        }
+    });
+    
+    // Enhanced preview functionality
     const previewTooltip = document.getElementById("previewTooltip");
-    let previewCache = new Map(); // Cache to avoid re-fetching same content
+    let previewCache = new Map();
     let previewTimeout;
     let currentPreviewTarget = null;
 
-    // Fix image paths in HTML content
     function fixImagePaths(htmlContent, filename) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
         
-        // Find all img tags
         const images = doc.querySelectorAll('img');
         
         images.forEach(img => {
             const src = img.getAttribute('src');
             if (src && src.startsWith('../')) {
-                // Convert relative path to absolute path
-                // If notebook is in htmls/ and uses ../data/images/file.png
-                // We need to resolve this to data/images/file.png
                 const newSrc = src.replace('../', '');
                 img.setAttribute('src', newSrc);
             }
@@ -1496,9 +1728,7 @@
         return doc.documentElement.innerHTML;
     }
 
-    // Extract Quest content from HTML content
     function extractQuestContent(htmlContent, filename) {
-        // First, fix the image paths
         const fixedHtmlContent = fixImagePaths(htmlContent, filename);
         
         const parser = new DOMParser();
@@ -1507,19 +1737,14 @@
         let questItems = [];
         let questImages = [];
         
-        // Look for Quest section specifically - check multiple approaches
         let questContainer = null;
         
-        // Method 1: Look in standard headings
         const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
         for (let heading of headings) {
             const text = heading.textContent || heading.innerText || '';
-            // Clean text by removing pilcrow and other common characters
             const cleanText = text.trim().toUpperCase().replace(/¶/g, '').replace(/:/g, '');
             
             if (cleanText === 'QUEST') {
-                // Try multiple approaches to find content
-                // Approach 1: Next sibling
                 let nextElement = heading.nextElementSibling;
                 while (nextElement && nextElement.textContent.trim().length === 0) {
                     nextElement = nextElement.nextElementSibling;
@@ -1530,7 +1755,6 @@
                     break;
                 }
                 
-                // Approach 2: Look at parent and get all content after this heading
                 let parent = heading.parentElement;
                 if (parent) {
                     let foundHeading = false;
@@ -1542,7 +1766,6 @@
                             continue;
                         }
                         if (foundHeading) {
-                            // Stop if we hit another heading
                             if (child.tagName && child.tagName.match(/^H[1-6]$/)) {
                                 break;
                             }
@@ -1553,7 +1776,6 @@
                     }
                     
                     if (contentElements.length > 0) {
-                        // Create a wrapper div with all the content
                         questContainer = doc.createElement('div');
                         contentElements.forEach(el => questContainer.appendChild(el.cloneNode(true)));
                         break;
@@ -1562,14 +1784,12 @@
             }
         }
         
-        // Method 2: Look for any element that contains "QUEST" as a heading-like element
         if (!questContainer) {
             const allElements = doc.querySelectorAll('*');
             for (let element of allElements) {
                 const text = element.textContent || element.innerText || '';
                 const cleanText = text.trim().toUpperCase().replace(/¶/g, '').replace(/:/g, '');
                 
-                // Check if this element only contains "QUEST" (likely a heading)
                 if (cleanText === 'QUEST' && text.length < 20) {
                     let nextElement = element.nextElementSibling;
                     while (nextElement && nextElement.textContent.trim().length === 0) {
@@ -1584,9 +1804,7 @@
             }
         }
         
-        // If Quest section found, extract its content
         if (questContainer) {
-            // Look for list items first
             const listItems = questContainer.querySelectorAll('li');
             
             if (listItems.length > 0) {
@@ -1597,7 +1815,6 @@
                     }
                 });
             } else {
-                // If no list items, look for paragraphs
                 const paragraphs = questContainer.querySelectorAll('p');
                 
                 if (paragraphs.length > 0) {
@@ -1608,23 +1825,15 @@
                         }
                     });
                 } else {
-                    // Fallback: try to split the container text directly
                     const allText = questContainer.textContent || questContainer.innerText || '';
                     
-                    // Try multiple approaches to split the content
-                    
-                    // Method 1: Split by numbered items (1. 2. 3. etc) - more flexible regex
                     let numberedItems = allText.split(/(?=\d+\.\s+[A-Z])/);
                     
-                    // If first method didn't work well, try a different approach
                     if (numberedItems.length <= 2) {
-                        // Method 2: Split by line breaks and filter for numbered items
                         const lines = allText.split(/\r?\n/).filter(line => line.trim().length > 0);
                         numberedItems = lines.filter(line => /^\d+\.\s+/.test(line.trim()));
                         
-                        // Method 3: If still no good results, split by periods followed by numbers
                         if (numberedItems.length === 0) {
-                            // Look for patterns like "...text. 1. Next item 2. Another item"
                             const matches = allText.match(/\d+\.\s+[^.]*?(?=\d+\.|$)/g);
                             if (matches && matches.length > 0) {
                                 numberedItems = matches;
@@ -1632,21 +1841,18 @@
                         }
                     }
                     
-                    // Add the items to questItems
                     numberedItems.forEach((item, index) => {
                         const cleanItem = item.replace(/^\d+\.\s*/, '').trim();
-                        if (cleanItem.length > 5) { // Lower threshold
+                        if (cleanItem.length > 5) {
                             questItems.push(cleanItem);
                         }
                     });
                     
-                    // If we still didn't get good results, try to extract sentences that look like questions/objectives
                     if (questItems.length === 0) {
                         const sentences = allText.split(/[.!?]+/).filter(s => s.trim().length > 10);
                         
                         sentences.forEach((sentence, index) => {
                             const cleanSentence = sentence.trim();
-                            // Look for sentences that contain question words or seem like objectives
                             if (cleanSentence.length > 15 && (
                                 cleanSentence.includes('What ') || 
                                 cleanSentence.includes('How ') || 
@@ -1661,7 +1867,6 @@
                 }
             }
             
-            // Extract images from quest section
             const images = questContainer.querySelectorAll('img');
             images.forEach(img => {
                 const src = img.getAttribute('src');
@@ -1683,19 +1888,29 @@
         };
     }
 
-    // Show preview tooltip
     async function showPreview(element, filename) {
         currentPreviewTarget = element;
         
-        // Position tooltip near the element
         const rect = element.getBoundingClientRect();
         const container = document.querySelector('.container');
         const containerRect = container.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
         
-        previewTooltip.style.left = (rect.left - containerRect.left) + "px";
-        previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
+        // Enhanced mobile positioning
+        if (viewportWidth <= 768) {
+            previewTooltip.style.left = "16px";
+            previewTooltip.style.right = "16px";
+            previewTooltip.style.width = "calc(100vw - 32px)";
+            previewTooltip.style.maxWidth = "calc(100vw - 32px)";
+            previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
+        } else {
+            previewTooltip.style.left = (rect.left - containerRect.left) + "px";
+            previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
+            previewTooltip.style.width = "";
+            previewTooltip.style.right = "";
+            previewTooltip.style.maxWidth = "500px";
+        }
         
-        // Show loading state
         previewTooltip.innerHTML = `
             <div class="preview-title">
                 ${element.textContent}
@@ -1704,7 +1919,6 @@
         `;
         previewTooltip.classList.add("visible");
         
-        // Check cache first
         if (previewCache.has(filename)) {
             const cached = previewCache.get(filename);
             displayQuestPreview(element.textContent, cached);
@@ -1712,17 +1926,14 @@
         }
         
         try {
-            // Fetch the HTML file
             const response = await fetch(`htmls/${filename}`);
             if (!response.ok) throw new Error('Failed to load');
             
             const htmlContent = await response.text();
             const questContent = extractQuestContent(htmlContent, filename);
             
-            // Cache the result
             previewCache.set(filename, questContent);
             
-            // Only show if we're still hovering the same element
             if (currentPreviewTarget === element) {
                 displayQuestPreview(element.textContent, questContent);
             }
@@ -1753,14 +1964,12 @@
             html += '<div class="quest-section">';
             
             questContent.items.forEach((item, index) => {
-                // Clean up the item text
                 const cleanItem = item.replace(/^\d+\.?\s*/, '').trim();
                 html += `<div style="margin: 8px 0; color: var(--text-color);">${index + 1}. ${cleanItem}</div>`;
             });
             
             html += '</div>';
             
-            // Add images if available
             if (questContent.images && questContent.images.length > 0) {
                 html += '<div style="margin-top: 12px;">';
                 questContent.images.forEach(image => {
@@ -1780,30 +1989,43 @@
         currentPreviewTarget = null;
     }
 
-    // Add event listeners to topic links
     function addPreviewListeners() {
         const topicLinks = document.querySelectorAll('#tutorialTable a');
         
         topicLinks.forEach(link => {
             const filename = link.getAttribute('href').replace('htmls/', '');
             
+            // Use longer delay on mobile for better UX
+            const isMobile = window.innerWidth <= 768;
+            const showDelay = isMobile ? 800 : 500;
+            const hideDelay = isMobile ? 300 : 200;
+            
             link.addEventListener('mouseenter', () => {
                 clearTimeout(previewTimeout);
                 previewTimeout = setTimeout(() => {
                     showPreview(link, filename);
-                }, 500); // 500ms delay before showing preview
+                }, showDelay);
             });
             
             link.addEventListener('mouseleave', () => {
                 clearTimeout(previewTimeout);
                 previewTimeout = setTimeout(() => {
                     hidePreview();
-                }, 200); // 200ms delay before hiding
+                }, hideDelay);
             });
+            
+            // Add touch support for mobile
+            if (isMobile) {
+                link.addEventListener('touchstart', () => {
+                    clearTimeout(previewTimeout);
+                    previewTimeout = setTimeout(() => {
+                        showPreview(link, filename);
+                    }, showDelay);
+                });
+            }
         });
     }
 
-    // Keep preview visible when hovering over it
     previewTooltip.addEventListener('mouseenter', () => {
         clearTimeout(previewTimeout);
     });
@@ -1812,12 +2034,35 @@
         hidePreview();
     });
     
-    document.addEventListener("click", (e) => {
-        if (!categoryFilterIcon.contains(e.target) && !categoryFilterDropdown.contains(e.target)) {
-            hideCategoryFilter();
-        }
-    });
+    // Enhanced request topic functionality
+    function setupRequestTopicLink() {
+        const requestLink = document.getElementById('requestTopicLink');
+        
+        requestLink.addEventListener('click', handleRequestTopicClick);
+        requestLink.addEventListener('keydown', function(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleRequestTopicClick();
+            }
+        });
+    }
     
+    function handleRequestTopicClick() {
+        const searchValue = searchBox.value.trim();
+        const capitalizedValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
+        
+        const baseUrl = "https://github.com/meluron-codecafe/DevQuest/issues/new";
+        const params = new URLSearchParams({
+            assignees: "ankit0anand0",
+            labels: "tutorials",
+            projects: "",
+            template: "",
+            title: searchValue ? `[TUTORIAL REQUEST] ${capitalizedValue}` : "[TUTORIAL REQUEST]"
+        });
+        window.open(`${baseUrl}?${params.toString()}`, "_blank");
+    }
+    
+    // Load and render data
     fetch('tutorials.csv')
     .then(response => response.text())
     .then(data => {
@@ -1833,12 +2078,10 @@
             filename: row.html || ''
         }));
         
-        // Assign colors to categories dynamically
         assignCategoryColors();
-        
         renderTable();
+        setupRequestTopicLink();
         
-        // Add preview listeners after rendering table
         setTimeout(addPreviewListeners, 100);
     });
     
@@ -1856,35 +2099,15 @@
         );
         
         if (filteredTutorials.length === 0) {
-            // Show no results message
             tableWrapper.style.display = 'none';
             noResultsDiv.style.display = 'block';
-            
-            // Update request link
-            const requestLink = document.getElementById('requestTopicLink');
-            const searchValue = searchQuery.trim();
-            const capitalizedValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
-            
-            requestLink.onclick = function(e) {
-                e.preventDefault();
-                const baseUrl = "https://github.com/meluron-codecafe/DevQuest/issues/new";
-                const params = new URLSearchParams({
-                    assignees: "ankit0anand0",
-                    labels: "tutorials",
-                    projects: "",
-                    template: "",
-                    title: searchValue ? `[TUTORIAL REQUEST] ${capitalizedValue}` : "[TUTORIAL REQUEST]"
-                });
-                window.open(`${baseUrl}?${params.toString()}`, "_blank");
-            };
         } else {
-            // Show table with results
             tableWrapper.style.display = 'block';
             noResultsDiv.style.display = 'none';
             
             filteredTutorials.forEach(t => {
                 const tr = document.createElement('tr');
-                const color = categoryColorMap[t.category] || "#ddd"; // fallback color
+                const color = categoryColorMap[t.category] || "#ddd";
                 tr.innerHTML = `
                 <td class="category" style="color: ${color};" data-label="Category">
                     ${t.category}
@@ -1897,7 +2120,6 @@
         }
     }
     
-    // Initialize search input listener after elements are available
     function initializeSearchInput() {
         if (searchBox) {
             searchBox.addEventListener('input', () => {
@@ -1907,7 +2129,6 @@
         }
     }
     
-    // Call this after search is initialized
     setTimeout(initializeSearchInput, 100);
 </script>
 
