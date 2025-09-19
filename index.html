@@ -80,19 +80,20 @@
     
     .header {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        margin-bottom: var(--space-md);
+        margin-bottom: var(--space-2xl);
         position: relative;
+        width: 100%;
+        padding-top: 15px;
     }
     
     .logo {
-        max-width: 80px;
+        max-width: 140px;
         height: auto;
         display: block;
-        margin: 0 auto;
-        cursor: pointer;
         transition: opacity 0.3s ease;
+        margin-top: -23px;
     }
 
     @keyframes fadeIn {
@@ -120,6 +121,133 @@
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         transition: all 0.3s ease;
+        align-items: center;
+    }
+
+    /* ======= SEARCH FUNCTIONALITY ======= */
+    .search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 40px;
+    }
+
+    /* When search is expanded, extend the button container visually */
+    .button-container {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: rgba(45, 45, 45, 0.95);
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 2px;
+        display: flex;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        align-items: center;
+    }
+
+    .button-container.search-expanded {
+        padding-left: 240px;
+    }
+
+    .search-btn {
+        background: transparent !important;
+        color: var(--text-color);
+        border: none !important;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-lg);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        flex-shrink: 0;
+        z-index: 1002;
+        position: relative;
+    }
+
+    .search-btn:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: var(--text-color) !important;
+        text-decoration: none !important;
+    }
+
+    .search-btn.active {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .search-input-container {
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        height: 36px;
+        width: 36px;
+        overflow: visible;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: transparent;
+        border-radius: calc(var(--radius-xl) - 2px);
+        display: flex;
+        align-items: center;
+        z-index: 1001;
+        border: none;
+    }
+
+    .search-input-container.expanded {
+        width: 270px;
+        padding-left: 8px;
+        padding-right: 44px;
+    }
+
+    .search-input {
+        width: 100%;
+        height: 32px;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text-color);
+        font-size: var(--font-size-sm);
+        font-family: inherit;
+        padding: 0 0px;
+        opacity: 0;
+        transition: opacity 0.3s ease 0.1s;
+        border-radius: 0;
+    }
+
+    .search-input-container.expanded .search-input {
+        opacity: 1;
+    }
+
+    .search-input::placeholder {
+        color: rgba(224, 224, 224, 0.5);
+    }
+
+    .search-input:focus {
+        outline: none;
+        box-shadow: none;
+        background: transparent;
+        border: none;
+    }
+
+    /* Light theme search styles */
+    body.light-theme .button-container {
+        background: rgba(255, 255, 255, 0.95);
+        border-color: var(--border-color);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    body.light-theme .search-input::placeholder {
+        color: rgba(51, 51, 51, 0.5);
+    }
+
+    body.light-theme .search-btn:hover {
+        background: rgba(0, 0, 0, 0.05) !important;
     }
     
     /* ======= THEME TOGGLE BUTTON STYLES ======= */
@@ -204,15 +332,6 @@
     body.light-theme .about-btn:hover {
         background: rgba(0, 0, 0, 0.05);
     }
-
-    .controls {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: var(--space-lg);
-        gap: var(--space-lg);
-        flex-wrap: wrap;
-    }
     
     input {
         padding: var(--space-sm) var(--space-md);
@@ -229,11 +348,6 @@
         outline: none;
         border-color: var(--link-color);
         box-shadow: 0 0 0 2px rgba(78, 163, 255, 0.2);
-    }
-    
-    #searchBox {
-        width: 100%;
-        max-width: 500px;
     }
     
     table {
@@ -550,9 +664,9 @@
         padding: var(--space-lg);
         box-shadow: 0 12px 35px rgba(0,0,0,0.25);
         z-index: 1001;
-        max-width: 450px;
+        max-width: 500px;
         font-size: var(--font-size-sm);
-        line-height: 1.5;
+        line-height: 0.9;
         display: none;
         backdrop-filter: blur(10px);
     }
@@ -580,46 +694,52 @@
         font-size: var(--font-size-base);
         border-bottom: 1px solid var(--border-color);
         padding-bottom: var(--space-sm);
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+    }
+
+    .preview-tooltip .quest-icon {
+        color: #fd8a09;
+        font-size: var(--font-size-lg);
     }
     
-    .preview-tooltip .preview-section {
+    .preview-tooltip .quest-section {
         margin-bottom: var(--space-md);
     }
     
-    .preview-tooltip .preview-section:last-child {
+    .preview-tooltip .quest-section:last-child {
         margin-bottom: 0;
     }
     
-    .preview-tooltip .section-title {
-        font-weight: 600;
-        color: var(--text-color);
-        margin-bottom: var(--space-xs);
-        font-size: var(--font-size-xs);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+    .preview-tooltip .quest-list {
+        list-style: none;
+        padding: 0;
+        margin: var(--space-sm) 0;
     }
-    
-    .preview-tooltip .section-content {
-        color: var(--quote-color);
-        margin-left: var(--space-sm);
+
+    .preview-tooltip .quest-item {
+        background: rgba(78, 163, 255, 0.05);
+        border-left: 3px solid var(--link-color);
+        margin: var(--space-xs) 0;
+        padding: var(--space-sm) var(--space-md);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        color: var(--text-color);
         font-size: var(--font-size-sm);
         line-height: 1.4;
     }
-    
-    .preview-tooltip .section-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: var(--radius-sm);
-        margin: var(--space-sm) 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    body.light-theme .preview-tooltip .quest-item {
+        background: rgba(78, 163, 255, 0.03);
+    }
+
+    .preview-tooltip .quest-item .item-number {
+        color: var(--link-color);
+        font-weight: 600;
+        margin-right: var(--space-xs);
     }
     
-    .preview-tooltip .preview-html {
-        color: var(--text-color);
-        margin-left: 0;
-    }
-    
-    .preview-tooltip .preview-html img {
+    .preview-tooltip .quest-content img {
         max-width: 100%;
         height: auto;
         max-height: 200px;
@@ -693,16 +813,6 @@
             padding: var(--space-lg);
         }
         
-        .controls {
-            flex-direction: column;
-            align-items: stretch;
-            gap: var(--space-md);
-        }
-        
-        #searchBox {
-            width: 100%;
-        }
-        
         .category-filter-dropdown {
             max-width: 250px;
         }
@@ -711,6 +821,13 @@
             top: var(--space-md);
             right: var(--space-md);
             padding: var(--space-sm);
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .search-input-container.expanded {
+            width: 200px;
+            padding-right: 45px;
         }
         
         th, td {
@@ -732,19 +849,31 @@
             font-size: var(--font-size-base);
         }
 
-        .button-container {
-            flex-direction: column;
-            gap: var(--space-sm);
+        .preview-tooltip {
+            max-width: 350px;
         }
     }
 
     @media (max-width: 480px) {
         .theme-toggle-btn,
         .github-btn,
-        .about-btn {
+        .about-btn,
+        .search-btn {
             width: 36px;
             height: 36px;
             font-size: var(--font-size-base);
+        }
+
+        .search-input-container.expanded {
+            width: 180px;
+            padding-right: 42px;
+        }
+
+        /* Ensure about icon renders properly on small screens */
+        .about-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.5;
         }
     }
 </style>
@@ -753,10 +882,21 @@
 <div class="container">
     <!-- Header -->
     <div class="header">
-        <div style="position: relative;">
-            <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon.png" class="logo" id="logo">
-        </div>
+        <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo" id="logo">
         <div class="button-container">
+            <!-- Search functionality -->
+            <div class="search-container">
+                <div class="search-input-container" id="searchInputContainer">
+                    <input type="text" class="search-input" id="searchBox" placeholder="Search topics or keywords...">
+                </div>
+                <button id="searchBtn" class="search-btn" title="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            
             <button id="aboutBtn" class="about-btn" title="About DevQuest">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -790,10 +930,6 @@
                 </svg>
             </a>
         </div>
-    </div>
-
-    <div class="controls">
-        <input type="text" id="searchBox" placeholder="Search topics or subtopics...">
     </div>
 
     <table id="tutorialTable">
@@ -832,6 +968,7 @@
                         <path d="M12 16v-4"></path>
                         <path d="M12 8h.01"></path>
                     </svg>
+                    About DevQuest
                 </h2>
                 <button class="about-modal-close" id="aboutModalClose">&times;</button>
             </div>
@@ -848,7 +985,6 @@
                     <p><strong>M4CS (Math for CS):</strong> Exploring mathematical concepts that form the backbone of computer science.</p>
                     <p><strong>TOOL:</strong> Discovering and experimenting with tools to solve real-world problems efficiently.</p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -894,6 +1030,7 @@
     
     let tutorials = [];
     let currentCategoryFilter = '';
+    let searchExpanded = false;
     
     // Dynamic category-color map
     const categoryColorMap = {};
@@ -904,6 +1041,79 @@
         uniqueCategories.forEach((cat, idx) => {
             categoryColorMap[cat] = colors[idx % colors.length];
         });
+    }
+    
+    // Search functionality - Initialize after DOM is loaded
+    let searchBtn, searchInputContainer, searchBox;
+    
+    function initializeSearch() {
+        searchBtn = document.getElementById("searchBtn");
+        searchInputContainer = document.getElementById("searchInputContainer");
+        searchBox = document.getElementById("searchBox");
+        
+        if (searchBtn && searchInputContainer && searchBox) {
+            searchBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("Search button clicked!"); // Debug log
+                toggleSearch();
+            });
+            
+            console.log("Search initialized successfully"); // Debug log
+        } else {
+            console.error("Search elements not found"); // Debug log
+        }
+    }
+    
+    function toggleSearch() {
+        console.log("Toggle search called, current state:", searchExpanded); // Debug log
+        searchExpanded = !searchExpanded;
+        
+        const buttonContainer = document.querySelector('.button-container');
+        
+        if (searchExpanded) {
+            searchInputContainer.classList.add("expanded");
+            searchBtn.classList.add("active");
+            buttonContainer.classList.add("search-expanded");
+            console.log("Search expanded"); // Debug log
+            // Focus the input after animation completes
+            setTimeout(() => {
+                searchBox.focus();
+            }, 300);
+        } else {
+            searchInputContainer.classList.remove("expanded");
+            searchBtn.classList.remove("active");
+            buttonContainer.classList.remove("search-expanded");
+            searchBox.blur();
+            console.log("Search collapsed"); // Debug log
+        }
+    }
+    
+    // Close search when clicking outside
+    document.addEventListener("click", (e) => {
+        if (searchBtn && searchInputContainer && 
+            !searchBtn.contains(e.target) && !searchInputContainer.contains(e.target)) {
+            if (searchExpanded) {
+                searchExpanded = false;
+                searchInputContainer.classList.remove("expanded");
+                searchBtn.classList.remove("active");
+                document.querySelector('.button-container').classList.remove("search-expanded");
+            }
+        }
+    });
+    
+    // Handle escape key to close search
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && searchExpanded) {
+            toggleSearch();
+        }
+    });
+    
+    // Initialize search after DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeSearch);
+    } else {
+        initializeSearch();
     }
     
     // Theme management - only dark and light
@@ -992,8 +1202,6 @@
         
         // Optional: Clear any saved manual preference since we're following system
         localStorage.removeItem('theme-preference');
-        
-        console.log('System theme changed to:', currentTheme); // For debugging
     });
     
     // About modal functionality
@@ -1111,77 +1319,190 @@
         return doc.documentElement.innerHTML;
     }
 
-    // Extract preview content from HTML content
-    function extractPreviewContent(htmlContent, filename) {
+    // Extract Quest content from HTML content
+    function extractQuestContent(htmlContent, filename) {
         // First, fix the image paths
         const fixedHtmlContent = fixImagePaths(htmlContent, filename);
         
         const parser = new DOMParser();
         const doc = parser.parseFromString(fixedHtmlContent, 'text/html');
         
-        let previewText = '';
-        let previewHTML = '';
+        let questItems = [];
+        let questImages = [];
         
-        // Look for PREVIEW section specifically
-        const cells = doc.querySelectorAll('.jp-Cell, .cell, td, div, p');
+        // Look for Quest section specifically - check multiple approaches
+        let questContainer = null;
         
-        for (let cell of cells) {
-            const text = cell.textContent || cell.innerText || '';
-            const lowerText = text.toLowerCase();
+        // Method 1: Look in standard headings
+        const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        for (let heading of headings) {
+            const text = heading.textContent || heading.innerText || '';
+            // Clean text by removing pilcrow and other common characters
+            const cleanText = text.trim().toUpperCase().replace(/¶/g, '').replace(/:/g, '');
             
-            // Check for preview section
-            if (lowerText.includes('preview')) {
-                // Get the parent element that contains the preview content
-                let previewContainer = cell;
-                
-                // Try to find a more specific container if this is just a header
-                if (text.trim().toLowerCase() === 'preview' || text.trim().toLowerCase().startsWith('preview:')) {
-                    // Look for the next sibling or parent that contains actual content
-                    previewContainer = cell.nextElementSibling || cell.parentElement;
+            if (cleanText === 'QUEST') {
+                // Try multiple approaches to find content
+                // Approach 1: Next sibling
+                let nextElement = heading.nextElementSibling;
+                while (nextElement && nextElement.textContent.trim().length === 0) {
+                    nextElement = nextElement.nextElementSibling;
                 }
                 
-                if (previewContainer) {
-                    // Extract both text and HTML
-                    previewText = previewContainer.textContent || previewContainer.innerText || '';
-                    previewHTML = previewContainer.innerHTML || '';
+                if (nextElement && nextElement.textContent.trim().length > 0) {
+                    questContainer = nextElement;
+                    break;
+                }
+                
+                // Approach 2: Look at parent and get all content after this heading
+                let parent = heading.parentElement;
+                if (parent) {
+                    let foundHeading = false;
+                    let contentElements = [];
                     
-                    // Clean up text - remove "PREVIEW" word and pilcrow characters
-                    previewText = previewText
-                        .replace(/preview[:\s]*/gi, '')
-                        .replace(/¶/g, '')
-                        .trim();
-                    
-                    // Clean up HTML - remove script tags and other potentially harmful elements
-                    previewHTML = previewHTML
-                        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-                        .replace(/<link[^>]*>/gi, '')
-                        .replace(/preview[:\s]*/gi, '')
-                        .replace(/¶/g, '');
-                    
-                    // Fix image paths in the preview HTML as well
-                    const tempDoc = parser.parseFromString(previewHTML, 'text/html');
-                    const previewImages = tempDoc.querySelectorAll('img');
-                    previewImages.forEach(img => {
-                        const src = img.getAttribute('src');
-                        if (src && src.startsWith('../')) {
-                            const newSrc = src.replace('../', '');
-                            img.setAttribute('src', newSrc);
+                    for (let child of parent.children) {
+                        if (child === heading) {
+                            foundHeading = true;
+                            continue;
                         }
-                    });
-                    previewHTML = tempDoc.documentElement.innerHTML;
+                        if (foundHeading) {
+                            // Stop if we hit another heading
+                            if (child.tagName && child.tagName.match(/^H[1-6]$/)) {
+                                break;
+                            }
+                            if (child.textContent.trim().length > 0) {
+                                contentElements.push(child);
+                            }
+                        }
+                    }
                     
-                    // If we found content, break
-                    if (previewText || previewHTML.includes('<img')) {
+                    if (contentElements.length > 0) {
+                        // Create a wrapper div with all the content
+                        questContainer = doc.createElement('div');
+                        contentElements.forEach(el => questContainer.appendChild(el.cloneNode(true)));
                         break;
                     }
                 }
             }
         }
         
+        // Method 2: Look for any element that contains "QUEST" as a heading-like element
+        if (!questContainer) {
+            const allElements = doc.querySelectorAll('*');
+            for (let element of allElements) {
+                const text = element.textContent || element.innerText || '';
+                const cleanText = text.trim().toUpperCase().replace(/¶/g, '').replace(/:/g, '');
+                
+                // Check if this element only contains "QUEST" (likely a heading)
+                if (cleanText === 'QUEST' && text.length < 20) {
+                    let nextElement = element.nextElementSibling;
+                    while (nextElement && nextElement.textContent.trim().length === 0) {
+                        nextElement = nextElement.nextElementSibling;
+                    }
+                    
+                    if (nextElement && nextElement.textContent.trim().length > 0) {
+                        questContainer = nextElement;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // If Quest section found, extract its content
+        if (questContainer) {
+            // Look for list items first
+            const listItems = questContainer.querySelectorAll('li');
+            
+            if (listItems.length > 0) {
+                listItems.forEach((item, index) => {
+                    const itemText = (item.textContent || item.innerText || '').trim();
+                    if (itemText && itemText.length > 5) {
+                        questItems.push(itemText);
+                    }
+                });
+            } else {
+                // If no list items, look for paragraphs
+                const paragraphs = questContainer.querySelectorAll('p');
+                
+                if (paragraphs.length > 0) {
+                    paragraphs.forEach((p, index) => {
+                        const pText = (p.textContent || p.innerText || '').trim();
+                        if (pText && pText.length > 10 && pText.length < 500) {
+                            questItems.push(pText);
+                        }
+                    });
+                } else {
+                    // Fallback: try to split the container text directly
+                    const allText = questContainer.textContent || questContainer.innerText || '';
+                    
+                    // Try multiple approaches to split the content
+                    
+                    // Method 1: Split by numbered items (1. 2. 3. etc) - more flexible regex
+                    let numberedItems = allText.split(/(?=\d+\.\s+[A-Z])/);
+                    
+                    // If first method didn't work well, try a different approach
+                    if (numberedItems.length <= 2) {
+                        // Method 2: Split by line breaks and filter for numbered items
+                        const lines = allText.split(/\r?\n/).filter(line => line.trim().length > 0);
+                        numberedItems = lines.filter(line => /^\d+\.\s+/.test(line.trim()));
+                        
+                        // Method 3: If still no good results, split by periods followed by numbers
+                        if (numberedItems.length === 0) {
+                            // Look for patterns like "...text. 1. Next item 2. Another item"
+                            const matches = allText.match(/\d+\.\s+[^.]*?(?=\d+\.|$)/g);
+                            if (matches && matches.length > 0) {
+                                numberedItems = matches;
+                            }
+                        }
+                    }
+                    
+                    // Add the items to questItems
+                    numberedItems.forEach((item, index) => {
+                        const cleanItem = item.replace(/^\d+\.\s*/, '').trim();
+                        if (cleanItem.length > 5) { // Lower threshold
+                            questItems.push(cleanItem);
+                        }
+                    });
+                    
+                    // If we still didn't get good results, try to extract sentences that look like questions/objectives
+                    if (questItems.length === 0) {
+                        const sentences = allText.split(/[.!?]+/).filter(s => s.trim().length > 10);
+                        
+                        sentences.forEach((sentence, index) => {
+                            const cleanSentence = sentence.trim();
+                            // Look for sentences that contain question words or seem like objectives
+                            if (cleanSentence.length > 15 && (
+                                cleanSentence.includes('What ') || 
+                                cleanSentence.includes('How ') || 
+                                cleanSentence.includes('To ') || 
+                                cleanSentence.includes('Which ') ||
+                                cleanSentence.includes('?')
+                            )) {
+                                questItems.push(cleanSentence);
+                            }
+                        });
+                    }
+                }
+            }
+            
+            // Extract images from quest section
+            const images = questContainer.querySelectorAll('img');
+            images.forEach(img => {
+                const src = img.getAttribute('src');
+                if (src) {
+                    const fixedSrc = src.startsWith('../') ? src.replace('../', '') : src;
+                    questImages.push({
+                        src: fixedSrc,
+                        alt: img.getAttribute('alt') || 'Quest image',
+                        title: img.getAttribute('title') || ''
+                    });
+                }
+            });
+        }
+        
         return { 
-            text: previewText.substring(0, 500), 
-            html: previewHTML,
-            hasImages: previewHTML.includes('<img')
+            items: questItems,
+            images: questImages,
+            found: questContainer !== null
         };
     }
 
@@ -1199,15 +1520,18 @@
         
         // Show loading state
         previewTooltip.innerHTML = `
-            <div class="preview-title">${element.textContent}</div>
-            <div class="loading">Loading preview...</div>
+            <div class="preview-title">
+                <span class="quest-icon">🎯</span>
+                ${element.textContent}
+            </div>
+            <div class="loading">Loading quest preview...</div>
         `;
         previewTooltip.classList.add("visible");
         
         // Check cache first
         if (previewCache.has(filename)) {
             const cached = previewCache.get(filename);
-            displayPreview(element.textContent, cached);
+            displayQuestPreview(element.textContent, cached);
             return;
         }
         
@@ -1217,45 +1541,59 @@
             if (!response.ok) throw new Error('Failed to load');
             
             const htmlContent = await response.text();
-            const preview = extractPreviewContent(htmlContent, filename);
+            const questContent = extractQuestContent(htmlContent, filename);
             
             // Cache the result
-            previewCache.set(filename, preview);
+            previewCache.set(filename, questContent);
             
             // Only show if we're still hovering the same element
             if (currentPreviewTarget === element) {
-                displayPreview(element.textContent, preview);
+                displayQuestPreview(element.textContent, questContent);
             }
             
         } catch (error) {
             if (currentPreviewTarget === element) {
                 previewTooltip.innerHTML = `
-                    <div class="preview-title">${element.textContent}</div>
-                    <div class="error">Preview not available</div>
+                    <div class="preview-title">
+                        <span class="quest-icon">🎯</span>
+                        ${element.textContent}
+                    </div>
+                    <div class="error">Quest preview not available</div>
                 `;
             }
         }
     }
 
-    function displayPreview(title, content) {
-        let html = `<div class="preview-title">${title}</div>`;
+    function displayQuestPreview(title, questContent) {
+        let html = `
+            <div class="preview-title">
+                ${title}
+            </div>
+        `;
         
-        if (content.html && content.hasImages) {
-            // If there are images, show the full HTML content
-            html += `
-                <div class="preview-section">
-                    <div class="preview-html">${content.html}</div>
-                </div>
-            `;
-        } else if (content.text) {
-            // If no images, show text content
-            html += `
-                <div class="preview-section">
-                    <div class="section-content">${content.text}${content.text.length >= 750 ? '...' : ''}</div>
-                </div>
-            `;
+        if (!questContent.found) {
+            html += `<div class="error">Quest preview not available</div>`;
+        } else if (questContent.items && questContent.items.length > 0) {
+            html += '<div class="quest-section">';
+            
+            questContent.items.forEach((item, index) => {
+                // Clean up the item text
+                const cleanItem = item.replace(/^\d+\.?\s*/, '').trim();
+                html += `<div style="margin: 8px 0; color: var(--text-color);">${index + 1}. ${cleanItem}</div>`;
+            });
+            
+            html += '</div>';
+            
+            // Add images if available
+            if (questContent.images && questContent.images.length > 0) {
+                html += '<div style="margin-top: 12px;">';
+                questContent.images.forEach(image => {
+                    html += `<img src="${image.src}" alt="${image.alt}" title="${image.title}" style="max-width: 100%; height: auto; max-height: 150px; border-radius: 4px; margin: 4px 0;">`;
+                });
+                html += '</div>';
+            }
         } else {
-            html += `<div class="error">No preview content found</div>`;
+            html += `<div class="error">No quest content found</div>`;
         }
         
         previewTooltip.innerHTML = html;
@@ -1329,7 +1667,7 @@
     });
     
     function renderTable() {
-        const searchQuery = document.getElementById('searchBox').value.toLowerCase();
+        const searchQuery = searchBox.value.toLowerCase();
         const tableBody = document.querySelector('#tutorialTable tbody');
         const noResultsDiv = document.getElementById('noResults');
         const table = document.getElementById('tutorialTable');
@@ -1383,10 +1721,18 @@
         }
     }
     
-    document.getElementById('searchBox').addEventListener('input', () => {
-        renderTable();
-        setTimeout(addPreviewListeners, 100);
-    });
+    // Initialize search input listener after elements are available
+    function initializeSearchInput() {
+        if (searchBox) {
+            searchBox.addEventListener('input', () => {
+                renderTable();
+                setTimeout(addPreviewListeners, 100);
+            });
+        }
+    }
+    
+    // Call this after search is initialized
+    setTimeout(initializeSearchInput, 100);
 </script>
 
 </body>

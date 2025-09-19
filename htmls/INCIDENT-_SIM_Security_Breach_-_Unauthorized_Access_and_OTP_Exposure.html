@@ -8476,27 +8476,69 @@ bla, bla, bla…</p>
       background: #2a2a2a; 
       transition: all 0.3s ease; 
     }
-    table { 
-      border-collapse: collapse; 
-      width: 100%; 
-      background: #1e1e1e; 
-      color: #d4d4d4; 
-      transition: all 0.3s ease; 
+    
+    /* ======= IMPROVED TABLE STYLES FOR DARK MODE ======= */
+    .jp-OutputArea table,
+    .jp-RenderedHTMLCommon table,
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        background: #2a2a2a !important;
+        color: #e0e0e0 !important;
+        transition: all 0.3s ease !important;
+        margin: 12px 0 !important;
+        font-size: 14px !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
     }
-    table, th, td { 
-      border: 1px solid #444; 
-      padding: 6px 10px; 
-      transition: border-color 0.3s ease; 
+
+    .jp-OutputArea table th,
+    .jp-OutputArea table td,
+    .jp-RenderedHTMLCommon table th,
+    .jp-RenderedHTMLCommon table td,
+    table th,
+    table td {
+        border: 1px solid #555555 !important;
+        padding: 8px 12px !important;
+        transition: all 0.3s ease !important;
+        background: inherit !important;
     }
-    th { 
-      background: #2d2d2d; 
-      font-weight: bold; 
-      transition: background-color 0.3s ease; 
+
+    .jp-OutputArea table th,
+    .jp-RenderedHTMLCommon table th,
+    table th {
+        background: #3a3a3a !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        text-align: left !important;
+        border-bottom: 2px solid #666666 !important;
     }
-    tr:nth-child(even) { 
-      background: #242424; 
-      transition: background-color 0.3s ease; 
+
+    .jp-OutputArea table tr:nth-child(even),
+    .jp-RenderedHTMLCommon table tr:nth-child(even),
+    table tr:nth-child(even) {
+        background: #323232 !important;
     }
+
+    .jp-OutputArea table tr:nth-child(odd),
+    .jp-RenderedHTMLCommon table tr:nth-child(odd),
+    table tr:nth-child(odd) {
+        background: #2a2a2a !important;
+    }
+
+    /* Hover effects for better UX */
+    .jp-OutputArea table tr:hover,
+    .jp-RenderedHTMLCommon table tr:hover,
+    table tr:hover {
+        background: #404040 !important;
+    }
+
+    .jp-OutputArea table tr:hover th,
+    .jp-RenderedHTMLCommon table tr:hover th,
+    table tr:hover th {
+        background: #4a4a4a !important;
+    }
+    
     body.light-mode { 
       background-color: #ffffff !important; 
       color: #333333 !important; 
@@ -8519,10 +8561,58 @@ bla, bla, bla…</p>
       color: #555; 
       background: #f5f5f5; 
     }
-    body.light-mode table { background: #ffffff; color: #333333; }
-    body.light-mode table, body.light-mode th, body.light-mode td { border: 1px solid #ddd; }
-    body.light-mode th { background: #f5f5f5; }
-    body.light-mode tr:nth-child(even) { background: #f9f9f9; }
+    
+    /* Light mode table overrides */
+    body.light-mode .jp-OutputArea table,
+    body.light-mode .jp-RenderedHTMLCommon table,
+    body.light-mode table {
+        background: #ffffff !important;
+        color: #333333 !important;
+        border: 1px solid #e0e0e0 !important;
+    }
+
+    body.light-mode .jp-OutputArea table th,
+    body.light-mode .jp-OutputArea table td,
+    body.light-mode .jp-RenderedHTMLCommon table th,
+    body.light-mode .jp-RenderedHTMLCommon table td,
+    body.light-mode table th,
+    body.light-mode table td {
+        border: 1px solid #dddddd !important;
+        color: #333333 !important;
+    }
+
+    body.light-mode .jp-OutputArea table th,
+    body.light-mode .jp-RenderedHTMLCommon table th,
+    body.light-mode table th {
+        background: #f8f9fa !important;
+        color: #2c3e50 !important;
+        border-bottom: 2px solid #dee2e6 !important;
+    }
+
+    body.light-mode .jp-OutputArea table tr:nth-child(even),
+    body.light-mode .jp-RenderedHTMLCommon table tr:nth-child(even),
+    body.light-mode table tr:nth-child(even) {
+        background: #f8f9fa !important;
+    }
+
+    body.light-mode .jp-OutputArea table tr:nth-child(odd),
+    body.light-mode .jp-RenderedHTMLCommon table tr:nth-child(odd),
+    body.light-mode table tr:nth-child(odd) {
+        background: #ffffff !important;
+    }
+
+    body.light-mode .jp-OutputArea table tr:hover,
+    body.light-mode .jp-RenderedHTMLCommon table tr:hover,
+    body.light-mode table tr:hover {
+        background: #e3f2fd !important;
+    }
+
+    body.light-mode .jp-OutputArea table tr:hover th,
+    body.light-mode .jp-RenderedHTMLCommon table tr:hover th,
+    body.light-mode table tr:hover th {
+        background: #e1f5fe !important;
+    }
+    
     div.highlight { 
       position: relative; 
       overflow-x: auto; 
