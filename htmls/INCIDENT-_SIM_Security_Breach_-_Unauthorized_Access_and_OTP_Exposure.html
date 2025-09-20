@@ -8061,6 +8061,7 @@ bla, bla, bla…</p>
     }
 
     /* ======= BASE BUTTON RESET AND SIZING ======= */
+    .home-btn,
     .code-toggle-btn,
     .theme-toggle-btn,
     .report-issue-btn,
@@ -8118,6 +8119,7 @@ bla, bla, bla…</p>
     }
 
     /* ======= SVG ICON STYLING ======= */
+    .home-btn svg,
     .code-toggle-btn svg,
     .theme-toggle-btn svg,
     .report-issue-btn svg,
@@ -8132,6 +8134,7 @@ bla, bla, bla…</p>
     }
 
     /* ======= HOVER STATES ======= */
+    .home-btn:hover,
     .code-toggle-btn:hover,
     .theme-toggle-btn:hover,
     .report-issue-btn:hover,
@@ -8141,12 +8144,33 @@ bla, bla, bla…</p>
         scale: none !important;
     }
 
+    .home-btn:hover svg,
     .code-toggle-btn:hover svg,
     .theme-toggle-btn:hover svg,
     .report-issue-btn:hover svg,
     .download-btn:hover svg {
         transform: none !important;
         scale: 1 !important;
+    }
+
+    /* ======= HOME BUTTON SPECIFIC STYLES ======= */
+    .home-btn {
+        font-weight: 400 !important;
+        vertical-align: top !important;
+        color: var(--text-color) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Override any link styles */
+    .home-btn,
+    .home-btn:link,
+    .home-btn:visited,
+    .home-btn:hover,
+    .home-btn:active {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
     }
 
     /* ======= CODE TOGGLE SPECIFIC STYLES ======= */
@@ -8253,6 +8277,7 @@ bla, bla, bla…</p>
     }
     
     /* Force all buttons to have correct colors in light mode */
+    body.light-mode .home-btn,
     body.light-mode .code-toggle-btn,
     body.light-mode .theme-toggle-btn,
     body.light-mode .report-issue-btn,
@@ -8261,12 +8286,24 @@ bla, bla, bla…</p>
     }
     
     /* SVG colors in light mode */
+    body.light-mode .home-btn svg,
     body.light-mode .code-toggle-btn svg,
     body.light-mode .theme-toggle-btn svg,
     body.light-mode .report-issue-btn svg,
     body.light-mode .download-btn svg {
         stroke: #333333 !important;
         color: #333333 !important;
+    }
+    
+    /* Extra specific overrides for home button in light mode */
+    body.light-mode .home-btn,
+    body.light-mode .home-btn:link,
+    body.light-mode .home-btn:visited,
+    body.light-mode .home-btn:hover,
+    body.light-mode .home-btn:active,
+    body.light-mode .home-btn:focus {
+        color: #333333 !important;
+        text-decoration: none !important;
     }
     
     /* Extra specific overrides for report issue button in light mode */
@@ -8291,6 +8328,7 @@ bla, bla, bla…</p>
         text-decoration: none !important;
     }
     
+    body.light-mode .home-btn:hover,
     body.light-mode .code-toggle-btn:hover,
     body.light-mode .theme-toggle-btn:hover,
     body.light-mode .report-issue-btn:hover,
@@ -8745,6 +8783,9 @@ bla, bla, bla…</p>
       .jp-Notebook { max-width: calc(100% - 60px) !important; }
       .jp-Cell { margin-right: 10px !important; }
       .button-container { top: 10px; right: 10px; padding: 6px; gap: 2px; }
+      .home-btn svg,
+      .home-btn svg,
+      .home-btn svg,
       .code-toggle-btn svg,
       .theme-toggle-btn svg,
       .report-issue-btn svg,
@@ -8865,6 +8906,13 @@ bla, bla, bla…</p>
     document.addEventListener("DOMContentLoaded", function() {
       
       // SVG Icon Functions
+      function createHomeIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9,22 9,12 15,12 15,22"></polyline>
+        </svg>`;
+      }
+
       function createCodeIcon() {
         return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6,7 2,12 6,17"></polyline>
@@ -8920,7 +8968,15 @@ bla, bla, bla…</p>
       var buttonContainer = document.createElement("div");
       buttonContainer.className = "button-container";
 
-      // Code toggle button (first button)
+      // Home button - first button
+      var homeBtn = document.createElement("a");
+      homeBtn.className = "home-btn";
+      homeBtn.innerHTML = createHomeIcon();
+      homeBtn.title = "Go to main page";
+      homeBtn.href = "../index.html";
+      homeBtn.style.color = "inherit";  // Ensure it inherits the right color
+
+      // Code toggle button (second button)
       var codeToggleBtn = document.createElement("button");
       codeToggleBtn.className = "code-toggle-btn";
       codeToggleBtn.innerHTML = createCodeIcon();
@@ -9149,7 +9205,8 @@ bla, bla, bla…</p>
       downloadBtn.download = ipynbFilename;
 
       
-      // Add components to container (Code Toggle → Theme Toggle → Report Issue → Download)
+      // Add components to container (Home → Code Toggle → Theme Toggle → Report Issue → Download)
+      buttonContainer.appendChild(homeBtn);
       buttonContainer.appendChild(codeToggleBtn);
       buttonContainer.appendChild(themeToggleBtn);
       buttonContainer.appendChild(reportIssueBtn);
