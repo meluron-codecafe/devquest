@@ -8076,19 +8076,70 @@ a.anchor-link {
       transition: all 0.3s ease; 
     }
     
+    /* ======= RESPONSIVE TABLE CONTAINER ======= */
+    .table-responsive-wrapper {
+        position: relative;
+        overflow-x: auto;
+        overflow-y: visible;
+        margin: 12px 0;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        background: #2a2a2a;
+        transition: all 0.3s ease;
+    }
+
+    body.light-mode .table-responsive-wrapper {
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+    }
+
+    /* Scrollbar styling for table containers */
+    .table-responsive-wrapper::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar-track {
+        background: #404040;
+        border-radius: 4px;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar-thumb {
+        background: #666666;
+        border-radius: 4px;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #777777;
+    }
+
+    body.light-mode .table-responsive-wrapper::-webkit-scrollbar-track {
+        background: #f0f0f0;
+    }
+
+    body.light-mode .table-responsive-wrapper::-webkit-scrollbar-thumb {
+        background: #cccccc;
+    }
+
+    body.light-mode .table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #bbbbbb;
+    }
+    
     /* ======= IMPROVED TABLE STYLES FOR DARK MODE ======= */
     .jp-OutputArea table,
     .jp-RenderedHTMLCommon table,
     table {
         border-collapse: collapse !important;
         width: 100% !important;
+        min-width: 300px !important; /* Minimum width to prevent cramping */
         background: #2a2a2a !important;
         color: #e0e0e0 !important;
         transition: all 0.3s ease !important;
-        margin: 12px 0 !important;
+        margin: 0 !important; /* Remove margin since wrapper handles it */
         font-size: 14px !important;
         border-radius: 6px !important;
         overflow: hidden !important;
+        table-layout: auto !important; /* Allow flexible column widths */
     }
 
     .jp-OutputArea table th,
@@ -8101,6 +8152,10 @@ a.anchor-link {
         padding: 8px 12px !important;
         transition: all 0.3s ease !important;
         background: inherit !important;
+        white-space: nowrap !important; /* Prevent text wrapping by default */
+        text-overflow: ellipsis !important;
+        max-width: 200px !important; /* Limit column width */
+        overflow: hidden !important;
     }
 
     .jp-OutputArea table th,
@@ -8111,6 +8166,9 @@ a.anchor-link {
         font-weight: 600 !important;
         text-align: left !important;
         border-bottom: 2px solid #666666 !important;
+        position: sticky !important; /* Sticky headers for long tables */
+        top: 0 !important;
+        z-index: 10 !important;
     }
 
     .jp-OutputArea table tr:nth-child(even),
@@ -8136,6 +8194,17 @@ a.anchor-link {
     .jp-RenderedHTMLCommon table tr:hover th,
     table tr:hover th {
         background: #4a4a4a !important;
+    }
+
+    /* Tooltip for truncated content */
+    .jp-OutputArea table td:hover,
+    .jp-RenderedHTMLCommon table td:hover,
+    table td:hover {
+        overflow: visible !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        position: relative !important;
+        z-index: 20 !important;
     }
     
     body.light-mode { 
@@ -8284,6 +8353,29 @@ a.anchor-link {
       }
       #timeline-nav { right: 10px !important; padding: 15px 8px !important; gap: 6px !important; } 
       .timeline-line { height: 15px !important; }
+
+      /* Mobile table adjustments */
+      .jp-OutputArea table,
+      .jp-RenderedHTMLCommon table,
+      table {
+        font-size: 12px !important;
+        min-width: 280px !important;
+      }
+
+      .jp-OutputArea table th,
+      .jp-OutputArea table td,
+      .jp-RenderedHTMLCommon table th,
+      .jp-RenderedHTMLCommon table td,
+      table th,
+      table td {
+        padding: 6px 8px !important;
+        max-width: 120px !important;
+      }
+
+      .table-responsive-wrapper {
+        margin: 8px -10px !important; /* Extend to edges on mobile */
+        border-radius: 0 !important;
+      }
     }
     
     @media (max-width: 480px) { 
@@ -8304,6 +8396,28 @@ a.anchor-link {
       .timeline-line { height: 12px !important; width: 1px !important; }
       #timeline-tooltip { font-size: 10px !important; padding: 6px 8px !important; }
       #timeline-full-list { font-size: 10px !important; padding: 8px 10px !important; max-height: 60vh !important; }
+
+      /* Extra small screen table adjustments */
+      .jp-OutputArea table,
+      .jp-RenderedHTMLCommon table,
+      table {
+        font-size: 11px !important;
+        min-width: 250px !important;
+      }
+
+      .jp-OutputArea table th,
+      .jp-OutputArea table td,
+      .jp-RenderedHTMLCommon table th,
+      .jp-RenderedHTMLCommon table td,
+      table th,
+      table td {
+        padding: 4px 6px !important;
+        max-width: 80px !important;
+      }
+
+      .table-responsive-wrapper {
+        margin: 6px -5px !important;
+      }
     }
     
     @media (max-width: 360px) {
@@ -8321,6 +8435,28 @@ a.anchor-link {
       #timeline-nav { transform: translateY(-50%) scale(0.8) !important; padding: 8px 4px !important; gap: 3px !important; }
       .timeline-dot { width: 14px !important; height: 14px !important; font-size: 9px !important; }
       .timeline-line { height: 10px !important; }
+
+      /* Ultra small screen table adjustments */
+      .jp-OutputArea table,
+      .jp-RenderedHTMLCommon table,
+      table {
+        font-size: 10px !important;
+        min-width: 200px !important;
+      }
+
+      .jp-OutputArea table th,
+      .jp-OutputArea table td,
+      .jp-RenderedHTMLCommon table th,
+      .jp-RenderedHTMLCommon table td,
+      table th,
+      table td {
+        padding: 3px 4px !important;
+        max-width: 60px !important;
+      }
+
+      .table-responsive-wrapper {
+        margin: 4px 0 !important;
+      }
     }
     </style>
     
@@ -8735,8 +8871,52 @@ a.anchor-link {
         block.appendChild(btn);
       });
 
+      // RESPONSIVE TABLE WRAPPER FUNCTIONALITY
+      function wrapTablesForResponsiveness() {
+        // Find all tables that aren't already wrapped
+        var tables = document.querySelectorAll('.jp-OutputArea table, .jp-RenderedHTMLCommon table, table');
+        
+        tables.forEach(function(table) {
+          // Skip if already wrapped
+          if (table.parentNode.classList.contains('table-responsive-wrapper')) {
+            return;
+          }
+          
+          // Create wrapper
+          var wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive-wrapper';
+          
+          // Insert wrapper before table and move table into wrapper
+          table.parentNode.insertBefore(wrapper, table);
+          wrapper.appendChild(table);
+        });
+      }
+
       // Initialize everything
       generateTimeline();
+      wrapTablesForResponsiveness();
+      
+      // Also wrap tables that might be added dynamically
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.nodeType === Node.ELEMENT_NODE) {
+                // Check if the added node contains tables
+                var newTables = node.querySelectorAll ? node.querySelectorAll('table') : [];
+                if (newTables.length > 0) {
+                  wrapTablesForResponsiveness();
+                }
+              }
+            });
+          }
+        });
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
     });
     </script>
     
