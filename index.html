@@ -107,7 +107,7 @@
     }
     
     .logo {
-        max-width: 140px;
+        max-width: 150px;
         height: auto;
         display: block;
         transition: opacity 0.3s ease;
@@ -1161,32 +1161,39 @@
         .about-modal {
             padding: var(--space-sm) !important;
             z-index: 11000 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
 
         .about-modal-content {
-            width: calc(100vw - 4 * var(--space-sm)) !important;
-            max-width: calc(100vw - 4 * var(--space-sm)) !important;
+            width: calc(100vw - 6 * var(--space-sm)) !important;
+            max-width: calc(100vw - 6 * var(--space-sm)) !important;
             padding: var(--space-md) !important;
-            max-height: calc(100vh - 4 * var(--space-sm)) !important;
+            max-height: calc(100vh - 6 * var(--space-sm)) !important;
+            margin: 0 !important;
+            position: relative !important;
         }
     }
 
-    /* Ultra-small screens - smaller search for iPhone SE and similar */
+    /* Ultra-small screens - bigger container expansion for search box */
     @media screen and (max-width: 400px) {
-        /* Smaller search expansion for iPhone SE - FIX OVERFLOW */
+        /* Bigger container expansion to properly fit 140px search box */
         .container .header .button-container.search-expanded {
-            padding-left: 50px !important;
+            padding-left: 100px !important;
         }
 
         .container .header .search-input-container.expanded {
-            width: 90px !important;
-            padding-left: 8px !important;
-            padding-right: 32px !important;
+            width: 140px !important;
+            padding-left: 10px !important;
+            padding-right: 36px !important;
             background: transparent !important;
+            border-radius: 8px !important;
             overflow: hidden !important;
         }
 
         .container .header .search-input-container.expanded .search-input {
+            opacity: 1 !important;
             background: transparent !important;
         }
 
