@@ -827,74 +827,48 @@
         }
 
         body {
-            padding: 0 !important;
-            font-size: var(--font-size-base) !important;
-            margin: 0 !important;
-            height: 100vh !important;
-            overflow: hidden !important;
-            display: flex !important;
-            flex-direction: column !important;
-        }
-
-        /* Fixed top area for tool container */
-        .mobile-top-area {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            height: 70px !important;
-            background: var(--bg-color) !important;
-            z-index: 10000 !important;
-        }
-
-        /* Scrollable content area */
-        .mobile-content-area {
-            margin-top: 70px !important;
-            height: calc(100vh - 70px) !important;
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
             padding: var(--space-md) !important;
+            font-size: var(--font-size-base) !important;
         }
         
         .container {
             padding: var(--space-lg) !important;
             margin: 0 !important;
             border-radius: var(--radius-lg) !important;
-            min-height: auto !important;
         }
         
         .header {
-            flex-direction: column !important;
+            display: flex !important;
+            justify-content: space-between !important;
             align-items: center !important;
-            gap: var(--space-xl) !important;
             margin-bottom: var(--space-2xl) !important;
-            padding-top: 0 !important;
+            padding-top: 15px !important;
+            position: relative !important;
         }
         
         .logo {
-            max-width: 175px !important;
+            max-width: 75px !important;
+            height: auto !important;
             margin-top: 0 !important;
         }
         
-        /* MOBILE BUTTON CONTAINER - FIXED IN TOP AREA */
+        /* MOBILE BUTTON CONTAINER - SAME AS DESKTOP */
         .button-container {
-            position: fixed !important;
-            top: 12px !important;
-            right: 12px !important;
-            left: auto !important;
-            background: rgba(45, 45, 45, 0.98) !important;
+            position: static !important;
+            top: auto !important;
+            right: auto !important;
+            background: rgba(45, 45, 45, 0.95) !important;
             border: 2px solid var(--border-color) !important;
             border-radius: 10px !important;
-            padding: 6px !important;
+            padding: 4px !important;
             display: flex !important;
             flex-direction: row !important;
-            gap: 6px !important;
+            gap: 4px !important;
             width: auto !important;
-            max-width: calc(100vw - 24px) !important;
             justify-content: center !important;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.25) !important;
-            z-index: 10001 !important;
-            backdrop-filter: blur(15px) !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+            z-index: 1000 !important;
+            backdrop-filter: blur(10px) !important;
             transform: none !important;
         }
 
@@ -1039,20 +1013,13 @@
         .about-modal {
             padding: var(--space-md) !important;
             z-index: 11000 !important;
-            position: fixed !important;
-            top: 70px !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            width: 100% !important;
-            height: calc(100vh - 70px) !important;
         }
 
         .about-modal-content {
-            width: calc(100vw - 2 * var(--space-md)) !important;
-            max-width: calc(100vw - 2 * var(--space-md)) !important;
+            width: calc(100vw - 4 * var(--space-md)) !important;
+            max-width: calc(100vw - 4 * var(--space-md)) !important;
             padding: var(--space-lg) !important;
-            max-height: calc(100vh - 70px - 2 * var(--space-md)) !important;
+            max-height: calc(100vh - 4 * var(--space-md)) !important;
             border-radius: var(--radius-lg) !important;
             margin: 0 auto !important;
         }
@@ -1132,32 +1099,41 @@
 
     @media screen and (max-width: 480px) {
         body {
-            padding: 0 !important;
-            margin: 0 !important;
-            height: 100vh !important;
-            overflow: hidden !important;
-            display: flex !important;
-            flex-direction: column !important;
-        }
-
-        /* Fixed top area for tool container */
-        .mobile-top-area {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            height: 60px !important;
-            background: var(--bg-color) !important;
-            z-index: 10000 !important;
-        }
-
-        /* Scrollable content area */
-        .mobile-content-area {
-            margin-top: 60px !important;
-            height: calc(100vh - 60px) !important;
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
             padding: var(--space-sm) !important;
+        }
+
+        .container {
+            padding: var(--space-md) !important;
+            border-radius: var(--radius-md) !important;
+        }
+
+        /* FORCE MOBILE LOGO SIZE - PHONES */
+        .header .logo {
+            max-width: 75px !important;
+        }
+
+        .header .button-container {
+            gap: 3px !important;
+            padding: 3px !important;
+        }
+
+        .container .header .search-input-container.expanded .search-input {
+            opacity: 1 !important;
+            height: calc(36px - 8px) !important;
+            font-size: var(--font-size-sm) !important;
+            background: transparent !important;
+        }
+
+        /* Force consistent button sizes on phones */
+        .container .header #searchBtn,
+        .container .header #aboutBtn, 
+        .container .header #themeToggle,
+        .container .header .github-btn {
+            width: 36px !important;
+            height: 36px !important;
+            min-width: 36px !important;
+            min-height: 36px !important;
+            border-radius: 8px !important;
         }
 
         .container {
@@ -1185,25 +1161,35 @@
         .about-modal {
             padding: var(--space-sm) !important;
             z-index: 11000 !important;
-            position: fixed !important;
-            top: 60px !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            width: 100% !important;
-            height: calc(100vh - 60px) !important;
         }
 
         .about-modal-content {
-            width: calc(100vw - 2 * var(--space-sm)) !important;
-            max-width: calc(100vw - 2 * var(--space-sm)) !important;
+            width: calc(100vw - 4 * var(--space-sm)) !important;
+            max-width: calc(100vw - 4 * var(--space-sm)) !important;
             padding: var(--space-md) !important;
-            max-height: calc(100vh - 60px - 2 * var(--space-sm)) !important;
+            max-height: calc(100vh - 4 * var(--space-sm)) !important;
         }
     }
 
-    /* Ultra-small screens - stack table data */
+    /* Ultra-small screens - smaller search for iPhone SE and similar */
     @media screen and (max-width: 400px) {
+        /* Smaller search expansion for iPhone SE - FIX OVERFLOW */
+        .container .header .button-container.search-expanded {
+            padding-left: 50px !important;
+        }
+
+        .container .header .search-input-container.expanded {
+            width: 90px !important;
+            padding-left: 8px !important;
+            padding-right: 32px !important;
+            background: transparent !important;
+            overflow: hidden !important;
+        }
+
+        .container .header .search-input-container.expanded .search-input {
+            background: transparent !important;
+        }
+
         table, thead, tbody, th, td, tr {
             display: block !important;
         }
@@ -1300,8 +1286,6 @@
 </style>
 </head>
 <body>
-<div class="mobile-top-area"></div>
-<div class="mobile-content-area">
 <div class="container">
     <!-- Header -->
     <div class="header">
@@ -1425,7 +1409,6 @@
     An initiative by <a href="https://github.com/meluron" target="_blank">meluron</a> to bring context to learning.
 </div>
 </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
@@ -1452,6 +1435,32 @@
         uniqueCategories.forEach((cat, idx) => {
             categoryColorMap[cat] = colors[idx % colors.length];
         });
+    }
+    
+    // Initialize mobile logo and layout
+    function initializeMobileLayout() {
+        const logo = document.getElementById('logo');
+        const isMobile = window.innerWidth <= 768;
+        
+        if (logo) {
+            if (isMobile) {
+                logo.src = 'https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon.png';
+                logo.alt = 'DevQuest';
+            } else {
+                logo.src = 'https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png';
+                logo.alt = 'DevQuest Logo';
+            }
+        }
+    }
+    
+    // Update logo on window resize
+    window.addEventListener('resize', initializeMobileLayout);
+    
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeMobileLayout);
+    } else {
+        initializeMobileLayout();
     }
     
     let searchBtn, searchInputContainer, searchBox;
@@ -1496,27 +1505,32 @@
         const buttonContainer = document.querySelector('.button-container');
         const isMobile = window.innerWidth <= 768;
         
+        console.log('Search toggled:', searchExpanded, 'Mobile:', isMobile); // Debug log
+        
         if (searchExpanded) {
             searchInputContainer.classList.add("expanded");
             searchBtn.classList.add("active");
             buttonContainer.classList.add("search-expanded");
             
-            if (isMobile) {
-                setTimeout(() => {
-                    searchBox.focus();
+            // Force focus after animation
+            setTimeout(() => {
+                searchBox.focus();
+                if (isMobile) {
                     searchBox.click();
-                }, 100);
-            } else {
-                setTimeout(() => {
-                    searchBox.focus();
-                }, 300);
-            }
+                }
+            }, isMobile ? 100 : 300);
         } else {
             searchInputContainer.classList.remove("expanded");
             searchBtn.classList.remove("active");
             buttonContainer.classList.remove("search-expanded");
             searchBox.blur();
         }
+        
+        console.log('Classes applied:', {
+            expanded: searchInputContainer.classList.contains('expanded'),
+            active: searchBtn.classList.contains('active'),
+            searchExpanded: buttonContainer.classList.contains('search-expanded')
+        }); // Debug log
     }
     
     // Enhanced click outside behavior
@@ -1946,17 +1960,13 @@
         const isMobile = viewportWidth <= 768;
         
         if (isMobile) {
-            // For mobile with constrained layout
-            const contentArea = document.querySelector('.mobile-content-area');
-            const contentRect = contentArea ? contentArea.getBoundingClientRect() : { top: 70, left: 0 };
-            
             previewTooltip.style.position = "fixed";
             previewTooltip.style.left = "12px";
             previewTooltip.style.right = "12px";
             previewTooltip.style.width = "calc(100vw - 24px)";
             previewTooltip.style.maxWidth = "calc(100vw - 24px)";
-            previewTooltip.style.top = Math.max(rect.bottom + 10, contentRect.top + 80) + "px";
-            previewTooltip.style.maxHeight = "calc(100vh - " + (Math.max(rect.bottom + 10, contentRect.top + 80) + 20) + "px)";
+            previewTooltip.style.top = (rect.bottom + 10) + "px";
+            previewTooltip.style.maxHeight = "calc(100vh - " + (rect.bottom + 30) + "px)";
         } else {
             const container = document.querySelector('.container');
             const containerRect = container.getBoundingClientRect();
