@@ -7591,8 +7591,8 @@ a.anchor-link {
 <div class="hc-calendar">
 <div class="hc-header">Last modified</div>
 <div class="hc-month">Sep, 2025</div>
-<div class="hc-day">17</div>
-<div class="hc-time">04:08:23 AM</div>
+<div class="hc-day">22</div>
+<div class="hc-time">07:17:04 PM</div>
 </div>
 <!-- Header text -->
 <div style="flex: 1;">
@@ -7612,9 +7612,9 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Quest">Quest<a class="anchor-link" href="#Quest">¶</a></h2><ol>
-<li>What are the tools available to perform pitch tracking?</li>
+<li>Which python libraries are used for pitch tracking?</li>
 <li>How long do they take to compute pitch?</li>
-<li>How do they perform in their default settings?</li>
+<li>How well they perform in their default settings?</li>
 <li>What user-controls do they provide?</li>
 <li>How to choose the right one for your task?</li>
 </ol>
@@ -7628,7 +7628,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Tools-Available-for-Pitch-Tracking">Tools Available for Pitch Tracking<a class="anchor-link" href="#Tools-Available-for-Pitch-Tracking">¶</a></h2>
+<h2 id="Python-Libraries-for-Pitch-Tracking">Python Libraries for Pitch Tracking<a class="anchor-link" href="#Python-Libraries-for-Pitch-Tracking">¶</a></h2>
 </div>
 </div>
 </div>
@@ -8118,11 +8118,40 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters">¶</a></h2>
+<h2 id="User-Controls">User-Controls<a class="anchor-link" href="#User-Controls">¶</a></h2><ul>
+<li>Praat-Parselmouth:<ul>
+<li>time_step:</li>
+<li>pitch_floor: 75.0</li>
+<li>max_number_of_candidates: 15</li>
+<li>very_accurate: True</li>
+<li>silence_threshold: 0.04</li>
+<li>voicing_threshold: 0.1</li>
+<li>octave_cost: 0.05</li>
+<li>octave_jump_cost: 0.8</li>
+<li>voiced_unvoiced_cost: 0.6</li>
+<li>pitch_ceiling: 600</li>
+</ul>
+</li>
+<li></li>
+</ul>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4c498f6f-25ec-4dc8-923f-61c392855407">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">parselmouth</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pm</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=35a82082-67dd-4003-b447-9b3a32633f7b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8136,7 +8165,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=35a82082-67dd-4003-b447-9b3a32633f7b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=35b21f0e-5191-41de-b91b-e93d6578087d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8158,7 +8187,6 @@ a.anchor-link {
     :root {
         --text-color: #d4d4d4;
         --bg-color: #1e1e1e;
-        --button-size: 40px;
     }
     
     body.light-mode {
@@ -8166,47 +8194,105 @@ a.anchor-link {
         --bg-color: #ffffff;
     }
 
-    /* ======= BUTTON CONTAINER ======= */
+    /* ======= BUTTON CONTAINER - NEVER CHANGES ======= */
     .button-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(45, 45, 45, 0.95);
-      border: 1px solid #555;
-      border-radius: 12px;
-      padding: 2px;
-      display: flex;
-      gap: 0px;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      height: auto;
-      width: auto;
+      position: fixed !important;
+      top: 20px !important;
+      right: 20px !important;
+      background: rgba(45, 45, 45, 0.95) !important;
+      border: 1px solid #555 !important;
+      border-radius: 12px !important;
+      padding: 2px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0px !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      z-index: 1000 !important;
+      backdrop-filter: blur(10px) !important;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
+      transition: all 0.3s ease !important;
+      height: auto !important;
+      width: 244px !important;
+      max-width: 244px !important;
+      min-width: 244px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
     }
 
     .button-container:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
     }
 
-    /* ======= BASE BUTTON RESET AND SIZING ======= */
+    .button-row {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 0px !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 0px !important;
+      margin: 0px !important;
+    }
+
+    .toc-content {
+      width: 240px !important;
+      max-width: 240px !important;
+      min-width: 240px !important;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden !important;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+      box-sizing: border-box;
+    }
+
+    .toc-content.toc-visible {
+      max-height: 60vh;
+      opacity: 1;
+      padding: 12px;
+      margin-top: 2px;
+      overflow-y: auto;
+      overflow-x: hidden !important;
+    }
+
+    .toc-content::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .toc-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .toc-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+
+    .toc-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ======= BUTTONS - ABSOLUTELY NEVER CHANGE SIZE ======= */
     .home-btn,
     .code-toggle-btn,
     .theme-toggle-btn,
+    .toc-toggle-btn,
     .report-issue-btn,
     .download-btn {
         /* Reset all properties */
         all: unset;
         
-        /* Set exact dimensions */
-        width: var(--button-size) !important;
-        height: var(--button-size) !important;
-        min-width: var(--button-size) !important;
-        min-height: var(--button-size) !important;
-        max-width: var(--button-size) !important;
-        max-height: var(--button-size) !important;
+        /* Set exact dimensions - LOCKED AT 40x40px FOREVER */
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
         
         /* Layout */
         display: flex !important;
@@ -8249,10 +8335,11 @@ a.anchor-link {
         overflow: hidden !important;
     }
 
-    /* ======= SVG ICON STYLING ======= */
+    /* ======= SVG ICONS - ABSOLUTELY NEVER CHANGE SIZE ======= */
     .home-btn svg,
     .code-toggle-btn svg,
     .theme-toggle-btn svg,
+    .toc-toggle-btn svg,
     .report-issue-btn svg,
     .download-btn svg {
         width: 20px !important;
@@ -8268,6 +8355,7 @@ a.anchor-link {
     .home-btn:hover,
     .code-toggle-btn:hover,
     .theme-toggle-btn:hover,
+    .toc-toggle-btn:hover,
     .report-issue-btn:hover,
     .download-btn:hover {
         background: rgba(255, 255, 255, 0.1) !important;
@@ -8278,6 +8366,7 @@ a.anchor-link {
     .home-btn:hover svg,
     .code-toggle-btn:hover svg,
     .theme-toggle-btn:hover svg,
+    .toc-toggle-btn:hover svg,
     .report-issue-btn:hover svg,
     .download-btn:hover svg {
         transform: none !important;
@@ -8318,17 +8407,26 @@ a.anchor-link {
     .code-toggle-btn.code-hidden:hover,
     .code-toggle-btn.code-hidden:active,
     .code-toggle-btn.code-hidden:focus {
-        width: var(--button-size) !important;
-        height: var(--button-size) !important;
+        width: 40px !important;
+        height: 40px !important;
         transform: none !important;
         scale: none !important;
-        min-width: var(--button-size) !important;
-        max-width: var(--button-size) !important;
+        min-width: 40px !important;
+        max-width: 40px !important;
         vertical-align: top !important;
     }
     
     .code-toggle-btn.code-hidden {
         opacity: 0.6 !important;
+    }
+
+    /* ======= TOC TOGGLE SPECIFIC STYLES ======= */
+    .toc-toggle-btn {
+        vertical-align: top !important;
+    }
+    
+    .toc-toggle-btn.toc-visible {
+        background: rgba(255, 255, 255, 0.1) !important;
     }
 
     /* ======= THEME TOGGLE SPECIFIC STYLES ======= */
@@ -8400,17 +8498,30 @@ a.anchor-link {
         text-decoration: none !important;
     }
 
-    /* ======= LIGHT MODE STYLES ======= */
+    /* Light mode button container */
     body.light-mode .button-container {
-        background: rgba(255, 255, 255, 0.95);
-        border-color: #ccc;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-color: #ccc !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1) !important;
+    }
+
+    body.light-mode .toc-content.toc-visible::before {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .toc-content::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-mode .toc-content::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
     }
     
     /* Force all buttons to have correct colors in light mode */
     body.light-mode .home-btn,
     body.light-mode .code-toggle-btn,
     body.light-mode .theme-toggle-btn,
+    body.light-mode .toc-toggle-btn,
     body.light-mode .report-issue-btn,
     body.light-mode .download-btn {
         color: #333333 !important;
@@ -8420,6 +8531,7 @@ a.anchor-link {
     body.light-mode .home-btn svg,
     body.light-mode .code-toggle-btn svg,
     body.light-mode .theme-toggle-btn svg,
+    body.light-mode .toc-toggle-btn svg,
     body.light-mode .report-issue-btn svg,
     body.light-mode .download-btn svg {
         stroke: #333333 !important;
@@ -8462,9 +8574,165 @@ a.anchor-link {
     body.light-mode .home-btn:hover,
     body.light-mode .code-toggle-btn:hover,
     body.light-mode .theme-toggle-btn:hover,
+    body.light-mode .toc-toggle-btn:hover,
     body.light-mode .report-issue-btn:hover,
     body.light-mode .download-btn:hover {
         background: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* ======= TOC VISIBILITY TOGGLE ======= */
+    .toc-content.toc-visible::before {
+      content: '';
+      display: block;
+      width: calc(100% - 24px);
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 auto 12px auto;
+    }
+
+    .toc-header {
+      font-size: 9px !important;
+      font-weight: 500 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      color: rgba(255, 255, 255, 0.5) !important;
+      margin-bottom: 8px !important;
+      padding-bottom: 6px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .toc-content *,
+    .toc-content a,
+    .toc-content a:link,
+    .toc-content a:visited,
+    .toc-content a:active {
+      display: block !important;
+      font-size: 11px !important;
+      font-weight: 400 !important;
+      color: rgba(255, 255, 255, 0.9) !important;
+      text-decoration: none !important;
+      line-height: 1.4 !important;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 4px 0 !important;
+      margin: 0 !important;
+      word-break: break-all !important;
+      background: none !important;
+      border: none !important;
+      transition: color 0.15s ease !important;
+    }
+
+    .toc-content a:hover {
+      color: #fd8a09 !important;
+      opacity: 0.7 !important;
+      background: none !important;
+      border: none !important;
+      text-decoration: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    .toc-content a.active,
+    .toc-content a.active:link,
+    .toc-content a.active:visited,
+    .toc-content a.active:active {
+      color: #fd8a09 !important;
+      font-weight: bold !important;
+      background: none !important;
+      border: none !important;
+      text-decoration: none !important;
+    }
+
+    .toc-content a.active:hover {
+      color: #fd8a09 !important;
+      opacity: 1 !important;
+      background: none !important;
+    }
+
+    /* Apply indentation using attribute selectors to be more specific */
+    .toc-content a[class*="h1"] {
+      padding-left: 0px !important;
+      margin-top: 6px !important;
+      max-width: calc(100% - 0px) !important;
+    }
+
+    .toc-content a[class*="h2"] {
+      padding-left: 12px !important;
+      margin-top: 4px !important;
+      max-width: calc(100% - 12px) !important;
+    }
+
+    .toc-content a[class*="h3"] {
+      padding-left: 40px !important;
+      max-width: calc(100% - 40px) !important;
+    }
+
+    .toc-content a[class*="h4"] {
+      padding-left: 60px !important;
+      max-width: calc(100% - 60px) !important;
+    }
+
+    .toc-content a[class*="h5"] {
+      padding-left: 48px !important;
+      max-width: calc(100% - 48px) !important;
+    }
+
+    .toc-content a[class*="h6"] {
+      padding-left: 60px !important;
+      max-width: calc(100% - 60px) !important;
+    }
+
+    /* Light mode TOC styles */
+    body.light-mode .toc-header {
+      color: rgba(0, 0, 0, 0.5) !important;
+      border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+    }
+
+    body.light-mode .toc-content *,
+    body.light-mode .toc-content a,
+    body.light-mode .toc-content a:link,
+    body.light-mode .toc-content a:visited,
+    body.light-mode .toc-content a:active {
+      color: rgba(0, 0, 0, 0.9) !important;
+      background: none !important;
+      border: none !important;
+      text-decoration: none !important;
+      transition: color 0.15s ease !important;
+    }
+
+    body.light-mode .toc-content a:hover {
+      color: #fd8a09 !important;
+      opacity: 0.7 !important;
+      background: none !important;
+      border: none !important;
+      text-decoration: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+      font-weight: 400 !important;
+    }
+
+    body.light-mode .toc-content a.active,
+    body.light-mode .toc-content a.active:link,
+    body.light-mode .toc-content a.active:visited,
+    body.light-mode .toc-content a.active:active {
+      color: #fd8a09 !important;
+      font-weight: bold !important;
+      background: none !important;
+      border: none !important;
+      text-decoration: none !important;
+      opacity: 1 !important;
+    }
+
+    body.light-mode .toc-content a.active:hover {
+      color: #fd8a09 !important;
+      opacity: 1 !important;
+      background: none !important;
+      font-weight: bold !important;
     }
 
     /* ======= CODE VISIBILITY TOGGLE ======= */
@@ -8476,145 +8744,19 @@ a.anchor-link {
       display: none !important;
     }
 
-    /* ======= CONTENT SPACING FOR TIMELINE ======= */
+    /* ======= CONTENT SPACING FOR TOC ======= */
     body {
-      margin-right: 80px !important;
+      margin-right: 20px !important;
       transition: margin-right 0.3s ease;
     }
     
     .jp-Notebook {
-      max-width: calc(100% - 240px) !important;
+      max-width: calc(100% - 40px) !important;
       margin-right: 0 !important;
     }
     
     .jp-Cell {
-      margin-right: 40px !important;
-    }
-    
-    /* ======= VERTICAL TIMELINE TOC (RIGHT) ======= */
-    #timeline-nav {
-      position: fixed !important; 
-      top: 50% !important; 
-      right: 25px !important; 
-      transform: translateY(-50%) !important;
-      background: rgba(20, 20, 20, 0.95) !important; 
-      backdrop-filter: blur(20px) !important;
-      border-radius: 25px !important; 
-      padding: 20px 12px !important; 
-      z-index: 999 !important;
-      transition: all 0.3s ease !important; 
-      border: 1px solid rgba(255,255,255,0.1) !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; 
-      display: flex !important; 
-      flex-direction: column !important;
-      align-items: center !important; 
-      gap: 8px !important;
-    }
-  
-    .timeline-dot {
-      width: 20px;
-      height: 20px;
-      background: #374151;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 444;
-      color: white !important;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      cursor: pointer;
-      flex-shrink: 0;
-      margin: -8px;
-    }
-    
-    .timeline-dot,
-    .timeline-dot:link,
-    .timeline-dot:visited,
-    .timeline-dot:hover,
-    .timeline-dot:active {
-      color: white !important;
-      text-decoration: none;
-    }
-    
-    body.light-mode .timeline-dot,
-    body.light-mode .timeline-dot:link,
-    body.light-mode .timeline-dot:visited,
-    body.light-mode .timeline-dot:hover,
-    body.light-mode .timeline-dot:active {
-      color: white !important;
-    }
-      
-    .timeline-dot.completed { background: #228B22; color: black; }
-    .timeline-dot.current { background: #fd8a09; color: black; }
-    .timeline-dot.future { background: #374151; color: white; }
-    .timeline-dot:hover { transform: scale(1.4) !important; }
-    .timeline-dot.completed:hover { box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.3) !important; }
-    .timeline-dot.current:hover { box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.3) !important; }
-    .timeline-dot.future:hover { box-shadow: 0 0 0 4px rgba(55, 65, 81, 0.3) !important; }
-    body.light-mode .timeline-dot { color: black !important; }
-  
-    .timeline-line { 
-      width: 2px; 
-      height: 25px; 
-      background: #374151; 
-      transition: all 0.3s ease; 
-      flex-shrink: 0; 
-    }
-    .timeline-line.completed { background: #4ade80; }
-
-    #timeline-tooltip {
-      position: fixed; 
-      background: rgba(0,0,0,0.9); 
-      color: white; 
-      padding: 8px 12px; 
-      border-radius: 8px;
-      font-size: 12px; 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-      pointer-events: none;
-      z-index: 1001; 
-      opacity: 0; 
-      transition: all 0.2s ease; 
-      white-space: nowrap;
-    }
-    .tooltip-text { opacity: 0.9; font-size: 11px; font-weight: 600; }
-  
-    #timeline-full-list {
-      position: fixed; 
-      background: rgba(20,20,20,0.95); 
-      color: white; 
-      padding: 12px 16px; 
-      border-radius: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-      backdrop-filter: blur(20px);
-      z-index: 1002; 
-      opacity: 0; 
-      pointer-events: none; 
-      transition: opacity 0.3s ease;
-      max-height: 80vh; 
-      overflow-y: auto; 
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    #timeline-full-list ul { list-style: none; padding: 0; margin: 0; font-size: 11px; }
-    #timeline-full-list li { padding: 4px 0; opacity: 0.8; white-space: nowrap; }
-  
-    body.light-mode #timeline-nav { 
-      background: rgba(255,255,255,0.95) !important; 
-      border-color: rgba(0,0,0,0.1) !important; 
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important; 
-    }
-    body.light-mode .timeline-dot.future { background: #d1d5db; }
-    body.light-mode .timeline-line { background: #d1d5db; }
-    body.light-mode #timeline-tooltip { 
-      background: rgba(255,255,255,0.95); 
-      color: #333; 
-      border: 1px solid rgba(0,0,0,0.1); 
-    }
-    body.light-mode #timeline-full-list { 
-      background: rgba(255,255,255,0.95); 
-      color: #333; 
-      border: 1px solid rgba(0,0,0,0.1); 
+      margin-right: 10px !important;
     }
   
     /* ======= GENERAL DARK/LIGHT STYLES ======= */
@@ -8930,25 +9072,14 @@ a.anchor-link {
     body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } 
     body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     
-    /* ======= MOBILE RESPONSIVE ======= */
+    /* ======= MOBILE RESPONSIVE - TABLES ONLY, NO TOOLBOX CHANGES ======= */
     @media (max-width: 768px) { 
-      :root { --button-size: 36px; }
-      body { margin-right: 60px !important; }
-      .jp-Notebook { max-width: calc(100% - 60px) !important; }
-      .jp-Cell { margin-right: 10px !important; }
-      .button-container { top: 10px; right: 10px; padding: 6px; gap: 2px; }
-      .home-btn svg,
-      .code-toggle-btn svg,
-      .theme-toggle-btn svg,
-      .report-issue-btn svg,
-      .download-btn svg {
-        width: 18px !important;
-        height: 18px !important;
-      }
-      #timeline-nav { right: 10px !important; padding: 15px 8px !important; gap: 6px !important; } 
-      .timeline-line { height: 15px !important; }
+      /* Only content layout adjustments - NEVER modify toolbox */
+      body { margin-right: 10px !important; }
+      .jp-Notebook { max-width: 100% !important; }
+      .jp-Cell { margin-right: 5px !important; }
 
-      /* Mobile table adjustments */
+      /* Table adjustments only */
       .jp-OutputArea table,
       .jp-RenderedHTMLCommon table,
       table {
@@ -8968,7 +9099,6 @@ a.anchor-link {
         word-break: break-word !important;
       }
 
-      /* Mobile audio players in tables */
       .jp-OutputArea table audio,
       .jp-RenderedHTMLCommon table audio,
       table audio {
@@ -8994,7 +9124,6 @@ a.anchor-link {
         border-radius: 0 !important;
       }
 
-      /* Make scrollbar more visible on mobile */
       .table-responsive-wrapper::-webkit-scrollbar {
         height: 12px !important;
       }
@@ -9011,25 +9140,7 @@ a.anchor-link {
     }
     
     @media (max-width: 480px) { 
-      :root { --button-size: 32px; }
-      body { margin-right: 50px !important; }
-      .jp-Notebook { max-width: calc(100% - 50px) !important; }
-      .jp-Cell { margin-right: 5px !important; }
-      .button-container { padding: 4px; gap: 2px; top: 10px; right: 10px; }
-      .code-toggle-btn svg,
-      .theme-toggle-btn svg,
-      .report-issue-btn svg,
-      .download-btn svg {
-        width: 16px !important;
-        height: 16px !important;
-      }
-      #timeline-nav { right: 5px !important; padding: 10px 6px !important; gap: 4px !important; transform: translateY(-50%) scale(0.9) !important; border-radius: 20px !important; } 
-      .timeline-dot { width: 16px !important; height: 16px !important; font-size: 10px !important; margin: -6px !important; }
-      .timeline-line { height: 12px !important; width: 1px !important; }
-      #timeline-tooltip { font-size: 10px !important; padding: 6px 8px !important; }
-      #timeline-full-list { font-size: 10px !important; padding: 8px 10px !important; max-height: 60vh !important; }
-
-      /* Extra small screen table adjustments */
+      /* Table adjustments only - NO TOOLBOX CHANGES */
       .jp-OutputArea table,
       .jp-RenderedHTMLCommon table,
       table {
@@ -9049,7 +9160,6 @@ a.anchor-link {
         word-break: break-word !important;
       }
 
-      /* Audio players in extra small tables */
       .jp-OutputArea table audio,
       .jp-RenderedHTMLCommon table audio,
       table audio {
@@ -9076,22 +9186,7 @@ a.anchor-link {
     }
     
     @media (max-width: 360px) {
-      :root { --button-size: 28px; }
-      body { margin-right: 40px !important; }
-      .jp-Notebook { max-width: calc(100% - 40px) !important; }
-      .button-container { gap: 1px; padding: 3px; }
-      .code-toggle-btn svg,
-      .theme-toggle-btn svg,
-      .report-issue-btn svg,
-      .download-btn svg {
-        width: 14px !important;
-        height: 14px !important;
-      }
-      #timeline-nav { transform: translateY(-50%) scale(0.8) !important; padding: 8px 4px !important; gap: 3px !important; }
-      .timeline-dot { width: 14px !important; height: 14px !important; font-size: 9px !important; }
-      .timeline-line { height: 10px !important; }
-
-      /* Ultra small screen table adjustments */
+      /* Table adjustments only - NO TOOLBOX CHANGES */
       .jp-OutputArea table,
       .jp-RenderedHTMLCommon table,
       table {
@@ -9111,7 +9206,6 @@ a.anchor-link {
         word-break: break-word !important;
       }
 
-      /* Audio players in ultra small tables */
       .jp-OutputArea table audio,
       .jp-RenderedHTMLCommon table audio,
       table audio {
@@ -9192,6 +9286,17 @@ a.anchor-link {
         </svg>`;
       }
 
+      function createTocIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>`;
+      }
+
       function createDownloadIcon() {
         return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -9203,6 +9308,10 @@ a.anchor-link {
       // Create button container
       var buttonContainer = document.createElement("div");
       buttonContainer.className = "button-container";
+
+      // Create button row to hold all buttons
+      var buttonRow = document.createElement("div");
+      buttonRow.className = "button-row";
 
       // Home button - first button
       var homeBtn = document.createElement("a");
@@ -9440,112 +9549,136 @@ a.anchor-link {
       downloadBtn.href = "../notebooks/" + ipynbFilename;
       downloadBtn.download = ipynbFilename;
 
+      // TOC toggle button (last button)
+      var tocToggleBtn = document.createElement("button");
+      tocToggleBtn.className = "toc-toggle-btn";
+      tocToggleBtn.innerHTML = createTocIcon();
+      tocToggleBtn.title = "Toggle table of contents";
       
-      // Add components to container (Home → Code Toggle → Theme Toggle → Report Issue → Download)
-      buttonContainer.appendChild(homeBtn);
-      buttonContainer.appendChild(codeToggleBtn);
-      buttonContainer.appendChild(themeToggleBtn);
-      buttonContainer.appendChild(reportIssueBtn);
-      buttonContainer.appendChild(downloadBtn);
+      var tocVisible = false;
+      
+      // TOC toggle functionality
+      function toggleTOCVisibility() {
+        tocVisible = !tocVisible;
+        var tocContent = document.querySelector('.toc-content');
+        
+        if (tocVisible) {
+          // Show with smooth animation
+          tocContent.classList.add('toc-visible');
+          tocToggleBtn.classList.add('toc-visible');
+          tocToggleBtn.title = "Hide table of contents";
+        } else {
+          tocContent.classList.remove('toc-visible');
+          tocToggleBtn.classList.remove('toc-visible');
+          tocToggleBtn.title = "Show table of contents";
+        }
+        
+        // Save preference
+        localStorage.setItem('toc-visibility', tocVisible ? 'visible' : 'hidden');
+      }
+      
+      tocToggleBtn.addEventListener("click", toggleTOCVisibility);
+      
+      // Initialize TOC visibility from localStorage
+      var savedTOCVisibility = localStorage.getItem('toc-visibility') || 'hidden';
+      if (savedTOCVisibility === 'visible') {
+        tocVisible = false; // Will be toggled to true
+        // Delay to ensure toolbar is rendered
+        setTimeout(() => toggleTOCVisibility(), 100);
+      }
+
+      
+      // Add components to button row (Home → Code Toggle → Theme Toggle → Report Issue → Download → TOC Toggle)
+      buttonRow.appendChild(homeBtn);
+      buttonRow.appendChild(codeToggleBtn);
+      buttonRow.appendChild(themeToggleBtn);
+      buttonRow.appendChild(reportIssueBtn);
+      buttonRow.appendChild(downloadBtn);
+      buttonRow.appendChild(tocToggleBtn);
+      
+      // Create TOC content container
+      var tocContent = document.createElement("div");
+      tocContent.className = "toc-content";
+      
+      // Add button row and TOC content to main container
+      buttonContainer.appendChild(buttonRow);
+      buttonContainer.appendChild(tocContent);
       document.body.appendChild(buttonContainer);
 
-      // Timeline functionality
-      var timelineNav = document.createElement("div");
-      timelineNav.id = "timeline-nav";
-      document.body.appendChild(timelineNav);
-
-      var tooltip = document.createElement("div");
-      tooltip.id = "timeline-tooltip";
-      document.body.appendChild(tooltip);
-
-      var fullList = document.createElement("div");
-      fullList.id = "timeline-full-list";
-      document.body.appendChild(fullList);
-
+      // TOC functionality
       var headings = [];
 
-      function generateTimeline() {
-        headings = Array.from(document.querySelectorAll("h2"));
+      function cleanHeadingText(heading) {
+        let text = heading.textContent.trim();
+        text = text.replace(/[¶]/g, ''); // Remove pilcrow symbols
+        text = text.replace(/^[\d\s\.\-]+/, ''); // Remove leading numbers, dots, spaces, hyphens
+        return text;
+      }
+
+      function generateTOC() {
+        headings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6"));
         if (headings.length === 0) return;
+
+        // Add header
+        var header = document.createElement("div");
+        header.className = "toc-header";
+        header.textContent = "ON THIS PAGE";
+        tocContent.appendChild(header);
 
         headings.forEach(function(heading, index) {
           if (!heading.id) heading.id = "heading-" + index;
-          if (index > 0) {
-            var line = document.createElement("div");
-            line.className = "timeline-line";
-            timelineNav.appendChild(line);
-          }
-          var dot = document.createElement("a");
-          dot.className = "timeline-dot future";
-          dot.href = "#" + heading.id;
-          dot.textContent = index + 1;
+          
+          var tocItem = document.createElement("a");
+          tocItem.className = "toc-item " + heading.tagName.toLowerCase();
+          tocItem.href = "#" + heading.id;
+          
+          // Clean and truncate text
+          var cleanText = cleanHeadingText(heading);
+          var maxLength = 35; // Adjust based on indentation level
+          if (heading.tagName.toLowerCase() === 'h3') maxLength = 25;
+          if (heading.tagName.toLowerCase() === 'h4') maxLength = 20;
+          if (heading.tagName.toLowerCase() === 'h5') maxLength = 15;
+          if (heading.tagName.toLowerCase() === 'h6') maxLength = 15;
+          
+          // Truncate text and add ellipsis
+          var displayText = cleanText.length > maxLength ? 
+            cleanText.substring(0, maxLength) + '...' : cleanText;
+          
+          tocItem.textContent = displayText;
+          tocItem.title = cleanText; // Full text in tooltip
 
-          dot.addEventListener("click", (e) => {
+          tocItem.addEventListener("click", function(e) {
             e.preventDefault();
             heading.scrollIntoView({ behavior: "smooth" });
           });
 
-          function cleanHeadingText(heading) {
-            let text = heading.textContent.trim();
-            text = text.replace(/[¶]/g, ''); 
-            return text;
-          }
-
-          let hoverTimeout;
-          dot.addEventListener("mouseenter", () => {
-            var text = cleanHeadingText(heading);
-            if (text.length > 40) text = text.substring(0, 40) + "...";
-            var rect = dot.getBoundingClientRect();
-            tooltip.innerHTML = '<div class="tooltip-text">' + text + '</div>';
-            tooltip.style.top = (rect.top + rect.height / 2 - tooltip.offsetHeight / 2) + 'px';
-            tooltip.style.left = (rect.left - tooltip.offsetWidth - 10) + 'px';
-            tooltip.style.opacity = '1';
-
-            hoverTimeout = setTimeout(() => {
-              fullList.innerHTML = "<ul>" + headings.map((h,i) => "<li>" + (i+1) + ". " + cleanHeadingText(h) + "</li>").join("") + "</ul>";
-              var navRect = timelineNav.getBoundingClientRect();
-              fullList.style.top = navRect.top + 'px';
-              fullList.style.left = (navRect.left - fullList.offsetWidth - 15) + 'px';
-              fullList.style.opacity = '1';
-            }, 1500);
-          });
-
-          dot.addEventListener("mouseleave", () => {
-            clearTimeout(hoverTimeout);
-            tooltip.style.opacity = '0';
-            fullList.style.opacity = '0';
-          });
-
-          timelineNav.appendChild(dot);
+          tocContent.appendChild(tocItem);
         });
 
-        updateTimeline();
+        updateTOC();
       }
 
-      function updateTimeline() {
+      function updateTOC() {
         if (headings.length === 0) return;
-        var scrollPos = window.scrollY + (window.innerHeight / 2);
+        var scrollPos = window.scrollY + (window.innerHeight / 3);
         var currentIndex = -1;
+        
         for (var i = 0; i < headings.length; i++) { 
           if (headings[i].offsetTop <= scrollPos) currentIndex = i; 
         }
 
-        timelineNav.querySelectorAll(".timeline-dot").forEach((dot, index) => {
-          dot.className = "timeline-dot";
-          if (index < currentIndex) dot.classList.add("completed");
-          else if (index === currentIndex) dot.classList.add("current");
-          else dot.classList.add("future");
-        });
-
-        timelineNav.querySelectorAll(".timeline-line").forEach((line, index) => {
-          line.classList.toggle("completed", index < currentIndex);
+        tocContent.querySelectorAll(".toc-item").forEach(function(item, index) {
+          item.classList.remove("active");
+          if (index === currentIndex) {
+            item.classList.add("active");
+          }
         });
       }
 
       var scrollTimeout;
-      window.addEventListener("scroll", () => { 
+      window.addEventListener("scroll", function() { 
         clearTimeout(scrollTimeout); 
-        scrollTimeout = setTimeout(updateTimeline, 50); 
+        scrollTimeout = setTimeout(updateTOC, 50); 
       });
 
       // Copy button functionality for code blocks
@@ -9587,7 +9720,7 @@ a.anchor-link {
       }
 
       // Initialize everything
-      generateTimeline();
+      generateTOC();
       wrapTablesForResponsiveness();
       
       // Also wrap tables that might be added dynamically
