@@ -1798,6 +1798,7 @@
         return doc.documentElement.innerHTML;
     }
 
+    // FIXED EXTRACT QUEST CONTENT FUNCTION
     function extractQuestContent(htmlContent, filename) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -1837,14 +1838,64 @@
                    cleanText.includes('AUTHORS:');
         }
         
+        // Check if content looks like code/CSS/JS (add this helper function)
+        function looksLikeCode(text) {
+            const codePatterns = [
+                /^\s*[\{\}]/,                    // CSS braces
+                /^\s*[\.#][a-zA-Z-_]/,          // CSS selectors
+                /^\s*\/\*.*\*\//,               // CSS comments
+                /^\s*function\s*\(/,            // JavaScript functions
+                /^\s*var\s+|let\s+|const\s+/,  // JavaScript variables
+                /^\s*if\s*\(|while\s*\(|for\s*\(/,  // Control structures
+                /^\s*<[a-zA-Z]/,                // HTML tags
+                /^\s*[a-zA-Z-]+\s*:\s*[^;]*;/,  // CSS properties
+                /===+/,                         // Comment separators
+                /^\s*\/\/|^\s*#/,              // Comments
+                /\w+\(\)/,                      // Function calls
+                /\w+\.\w+/                      // Method calls or properties
+            ];
+            
+            return codePatterns.some(pattern => pattern.test(text.trim()));
+        }
+        
+        // Check if content is meaningful Quest content
+        function isMeaningfulQuestContent(text) {
+            const cleanText = text.trim();
+            
+            // Too short or too long
+            if (cleanText.length < 10 || cleanText.length > 500) {
+                return false;
+            }
+            
+            // Looks like code
+            if (looksLikeCode(cleanText)) {
+                return false;
+            }
+            
+            // Contains too many technical symbols
+            const symbolRatio = (cleanText.match(/[\{\}\[\]();:]/g) || []).length / cleanText.length;
+            if (symbolRatio > 0.1) {
+                return false;
+            }
+            
+            // Should contain some common words
+            const commonWords = ['the', 'and', 'to', 'of', 'a', 'in', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'be', 'at', 'have', 'this', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said', 'there', 'each', 'which', 'she', 'do', 'how', 'their', 'if', 'will', 'up', 'other', 'about', 'out', 'many', 'then', 'them', 'these', 'so', 'some', 'her', 'would', 'make', 'like', 'into', 'him', 'has', 'two', 'more', 'go', 'no', 'way', 'could', 'my', 'than', 'first', 'been', 'call', 'who', 'its', 'now', 'find', 'long', 'down', 'day', 'did', 'get', 'come', 'made', 'may', 'part'];
+            const words = cleanText.toLowerCase().split(/\s+/);
+            const hasCommonWords = words.some(word => commonWords.includes(word));
+            
+            return hasCommonWords;
+        }
+        
         // First, try to find quest content by heading
         const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
         let questContainer = null;
+        let foundQuestHeading = false;
         
         for (let heading of headings) {
             const headingText = heading.textContent || heading.innerText || '';
             
             if (isQuestHeading(headingText)) {
+                foundQuestHeading = true;
                 console.log(`Found quest heading: "${headingText}"`);
                 
                 // Strategy 1: Look for next meaningful sibling
@@ -1861,8 +1912,9 @@
                         break; // Stop if we hit another heading
                     }
                     
-                    // Found our quest content container
-                    if (nextElement.textContent.trim().length > 0) {
+                    // Check if this is meaningful quest content
+                    const elementText = nextElement.textContent.trim();
+                    if (elementText.length > 0 && isMeaningfulQuestContent(elementText)) {
                         questContainer = nextElement;
                         break;
                     }
@@ -1889,8 +1941,9 @@
                                     break;
                                 }
                                 
-                                // Collect content
-                                if (child.textContent.trim().length > 0) {
+                                // Only collect meaningful content
+                                const childText = child.textContent.trim();
+                                if (childText.length > 0 && isMeaningfulQuestContent(childText)) {
                                     contentElements.push(child);
                                 }
                             }
@@ -1909,8 +1962,8 @@
             }
         }
         
-        // Fallback: Search for quest content by text patterns
-        if (!questContainer) {
+        // Fallback: Search for quest content by text patterns (only if no heading found yet)
+        if (!foundQuestHeading && !questContainer) {
             console.log('No quest heading found, trying text-based search...');
             
             const allElements = doc.querySelectorAll('*');
@@ -1918,6 +1971,7 @@
                 const elementText = element.textContent || element.innerText || '';
                 
                 if (isQuestHeading(elementText) && elementText.length < 50) {
+                    foundQuestHeading = true;
                     // Found quest marker, look for content nearby
                     let searchElement = element.parentElement || element;
                     
@@ -1926,9 +1980,12 @@
                                       element.nextElementSibling ||
                                       searchElement.querySelector('ul, ol, p, div');
                     
-                    if (nextContent && nextContent.textContent.trim().length > 0) {
-                        questContainer = nextContent;
-                        break;
+                    if (nextContent) {
+                        const nextText = nextContent.textContent.trim();
+                        if (nextText.length > 0 && isMeaningfulQuestContent(nextText)) {
+                            questContainer = nextContent;
+                            break;
+                        }
                     }
                 }
             }
@@ -1944,7 +2001,7 @@
                 console.log(`Found ${listItems.length} list items`);
                 listItems.forEach((item, index) => {
                     const itemText = (item.textContent || item.innerText || '').trim();
-                    if (itemText && itemText.length > 3) {
+                    if (itemText && itemText.length > 3 && isMeaningfulQuestContent(itemText)) {
                         questItems.push(itemText);
                     }
                 });
@@ -1957,50 +2014,56 @@
                     console.log(`Found ${paragraphs.length} paragraphs`);
                     paragraphs.forEach((p) => {
                         const pText = (p.textContent || p.innerText || '').trim();
-                        if (pText && pText.length > 10 && pText.length < 1000) {
+                        if (pText && pText.length > 10 && pText.length < 1000 && isMeaningfulQuestContent(pText)) {
                             questItems.push(pText);
                         }
                     });
                 }
             }
             
-            // Extract from text content if still no items
+            // Only try text extraction if we have meaningful content and no items yet
             if (questItems.length === 0) {
                 const allText = questContainer.textContent || questContainer.innerText || '';
                 console.log('Extracting from raw text, length:', allText.length);
                 
-                // Try numbered list pattern (1. 2. 3. etc.)
-                const numberedMatches = allText.match(/\d+\.\s+[^.]*?(?=\d+\.|$)/gs);
-                if (numberedMatches && numberedMatches.length > 0) {
-                    console.log(`Found ${numberedMatches.length} numbered items`);
-                    numberedMatches.forEach(match => {
-                        const cleanItem = match.replace(/^\d+\.\s*/, '').trim();
-                        if (cleanItem.length > 5) {
-                            questItems.push(cleanItem);
-                        }
-                    });
-                }
-                
-                // Try bullet point patterns
-                if (questItems.length === 0) {
-                    const bulletMatches = allText.match(/[-•*]\s+[^\n\r]*(?:\n(?!\s*[-•*])[^\n\r]*)*/g);
-                    if (bulletMatches && bulletMatches.length > 0) {
-                        console.log(`Found ${bulletMatches.length} bullet items`);
-                        bulletMatches.forEach(match => {
-                            const cleanItem = match.replace(/^[-•*]\s*/, '').trim();
-                            if (cleanItem.length > 5) {
+                // Only proceed if the text looks meaningful
+                if (isMeaningfulQuestContent(allText)) {
+                    // Try numbered list pattern (1. 2. 3. etc.)
+                    const numberedMatches = allText.match(/\d+\.\s+[^.]*?(?=\d+\.|$)/gs);
+                    if (numberedMatches && numberedMatches.length > 0) {
+                        console.log(`Found ${numberedMatches.length} numbered items`);
+                        numberedMatches.forEach(match => {
+                            const cleanItem = match.replace(/^\d+\.\s*/, '').trim();
+                            if (cleanItem.length > 5 && isMeaningfulQuestContent(cleanItem)) {
                                 questItems.push(cleanItem);
                             }
                         });
                     }
-                }
-                
-                // Try line-based extraction as last resort
-                if (questItems.length === 0) {
-                    const lines = allText.split(/\r?\n/).filter(line => line.trim().length > 10);
-                    if (lines.length > 0 && lines.length <= 10) {
-                        console.log(`Found ${lines.length} text lines`);
-                        questItems = lines.map(line => line.trim());
+                    
+                    // Try bullet point patterns
+                    if (questItems.length === 0) {
+                        const bulletMatches = allText.match(/[-•*]\s+[^\n\r]*(?:\n(?!\s*[-•*])[^\n\r]*)*/g);
+                        if (bulletMatches && bulletMatches.length > 0) {
+                            console.log(`Found ${bulletMatches.length} bullet items`);
+                            bulletMatches.forEach(match => {
+                                const cleanItem = match.replace(/^[-•*]\s*/, '').trim();
+                                if (cleanItem.length > 5 && isMeaningfulQuestContent(cleanItem)) {
+                                    questItems.push(cleanItem);
+                                }
+                            });
+                        }
+                    }
+                    
+                    // Try line-based extraction as last resort
+                    if (questItems.length === 0) {
+                        const lines = allText.split(/\r?\n/).filter(line => {
+                            const trimmed = line.trim();
+                            return trimmed.length > 10 && isMeaningfulQuestContent(trimmed);
+                        });
+                        if (lines.length > 0 && lines.length <= 10) {
+                            console.log(`Found ${lines.length} meaningful text lines`);
+                            questItems = lines.map(line => line.trim());
+                        }
                     }
                 }
             }
@@ -2023,8 +2086,10 @@
             });
             
             console.log(`Extracted ${questItems.length} quest items and ${questImages.length} images`);
+        } else if (foundQuestHeading) {
+            console.log('Found quest heading but no meaningful content');
         } else {
-            console.log('No quest container found');
+            console.log('No quest container or heading found');
         }
         
         // Extract author information
@@ -2086,7 +2151,8 @@
             items: questItems,
             images: questImages,
             authors: authors,
-            found: questContainer !== null
+            found: foundQuestHeading,  // Changed: return true if heading found, regardless of content
+            hasContent: questItems.length > 0 || questImages.length > 0  // New: indicates if actual content found
         };
     }
 
@@ -2150,12 +2216,20 @@
         }
     }
 
+    // FIXED DISPLAY QUEST PREVIEW FUNCTION
     function displayQuestPreview(title, questContent) {
         let html = ``;
         
         if (!questContent.found) {
-            html += `<div class="error">Quest preview not available</div>`;
+            // No quest heading found at all
+            html += `<div class="error">Quest section not found</div>`;
+        } else if (!questContent.hasContent) {
+            // Quest heading found but no meaningful content
+            html += `
+                <div class="error">Quest content not found</div>
+            `;
         } else if (questContent.items && questContent.items.length > 0) {
+            // Quest content found and processed
             html += '<div class="quest-section">';
             
             questContent.items.forEach((item, index) => {
@@ -2173,24 +2247,25 @@
                 html += '</div>';
             }
         } else {
-            html += `<div class="error">No quest content found</div>`;
+            // Fallback case - shouldn't happen with new logic but keeping for safety
+            html += `<div class="error">Quest preview not available</div>`;
         }
         
         // Add authors section if available
         if (questContent.authors && questContent.authors.length > 0) {
             html += `
-        <div class="quest-section" 
-            style="display: flex; justify-content: flex-end; align-items: center; gap: 6px; 
-                    font-size: 13px; color: var(--text-color); text-align: right;
-                    border-top: 1px solid var(--text-color); padding-top: 4px; margin-top: 6px;">
-            <span style="font-weight: 600; font-style: italic;">
-                ~ crafted by
-            </span>
-            <span style="font-style: italic;">
-                ${questContent.authors.join(', ')}
-            </span>
-        </div>
-    `;
+                <div class="quest-section" 
+                    style="display: flex; justify-content: flex-end; align-items: center; gap: 6px; 
+                            font-size: 13px; color: var(--text-color); text-align: right;
+                            border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 12px;">
+                    <span style="font-weight: 600; font-style: italic;">
+                        ~ crafted by
+                    </span>
+                    <span style="font-style: italic;">
+                        ${questContent.authors.join(', ')}
+                    </span>
+                </div>
+            `;
         }
         
         previewTooltip.innerHTML = html;

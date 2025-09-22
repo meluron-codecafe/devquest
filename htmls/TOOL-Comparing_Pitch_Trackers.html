@@ -7640,7 +7640,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Python-Libraries-for-Pitch-Tracking">Python Libraries for Pitch Tracking<a class="anchor-link" href="#Python-Libraries-for-Pitch-Tracking">¶</a></h2>
+<h1 id="Python-Libraries-for-Pitch-Tracking">Python Libraries for Pitch Tracking<a class="anchor-link" href="#Python-Libraries-for-Pitch-Tracking">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7668,7 +7668,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Runtime-Measurement">Runtime Measurement<a class="anchor-link" href="#Runtime-Measurement">¶</a></h2>
+<h1 id="Runtime-Measurement">Runtime Measurement<a class="anchor-link" href="#Runtime-Measurement">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7973,7 +7973,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Performance-in-Default-Settings">Performance in Default Settings<a class="anchor-link" href="#Performance-in-Default-Settings">¶</a></h2>
+<h1 id="Performance-in-Default-Settings">Performance in Default Settings<a class="anchor-link" href="#Performance-in-Default-Settings">¶</a></h1>
 </div>
 </div>
 </div>
@@ -8130,7 +8130,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="User-Controls">User-Controls<a class="anchor-link" href="#User-Controls">¶</a></h2><ul>
+<h1 id="User-Controls">User-Controls<a class="anchor-link" href="#User-Controls">¶</a></h1><ul>
 <li>Praat-Parselmouth:<ul>
 <li>time_step:</li>
 <li>pitch_floor: 75.0</li>
@@ -8146,20 +8146,6 @@ a.anchor-link {
 </li>
 <li></li>
 </ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4c498f6f-25ec-4dc8-923f-61c392855407">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">parselmouth</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pm</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -8254,8 +8240,8 @@ a.anchor-link {
       min-width: 240px !important;
       max-height: 0;
       opacity: 0;
-      overflow: hidden !important;
-      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease;
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
@@ -8263,29 +8249,47 @@ a.anchor-link {
     }
 
     .toc-content.toc-visible {
-      max-height: 60vh;
+      max-height: 400px !important;
       opacity: 1;
-      padding: 12px;
+      padding: 0px !important;
       margin-top: 2px;
-      overflow-y: auto;
+      overflow-y: scroll !important;
       overflow-x: hidden !important;
+      scroll-behavior: smooth;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
     }
 
+    /* Enhanced scrollbar visibility for TOC */
     .toc-content::-webkit-scrollbar {
-      width: 4px;
+      width: 12px;
     }
 
     .toc-content::-webkit-scrollbar-track {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .toc-content::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.2s ease;
     }
 
     .toc-content::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .toc-content::-webkit-scrollbar-thumb:active {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Firefox scrollbar fallback */
+    .toc-content {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
     }
 
     /* ======= BUTTONS - ABSOLUTELY NEVER CHANGE SIZE ======= */
@@ -8521,12 +8525,16 @@ a.anchor-link {
         background: rgba(0, 0, 0, 0.1);
     }
 
+    body.light-mode .toc-content::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
     body.light-mode .toc-content::-webkit-scrollbar-thumb {
         background: rgba(0, 0, 0, 0.2);
     }
 
     body.light-mode .toc-content::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.35);
     }
     
     /* Force all buttons to have correct colors in light mode */
@@ -8608,9 +8616,24 @@ a.anchor-link {
       text-transform: uppercase !important;
       letter-spacing: 0.5px !important;
       color: rgba(255, 255, 255, 0.5) !important;
-      margin-bottom: 8px !important;
-      padding-bottom: 6px !important;
+      margin: 0px !important;
+      padding: 12px 12px 8px 12px !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+      position: sticky !important;
+      top: 0 !important;
+      background: rgba(45, 45, 45, 0.98) !important;
+      z-index: 15 !important;
+      backdrop-filter: blur(8px) !important;
+      height: auto !important;
+      box-sizing: border-box !important;
+      border-radius: 6px 6px 0 0 !important;
+    }
+
+    .toc-items-container {
+      padding: 8px 12px 12px 12px !important;
+      height: calc(100% - 40px) !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
     }
 
     .toc-content *,
@@ -8632,18 +8655,18 @@ a.anchor-link {
       max-width: 100% !important;
       box-sizing: border-box !important;
       padding: 4px 0 !important;
-      margin: 0 !important;
+      margin: 2px !important;
       word-break: break-all !important;
       background: none !important;
       border: none !important;
-      transition: color 0.15s ease !important;
+      transition: all 0.2s ease !important;
     }
 
     .toc-content a:hover {
       color: #fd8a09 !important;
       opacity: 0.7 !important;
-      background: none !important;
-      border: none !important;
+      background: rgba(253, 138, 9, 0.1) !important;
+      border-radius: 4px !important;
       text-decoration: none !important;
       box-shadow: none !important;
       transform: none !important;
@@ -8655,54 +8678,68 @@ a.anchor-link {
     .toc-content a.active:active {
       color: #fd8a09 !important;
       font-weight: bold !important;
-      background: none !important;
-      border: none !important;
+      background: rgba(253, 138, 9, 0.15) !important;
+      border-radius: 4px !important;
       text-decoration: none !important;
+      position: relative !important;
+    }
+
+    .toc-content a.active::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 16px;
+      background: #fd8a09;
+      border-radius: 2px;
     }
 
     .toc-content a.active:hover {
       color: #fd8a09 !important;
       opacity: 1 !important;
-      background: none !important;
+      background: rgba(253, 138, 9, 0.2) !important;
     }
 
     /* Apply indentation using attribute selectors to be more specific */
     .toc-content a[class*="h1"] {
-      padding-left: 0px !important;
+      padding-left: 6px !important;
       margin-top: 6px !important;
-      max-width: calc(100% - 0px) !important;
+      max-width: calc(100% - 6px) !important;
     }
 
     .toc-content a[class*="h2"] {
-      padding-left: 12px !important;
+      padding-left: 18px !important;
       margin-top: 4px !important;
-      max-width: calc(100% - 12px) !important;
+      max-width: calc(100% - 18px) !important;
     }
 
     .toc-content a[class*="h3"] {
-      padding-left: 40px !important;
-      max-width: calc(100% - 40px) !important;
+      padding-left: 30px !important;
+      max-width: calc(100% - 30px) !important;
     }
 
     .toc-content a[class*="h4"] {
-      padding-left: 60px !important;
-      max-width: calc(100% - 60px) !important;
+      padding-left: 42px !important;
+      max-width: calc(100% - 42px) !important;
     }
 
     .toc-content a[class*="h5"] {
-      padding-left: 48px !important;
-      max-width: calc(100% - 48px) !important;
+      padding-left: 54px !important;
+      max-width: calc(100% - 54px) !important;
     }
 
     .toc-content a[class*="h6"] {
-      padding-left: 60px !important;
-      max-width: calc(100% - 60px) !important;
+      padding-left: 66px !important;
+      max-width: calc(100% - 66px) !important;
     }
 
     /* Light mode TOC styles */
     body.light-mode .toc-header {
       color: rgba(0, 0, 0, 0.5) !important;
       border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+      background: rgba(255, 255, 255, 0.95) !important;
     }
 
     body.light-mode .toc-content *,
@@ -8714,14 +8751,14 @@ a.anchor-link {
       background: none !important;
       border: none !important;
       text-decoration: none !important;
-      transition: color 0.15s ease !important;
+      transition: all 0.2s ease !important;
     }
 
     body.light-mode .toc-content a:hover {
       color: #fd8a09 !important;
       opacity: 0.7 !important;
-      background: none !important;
-      border: none !important;
+      background: rgba(253, 138, 9, 0.1) !important;
+      border-radius: 4px !important;
       text-decoration: none !important;
       box-shadow: none !important;
       transform: none !important;
@@ -8734,8 +8771,8 @@ a.anchor-link {
     body.light-mode .toc-content a.active:active {
       color: #fd8a09 !important;
       font-weight: bold !important;
-      background: none !important;
-      border: none !important;
+      background: rgba(253, 138, 9, 0.15) !important;
+      border-radius: 4px !important;
       text-decoration: none !important;
       opacity: 1 !important;
     }
@@ -8743,7 +8780,7 @@ a.anchor-link {
     body.light-mode .toc-content a.active:hover {
       color: #fd8a09 !important;
       opacity: 1 !important;
-      background: none !important;
+      background: rgba(253, 138, 9, 0.2) !important;
       font-weight: bold !important;
     }
 
@@ -9579,6 +9616,12 @@ a.anchor-link {
           tocContent.classList.add('toc-visible');
           tocToggleBtn.classList.add('toc-visible');
           tocToggleBtn.title = "Hide table of contents";
+          
+          // Setup scroll detection after TOC becomes visible
+          setTimeout(function() {
+            setupTOCScrollDetection();
+          }, 100);
+          
         } else {
           tocContent.classList.remove('toc-visible');
           tocToggleBtn.classList.remove('toc-visible');
@@ -9631,11 +9674,18 @@ a.anchor-link {
         headings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6"));
         if (headings.length === 0) return;
 
+        // Clear existing content
+        tocContent.innerHTML = '';
+
         // Add header
         var header = document.createElement("div");
         header.className = "toc-header";
         header.textContent = "ON THIS PAGE";
         tocContent.appendChild(header);
+
+        // Create scrollable container for TOC items
+        var itemsContainer = document.createElement("div");
+        itemsContainer.className = "toc-items-container";
 
         headings.forEach(function(heading, index) {
           if (!heading.id) heading.id = "heading-" + index;
@@ -9664,14 +9714,22 @@ a.anchor-link {
             heading.scrollIntoView({ behavior: "smooth" });
           });
 
-          tocContent.appendChild(tocItem);
+          itemsContainer.appendChild(tocItem);
         });
 
+        tocContent.appendChild(itemsContainer);
         updateTOC();
       }
 
+      // TOC scroll interaction tracking
+      var isManuallyScrolling = false;
+      var manualScrollTimeout;
+      var lastAutoScrollTime = 0;
+
+      // Enhanced TOC update function with smart scroll detection
       function updateTOC() {
         if (headings.length === 0) return;
+        
         var scrollPos = window.scrollY + (window.innerHeight / 3);
         var currentIndex = -1;
         
@@ -9679,11 +9737,94 @@ a.anchor-link {
           if (headings[i].offsetTop <= scrollPos) currentIndex = i; 
         }
 
-        tocContent.querySelectorAll(".toc-item").forEach(function(item, index) {
+        var tocItems = document.querySelectorAll(".toc-item");
+        var itemsContainer = document.querySelector('.toc-items-container');
+        
+        tocItems.forEach(function(item, index) {
           item.classList.remove("active");
           if (index === currentIndex) {
             item.classList.add("active");
+            
+            // Only auto-scroll if user isn't manually scrolling AND item is out of view
+            if (itemsContainer && 
+                document.querySelector('.toc-content').classList.contains('toc-visible') &&
+                !isManuallyScrolling) {
+              
+              // Check if the active item is actually out of view
+              var containerRect = itemsContainer.getBoundingClientRect();
+              var itemRect = item.getBoundingClientRect();
+              
+              // Only scroll if item is significantly out of view (not just barely)
+              var isAboveView = itemRect.bottom < containerRect.top + 20;
+              var isBelowView = itemRect.top > containerRect.bottom - 20;
+              
+              // Only auto-scroll if the item is truly out of view
+              if (isAboveView || isBelowView) {
+                // Prevent rapid auto-scrolling
+                var now = Date.now();
+                if (now - lastAutoScrollTime > 1000) { // 1 second throttle
+                  lastAutoScrollTime = now;
+                  
+                  // Calculate the scroll position to center the active item
+                  var containerHeight = containerRect.height;
+                  var itemOffsetTop = item.offsetTop;
+                  var itemHeight = itemRect.height;
+                  
+                  // Center the active item in the visible area
+                  var scrollTop = itemOffsetTop - (containerHeight / 2) + (itemHeight / 2);
+                  
+                  // Smooth scroll to the calculated position
+                  itemsContainer.scrollTo({
+                    top: Math.max(0, scrollTop),
+                    behavior: 'smooth'
+                  });
+                }
+              }
+            }
           }
+        });
+      }
+
+      // Setup manual scroll detection
+      function setupTOCScrollDetection() {
+        var itemsContainer = document.querySelector('.toc-items-container');
+        if (!itemsContainer) return;
+
+        // Detect manual scrolling via mouse wheel
+        itemsContainer.addEventListener('wheel', function(e) {
+          isManuallyScrolling = true;
+          clearTimeout(manualScrollTimeout);
+          
+          // Reset manual scrolling flag after user stops
+          manualScrollTimeout = setTimeout(function() {
+            isManuallyScrolling = false;
+          }, 2000); // 2 seconds of inactivity
+        });
+
+        // Detect manual scrolling via scrollbar drag
+        itemsContainer.addEventListener('scroll', function(e) {
+          // Only consider it manual if it wasn't triggered by auto-scroll
+          var now = Date.now();
+          if (now - lastAutoScrollTime > 500) { // If it's been >500ms since auto-scroll
+            isManuallyScrolling = true;
+            clearTimeout(manualScrollTimeout);
+            
+            manualScrollTimeout = setTimeout(function() {
+              isManuallyScrolling = false;
+            }, 2000);
+          }
+        });
+
+        // Detect touch scrolling on mobile
+        itemsContainer.addEventListener('touchstart', function(e) {
+          isManuallyScrolling = true;
+          clearTimeout(manualScrollTimeout);
+        });
+
+        itemsContainer.addEventListener('touchend', function(e) {
+          manualScrollTimeout = setTimeout(function() {
+            isManuallyScrolling = false;
+          }, 2000);
         });
       }
 
@@ -9733,6 +9874,7 @@ a.anchor-link {
 
       // Initialize everything
       generateTOC();
+      setupTOCScrollDetection(); // Setup manual scroll detection
       wrapTablesForResponsiveness();
       
       // Also wrap tables that might be added dynamically
