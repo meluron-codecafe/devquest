@@ -8439,6 +8439,8 @@ a.anchor-link {
         box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         background: #2a2a2a;
         transition: all 0.3s ease;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
     }
 
     body.light-mode .table-responsive-wrapper {
@@ -8484,15 +8486,15 @@ a.anchor-link {
     table {
         border-collapse: collapse !important;
         width: 100% !important;
-        min-width: 300px !important; /* Minimum width to prevent cramping */
+        min-width: 300px !important;
         background: #2a2a2a !important;
         color: #e0e0e0 !important;
         transition: all 0.3s ease !important;
-        margin: 0 !important; /* Remove margin since wrapper handles it */
+        margin: 0 !important;
         font-size: 14px !important;
         border-radius: 6px !important;
         overflow: hidden !important;
-        table-layout: auto !important; /* Allow flexible column widths */
+        table-layout: auto !important;
     }
 
     .jp-OutputArea table th,
@@ -8505,9 +8507,10 @@ a.anchor-link {
       padding: 8px 12px !important;
       transition: all 0.3s ease !important;
       background: inherit !important;
-      white-space: normal !important; /* Allow text wrapping */
-      word-break: break-word !important; /* Break long words if needed */
-      min-width: 100px !important; /* Minimum width for readability */
+      white-space: normal !important;
+      word-break: break-word !important;
+      min-width: 100px !important;
+      vertical-align: top !important;
     }
 
     .jp-OutputArea table th,
@@ -8518,7 +8521,7 @@ a.anchor-link {
         font-weight: 600 !important;
         text-align: left !important;
         border-bottom: 2px solid #666666 !important;
-        position: sticky !important; /* Sticky headers for long tables */
+        position: sticky !important;
         top: 0 !important;
         z-index: 10 !important;
     }
@@ -8547,16 +8550,37 @@ a.anchor-link {
     table tr:hover th {
         background: #4a4a4a !important;
     }
+    
+    /* ======= ENHANCED AUDIO PLAYER HANDLING IN TABLES ======= */
+    .jp-OutputArea table audio,
+    .jp-RenderedHTMLCommon table audio,
+    table audio {
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 250px !important;
+        height: auto !important;
+        display: block !important;
+        margin: 4px 0 !important;
+        box-sizing: border-box !important;
+    }
 
-    /* Tooltip for truncated content */
-    .jp-OutputArea table td:hover,
-    .jp-RenderedHTMLCommon table td:hover,
-    table td:hover {
-        overflow: visible !important;
-        white-space: normal !important;
-        word-break: break-word !important;
-        position: relative !important;
-        z-index: 20 !important;
+    /* Ensure table cells with audio players have proper sizing */
+    .jp-OutputArea table td:has(audio),
+    .jp-RenderedHTMLCommon table td:has(audio),
+    table td:has(audio) {
+        min-width: 280px !important;
+        padding: 8px !important;
+        vertical-align: top !important;
+        width: auto !important;
+        max-width: none !important;
+    }
+
+    /* Force table to expand horizontally when needed for audio players */
+    .jp-OutputArea table:has(audio),
+    .jp-RenderedHTMLCommon table:has(audio),
+    table:has(audio) {
+        min-width: 400px !important;
+        width: max-content !important;
     }
     
     body.light-mode { 
@@ -8697,8 +8721,6 @@ a.anchor-link {
       .jp-Cell { margin-right: 10px !important; }
       .button-container { top: 10px; right: 10px; padding: 6px; gap: 2px; }
       .home-btn svg,
-      .home-btn svg,
-      .home-btn svg,
       .code-toggle-btn svg,
       .theme-toggle-btn svg,
       .report-issue-btn svg,
@@ -8724,13 +8746,50 @@ a.anchor-link {
       table th,
       table td {
         padding: 6px 8px !important;
-        /* Remove this line: max-width: 120px !important; */
-        min-width: 80px !important; /* Keep minimum width for mobile */
+        min-width: 80px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
+
+      /* Mobile audio players in tables */
+      .jp-OutputArea table audio,
+      .jp-RenderedHTMLCommon table audio,
+      table audio {
+        min-width: 220px !important;
+        max-width: none !important;
+      }
+
+      .jp-OutputArea table td:has(audio),
+      .jp-RenderedHTMLCommon table td:has(audio),
+      table td:has(audio) {
+        min-width: 240px !important;
+        padding: 6px !important;
+      }
+
+      .jp-OutputArea table:has(audio),
+      .jp-RenderedHTMLCommon table:has(audio),
+      table:has(audio) {
+        min-width: 350px !important;
       }
 
       .table-responsive-wrapper {
-        margin: 8px -10px !important; /* Extend to edges on mobile */
+        margin: 8px -10px !important;
         border-radius: 0 !important;
+      }
+
+      /* Make scrollbar more visible on mobile */
+      .table-responsive-wrapper::-webkit-scrollbar {
+        height: 12px !important;
+      }
+      
+      .table-responsive-wrapper::-webkit-scrollbar-thumb {
+        background: #888888 !important;
+        border-radius: 6px !important;
+      }
+      
+      .table-responsive-wrapper::-webkit-scrollbar-track {
+        background: #444444 !important;
+        border-radius: 6px !important;
       }
     }
     
@@ -8768,7 +8827,30 @@ a.anchor-link {
       table th,
       table td {
         padding: 4px 6px !important;
-        max-width: 80px !important;
+        min-width: 60px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
+
+      /* Audio players in extra small tables */
+      .jp-OutputArea table audio,
+      .jp-RenderedHTMLCommon table audio,
+      table audio {
+        min-width: 200px !important;
+        max-width: none !important;
+      }
+
+      .jp-OutputArea table td:has(audio),
+      .jp-RenderedHTMLCommon table td:has(audio),
+      table td:has(audio) {
+        min-width: 220px !important;
+        padding: 4px !important;
+      }
+
+      .jp-OutputArea table:has(audio),
+      .jp-RenderedHTMLCommon table:has(audio),
+      table:has(audio) {
+        min-width: 300px !important;
       }
 
       .table-responsive-wrapper {
@@ -8807,7 +8889,30 @@ a.anchor-link {
       table th,
       table td {
         padding: 3px 4px !important;
-        max-width: 60px !important;
+        min-width: 50px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
+
+      /* Audio players in ultra small tables */
+      .jp-OutputArea table audio,
+      .jp-RenderedHTMLCommon table audio,
+      table audio {
+        min-width: 180px !important;
+        max-width: none !important;
+      }
+
+      .jp-OutputArea table td:has(audio),
+      .jp-RenderedHTMLCommon table td:has(audio),
+      table td:has(audio) {
+        min-width: 200px !important;
+        padding: 3px !important;
+      }
+
+      .jp-OutputArea table:has(audio),
+      .jp-RenderedHTMLCommon table:has(audio),
+      table:has(audio) {
+        min-width: 250px !important;
       }
 
       .table-responsive-wrapper {
@@ -8888,7 +8993,7 @@ a.anchor-link {
       homeBtn.innerHTML = createHomeIcon();
       homeBtn.title = "Go to main page";
       homeBtn.href = "../index.html";
-      homeBtn.style.color = "inherit";  // Ensure it inherits the right color
+      homeBtn.style.color = "inherit";
 
       // Code toggle button (second button)
       var codeToggleBtn = document.createElement("button");
@@ -9098,7 +9203,7 @@ a.anchor-link {
       reportIssueBtn.title = "Have questions about this notebook?";
       reportIssueBtn.target = "_blank";
       reportIssueBtn.rel = "noopener noreferrer";
-      reportIssueBtn.style.color = "inherit";  // Ensure it inherits the right color
+      reportIssueBtn.style.color = "inherit";
       
       var notebookName = getNotebookName();
       var issueTitle = "[Tutorial Content Issue] " + notebookName;
@@ -9112,7 +9217,7 @@ a.anchor-link {
       downloadBtn.title = "Download .ipynb file";
       downloadBtn.target = "_blank";
       downloadBtn.rel = "noopener noreferrer";
-      downloadBtn.style.color = "inherit";  // Ensure it inherits the right color
+      downloadBtn.style.color = "inherit";
       
       var ipynbFilename = getIpynbFilename();
       downloadBtn.href = "../notebooks/" + ipynbFilename;
