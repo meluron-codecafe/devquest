@@ -8638,14 +8638,13 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
     .jp-RenderedHTMLCommon table td,
     table th,
     table td {
-        border: 1px solid #555555 !important;
-        padding: 8px 12px !important;
-        transition: all 0.3s ease !important;
-        background: inherit !important;
-        white-space: nowrap !important; /* Prevent text wrapping by default */
-        text-overflow: ellipsis !important;
-        max-width: 200px !important; /* Limit column width */
-        overflow: hidden !important;
+      border: 1px solid #555555 !important;
+      padding: 8px 12px !important;
+      transition: all 0.3s ease !important;
+      background: inherit !important;
+      white-space: normal !important; /* Allow text wrapping */
+      word-break: break-word !important; /* Break long words if needed */
+      min-width: 100px !important; /* Minimum width for readability */
     }
 
     .jp-OutputArea table th,
@@ -8862,7 +8861,8 @@ $p_i(d)$ is known as (discrete) probability density function (PDF) of duration $
       table th,
       table td {
         padding: 6px 8px !important;
-        max-width: 120px !important;
+        /* Remove this line: max-width: 120px !important; */
+        min-width: 80px !important; /* Keep minimum width for mobile */
       }
 
       .table-responsive-wrapper {

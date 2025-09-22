@@ -7611,29 +7611,23 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="QUEST">QUEST<a class="anchor-link" href="#QUEST">¶</a></h2>
+<h2 id="Quest">Quest<a class="anchor-link" href="#Quest">¶</a></h2><ol>
+<li>Can you look at the spectrogram and tell which english alphabet is spoken?</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7394cbd3-decb-4a81-ab14-4c8652b69a02">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e2acdfeb-a40b-49b5-9002-adddffe56483">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="AIM">AIM<a class="anchor-link" href="#AIM">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6d340af9-d92f-45b7-895a-e49e7b5137e0">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Build a system that takes an utterance of english alphabet and tells which one it is.</p>
+<h2 id="Plan-of-Action">Plan of Action<a class="anchor-link" href="#Plan-of-Action">¶</a></h2><ol>
+<li>Get 5 people read all the english alphabets.</li>
+<li>this</li>
+</ol>
 </div>
 </div>
 </div>
@@ -8507,14 +8501,13 @@ a.anchor-link {
     .jp-RenderedHTMLCommon table td,
     table th,
     table td {
-        border: 1px solid #555555 !important;
-        padding: 8px 12px !important;
-        transition: all 0.3s ease !important;
-        background: inherit !important;
-        white-space: nowrap !important; /* Prevent text wrapping by default */
-        text-overflow: ellipsis !important;
-        max-width: 200px !important; /* Limit column width */
-        overflow: hidden !important;
+      border: 1px solid #555555 !important;
+      padding: 8px 12px !important;
+      transition: all 0.3s ease !important;
+      background: inherit !important;
+      white-space: normal !important; /* Allow text wrapping */
+      word-break: break-word !important; /* Break long words if needed */
+      min-width: 100px !important; /* Minimum width for readability */
     }
 
     .jp-OutputArea table th,
@@ -8731,7 +8724,8 @@ a.anchor-link {
       table th,
       table td {
         padding: 6px 8px !important;
-        max-width: 120px !important;
+        /* Remove this line: max-width: 120px !important; */
+        min-width: 80px !important; /* Keep minimum width for mobile */
       }
 
       .table-responsive-wrapper {
