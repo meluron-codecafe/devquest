@@ -1415,7 +1415,6 @@
 <div class="footer">
     An initiative by <a href="https://github.com/meluron" target="_blank">meluron</a> to bring context to learning.
 </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
@@ -1776,7 +1775,7 @@
         }
     });
     
-    // Enhanced preview functionality
+    // Enhanced preview functionality with image path fixing
     const previewTooltip = document.getElementById("previewTooltip");
     let previewCache = new Map();
     let previewTimeout;
@@ -1800,161 +1799,293 @@
     }
 
     function extractQuestContent(htmlContent, filename) {
-        const fixedHtmlContent = fixImagePaths(htmlContent, filename);
-        
         const parser = new DOMParser();
-        const doc = parser.parseFromString(fixedHtmlContent, 'text/html');
+        const doc = parser.parseFromString(htmlContent, 'text/html');
         
         let questItems = [];
         let questImages = [];
+        let authors = [];
         
-        let questContainer = null;
-        
-        const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        for (let heading of headings) {
-            const text = heading.textContent || heading.innerText || '';
-            const cleanText = text.trim().toUpperCase().replace(/¶/g, '').replace(/:/g, '');
+        // Enhanced quest detection - more flexible text matching
+        function isQuestHeading(text) {
+            const cleanText = text.trim().toUpperCase()
+                .replace(/¶/g, '')
+                .replace(/:/g, '')
+                .replace(/\s+/g, ' ');
             
-            if (cleanText === 'QUEST') {
-                let nextElement = heading.nextElementSibling;
-                while (nextElement && nextElement.textContent.trim().length === 0) {
-                    nextElement = nextElement.nextElementSibling;
-                }
-                
-                if (nextElement && nextElement.textContent.trim().length > 0) {
-                    questContainer = nextElement;
-                    break;
-                }
-                
-                let parent = heading.parentElement;
-                if (parent) {
-                    let foundHeading = false;
-                    let contentElements = [];
-                    
-                    for (let child of parent.children) {
-                        if (child === heading) {
-                            foundHeading = true;
-                            continue;
-                        }
-                        if (foundHeading) {
-                            if (child.tagName && child.tagName.match(/^H[1-6]$/)) {
-                                break;
-                            }
-                            if (child.textContent.trim().length > 0) {
-                                contentElements.push(child);
-                            }
-                        }
-                    }
-                    
-                    if (contentElements.length > 0) {
-                        questContainer = doc.createElement('div');
-                        contentElements.forEach(el => questContainer.appendChild(el.cloneNode(true)));
-                        break;
-                    }
-                }
-            }
+            return cleanText === 'QUEST' || 
+                   cleanText === 'QUESTS' || 
+                   cleanText.startsWith('QUEST ') ||
+                   cleanText.endsWith(' QUEST') ||
+                   cleanText.includes('QUEST:');
         }
         
-        if (!questContainer) {
-            const allElements = doc.querySelectorAll('*');
-            for (let element of allElements) {
-                const text = element.textContent || element.innerText || '';
-                const cleanText = text.trim().toUpperCase().replace(/¶/g, '').replace(/:/g, '');
+        // Enhanced author detection
+        function isAuthorHeading(text) {
+            const cleanText = text.trim().toUpperCase()
+                .replace(/¶/g, '')
+                .replace(/:/g, '')
+                .replace(/\s+/g, ' ');
+            
+            return cleanText === 'AUTHOR' || 
+                   cleanText === 'AUTHORS' || 
+                   cleanText === 'AUTHOR(S)' ||
+                   cleanText === 'AUTHORS(S)' ||
+                   cleanText.startsWith('AUTHOR ') ||
+                   cleanText.startsWith('AUTHORS ') ||
+                   cleanText.includes('AUTHOR:') ||
+                   cleanText.includes('AUTHORS:');
+        }
+        
+        // First, try to find quest content by heading
+        const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        let questContainer = null;
+        
+        for (let heading of headings) {
+            const headingText = heading.textContent || heading.innerText || '';
+            
+            if (isQuestHeading(headingText)) {
+                console.log(`Found quest heading: "${headingText}"`);
                 
-                if (cleanText === 'QUEST' && text.length < 20) {
-                    let nextElement = element.nextElementSibling;
-                    while (nextElement && nextElement.textContent.trim().length === 0) {
+                // Strategy 1: Look for next meaningful sibling
+                let nextElement = heading.nextElementSibling;
+                while (nextElement) {
+                    // Skip empty elements
+                    if (nextElement.textContent.trim().length === 0) {
                         nextElement = nextElement.nextElementSibling;
+                        continue;
                     }
                     
-                    if (nextElement && nextElement.textContent.trim().length > 0) {
+                    // Found content - check if it's another heading
+                    if (nextElement.tagName && nextElement.tagName.match(/^H[1-6]$/)) {
+                        break; // Stop if we hit another heading
+                    }
+                    
+                    // Found our quest content container
+                    if (nextElement.textContent.trim().length > 0) {
                         questContainer = nextElement;
                         break;
                     }
+                    
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                // Strategy 2: If no sibling found, collect all content until next heading
+                if (!questContainer) {
+                    const parentElement = heading.parentElement;
+                    if (parentElement) {
+                        let foundHeading = false;
+                        let contentElements = [];
+                        
+                        for (let child of parentElement.children) {
+                            if (child === heading) {
+                                foundHeading = true;
+                                continue;
+                            }
+                            
+                            if (foundHeading) {
+                                // Stop at next heading
+                                if (child.tagName && child.tagName.match(/^H[1-6]$/)) {
+                                    break;
+                                }
+                                
+                                // Collect content
+                                if (child.textContent.trim().length > 0) {
+                                    contentElements.push(child);
+                                }
+                            }
+                        }
+                        
+                        if (contentElements.length > 0) {
+                            questContainer = doc.createElement('div');
+                            contentElements.forEach(el => questContainer.appendChild(el.cloneNode(true)));
+                        }
+                    }
+                }
+                
+                if (questContainer) {
+                    break; // Found quest content, stop looking
                 }
             }
         }
         
-        if (questContainer) {
-            const listItems = questContainer.querySelectorAll('li');
+        // Fallback: Search for quest content by text patterns
+        if (!questContainer) {
+            console.log('No quest heading found, trying text-based search...');
             
+            const allElements = doc.querySelectorAll('*');
+            for (let element of allElements) {
+                const elementText = element.textContent || element.innerText || '';
+                
+                if (isQuestHeading(elementText) && elementText.length < 50) {
+                    // Found quest marker, look for content nearby
+                    let searchElement = element.parentElement || element;
+                    
+                    // Try to find list or paragraph content after this element
+                    const nextContent = searchElement.nextElementSibling ||
+                                      element.nextElementSibling ||
+                                      searchElement.querySelector('ul, ol, p, div');
+                    
+                    if (nextContent && nextContent.textContent.trim().length > 0) {
+                        questContainer = nextContent;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Process the found quest container
+        if (questContainer) {
+            console.log('Processing quest container:', questContainer.tagName);
+            
+            // Extract list items
+            const listItems = questContainer.querySelectorAll('li');
             if (listItems.length > 0) {
+                console.log(`Found ${listItems.length} list items`);
                 listItems.forEach((item, index) => {
                     const itemText = (item.textContent || item.innerText || '').trim();
-                    if (itemText && itemText.length > 5) {
+                    if (itemText && itemText.length > 3) {
                         questItems.push(itemText);
                     }
                 });
-            } else {
+            }
+            
+            // Extract paragraphs if no list items
+            if (questItems.length === 0) {
                 const paragraphs = questContainer.querySelectorAll('p');
-                
                 if (paragraphs.length > 0) {
-                    paragraphs.forEach((p, index) => {
+                    console.log(`Found ${paragraphs.length} paragraphs`);
+                    paragraphs.forEach((p) => {
                         const pText = (p.textContent || p.innerText || '').trim();
-                        if (pText && pText.length > 10 && pText.length < 500) {
+                        if (pText && pText.length > 10 && pText.length < 1000) {
                             questItems.push(pText);
                         }
                     });
-                } else {
-                    const allText = questContainer.textContent || questContainer.innerText || '';
-                    
-                    let numberedItems = allText.split(/(?=\d+\.\s+[A-Z])/);
-                    
-                    if (numberedItems.length <= 2) {
-                        const lines = allText.split(/\r?\n/).filter(line => line.trim().length > 0);
-                        numberedItems = lines.filter(line => /^\d+\.\s+/.test(line.trim()));
-                        
-                        if (numberedItems.length === 0) {
-                            const matches = allText.match(/\d+\.\s+[^.]*?(?=\d+\.|$)/g);
-                            if (matches && matches.length > 0) {
-                                numberedItems = matches;
-                            }
-                        }
-                    }
-                    
-                    numberedItems.forEach((item, index) => {
-                        const cleanItem = item.replace(/^\d+\.\s*/, '').trim();
+                }
+            }
+            
+            // Extract from text content if still no items
+            if (questItems.length === 0) {
+                const allText = questContainer.textContent || questContainer.innerText || '';
+                console.log('Extracting from raw text, length:', allText.length);
+                
+                // Try numbered list pattern (1. 2. 3. etc.)
+                const numberedMatches = allText.match(/\d+\.\s+[^.]*?(?=\d+\.|$)/gs);
+                if (numberedMatches && numberedMatches.length > 0) {
+                    console.log(`Found ${numberedMatches.length} numbered items`);
+                    numberedMatches.forEach(match => {
+                        const cleanItem = match.replace(/^\d+\.\s*/, '').trim();
                         if (cleanItem.length > 5) {
                             questItems.push(cleanItem);
                         }
                     });
-                    
-                    if (questItems.length === 0) {
-                        const sentences = allText.split(/[.!?]+/).filter(s => s.trim().length > 10);
-                        
-                        sentences.forEach((sentence, index) => {
-                            const cleanSentence = sentence.trim();
-                            if (cleanSentence.length > 15 && (
-                                cleanSentence.includes('What ') || 
-                                cleanSentence.includes('How ') || 
-                                cleanSentence.includes('To ') || 
-                                cleanSentence.includes('Which ') ||
-                                cleanSentence.includes('?')
-                            )) {
-                                questItems.push(cleanSentence);
+                }
+                
+                // Try bullet point patterns
+                if (questItems.length === 0) {
+                    const bulletMatches = allText.match(/[-•*]\s+[^\n\r]*(?:\n(?!\s*[-•*])[^\n\r]*)*/g);
+                    if (bulletMatches && bulletMatches.length > 0) {
+                        console.log(`Found ${bulletMatches.length} bullet items`);
+                        bulletMatches.forEach(match => {
+                            const cleanItem = match.replace(/^[-•*]\s*/, '').trim();
+                            if (cleanItem.length > 5) {
+                                questItems.push(cleanItem);
                             }
                         });
                     }
                 }
+                
+                // Try line-based extraction as last resort
+                if (questItems.length === 0) {
+                    const lines = allText.split(/\r?\n/).filter(line => line.trim().length > 10);
+                    if (lines.length > 0 && lines.length <= 10) {
+                        console.log(`Found ${lines.length} text lines`);
+                        questItems = lines.map(line => line.trim());
+                    }
+                }
             }
             
+            // Extract images
             const images = questContainer.querySelectorAll('img');
             images.forEach(img => {
-                const src = img.getAttribute('src');
+                let src = img.getAttribute('src');
                 if (src) {
-                    const fixedSrc = src.startsWith('../') ? src.replace('../', '') : src;
+                    // Fix relative paths
+                    if (src.startsWith('../')) {
+                        src = src.replace('../', '');
+                    }
                     questImages.push({
-                        src: fixedSrc,
+                        src: src,
                         alt: img.getAttribute('alt') || 'Quest image',
                         title: img.getAttribute('title') || ''
                     });
                 }
             });
+            
+            console.log(`Extracted ${questItems.length} quest items and ${questImages.length} images`);
+        } else {
+            console.log('No quest container found');
         }
         
+        // Extract author information
+        const allHeadings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        let authorContainer = null;
+        
+        for (let heading of allHeadings) {
+            const headingText = heading.textContent || heading.innerText || '';
+            
+            if (isAuthorHeading(headingText)) {
+                console.log(`Found author heading: "${headingText}"`);
+                
+                // Look for next meaningful content
+                let nextElement = heading.nextElementSibling;
+                while (nextElement) {
+                    // Skip empty elements
+                    if (nextElement.textContent.trim().length === 0) {
+                        nextElement = nextElement.nextElementSibling;
+                        continue;
+                    }
+                    
+                    // Stop if we hit another heading
+                    if (nextElement.tagName && nextElement.tagName.match(/^H[1-6]$/)) {
+                        break;
+                    }
+                    
+                    // Found author content
+                    if (nextElement.textContent.trim().length > 0) {
+                        authorContainer = nextElement;
+                        break;
+                    }
+                    
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                if (authorContainer) {
+                    break; // Found author content, stop looking
+                }
+            }
+        }
+        
+        // Process author information
+        if (authorContainer) {
+            const authorText = authorContainer.textContent || authorContainer.innerText || '';
+            console.log('Processing author text:', authorText);
+            
+            // Split by commas and clean up
+            if (authorText.trim()) {
+                authors = authorText.split(',')
+                    .map(author => author.trim())
+                    .filter(author => author.length > 0 && author.length < 100)
+                    .slice(0, 10); // Limit to reasonable number of authors
+                
+                console.log(`Extracted ${authors.length} authors:`, authors);
+            }
+        }
+
         return { 
             items: questItems,
             images: questImages,
+            authors: authors,
             found: questContainer !== null
         };
     }
@@ -1987,10 +2118,6 @@
         }
         
         previewTooltip.innerHTML = `
-            <div class="preview-title">
-                <span class="quest-icon">🎯</span>
-                QUEST
-            </div>
             <div class="loading">Loading quest preview...</div>
         `;
         previewTooltip.classList.add("visible");
@@ -2017,10 +2144,6 @@
         } catch (error) {
             if (currentPreviewTarget === element) {
                 previewTooltip.innerHTML = `
-                    <div class="preview-title">
-                        <span class="quest-icon">🎯</span>
-                        QUEST
-                    </div>
                     <div class="error">Quest preview not available</div>
                 `;
             }
@@ -2028,12 +2151,22 @@
     }
 
     function displayQuestPreview(title, questContent) {
-        let html = `
-            <div class="preview-title">
-                <span class="quest-icon">🎯</span>
-                QUEST
+        let html = ``;
+        
+        // Add authors section if available
+        if (questContent.authors && questContent.authors.length > 0) {
+            html += `
+                <div class="quest-section" 
+                style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-color); border-bottom: 1px solid var(--text-color); padding-bottom: 4px; margin-bottom: 6px;">
+                <span style="font-weight: 600; color: var(--link-color);">
+                    Author${questContent.authors.length > 1 ? 's' : ''}:
+                </span>
+                <span style="font-style: italic;">
+                    ${questContent.authors.join(', ')}
+                </span>
             </div>
-        `;
+            `;
+        }
         
         if (!questContent.found) {
             html += `<div class="error">Quest preview not available</div>`;
