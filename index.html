@@ -2153,21 +2153,6 @@
     function displayQuestPreview(title, questContent) {
         let html = ``;
         
-        // Add authors section if available
-        if (questContent.authors && questContent.authors.length > 0) {
-            html += `
-                <div class="quest-section" 
-                style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-color); border-bottom: 1px solid var(--text-color); padding-bottom: 4px; margin-bottom: 6px;">
-                <span style="font-weight: 600; color: var(--link-color);">
-                    Author${questContent.authors.length > 1 ? 's' : ''}:
-                </span>
-                <span style="font-style: italic;">
-                    ${questContent.authors.join(', ')}
-                </span>
-            </div>
-            `;
-        }
-        
         if (!questContent.found) {
             html += `<div class="error">Quest preview not available</div>`;
         } else if (questContent.items && questContent.items.length > 0) {
@@ -2189,6 +2174,22 @@
             }
         } else {
             html += `<div class="error">No quest content found</div>`;
+        }
+        
+        // Add authors section if available
+        if (questContent.authors && questContent.authors.length > 0) {
+            html += `
+        <div class="quest-section" 
+            style="display: flex; justify-content: flex-end; align-items: center; gap: 6px; 
+                    font-size: 13px; color: var(--text-color); text-align: right;">
+            <span style="font-weight: 600; font-style: italic;">
+                ~ crafted by
+            </span>
+            <span style="font-style: italic;">
+                ${questContent.authors.join(', ')}
+            </span>
+        </div>
+    `;
         }
         
         previewTooltip.innerHTML = html;

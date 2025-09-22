@@ -1,7 +1,7 @@
 # Contains all display related utils
 from IPython.display import display, HTML
 
-def hc(title: str, keywords: list[str] = []):
+def hc(title: str, keywords: list[str] = [""]):
     """
     Display header with a dim calendar card (fits both dark & light modes).
     """
@@ -24,7 +24,7 @@ def hc(title: str, keywords: list[str] = []):
         font-family: 'Georgia', serif;
         border-left: 3px solid #666;
         padding-left: 12px;
-        margin-top: 1em;  /* prevent overlap with buttons */
+        margin-top: 1em;
         margin-bottom: 1em;
         gap: 20px;
     }}
@@ -70,7 +70,8 @@ def hc(title: str, keywords: list[str] = []):
     .hc-title {{
         margin: 0;
         color: #EF8C00;
-        font-size: 2.4em;
+        font-size: 1.5em;
+        font-weight: 500;
         line-height: 1.2em;
         word-break: break-word;
     }}
@@ -92,12 +93,13 @@ def hc(title: str, keywords: list[str] = []):
         
         <!-- Header text -->
         <div style="flex: 1;">
-            <h1 class="hc-title">{title}</h1>
+            <div class="hc-title">{title}</div>
             <p class="hc-keywords">{keywords_str}</p>
         </div>
     </div>
     """
     display(HTML(html_code))
+
 
 
 
