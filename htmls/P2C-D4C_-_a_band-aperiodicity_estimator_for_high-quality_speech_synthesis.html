@@ -7971,6 +7971,7 @@ a.anchor-link {
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
       box-sizing: border-box;
+      position: relative;
     }
 
     .toc-content.toc-visible {
@@ -7978,41 +7979,81 @@ a.anchor-link {
       opacity: 1;
       padding: 0px !important;
       margin-top: 2px;
-      overflow-y: scroll !important;
+      overflow-y: auto !important; /* Back to simple scrolling */
       overflow-x: hidden !important;
       scroll-behavior: smooth;
     }
 
     /* Enhanced scrollbar visibility for TOC */
-    .toc-content::-webkit-scrollbar {
+    .toc-content.toc-visible::-webkit-scrollbar {
       width: 12px;
     }
 
-    .toc-content::-webkit-scrollbar-track {
+    .toc-content.toc-visible::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .toc-content::-webkit-scrollbar-thumb {
+    .toc-content.toc-visible::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.4);
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: background 0.2s ease;
     }
 
-    .toc-content::-webkit-scrollbar-thumb:hover {
+    .toc-content.toc-visible::-webkit-scrollbar-thumb:hover {
       background: rgba(255, 255, 255, 0.6);
     }
 
-    .toc-content::-webkit-scrollbar-thumb:active {
+    .toc-content.toc-visible::-webkit-scrollbar-thumb:active {
       background: rgba(255, 255, 255, 0.7);
     }
 
-    /* Firefox scrollbar fallback */
-    .toc-content {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+    /* ======= CURRENT SECTION INDICATOR (ORANGE) - FIXED POSITIONING ======= */
+    .current-section-indicator {
+      position: fixed !important;
+      top: 70px !important; /* Below the button row */
+      right: 32px !important; /* Aligned with TOC right edge */
+      background: transparent !important;
+      color: #fd8a09 !important; /* Orange color */
+      padding: 0 !important;
+      border-radius: 0 !important;
+      font-size: 16px !important;
+      font-weight: 700 !important; /* Bold */
+      z-index: 1001 !important; /* Above TOC */
+      box-shadow: none !important;
+      border: none !important;
+      min-width: auto !important;
+      text-align: right !important;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+      pointer-events: none !important; /* Don't interfere with clicking */
+      opacity: 0 !important; /* Hidden by default */
+      visibility: hidden !important;
+      transition: opacity 0.3s ease, visibility 0.3s ease !important;
+    }
+
+    .current-section-indicator.visible {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .current-section-indicator::before {
+      content: "" !important;
+      display: inline-block !important;
+      width: 16px !important;
+      height: 16px !important;
+      margin-right: 4px !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fd8a09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'%3E%3C/path%3E%3Ccircle cx='12' cy='12' r='3'%3E%3C/circle%3E%3C/svg%3E") !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      vertical-align: middle !important;
+    }
+
+    /* Light mode current section indicator */
+    body.light-mode .current-section-indicator {
+      color: #fd8a09 !important; /* Same orange in light mode */
     }
 
     /* ======= BUTTONS - ABSOLUTELY NEVER CHANGE SIZE ======= */
@@ -8333,30 +8374,55 @@ a.anchor-link {
       margin: 0 auto 12px auto;
     }
 
-    .toc-header {
-      font-size: 9px !important;
-      font-weight: 500 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.5px !important;
-      color: rgba(255, 255, 255, 0.5) !important;
-      margin: 0px !important;
-      padding: 12px 12px 8px 12px !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-      position: sticky !important;
-      top: 0 !important;
-      background: rgba(45, 45, 45, 0.98) !important;
-      z-index: 15 !important;
-      backdrop-filter: blur(8px) !important;
-      height: auto !important;
-      box-sizing: border-box !important;
-      border-radius: 6px 6px 0 0 !important;
+    /* Firefox scrollbar fallback */
+    .toc-content.toc-visible {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
     }
 
+    /* FIXED: TOC Items Container - prevent content from scrolling under header */
     .toc-items-container {
       padding: 8px 12px 12px 12px !important;
-      height: calc(100% - 40px) !important;
+      height: calc(100% - 50px) !important; /* Adjusted to account for header height */
       overflow-y: auto !important;
       overflow-x: hidden !important;
+      position: relative !important;
+      /* FIXED: Add margin-top to prevent content from scrolling under the sticky header */
+      margin-top: 0 !important;
+      padding-top: 16px !important; /* Added padding to create space after header */
+      scroll-padding-top: 20px !important; /* Ensure scroll anchoring respects header */
+    }
+
+    /* FIXED: Scrollbar styling for items container only */
+    .toc-items-container::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    .toc-items-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .toc-items-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.2s ease;
+    }
+
+    .toc-items-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .toc-items-container::-webkit-scrollbar-thumb:active {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Firefox scrollbar fallback for items container */
+    .toc-items-container {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
     }
 
     .toc-content *,
@@ -8458,11 +8524,18 @@ a.anchor-link {
       max-width: calc(100% - 66px) !important;
     }
 
-    /* Light mode TOC styles */
-    body.light-mode .toc-header {
-      color: rgba(0, 0, 0, 0.5) !important;
-      border-bottom-color: rgba(0, 0, 0, 0.06) !important;
-      background: rgba(255, 255, 255, 0.95) !important;
+    /* Light mode TOC styles - updated for no header structure */
+
+    body.light-mode .toc-content.toc-visible::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .toc-content.toc-visible::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-mode .toc-content.toc-visible::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.35);
     }
 
     body.light-mode .toc-content *,
@@ -9077,6 +9150,19 @@ a.anchor-link {
         </svg>`;
       }
 
+      // NEW: Direction indicator icons  
+      function createUpArrowIcon() {
+        return `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="18,15 12,9 6,15"></polyline>
+        </svg>`;
+      }
+
+      function createDownArrowIcon() {
+        return `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="6,9 12,15 18,9"></polyline>
+        </svg>`;
+      }
+
       // Create button container
       var buttonContainer = document.createElement("div");
       buttonContainer.className = "button-container";
@@ -9333,12 +9419,18 @@ a.anchor-link {
       function toggleTOCVisibility() {
         tocVisible = !tocVisible;
         var tocContent = document.querySelector('.toc-content');
+        var currentSectionIndicator = document.getElementById('current-section-indicator');
         
         if (tocVisible) {
           // Show with smooth animation
           tocContent.classList.add('toc-visible');
           tocToggleBtn.classList.add('toc-visible');
           tocToggleBtn.title = "Hide table of contents";
+          
+          // Show current section indicator
+          if (currentSectionIndicator) {
+            currentSectionIndicator.classList.add('visible');
+          }
           
           // Setup scroll detection after TOC becomes visible
           setTimeout(function() {
@@ -9349,6 +9441,11 @@ a.anchor-link {
           tocContent.classList.remove('toc-visible');
           tocToggleBtn.classList.remove('toc-visible');
           tocToggleBtn.title = "Show table of contents";
+          
+          // Hide current section indicator
+          if (currentSectionIndicator) {
+            currentSectionIndicator.classList.remove('visible');
+          }
         }
         
         // Save preference
@@ -9383,8 +9480,38 @@ a.anchor-link {
       buttonContainer.appendChild(tocContent);
       document.body.appendChild(buttonContainer);
 
-      // TOC functionality
+      // TOC functionality with hierarchical numbering
       var headings = [];
+      
+      // NEW: Hierarchical numbering system
+      function generateHierarchicalNumbers(headings) {
+        var counters = [0, 0, 0, 0, 0, 0]; // Counters for h1-h6
+        var headingNumbers = [];
+        
+        headings.forEach(function(heading) {
+          var level = parseInt(heading.tagName.charAt(1)) - 1; // h1=0, h2=1, etc.
+          
+          // Increment counter for current level
+          counters[level]++;
+          
+          // Reset all lower-level counters
+          for (var i = level + 1; i < counters.length; i++) {
+            counters[i] = 0;
+          }
+          
+          // Build number string based on active counters
+          var numberParts = [];
+          for (var i = 0; i <= level; i++) {
+            if (counters[i] > 0) {
+              numberParts.push(counters[i]);
+            }
+          }
+          
+          headingNumbers.push(numberParts.join('.'));
+        });
+        
+        return headingNumbers;
+      }
 
       function cleanHeadingText(heading) {
         let text = heading.textContent.trim();
@@ -9397,14 +9524,34 @@ a.anchor-link {
         headings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6"));
         if (headings.length === 0) return;
 
+        // Generate hierarchical numbers
+        var headingNumbers = generateHierarchicalNumbers(headings);
+        
+        // Store heading numbers globally for use in updateTOC
+        window.tocHeadingNumbers = headingNumbers;
+
         // Clear existing content
         tocContent.innerHTML = '';
 
-        // Add header
-        var header = document.createElement("div");
-        header.className = "toc-header";
-        header.textContent = "ON THIS PAGE";
-        tocContent.appendChild(header);
+        // Create current section indicator outside TOC (fixed to viewport)
+        var existingIndicator = document.getElementById('current-section-indicator');
+        if (existingIndicator) {
+          existingIndicator.remove();
+        }
+        
+        var currentSectionIndicator = document.createElement("div");
+        currentSectionIndicator.className = "current-section-indicator";
+        currentSectionIndicator.id = "current-section-indicator";
+        currentSectionIndicator.textContent = "1";
+        document.body.appendChild(currentSectionIndicator); // Add to body, not TOC
+
+        // Check if TOC should be visible and add visible class to indicator
+        setTimeout(function() {
+          var tocContent = document.querySelector('.toc-content');
+          if (tocContent && tocContent.classList.contains('toc-visible')) {
+            currentSectionIndicator.classList.add('visible');
+          }
+        }, 150); // Small delay to ensure TOC state is set
 
         // Create scrollable container for TOC items
         var itemsContainer = document.createElement("div");
@@ -9425,12 +9572,15 @@ a.anchor-link {
           if (heading.tagName.toLowerCase() === 'h5') maxLength = 15;
           if (heading.tagName.toLowerCase() === 'h6') maxLength = 15;
           
-          // Truncate text and add ellipsis
-          var displayText = cleanText.length > maxLength ? 
-            cleanText.substring(0, maxLength) + '...' : cleanText;
+          // Add hierarchical number prefix
+          var numberedText = headingNumbers[index] + '. ' + cleanText;
+          
+          // Truncate text and add ellipsis (accounting for number prefix)
+          var displayText = numberedText.length > maxLength ? 
+            numberedText.substring(0, maxLength) + '...' : numberedText;
           
           tocItem.textContent = displayText;
-          tocItem.title = cleanText; // Full text in tooltip
+          tocItem.title = numberedText; // Full text with number in tooltip
 
           tocItem.addEventListener("click", function(e) {
             e.preventDefault();
@@ -9444,110 +9594,57 @@ a.anchor-link {
         updateTOC();
       }
 
-      // TOC scroll interaction tracking
-      var isManuallyScrolling = false;
-      var manualScrollTimeout;
-      var lastAutoScrollTime = 0;
+      // TOC functionality with hierarchical numbering
+      var headings = [];
 
-      // Enhanced TOC update function with smart scroll detection
+      // Enhanced TOC update function with current section number indicator
       function updateTOC() {
         if (headings.length === 0) return;
         
-        var scrollPos = window.scrollY + (window.innerHeight / 3);
+        // Get current scroll position with offset for better detection
+        var scrollPos = window.scrollY + 100; // 100px offset for better detection
         var currentIndex = -1;
         
-        for (var i = 0; i < headings.length; i++) { 
-          if (headings[i].offsetTop <= scrollPos) currentIndex = i; 
+        // Find the current section based on scroll position
+        for (var i = headings.length - 1; i >= 0; i--) {
+          if (headings[i].offsetTop <= scrollPos) {
+            currentIndex = i;
+            break;
+          }
+        }
+        
+        // If no section found, default to first section if we're near the top
+        if (currentIndex === -1 && window.scrollY < 200) {
+          currentIndex = 0;
         }
 
         var tocItems = document.querySelectorAll(".toc-item");
-        var itemsContainer = document.querySelector('.toc-items-container');
+        var currentSectionIndicator = document.getElementById('current-section-indicator');
         
+        // Update active states
         tocItems.forEach(function(item, index) {
           item.classList.remove("active");
           if (index === currentIndex) {
             item.classList.add("active");
-            
-            // Only auto-scroll if user isn't manually scrolling AND item is out of view
-            if (itemsContainer && 
-                document.querySelector('.toc-content').classList.contains('toc-visible') &&
-                !isManuallyScrolling) {
-              
-              // Check if the active item is actually out of view
-              var containerRect = itemsContainer.getBoundingClientRect();
-              var itemRect = item.getBoundingClientRect();
-              
-              // Only scroll if item is significantly out of view (not just barely)
-              var isAboveView = itemRect.bottom < containerRect.top + 20;
-              var isBelowView = itemRect.top > containerRect.bottom - 20;
-              
-              // Only auto-scroll if the item is truly out of view
-              if (isAboveView || isBelowView) {
-                // Prevent rapid auto-scrolling
-                var now = Date.now();
-                if (now - lastAutoScrollTime > 1000) { // 1 second throttle
-                  lastAutoScrollTime = now;
-                  
-                  // Calculate the scroll position to center the active item
-                  var containerHeight = containerRect.height;
-                  var itemOffsetTop = item.offsetTop;
-                  var itemHeight = itemRect.height;
-                  
-                  // Center the active item in the visible area
-                  var scrollTop = itemOffsetTop - (containerHeight / 2) + (itemHeight / 2);
-                  
-                  // Smooth scroll to the calculated position
-                  itemsContainer.scrollTo({
-                    top: Math.max(0, scrollTop),
-                    behavior: 'smooth'
-                  });
-                }
-              }
-            }
           }
         });
+        
+        // Update current section indicator
+        if (currentSectionIndicator && currentIndex !== -1 && window.tocHeadingNumbers) {
+          currentSectionIndicator.textContent = window.tocHeadingNumbers[currentIndex];
+        } else if (currentSectionIndicator) {
+          currentSectionIndicator.textContent = "1";
+        }
       }
 
-      // Setup manual scroll detection
+      // Setup manual scroll detection (simplified)
       function setupTOCScrollDetection() {
-        var itemsContainer = document.querySelector('.toc-items-container');
-        if (!itemsContainer) return;
+        var tocContent = document.querySelector('.toc-content');
+        if (!tocContent) return;
 
-        // Detect manual scrolling via mouse wheel
-        itemsContainer.addEventListener('wheel', function(e) {
-          isManuallyScrolling = true;
-          clearTimeout(manualScrollTimeout);
-          
-          // Reset manual scrolling flag after user stops
-          manualScrollTimeout = setTimeout(function() {
-            isManuallyScrolling = false;
-          }, 2000); // 2 seconds of inactivity
-        });
-
-        // Detect manual scrolling via scrollbar drag
-        itemsContainer.addEventListener('scroll', function(e) {
-          // Only consider it manual if it wasn't triggered by auto-scroll
-          var now = Date.now();
-          if (now - lastAutoScrollTime > 500) { // If it's been >500ms since auto-scroll
-            isManuallyScrolling = true;
-            clearTimeout(manualScrollTimeout);
-            
-            manualScrollTimeout = setTimeout(function() {
-              isManuallyScrolling = false;
-            }, 2000);
-          }
-        });
-
-        // Detect touch scrolling on mobile
-        itemsContainer.addEventListener('touchstart', function(e) {
-          isManuallyScrolling = true;
-          clearTimeout(manualScrollTimeout);
-        });
-
-        itemsContainer.addEventListener('touchend', function(e) {
-          manualScrollTimeout = setTimeout(function() {
-            isManuallyScrolling = false;
-          }, 2000);
+        // Basic scroll detection for touch devices
+        tocContent.addEventListener('touchstart', function(e) {
+          // Touch scrolling detected
         });
       }
 
