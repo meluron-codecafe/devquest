@@ -7936,9 +7936,9 @@ a.anchor-link {
       box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
       transition: all 0.3s ease !important;
       height: auto !important;
-      width: 244px !important;
-      max-width: 244px !important;
-      min-width: 244px !important;
+      width: 284px !important; /* Increased width to accommodate video button */
+      max-width: 284px !important;
+      min-width: 284px !important;
       box-sizing: border-box !important;
       overflow: hidden !important;
     }
@@ -7960,9 +7960,9 @@ a.anchor-link {
     }
 
     .toc-content {
-      width: 240px !important;
-      max-width: 240px !important;
-      min-width: 240px !important;
+      width: 280px !important; /* Updated width to match new container */
+      max-width: 280px !important;
+      min-width: 280px !important;
       max-height: 0;
       opacity: 0;
       overflow: hidden;
@@ -7972,6 +7972,57 @@ a.anchor-link {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
       box-sizing: border-box;
       position: relative;
+    }
+
+    /* ======= VIDEO CONTENT CONTAINER ======= */
+    .video-content {
+      width: 280px !important;
+      max-width: 280px !important;
+      min-width: 280px !important;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .video-content.video-visible {
+      max-height: 400px !important;
+      opacity: 1;
+      padding: 0px !important;
+      margin-top: 2px;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      scroll-behavior: smooth;
+    }
+
+    .video-container {
+      padding: 12px !important;
+      position: relative !important;
+      text-align: center !important;
+    }
+
+    .video-embed {
+      width: 100% !important;
+      height: 200px !important;
+      border-radius: 6px !important;
+      border: none !important;
+    }
+
+    .video-unavailable {
+      padding: 20px !important;
+      text-align: center !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-size: 14px !important;
+      font-style: italic !important;
+    }
+
+    body.light-mode .video-unavailable {
+      color: rgba(0, 0, 0, 0.7) !important;
     }
 
     .toc-content.toc-visible {
@@ -8013,19 +8064,20 @@ a.anchor-link {
     /* ======= CURRENT SECTION INDICATOR (ORANGE) - FIXED POSITIONING ======= */
     .current-section-indicator {
       position: fixed !important;
-      top: 70px !important; /* Below the button row */
+      top: 75px !important; /* Positioned just above TOC with small gap */
       right: 32px !important; /* Aligned with TOC right edge */
-      background: transparent !important;
+      background: rgba(45, 45, 45, 0.9) !important; /* Small dark box background */
       color: #fd8a09 !important; /* Orange color */
-      padding: 0 !important;
-      border-radius: 0 !important;
-      font-size: 16px !important;
+      padding: 4px 6px !important; /* Small padding for box */
+      margin-bottom: 12px !important; /* Space below to prevent TOC overlap */
+      border-radius: 4px !important; /* Rounded corners */
+      border: 1px solid rgba(253, 138, 9, 0.3) !important; /* Subtle orange border */
+      font-size: 12px !important;
       font-weight: 700 !important; /* Bold */
       z-index: 1001 !important; /* Above TOC */
-      box-shadow: none !important;
-      border: none !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow */
       min-width: auto !important;
-      text-align: right !important;
+      text-align: center !important;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
       pointer-events: none !important; /* Don't interfere with clicking */
       opacity: 0 !important; /* Hidden by default */
@@ -8041,9 +8093,9 @@ a.anchor-link {
     .current-section-indicator::before {
       content: "" !important;
       display: inline-block !important;
-      width: 16px !important;
-      height: 16px !important;
-      margin-right: 4px !important;
+      width: 12px !important;
+      height: 12px !important;
+      margin-right: 3px !important;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fd8a09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'%3E%3C/path%3E%3Ccircle cx='12' cy='12' r='3'%3E%3C/circle%3E%3C/svg%3E") !important;
       background-size: contain !important;
       background-repeat: no-repeat !important;
@@ -8053,7 +8105,10 @@ a.anchor-link {
 
     /* Light mode current section indicator */
     body.light-mode .current-section-indicator {
-      color: #fd8a09 !important; /* Same orange in light mode */
+      background: rgba(255, 255, 255, 0.95) !important;
+      color: #fd8a09 !important;
+      border-color: rgba(253, 138, 9, 0.4) !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
     }
 
     /* ======= BUTTONS - ABSOLUTELY NEVER CHANGE SIZE ======= */
@@ -8061,6 +8116,7 @@ a.anchor-link {
     .code-toggle-btn,
     .theme-toggle-btn,
     .toc-toggle-btn,
+    .video-toggle-btn,
     .report-issue-btn,
     .download-btn {
         /* Reset all properties */
@@ -8120,6 +8176,7 @@ a.anchor-link {
     .code-toggle-btn svg,
     .theme-toggle-btn svg,
     .toc-toggle-btn svg,
+    .video-toggle-btn svg,
     .report-issue-btn svg,
     .download-btn svg {
         width: 20px !important;
@@ -8929,7 +8986,39 @@ a.anchor-link {
     body.light-mode .c, body.light-mode .cm, body.light-mode .cpf { color: #008000 !important; font-style: italic !important; } 
     body.light-mode .o, body.light-mode .p { color: #333333 !important; }
     
-    /* ======= MOBILE RESPONSIVE - TABLES ONLY, NO TOOLBOX CHANGES ======= */
+    /* ======= RESPONSIVE CONTENT SPACING - ALL NON-MOBILE SCREENS ======= */
+    @media (min-width: 769px) {
+      body {
+        margin-right: 280px !important; /* Space for toolbox (244px) + buffer */
+      }
+      
+      .jp-Notebook {
+        max-width: calc(100% - 300px) !important; /* Additional space for toolbox area */
+        margin-right: 20px !important;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      body {
+        margin-right: 320px !important; /* More space on large screens */
+      }
+      
+      .jp-Notebook {
+        max-width: calc(100% - 340px) !important;
+        margin-right: 20px !important;
+      }
+    }
+    
+    @media (min-width: 1600px) {
+      body {
+        margin-right: 360px !important; /* Even more space on extra large screens */
+      }
+      
+      .jp-Notebook {
+        max-width: calc(100% - 380px) !important;
+        margin-right: 20px !important;
+      }
+    }
     @media (max-width: 768px) { 
       /* Only content layout adjustments - NEVER modify toolbox */
       body { margin-right: 10px !important; }
@@ -9140,6 +9229,13 @@ a.anchor-link {
           <circle cx="12" cy="12" r="9"></circle>
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
           <circle cx="12" cy="17" r="0.5" fill="currentColor"></circle>
+        </svg>`;
+      }
+
+      function createVideoIcon() {
+        return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="23 7 16 12 23 17 23 7"></polygon>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
         </svg>`;
       }
 
@@ -9419,6 +9515,97 @@ a.anchor-link {
       downloadBtn.href = "../notebooks/" + ipynbFilename;
       downloadBtn.download = ipynbFilename;
 
+      // Video button - before TOC button
+      var videoToggleBtn = document.createElement("button");
+      videoToggleBtn.className = "video-toggle-btn";
+      videoToggleBtn.innerHTML = createVideoIcon();
+      videoToggleBtn.title = "Toggle video";
+      
+      var videoVisible = false;
+      
+      // Video toggle functionality
+      function toggleVideoVisibility() {
+        videoVisible = !videoVisible;
+        var videoContent = document.querySelector('.video-content');
+        
+        if (videoVisible) {
+          // Show video content
+          videoContent.classList.add('video-visible');
+          videoToggleBtn.classList.add('video-visible');
+          videoToggleBtn.title = "Hide video";
+          
+          // Load video content
+          loadVideoContent();
+          
+        } else {
+          videoContent.classList.remove('video-visible');
+          videoToggleBtn.classList.remove('video-visible');
+          videoToggleBtn.title = "Show video";
+        }
+        
+        // Save preference
+        localStorage.setItem('video-visibility', videoVisible ? 'visible' : 'hidden');
+      }
+      
+      // Function to find YouTube video link from H1 "Video" heading
+      function findVideoLink() {
+        var headings = document.querySelectorAll('h1');
+        for (var i = 0; i < headings.length; i++) {
+          var headingText = headings[i].textContent.trim().toLowerCase();
+      
+          // Check if heading starts with "video"
+          if (headingText.startsWith('video')) {
+            // Look for YouTube link in the next elements
+            var nextElement = headings[i].nextElementSibling;
+            while (nextElement) {
+              var text = nextElement.textContent || nextElement.innerText;
+              if (text) {
+                // Look for YouTube URL patterns
+                var youtubeRegex =
+                  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
+                var match = text.match(youtubeRegex);
+                if (match) {
+                  return match[1]; // Return video ID
+                }
+              }
+              nextElement = nextElement.nextElementSibling;
+              // Stop after checking until next H1
+              if (!nextElement || nextElement.tagName === 'H1') break;
+            }
+            break;
+          }
+        }
+        return null;
+      }
+
+      
+      // Function to load video content
+      function loadVideoContent() {
+        var videoContainer = document.querySelector('.video-container');
+        var videoId = findVideoLink();
+        console.log(videoId)
+        
+        if (videoId) {
+          videoContainer.innerHTML = `
+            <iframe class="video-embed" 
+                    src="https://www.youtube.com/embed/${videoId}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+          `;
+        } else {
+          videoContainer.innerHTML = `
+            <div class="video-unavailable">
+              Video is not available yet
+            </div>
+          `;
+        }
+      }
+      
+      videoToggleBtn.addEventListener("click", toggleVideoVisibility);
+
       // TOC toggle button (last button)
       var tocToggleBtn = document.createElement("button");
       tocToggleBtn.className = "toc-toggle-btn";
@@ -9466,29 +9653,53 @@ a.anchor-link {
       
       tocToggleBtn.addEventListener("click", toggleTOCVisibility);
       
-      // Initialize TOC visibility from localStorage
-      var savedTOCVisibility = localStorage.getItem('toc-visibility') || 'hidden';
-      if (savedTOCVisibility === 'visible') {
-        tocVisible = false; // Will be toggled to true
-        // Delay to ensure toolbar is rendered
-        setTimeout(() => toggleTOCVisibility(), 100);
+      // Initialize TOC visibility - always visible by default on non-mobile screens
+      function initializeTOCVisibility() {
+        var isNonMobile = window.innerWidth > 768;
+        
+        console.log('Screen width:', window.innerWidth, 'Is non-mobile:', isNonMobile); // Debug log
+        
+        // Clear any existing preference for fresh behavior
+        // localStorage.removeItem('toc-visibility'); // Uncomment if needed to reset
+        
+        // For non-mobile screens, always show TOC by default
+        if (isNonMobile) {
+          console.log('Setting TOC visible for non-mobile screen'); // Debug log
+          tocVisible = false; // Will be toggled to true
+          setTimeout(() => toggleTOCVisibility(), 100);
+        } else {
+          console.log('Keeping TOC hidden for mobile screen'); // Debug log
+        }
       }
+      
+      // Call the initialization function
+      initializeTOCVisibility();
 
       
-      // Add components to button row (Home → Code Toggle → Theme Toggle → Report Issue → Download → TOC Toggle)
+      // Add components to button row (Home → Code Toggle → Theme Toggle → Report Issue → Download → Video Toggle → TOC Toggle)
       buttonRow.appendChild(homeBtn);
       buttonRow.appendChild(codeToggleBtn);
       buttonRow.appendChild(themeToggleBtn);
       buttonRow.appendChild(reportIssueBtn);
       buttonRow.appendChild(downloadBtn);
+      buttonRow.appendChild(videoToggleBtn);
       buttonRow.appendChild(tocToggleBtn);
       
       // Create TOC content container
       var tocContent = document.createElement("div");
       tocContent.className = "toc-content";
       
-      // Add button row and TOC content to main container
+      // Create Video content container
+      var videoContent = document.createElement("div");
+      videoContent.className = "video-content";
+      
+      var videoContainer = document.createElement("div");
+      videoContainer.className = "video-container";
+      videoContent.appendChild(videoContainer);
+      
+      // Add button row, video content, and TOC content to main container
       buttonContainer.appendChild(buttonRow);
+      buttonContainer.appendChild(videoContent);
       buttonContainer.appendChild(tocContent);
       document.body.appendChild(buttonContainer);
 
