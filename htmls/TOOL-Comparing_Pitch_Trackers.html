@@ -8864,7 +8864,7 @@ a.anchor-link {
       display: none !important;
     }
 
-    /* ======= CONTENT SPACING FOR TOC ======= */
+    /* ======= CONTENT SPACING FOR TOOLBAR AND TOC ======= */
     body {
       margin-right: 20px !important;
       transition: margin-right 0.3s ease;
@@ -8873,10 +8873,22 @@ a.anchor-link {
     .jp-Notebook {
       max-width: calc(100% - 40px) !important;
       margin-right: 0 !important;
+      padding-top: 80px !important; /* Reserve space for fixed toolbar */
+      box-sizing: border-box !important;
     }
     
     .jp-Cell {
       margin-right: 10px !important;
+    }
+
+    /* Alternative: Add padding to the notebook container */
+    .jp-NotebookPanel-notebook {
+      padding-top: 80px !important;
+    }
+
+    /* Also target the main content area */
+    #notebook-container {
+      padding-top: 80px !important;
     }
   
     /* ======= GENERAL DARK/LIGHT STYLES ======= */
