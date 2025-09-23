@@ -8692,6 +8692,192 @@ $Z = A - B$</p>
         color: #fd8a09 !important;
     }
 
+    /* ======= MOBILE/TOUCH DEVICE FIXES ======= */
+
+    /* Disable hover effects on touch devices and ensure active states work properly */
+    @media (hover: none) and (pointer: coarse) {
+        /* Remove all hover effects on touch devices */
+        .home-btn:hover,
+        .code-toggle-btn:hover,
+        .theme-toggle-btn:hover,
+        .toc-toggle-btn:hover,
+        .video-toggle-btn:hover,
+        .report-issue-btn:hover,
+        .download-btn:hover {
+            background: transparent !important;
+        }
+
+        .home-btn:hover svg,
+        .code-toggle-btn:hover svg,
+        .theme-toggle-btn:hover svg,
+        .toc-toggle-btn:hover svg,
+        .video-toggle-btn:hover svg,
+        .report-issue-btn:hover svg,
+        .download-btn:hover svg {
+            stroke: var(--text-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        /* Ensure active states work on touch devices with higher specificity */
+        .toc-toggle-btn.toc-visible svg,
+        .toc-toggle-btn.toc-visible:hover svg,
+        .toc-toggle-btn.toc-visible:active svg,
+        .toc-toggle-btn.toc-visible:focus svg {
+            stroke: #fd8a09 !important;
+            color: #fd8a09 !important;
+        }
+
+        .video-toggle-btn.video-visible svg,
+        .video-toggle-btn.video-visible:hover svg,
+        .video-toggle-btn.video-visible:active svg,
+        .video-toggle-btn.video-visible:focus svg {
+            stroke: #fd8a09 !important;
+            color: #fd8a09 !important;
+        }
+
+        .code-toggle-btn.code-hidden svg,
+        .code-toggle-btn.code-hidden:hover svg,
+        .code-toggle-btn.code-hidden:active svg,
+        .code-toggle-btn.code-hidden:focus svg {
+            opacity: 0.6 !important;
+            stroke: var(--text-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        /* Light mode overrides for touch devices */
+        body.light-mode .home-btn:hover svg,
+        body.light-mode .code-toggle-btn:hover svg,
+        body.light-mode .theme-toggle-btn:hover svg,
+        body.light-mode .toc-toggle-btn:hover svg,
+        body.light-mode .video-toggle-btn:hover svg,
+        body.light-mode .report-issue-btn:hover svg,
+        body.light-mode .download-btn:hover svg {
+            stroke: #333333 !important;
+            color: #333333 !important;
+        }
+
+        body.light-mode .toc-toggle-btn.toc-visible svg,
+        body.light-mode .toc-toggle-btn.toc-visible:hover svg,
+        body.light-mode .toc-toggle-btn.toc-visible:active svg,
+        body.light-mode .toc-toggle-btn.toc-visible:focus svg {
+            stroke: #fd8a09 !important;
+            color: #fd8a09 !important;
+        }
+
+        body.light-mode .video-toggle-btn.video-visible svg,
+        body.light-mode .video-toggle-btn.video-visible:hover svg,
+        body.light-mode .video-toggle-btn.video-visible:active svg,
+        body.light-mode .video-toggle-btn.video-visible:focus svg {
+            stroke: #fd8a09 !important;
+            color: #fd8a09 !important;
+        }
+    }
+
+    /* Enhanced active state rules with higher specificity to override any hover conflicts */
+    .toc-toggle-btn.toc-visible,
+    .toc-toggle-btn.toc-visible:link,
+    .toc-toggle-btn.toc-visible:visited,
+    .toc-toggle-btn.toc-visible:hover,
+    .toc-toggle-btn.toc-visible:active,
+    .toc-toggle-btn.toc-visible:focus {
+        background: transparent !important;
+    }
+
+    .toc-toggle-btn.toc-visible svg,
+    .toc-toggle-btn.toc-visible:link svg,
+    .toc-toggle-btn.toc-visible:visited svg,
+    .toc-toggle-btn.toc-visible:hover svg,
+    .toc-toggle-btn.toc-visible:active svg,
+    .toc-toggle-btn.toc-visible:focus svg {
+        stroke: #fd8a09 !important;
+        color: #fd8a09 !important;
+    }
+
+    .video-toggle-btn.video-visible,
+    .video-toggle-btn.video-visible:link,
+    .video-toggle-btn.video-visible:visited,
+    .video-toggle-btn.video-visible:hover,
+    .video-toggle-btn.video-visible:active,
+    .video-toggle-btn.video-visible:focus {
+        background: transparent !important;
+    }
+
+    .video-toggle-btn.video-visible svg,
+    .video-toggle-btn.video-visible:link svg,
+    .video-toggle-btn.video-visible:visited svg,
+    .video-toggle-btn.video-visible:hover svg,
+    .video-toggle-btn.video-visible:active svg,
+    .video-toggle-btn.video-visible:focus svg {
+        stroke: #fd8a09 !important;
+        color: #fd8a09 !important;
+    }
+
+    /* Light mode versions with same specificity */
+    body.light-mode .toc-toggle-btn.toc-visible,
+    body.light-mode .toc-toggle-btn.toc-visible:link,
+    body.light-mode .toc-toggle-btn.toc-visible:visited,
+    body.light-mode .toc-toggle-btn.toc-visible:hover,
+    body.light-mode .toc-toggle-btn.toc-visible:active,
+    body.light-mode .toc-toggle-btn.toc-visible:focus {
+        background: transparent !important;
+    }
+
+    body.light-mode .toc-toggle-btn.toc-visible svg,
+    body.light-mode .toc-toggle-btn.toc-visible:link svg,
+    body.light-mode .toc-toggle-btn.toc-visible:visited svg,
+    body.light-mode .toc-toggle-btn.toc-visible:hover svg,
+    body.light-mode .toc-toggle-btn.toc-visible:active svg,
+    body.light-mode .toc-toggle-btn.toc-visible:focus svg {
+        stroke: #fd8a09 !important;
+        color: #fd8a09 !important;
+    }
+
+    body.light-mode .video-toggle-btn.video-visible,
+    body.light-mode .video-toggle-btn.video-visible:link,
+    body.light-mode .video-toggle-btn.video-visible:visited,
+    body.light-mode .video-toggle-btn.video-visible:hover,
+    body.light-mode .video-toggle-btn.video-visible:active,
+    body.light-mode .video-toggle-btn.video-visible:focus {
+        background: transparent !important;
+    }
+
+    body.light-mode .video-toggle-btn.video-visible svg,
+    body.light-mode .video-toggle-btn.video-visible:link svg,
+    body.light-mode .video-toggle-btn.video-visible:visited svg,
+    body.light-mode .video-toggle-btn.video-visible:hover svg,
+    body.light-mode .video-toggle-btn.video-visible:active svg,
+    body.light-mode .video-toggle-btn.video-visible:focus svg {
+        stroke: #fd8a09 !important;
+        color: #fd8a09 !important;
+    }
+
+    /* Alternative approach: Use focus-visible for better touch support */
+    @media (max-width: 768px) {
+        /* Add touch-friendly focus states */
+        .home-btn:focus-visible,
+        .code-toggle-btn:focus-visible,
+        .theme-toggle-btn:focus-visible,
+        .toc-toggle-btn:focus-visible,
+        .video-toggle-btn:focus-visible,
+        .report-issue-btn:focus-visible,
+        .download-btn:focus-visible {
+            outline: 2px solid #fd8a09;
+            outline-offset: 2px;
+            border-radius: 8px;
+        }
+
+        /* Ensure buttons remain focusable but don't show outline by default */
+        .home-btn:focus,
+        .code-toggle-btn:focus,
+        .theme-toggle-btn:focus,
+        .toc-toggle-btn:focus,
+        .video-toggle-btn:focus,
+        .report-issue-btn:focus,
+        .download-btn:focus {
+            outline: none;
+        }
+    }
+
     /* ======= TOC VISIBILITY TOGGLE ======= */
     .toc-content.toc-visible::before {
       content: '';
