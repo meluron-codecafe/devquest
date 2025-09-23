@@ -7576,7 +7576,7 @@ a.anchor-link {
     .hc-title {
         margin: 0;
         color: #EF8C00;
-        font-size: 1.5em;
+        font-size: 1.8em;
         font-weight: 500;
         line-height: 1.2em;
         word-break: break-word;
@@ -7593,7 +7593,7 @@ a.anchor-link {
 <div class="hc-header">Last modified</div>
 <div class="hc-month">Sep, 2025</div>
 <div class="hc-day">23</div>
-<div class="hc-time">12:01:11 AM</div>
+<div class="hc-time">04:03:57 PM</div>
 </div>
 <!-- Header text -->
 <div style="flex: 1;">
@@ -8296,26 +8296,25 @@ $Z = A - B$</p>
       background: rgba(255, 255, 255, 0.7);
     }
 
-    /* ======= CURRENT SECTION INDICATOR (ORANGE) - FIXED POSITIONING ======= */
+    /* ======= CURRENT SECTION INDICATOR (ORANGE) - SIMPLE OPEN BOOK ======= */
     .current-section-indicator {
       position: fixed !important;
-      top: 75px !important; /* Positioned just above TOC with small gap */
-      right: 32px !important; /* Aligned with TOC right edge */
-      background: rgba(45, 45, 45, 0.9) !important; /* Small dark box background */
-      color: #fd8a09 !important; /* Orange color */
-      padding: 4px 6px !important; /* Small padding for box */
-      margin-bottom: 12px !important; /* Space below to prevent TOC overlap */
-      border-radius: 4px !important; /* Rounded corners */
-      border: 1px solid rgba(253, 138, 9, 0.3) !important; /* Subtle orange border */
+      top: 75px !important;
+      right: 32px !important;
+      background: rgba(45, 45, 45, 0.9) !important;
+      color: #fd8a09 !important;
+      padding: 4px 6px !important;
+      border-radius: 4px !important;
+      border: 1px solid rgba(253, 138, 9, 0.3) !important;
       font-size: 12px !important;
-      font-weight: 700 !important; /* Bold */
-      z-index: 1001 !important; /* Above TOC */
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow */
+      font-weight: 700 !important;
+      z-index: 1001 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
       min-width: auto !important;
       text-align: center !important;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-      pointer-events: none !important; /* Don't interfere with clicking */
-      opacity: 0 !important; /* Hidden by default */
+      pointer-events: none !important;
+      opacity: 0 !important;
       visibility: hidden !important;
       transition: opacity 0.3s ease, visibility 0.3s ease !important;
     }
@@ -8328,10 +8327,10 @@ $Z = A - B$</p>
     .current-section-indicator::before {
       content: "" !important;
       display: inline-block !important;
-      width: 12px !important;
-      height: 12px !important;
-      margin-right: 3px !important;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fd8a09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'%3E%3C/path%3E%3Ccircle cx='12' cy='12' r='3'%3E%3C/circle%3E%3C/svg%3E") !important;
+      width: 16px !important;
+      height: 16px !important;
+      margin-right: 4px !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fd8a09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z'%3E%3C/path%3E%3Cpath d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'%3E%3C/path%3E%3C/svg%3E") !important;
       background-size: contain !important;
       background-repeat: no-repeat !important;
       background-position: center !important;
@@ -8423,14 +8422,15 @@ $Z = A - B$</p>
         color: inherit !important;
     }
 
-    /* ======= HOVER STATES ======= */
+    /* ======= HOVER STATES - ORANGE ICONS, NO BACKGROUND ======= */
     .home-btn:hover,
     .code-toggle-btn:hover,
     .theme-toggle-btn:hover,
     .toc-toggle-btn:hover,
+    .video-toggle-btn:hover,
     .report-issue-btn:hover,
     .download-btn:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: transparent !important; /* No background box */
         transform: none !important;
         scale: none !important;
     }
@@ -8439,8 +8439,11 @@ $Z = A - B$</p>
     .code-toggle-btn:hover svg,
     .theme-toggle-btn:hover svg,
     .toc-toggle-btn:hover svg,
+    .video-toggle-btn:hover svg,
     .report-issue-btn:hover svg,
     .download-btn:hover svg {
+        stroke: #fd8a09 !important; /* Orange on hover */
+        color: #fd8a09 !important;
         transform: none !important;
         scale: 1 !important;
     }
@@ -8492,13 +8495,32 @@ $Z = A - B$</p>
         opacity: 0.6 !important;
     }
 
+    /* ======= VIDEO TOGGLE SPECIFIC STYLES ======= */
+    .video-toggle-btn {
+        vertical-align: top !important;
+    }
+    
+    .video-toggle-btn.video-visible {
+        background: transparent !important; /* No background box when active */
+    }
+
+    .video-toggle-btn.video-visible svg {
+        stroke: #fd8a09 !important; /* Orange when active */
+        color: #fd8a09 !important;
+    }
+
     /* ======= TOC TOGGLE SPECIFIC STYLES ======= */
     .toc-toggle-btn {
         vertical-align: top !important;
     }
     
     .toc-toggle-btn.toc-visible {
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: transparent !important; /* No background box when active */
+    }
+
+    .toc-toggle-btn.toc-visible svg {
+        stroke: #fd8a09 !important; /* Orange when active */
+        color: #fd8a09 !important;
     }
 
     /* ======= THEME TOGGLE SPECIFIC STYLES ======= */
@@ -8598,6 +8620,7 @@ $Z = A - B$</p>
     body.light-mode .code-toggle-btn,
     body.light-mode .theme-toggle-btn,
     body.light-mode .toc-toggle-btn,
+    body.light-mode .video-toggle-btn,
     body.light-mode .report-issue-btn,
     body.light-mode .download-btn {
         color: #333333 !important;
@@ -8608,6 +8631,7 @@ $Z = A - B$</p>
     body.light-mode .code-toggle-btn svg,
     body.light-mode .theme-toggle-btn svg,
     body.light-mode .toc-toggle-btn svg,
+    body.light-mode .video-toggle-btn svg,
     body.light-mode .report-issue-btn svg,
     body.light-mode .download-btn svg {
         stroke: #333333 !important;
@@ -8651,9 +8675,21 @@ $Z = A - B$</p>
     body.light-mode .code-toggle-btn:hover,
     body.light-mode .theme-toggle-btn:hover,
     body.light-mode .toc-toggle-btn:hover,
+    body.light-mode .video-toggle-btn:hover,
     body.light-mode .report-issue-btn:hover,
     body.light-mode .download-btn:hover {
-        background: rgba(0, 0, 0, 0.05) !important;
+        background: transparent !important; /* No background box in light mode */
+    }
+
+    body.light-mode .home-btn:hover svg,
+    body.light-mode .code-toggle-btn:hover svg,
+    body.light-mode .theme-toggle-btn:hover svg,
+    body.light-mode .toc-toggle-btn:hover svg,
+    body.light-mode .video-toggle-btn:hover svg,
+    body.light-mode .report-issue-btn:hover svg,
+    body.light-mode .download-btn:hover svg {
+        stroke: #fd8a09 !important; /* Orange on hover in light mode */
+        color: #fd8a09 !important;
     }
 
     /* ======= TOC VISIBILITY TOGGLE ======= */
@@ -9786,25 +9822,23 @@ $Z = A - B$</p>
       function findVideoLink() {
         var headings = document.querySelectorAll('h1');
         for (var i = 0; i < headings.length; i++) {
-          var headingText = headings[i].textContent.trim().toLowerCase();
-      
-          // Check if heading starts with "video"
-          if (headingText.startsWith('video')) {
+          // Use the same cleaning function as TOC to handle pilcrow symbols
+          var headingText = cleanHeadingText(headings[i]).toLowerCase();
+          if (headingText === 'video') {
             // Look for YouTube link in the next elements
             var nextElement = headings[i].nextElementSibling;
             while (nextElement) {
               var text = nextElement.textContent || nextElement.innerText;
               if (text) {
                 // Look for YouTube URL patterns
-                var youtubeRegex =
-                  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
+                var youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
                 var match = text.match(youtubeRegex);
                 if (match) {
                   return match[1]; // Return video ID
                 }
               }
               nextElement = nextElement.nextElementSibling;
-              // Stop after checking until next H1
+              // Stop after checking a few elements
               if (!nextElement || nextElement.tagName === 'H1') break;
             }
             break;
@@ -9812,13 +9846,11 @@ $Z = A - B$</p>
         }
         return null;
       }
-
       
       // Function to load video content
       function loadVideoContent() {
         var videoContainer = document.querySelector('.video-container');
         var videoId = findVideoLink();
-        console.log(videoId)
         
         if (videoId) {
           videoContainer.innerHTML = `
@@ -9888,6 +9920,13 @@ $Z = A - B$</p>
       
       tocToggleBtn.addEventListener("click", toggleTOCVisibility);
       
+      // Initialize video visibility from localStorage
+      var savedVideoVisibility = localStorage.getItem('video-visibility') || 'hidden';
+      if (savedVideoVisibility === 'visible') {
+        videoVisible = false; // Will be toggled to true
+        setTimeout(() => toggleVideoVisibility(), 150);
+      }
+
       // Initialize TOC visibility - always visible by default on non-mobile screens
       function initializeTOCVisibility() {
         var isNonMobile = window.innerWidth > 768;

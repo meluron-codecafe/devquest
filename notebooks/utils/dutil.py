@@ -70,7 +70,7 @@ def hc(title: str, keywords: list[str] = [""]):
     .hc-title {{
         margin: 0;
         color: #EF8C00;
-        font-size: 1.5em;
+        font-size: 1.8em;
         font-weight: 500;
         line-height: 1.2em;
         word-break: break-word;
