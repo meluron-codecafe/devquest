@@ -952,7 +952,7 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.81"
+version = "0.3.82"
 summary = ""
 dependencies = [
     "ipython",
@@ -964,8 +964,8 @@ dependencies = [
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.81-py3-none-any.whl", hash = "sha256:3b88a06ea4acee3688c1601b029c95f4d80c063e321c364b8d2c5c99f8ae9f2b"},
-    {file = "modusa-0.3.81.tar.gz", hash = "sha256:dd7f396de2f228a8c389c24d3e7e04abf83ab0e9598aa7d808d4d0bf392c8abd"},
+    {file = "modusa-0.3.82-py3-none-any.whl", hash = "sha256:1bbe6a10aa1e3e6b7a84823d0184c9347b4fb77c5f4e0cfabfeb037886d4db1f"},
+    {file = "modusa-0.3.82.tar.gz", hash = "sha256:8413c84e0193f60b83ae29bc8b881a05a04c82581475a42f91b1cc949d9c2c82"},
 ]
 
 [[package]]
