@@ -1,7 +1,10 @@
 category,topic,keywords,html
-EXP,Spectral Footprints of Spoken Alphabets,;,EXP-Spectral_Footprints_of_Spoken_Alphabets.html
-M4CS,Probability - A Basic Overview,;,M4CS-Probability_-_A_Basic_Overview.html
+03,01,"Rhythmicityof a song refers to the degree to which the music exhibits aclear,regular, andpredictablerhythmic structure. It involves howconsistentlyandstronglythe beats or pulses are felt throughout the piece.",03-01.html
+03,02,"In order to find out tempo dynamics, we need to estimate tempo locally. We do have a feature calledtempogramthat gives strength per frame for a given set of tempi. It is similar to aspectrogramexcept the frequency axis corresponds to tempo.",03-02.html
 P2C,A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition,;,P2C-A_Tutorial_on_Hidden_Markov_Models_and_Selected_Applications_in_Speech_Recognition.html
-P2C,D4C - a band-aperiodicity estimator for high-quality speech synthesis,;,P2C-D4C_-_a_band-aperiodicity_estimator_for_high-quality_speech_synthesis.html
 TOOL,Comparing Pitch Trackers,praat-parselmouth; pyreaper; librosa; pyworld; libtsm;,TOOL-Comparing_Pitch_Trackers.html
+P2C,D4C - a band-aperiodicity estimator for high-quality speech synthesis,;,P2C-D4C_-_a_band-aperiodicity_estimator_for_high-quality_speech_synthesis.html
 TOOL,F0-Conditioned Vocal Synthesis Using WORLD Software,;,TOOL-F0-Conditioned_Vocal_Synthesis_Using_WORLD_Software.html
+M4CS,Probability - A Basic Overview,;,M4CS-Probability_-_A_Basic_Overview.html
+EXP,Rhythmicity Of A Song,;,EXP-Rhythmicity_Of_A_Song.html
+EXP,Spectral Footprints of Spoken Alphabets,;,EXP-Spectral_Footprints_of_Spoken_Alphabets.html
