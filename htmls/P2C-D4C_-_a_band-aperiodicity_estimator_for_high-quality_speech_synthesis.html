@@ -8916,6 +8916,14 @@ a.anchor-link {
     #notebook-container {
       padding-top: 80px !important;
     }
+
+    /* ======= HIDE IN/OUT PROMPTS ======= */
+    .jp-InputPrompt,
+    .jp-OutputPrompt,
+    div.prompt,
+    .prompt {
+      display: none !important;
+    }
   
     /* ======= GENERAL DARK/LIGHT STYLES ======= */
     body { 
@@ -9693,39 +9701,51 @@ a.anchor-link {
 
       // Function to add simple dot indicators
       function addCodeIndicators() {
-        // More precise selector - only find actual code cells with highlight divs
-        var codeCells = document.querySelectorAll('.jp-InputArea div.highlight');
+        // Find all InputAreas that contain code
+        var inputAreas = document.querySelectorAll('.jp-InputArea');
         
-        codeCells.forEach(function(codeCell) {
-          // Get the parent InputArea
-          var inputArea = codeCell.closest('.jp-InputArea');
-          if (!inputArea) return;
-          
-          // Skip if indicator already exists
-          if (inputArea.nextElementSibling && inputArea.nextElementSibling.classList.contains('code-collapsed-indicator')) {
-            return;
-          }
-          
-          // Create simple dot indicator
-          var indicator = document.createElement('div');
-          indicator.className = 'code-collapsed-indicator';
-          indicator.textContent = '•••';
-          
-          // Insert indicator after the InputArea
-          if (inputArea.parentNode) {
-            inputArea.parentNode.insertBefore(indicator, inputArea.nextSibling);
+        inputAreas.forEach(function(inputArea) {
+          // Check if this InputArea contains code
+          if (inputArea.querySelector('div.highlight')) {
+            
+            // Skip if indicator already exists
+            if (inputArea.nextElementSibling && inputArea.nextElementSibling.classList.contains('code-collapsed-indicator')) {
+              return;
+            }
+            
+            // Create simple dot indicator
+            var indicator = document.createElement('div');
+            indicator.className = 'code-collapsed-indicator';
+            indicator.textContent = '•••';
+            
+            // Insert indicator after the InputArea
+            if (inputArea.parentNode) {
+              inputArea.parentNode.insertBefore(indicator, inputArea.nextSibling);
+            }
           }
         });
       }
 
       // Function to remove indicators
       function removeCodeIndicators() {
+        // Find and remove all existing indicators
         var indicators = document.querySelectorAll('.code-collapsed-indicator');
-        indicators.forEach(function(indicator) {
-          if (indicator.parentNode) {
+        for (var i = indicators.length - 1; i >= 0; i--) {
+          var indicator = indicators[i];
+          if (indicator && indicator.parentNode) {
             indicator.parentNode.removeChild(indicator);
           }
-        });
+        }
+        
+        // Also remove any indicators that might be lingering
+        setTimeout(function() {
+          var remainingIndicators = document.querySelectorAll('.code-collapsed-indicator');
+          remainingIndicators.forEach(function(indicator) {
+            if (indicator && indicator.parentNode) {
+              indicator.parentNode.removeChild(indicator);
+            }
+          });
+        }, 10);
       }
       
       codeToggleBtn.addEventListener("click", toggleCodeVisibility);
