@@ -9143,6 +9143,28 @@ a.anchor-link {
       display: none !important;
     }
 
+    /* ======= SIMPLE COLLAPSED CODE INDICATORS ======= */
+    .code-collapsed-indicator {
+      display: none !important;
+      color: rgba(255, 255, 255, 0.4) !important;
+      font-family: 'Courier New', monospace !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      user-select: none !important;
+      margin: 4px 0 !important;
+      padding-left: 16px !important;
+    }
+
+    /* Show indicators when code is hidden */
+    .code-hidden .code-collapsed-indicator {
+      display: block !important;
+    }
+
+    /* Light mode indicators */
+    body.light-mode .code-collapsed-indicator {
+      color: rgba(0, 0, 0, 0.4) !important;
+    }
+
     /* ======= CONTENT SPACING FOR TOOLBAR AND TOC ======= */
     body {
       margin-right: 20px !important;
@@ -9186,7 +9208,62 @@ a.anchor-link {
       transition: color 0.3s ease; 
     }
     html { scroll-behavior: smooth; } 
-    h1, h2, h3, h4, h5, h6 { scroll-margin-top: 20px; }
+    
+    /* ======= HEADING HIERARCHY STYLES ======= */
+    h1, h2, h3, h4, h5, h6 { 
+      scroll-margin-top: 20px; 
+      margin: 0 0 12px 0;
+      line-height: 1.4;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      transition: color 0.3s ease;
+      font-weight: 600;
+    }
+    
+    h1 {
+      font-size: 1.75rem !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      margin: 24px 0 16px 0 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+      padding-bottom: 8px !important;
+    }
+    
+    h2 {
+      font-size: 1.5rem !important;
+      font-weight: 600 !important;
+      color: #e8e8e8 !important;
+      margin: 20px 0 12px 0 !important;
+    }
+    
+    h3 {
+      font-size: 1.3rem !important;
+      font-weight: 600 !important;
+      color: #d4d4d4 !important;
+      margin: 18px 0 10px 0 !important;
+    }
+    
+    h4 {
+      font-size: 1.15rem !important;
+      font-weight: 600 !important;
+      color: #cccccc !important;
+      margin: 16px 0 8px 0 !important;
+    }
+    
+    h5 {
+      font-size: 1.05rem !important;
+      font-weight: 500 !important;
+      color: #b4b4b4 !important;
+      margin: 14px 0 6px 0 !important;
+    }
+    
+    h6 {
+      font-size: 1rem !important;
+      font-weight: 500 !important;
+      color: #999999 !important;
+      margin: 12px 0 6px 0 !important;
+      font-style: italic !important;
+    }
+    
     a:link, a:visited { color: #4aa3ff !important; } 
     a:hover, a:active { color: #82c7ff !important; }
     blockquote { 
@@ -9374,6 +9451,32 @@ a.anchor-link {
       border-left: 4px solid #0066cc; 
       color: #555; 
       background: #f5f5f5; 
+    }
+    
+    /* ======= LIGHT MODE HEADING STYLES ======= */
+    body.light-mode h1 {
+      color: #2c3e50 !important;
+      border-bottom-color: rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    body.light-mode h2 {
+      color: #34495e !important;
+    }
+    
+    body.light-mode h3 {
+      color: #2c3e50 !important;
+    }
+    
+    body.light-mode h4 {
+      color: #2c3e50 !important;
+    }
+    
+    body.light-mode h5 {
+      color: #5a6c7d !important;
+    }
+    
+    body.light-mode h6 {
+      color: #7f8c8d !important;
     }
     
     /* Light mode table overrides */
@@ -9792,7 +9895,7 @@ a.anchor-link {
       
       var codeVisible = true;
       
-      // Code toggle functionality with scroll position preservation
+      // Code toggle functionality with simple dot indicators
       function toggleCodeVisibility() {
         // Capture scroll position before toggling
         var scrollBefore = window.pageYOffset;
@@ -9825,17 +9928,23 @@ a.anchor-link {
         codeVisible = !codeVisible;
         
         if (codeVisible) {
-          // Show code
+          // Show full code
           document.body.classList.remove('code-hidden');
           codeToggleBtn.classList.remove('code-hidden');
           codeToggleBtn.innerHTML = createCodeIcon();
           codeToggleBtn.title = "Hide code cells";
+          
+          // Remove indicators
+          removeCodeIndicators();
         } else {
-          // Hide code
+          // Hide code and show indicators
           document.body.classList.add('code-hidden');
           codeToggleBtn.classList.add('code-hidden');
           codeToggleBtn.innerHTML = createCodeHiddenIcon();
           codeToggleBtn.title = "Show code cells";
+          
+          // Add simple dot indicators
+          addCodeIndicators();
         }
         
         // Restore scroll position relative to reference element
@@ -9855,6 +9964,43 @@ a.anchor-link {
         
         // Save preference
         localStorage.setItem('code-visibility', codeVisible ? 'visible' : 'hidden');
+      }
+
+      // Function to add simple dot indicators
+      function addCodeIndicators() {
+        // More precise selector - only find actual code cells with highlight divs
+        var codeCells = document.querySelectorAll('.jp-InputArea div.highlight');
+        
+        codeCells.forEach(function(codeCell) {
+          // Get the parent InputArea
+          var inputArea = codeCell.closest('.jp-InputArea');
+          if (!inputArea) return;
+          
+          // Skip if indicator already exists
+          if (inputArea.nextElementSibling && inputArea.nextElementSibling.classList.contains('code-collapsed-indicator')) {
+            return;
+          }
+          
+          // Create simple dot indicator
+          var indicator = document.createElement('div');
+          indicator.className = 'code-collapsed-indicator';
+          indicator.textContent = '•••';
+          
+          // Insert indicator after the InputArea
+          if (inputArea.parentNode) {
+            inputArea.parentNode.insertBefore(indicator, inputArea.nextSibling);
+          }
+        });
+      }
+
+      // Function to remove indicators
+      function removeCodeIndicators() {
+        var indicators = document.querySelectorAll('.code-collapsed-indicator');
+        indicators.forEach(function(indicator) {
+          if (indicator.parentNode) {
+            indicator.parentNode.removeChild(indicator);
+          }
+        });
       }
       
       codeToggleBtn.addEventListener("click", toggleCodeVisibility);
@@ -10253,6 +10399,17 @@ a.anchor-link {
         // Store heading numbers globally for use in updateTOC
         window.tocHeadingNumbers = headingNumbers;
 
+        // Add numbers to actual headings in the document
+        headings.forEach(function(heading, index) {
+          var currentText = cleanHeadingText(heading);
+          var numberedText = headingNumbers[index] + '. ' + currentText;
+          
+          // Only update if not already numbered
+          if (!heading.textContent.match(/^\d+(\.\d+)*\.\s/)) {
+            heading.textContent = numberedText;
+          }
+        });
+
         // Clear existing content
         tocContent.innerHTML = '';
 
@@ -10287,23 +10444,20 @@ a.anchor-link {
           tocItem.className = "toc-item " + heading.tagName.toLowerCase();
           tocItem.href = "#" + heading.id;
           
-          // Clean and truncate text
-          var cleanText = cleanHeadingText(heading);
+          // Clean and truncate text (heading already has numbers now)
+          var fullText = heading.textContent;
           var maxLength = 35; // Adjust based on indentation level
           if (heading.tagName.toLowerCase() === 'h3') maxLength = 25;
           if (heading.tagName.toLowerCase() === 'h4') maxLength = 20;
           if (heading.tagName.toLowerCase() === 'h5') maxLength = 15;
           if (heading.tagName.toLowerCase() === 'h6') maxLength = 15;
           
-          // Add hierarchical number prefix
-          var numberedText = headingNumbers[index] + '. ' + cleanText;
-          
-          // Truncate text and add ellipsis (accounting for number prefix)
-          var displayText = numberedText.length > maxLength ? 
-            numberedText.substring(0, maxLength) + '...' : numberedText;
+          // Truncate text and add ellipsis
+          var displayText = fullText.length > maxLength ? 
+            fullText.substring(0, maxLength) + '...' : fullText;
           
           tocItem.textContent = displayText;
-          tocItem.title = numberedText; // Full text with number in tooltip
+          tocItem.title = fullText; // Full text in tooltip
 
           tocItem.addEventListener("click", function(e) {
             e.preventDefault();
