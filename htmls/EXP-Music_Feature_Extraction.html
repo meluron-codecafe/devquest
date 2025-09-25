@@ -7606,6 +7606,17 @@ a.anchor-link {
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3831751c-db48-473f-a94b-e633bd0fa508">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">¶</a></h1><p>While Spotify provides song-level acoustic features, these global summaries often miss the local variations that occur within a track. Many practical applications require frame-level or segment-level features that capture how acoustic properties change over time. By extracting local features such as frame-wise tempo, loudness, spectral roll-off, and rhythmicity, we obtain a more detailed view of a song’s dynamics, allowing for finer-grained analysis and more context-aware applications. Moreover, these local features can be leveraged to explore correlations with listener consumption behavior or used as inputs for training neural networks in tasks like recommendation and prediction.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=057d33b6-12c8-41aa-a7ba-8681f83b4070">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7613,27 +7624,22 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Quest">Quest<a class="anchor-link" href="#Quest">¶</a></h1><ol>
-<li>How can we measure the loudness of an audio track?</li>
-<li>How can we determine the cutoff frequency beyond which a song contains negligible energy?</li>
-<li>How to compute tempo of a song?</li>
-<li>How can we quantify the rhythmicity of a song?</li>
+<li>How can we estimate the perceived loudness of an audio track?</li>
+<li>How can we estimate the high frequency cutoff usually applied to commercially produced songs?</li>
+<li>How can we calculate the tempo of a song?</li>
+<li>How can we measure or quantify the rhythmic strength of a song?</li>
 </ol>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3831751c-db48-473f-a94b-e633bd0fa508">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9a1f892c-fcaf-4632-8c6a-ed196e9939d9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">¶</a></h1><ol>
-<li>While Spotify provides song-level acoustic features, these global summaries often overlook <strong>local variations</strong> within a track.</li>
-<li>Many practical applications require frame-level or segment-level features that capture how <strong>acoustic properties evolve over time</strong>.</li>
-<li>By extracting local features (e.g., frame-wise tempo, loudness, roll-off, rhythmicity), we gain a more detailed representation of a song’s dynamics, enabling finer-grained analysis and more context-aware applications.</li>
-<li>These local features can further be used to study correlations with listener consumption behavior or serve as inputs for training neural networks in recommendation and prediction tasks.</li>
-</ol>
+<h1 id="Author(s)">Author(s)<a class="anchor-link" href="#Author(s)">¶</a></h1><p>Ankit Anand</p>
 </div>
 </div>
 </div>
@@ -7644,7 +7650,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="A-Sample-Song">A Sample Song<a class="anchor-link" href="#A-Sample-Song">¶</a></h1><p>We load a popular song for demonstration purpose.</p>
+<h1 id="A-Sample-Song">A Sample Song<a class="anchor-link" href="#A-Sample-Song">¶</a></h1><p>We load a popular hindi song for demonstration purpose.</p>
 </div>
 </div>
 </div>
@@ -7704,13 +7710,24 @@ a.anchor-link {
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=eb6669eb-cd05-42df-832d-1fa0cd4eb0d5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Acoustic-Features">Acoustic Features<a class="anchor-link" href="#Acoustic-Features">¶</a></h1>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=106e2236-5ead-466b-a056-c4eff5d2c4a4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Loudness">Loudness<a class="anchor-link" href="#Loudness">¶</a></h1><p>We use <em>pyloudnorm</em> by Steinmetz, Christian J. and Reiss, Joshua D. that implements ITU-R BS.1770-4 to compute integrated loudness. We adapt it to compute the loudness locally with two resolution presets.</p>
+<h2 id="Loudness">Loudness<a class="anchor-link" href="#Loudness">¶</a></h2><p>We use <em>pyloudnorm</em> by Steinmetz, Christian J. and Reiss, Joshua D. that implements ITU-R BS.1770-4 to compute integrated loudness. We adapt it to compute the loudness locally with two resolution presets.</p>
 <ul>
 <li>HIGH<ul>
 <li>blocksize: 0.4 sec (Standard as per BS.1770)</li>
@@ -7857,7 +7874,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Spectral-Roll-off-Frequency">Spectral Roll-off Frequency<a class="anchor-link" href="#Spectral-Roll-off-Frequency">¶</a></h1><p>In commercial music production, tracks are often processed using a high-cut (low-pass) filter during mixing and mastering. This limits the amount of high-frequency content, shaping the perceived brightness of the final track.</p>
+<h2 id="Spectral-Roll-off-Frequency">Spectral Roll-off Frequency<a class="anchor-link" href="#Spectral-Roll-off-Frequency">¶</a></h2><p>In commercial music production, tracks are often processed using a high-cut (low-pass) filter during mixing and mastering. This limits the amount of high-frequency content, shaping the perceived brightness of the final track.</p>
 <p>The spectrogram is first obtained using STFT, then a smoothed derivative filter is applied to the roll-off curve to track consistent high-frequency cut-offs over time. We also frame-aggregate these cut-offs to get a single estimate.</p>
 </div>
 </div>
@@ -8018,7 +8035,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Tempo">Tempo<a class="anchor-link" href="#Tempo">¶</a></h1><p>Tempo refers to the overall speed of a musical piece, typically measured in beats per minute (BPM).</p>
+<h2 id="Tempo">Tempo<a class="anchor-link" href="#Tempo">¶</a></h2><p>Tempo refers to the overall speed of a musical piece, typically measured in beats per minute (BPM).</p>
 <p>To compute <em>tempo</em>, we follow these steps:</p>
 <ol>
 <li>Compute spectrogram</li>
@@ -8250,7 +8267,7 @@ Confidence: 0.99
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Testing-On-A-Dataset">Testing On A Dataset<a class="anchor-link" href="#Testing-On-A-Dataset">¶</a></h2><p>The algorithm is tested on a manually labelled dataset containing 25 popular hindi songs.</p>
+<h3 id="Testing-On-A-Dataset">Testing On A Dataset<a class="anchor-link" href="#Testing-On-A-Dataset">¶</a></h3><p>The algorithm is tested on a manually labelled dataset containing 25 popular hindi songs.</p>
 </div>
 </div>
 </div>
@@ -8559,7 +8576,7 @@ Confidence: 0.99
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Rhythmicity">Rhythmicity<a class="anchor-link" href="#Rhythmicity">¶</a></h1><p><strong>Rhythmicity</strong> of a song refers to the degree to which the music exhibits a <strong>clear</strong>, <strong>regular</strong>, and <strong>predictable</strong> rhythmic structure. It involves how <strong>consistently</strong> and <strong>strongly</strong> the beats or pulses are felt throughout the piece.</p>
+<h2 id="Rhythmicity">Rhythmicity<a class="anchor-link" href="#Rhythmicity">¶</a></h2><p><strong>Rhythmicity</strong> of a song refers to the degree to which the music exhibits a <strong>clear</strong>, <strong>regular</strong>, and <strong>predictable</strong> rhythmic structure. It involves how <strong>consistently</strong> and <strong>strongly</strong> the beats or pulses are felt throughout the piece.</p>
 </div>
 </div>
 </div>
@@ -8570,23 +8587,12 @@ Confidence: 0.99
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Factors-Contribution-to-Rhythmicity">Factors Contribution to Rhythmicity<a class="anchor-link" href="#Factors-Contribution-to-Rhythmicity">¶</a></h2><ol>
+<h3 id="Factors-Contribution-to-Rhythmicity">Factors Contribution to Rhythmicity<a class="anchor-link" href="#Factors-Contribution-to-Rhythmicity">¶</a></h3><ol>
 <li><strong>Tempo regularity:</strong> How steady the tempo is throughout the song.</li>
 <li><strong>Accent structure:</strong> The arrangement of strong and weak beat that gives rhythmic shape.</li>
 <li><strong>Pattern Repetition:</strong> How often the rhytmic patterns are repeated that establish predictablity.</li>
 <li><strong>Pulse clarity:</strong> How clear the beats are for listeners to tap to?</li>
 </ol>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fa2b128a-2d44-48a1-a6dc-3daea2100b3f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Tempogram">Tempogram<a class="anchor-link" href="#Tempogram">¶</a></h2>
 </div>
 </div>
 </div>
@@ -8597,7 +8603,7 @@ Confidence: 0.99
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>In order to find out tempo dynamics, we need to estimate tempo locally. We do have a feature called <strong>tempogram</strong> that gives strength per frame for a given set of tempi. It is similar to a <strong>spectrogram</strong> except the frequency axis corresponds to tempo.</p>
+<p>We use the strength of the tempogram as one of the indicators of <em>rhythmicity</em>.</p>
 </div>
 </div>
 </div>
@@ -8753,21 +8759,27 @@ Confidence: 0.99
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=245c164d-a05d-4342-b35b-c9c9e31cc18c">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f28d5008-8efe-441c-b6fb-77fd4246a6bf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ol>
+<li><strong>Cross-genre analysis</strong>: <br/>
+Understand how local acoustic features vary across genres to better market and position new releases.</li>
+<li><strong>Automatic music summarization</strong>: <br/>
+Generate highlights for marketing snippets, short-form content, and social media campaigns.</li>
+<li><strong>Music consumption analysis</strong>: <br/>
+Correlate frame-level features with listener skip rates or replay behavior.</li>
+<li><strong>Dynamic music segmentation</strong>: <br/>
+Automatically detect sections like chorus or drop for creating previews and audience-targeted promotions.</li>
+</ol>
 </div>
 </div>
 </div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7d061ace-f527-4887-89a4-8b24e60f314b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dd74e154-87c0-44c3-8fd9-a2e1ab102ece">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
