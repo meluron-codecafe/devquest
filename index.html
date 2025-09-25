@@ -291,7 +291,7 @@
         transition: all 0.2s ease;
     }
 
-    .github-btn, .about-btn {
+    .github-btn, .about-btn, .mobile-category-btn {
         background: transparent !important;
         color: var(--text-color);
         border: none !important;
@@ -309,15 +309,21 @@
         min-width: var(--touch-target-sm);
     }
 
-    .github-btn:hover, .about-btn:hover {
+    .github-btn:hover, .about-btn:hover, .mobile-category-btn:hover {
         background: rgba(255, 255, 255, 0.1) !important;
         color: var(--text-color) !important;
         text-decoration: none !important;
     }
 
+    .mobile-category-btn.active {
+        background: rgba(253, 138, 9, 0.2) !important;
+        color: var(--link-color) !important;
+    }
+
     body.light-theme .theme-toggle-btn:hover,
     body.light-theme .github-btn:hover,
-    body.light-theme .about-btn:hover {
+    body.light-theme .about-btn:hover,
+    body.light-theme .mobile-category-btn:hover {
         background: rgba(0, 0, 0, 0.05);
     }
     
@@ -733,8 +739,8 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
-        width: 50px;
-        min-width: 60px;
+        width: 48px;
+        min-width: 48px;
     }
 
     .password-submit-btn:hover {
@@ -756,6 +762,30 @@
 
     body.light-theme .password-box {
         box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+
+    /* Tablet-specific password modal adjustments */
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+        .password-box {
+            max-width: 350px;
+        }
+
+        .password-input {
+            padding: var(--space-md) var(--space-lg);
+            font-size: var(--font-size-sm);
+        }
+
+        .password-submit-btn {
+            width: 60px;
+            min-width: 60px;
+            padding: var(--space-md);
+        }
+
+        .password-submit-btn svg {
+            width: 32px;
+            height: 32px;
+            stroke-width: 2;
+        }
     }
 
     .preview-tooltip {
@@ -1026,6 +1056,7 @@
         #searchBtn,
         #aboutBtn, 
         #themeToggle,
+        #mobileCategoryBtn,
         .github-btn {
             width: 36px !important;
             height: 36px !important;
@@ -1048,10 +1079,16 @@
         #searchBtn svg,
         #aboutBtn svg,
         #themeToggle svg,
+        #mobileCategoryBtn svg,
         .github-btn svg {
             width: 20px !important;
             height: 20px !important;
             flex-shrink: 0 !important;
+        }
+
+        /* Show mobile category button on tablets */
+        #mobileCategoryBtn {
+            display: none !important;
         }
 
         .filter-icon {
@@ -1070,8 +1107,14 @@
         .category-filter-dropdown {
             max-width: 320px !important;
             font-size: var(--font-size-base) !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
+        }
+        
+        /* Only center for phones, not tablets */
+        @media screen and (max-width: 480px) {
+            .category-filter-dropdown {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
         }
         
         .table-wrapper {
@@ -1234,12 +1277,18 @@
         .container .header #searchBtn,
         .container .header #aboutBtn, 
         .container .header #themeToggle,
+        .container .header #mobileCategoryBtn,
         .container .header .github-btn {
             width: 36px !important;
             height: 36px !important;
             min-width: 36px !important;
             min-height: 36px !important;
             border-radius: 8px !important;
+        }
+
+        /* Show mobile category button on phones */
+        #mobileCategoryBtn {
+            display: flex !important;
         }
 
         .container {
@@ -1427,6 +1476,13 @@
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="M12 16v-4"></path>
                     <path d="M12 8h.01"></path>
+                </svg>
+            </button>
+            
+            <!-- Mobile Category Button -->
+            <button id="mobileCategoryBtn" class="mobile-category-btn" title="Category Filter" aria-label="Change category filter" style="display: none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
                 </svg>
             </button>
             <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle dark/light theme">
@@ -1772,6 +1828,7 @@
     const aboutBtn = document.getElementById("aboutBtn");
     const aboutModal = document.getElementById("aboutModal");
     const aboutModalClose = document.getElementById("aboutModalClose");
+    const mobileCategoryBtn = document.getElementById("mobileCategoryBtn");
     
     aboutBtn.addEventListener("click", openAboutModal);
     aboutBtn.addEventListener("keydown", function(e) {
@@ -1780,6 +1837,34 @@
             openAboutModal();
         }
     });
+
+    // Mobile category button functionality
+    mobileCategoryBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showPasswordModal(mobileCategoryBtn);
+    });
+    
+    mobileCategoryBtn.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            showPasswordModal(mobileCategoryBtn);
+        }
+    });
+
+    // Show/hide mobile category button based on screen size
+    function updateMobileCategoryButton() {
+        const isPhone = window.innerWidth <= 480; // Only show on phones, not tablets
+        if (isPhone) {
+            mobileCategoryBtn.style.display = 'flex';
+        } else {
+            mobileCategoryBtn.style.display = 'none';
+        }
+    }
+
+    // Initialize and listen for resize
+    updateMobileCategoryButton();
+    window.addEventListener('resize', updateMobileCategoryButton);
     
     function openAboutModal() {
         aboutModal.classList.add("visible");
@@ -1821,8 +1906,10 @@
     const passwordSubmit = document.getElementById("passwordSubmit");
     const passwordBox = document.getElementById("passwordBox");
     const CORRECT_PASSWORD = "1122";
+    let categoryTriggerElement = null; // Track which element triggered the category filter
 
-    function showPasswordModal() {
+    function showPasswordModal(triggerElement = null) {
+        categoryTriggerElement = triggerElement;
         passwordModal.classList.add("visible");
         passwordModal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -1839,13 +1926,14 @@
         document.body.style.overflow = "";
         passwordInput.value = "";
         passwordBox.classList.remove("error");
+        categoryTriggerElement = null;
     }
 
     function checkPassword() {
         const enteredPassword = passwordInput.value.trim();
         if (enteredPassword === CORRECT_PASSWORD) {
             hidePasswordModal();
-            showCategoryFilterDropdown();
+            showCategoryFilterDropdown(categoryTriggerElement);
         } else {
             passwordBox.classList.add("error");
             passwordInput.value = "";
@@ -1857,7 +1945,17 @@
         }
     }
 
-    passwordSubmit.addEventListener("click", checkPassword);
+    passwordSubmit.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        checkPassword();
+    });
+
+    passwordSubmit.addEventListener("touchend", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        checkPassword();
+    });
 
     passwordInput.addEventListener("keydown", function(e) {
         if (e.key === "Enter") {
@@ -1908,11 +2006,11 @@
             hideCategoryFilter();
         } else {
             // Show password modal instead of directly showing filter
-            showPasswordModal();
+            showPasswordModal(categoryFilterIcon);
         }
     }
     
-    function showCategoryFilterDropdown() {
+    function showCategoryFilterDropdown(triggerElement = null) {
         const categories = [...new Set(tutorials.map(t => t.category))].sort();
         let dropdownContent = `<div class="filter-option ${currentCategoryFilter === '' ? 'active' : ''}" data-category="" role="option">All Categories</div>`;
         
@@ -1922,19 +2020,47 @@
         
         categoryFilterDropdown.innerHTML = dropdownContent;
         
-        const rect = categoryFilterIcon.getBoundingClientRect();
+        // Use the trigger element or fall back to the category filter icon
+        const referenceElement = triggerElement || categoryFilterIcon;
+        const rect = referenceElement.getBoundingClientRect();
         const container = document.querySelector('.container');
         const containerRect = container.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         
-        if (viewportWidth <= 768) {
-            categoryFilterDropdown.style.left = "50%";
-            categoryFilterDropdown.style.transform = "translateX(-50%)";
-            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+        // Position dropdown based on which element triggered it and screen size
+        if (triggerElement === mobileCategoryBtn) {
+            // Triggered from mobile category button - position relative to it
+            if (viewportWidth <= 480) {
+                // Mobile phones - centered below button
+                categoryFilterDropdown.style.left = "50%";
+                categoryFilterDropdown.style.transform = "translateX(-50%)";
+                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+            } else {
+                // Tablets - positioned below button container, right-aligned to container
+                const buttonContainer = document.querySelector('.button-container');
+                const buttonContainerRect = buttonContainer.getBoundingClientRect();
+                
+                // Position it right-aligned within the main container
+                categoryFilterDropdown.style.right = "20px";
+                categoryFilterDropdown.style.left = "auto";
+                categoryFilterDropdown.style.top = (buttonContainerRect.bottom - containerRect.top + 12) + "px";
+                categoryFilterDropdown.style.transform = "none";
+            }
         } else {
-            categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
-            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
-            categoryFilterDropdown.style.transform = "none";
+            // Triggered from table header filter icon - original positioning logic
+            if (viewportWidth <= 480) {
+                categoryFilterDropdown.style.left = "50%";
+                categoryFilterDropdown.style.transform = "translateX(-50%)";
+                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+            } else if (viewportWidth <= 768) {
+                categoryFilterDropdown.style.left = (rect.left - containerRect.left - 50) + "px";
+                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+                categoryFilterDropdown.style.transform = "none";
+            } else {
+                categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
+                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
+                categoryFilterDropdown.style.transform = "none";
+            }
         }
         
         categoryFilterDropdown.classList.add("visible");
