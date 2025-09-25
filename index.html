@@ -291,7 +291,7 @@
         transition: all 0.2s ease;
     }
 
-    .github-btn, .about-btn, .mobile-category-btn {
+    .github-btn, .about-btn {
         background: transparent !important;
         color: var(--text-color);
         border: none !important;
@@ -309,21 +309,15 @@
         min-width: var(--touch-target-sm);
     }
 
-    .github-btn:hover, .about-btn:hover, .mobile-category-btn:hover {
+    .github-btn:hover, .about-btn:hover {
         background: rgba(255, 255, 255, 0.1) !important;
         color: var(--text-color) !important;
         text-decoration: none !important;
     }
 
-    .mobile-category-btn.active {
-        background: rgba(253, 138, 9, 0.2) !important;
-        color: var(--link-color) !important;
-    }
-
     body.light-theme .theme-toggle-btn:hover,
     body.light-theme .github-btn:hover,
-    body.light-theme .about-btn:hover,
-    body.light-theme .mobile-category-btn:hover {
+    body.light-theme .about-btn:hover {
         background: rgba(0, 0, 0, 0.05);
     }
     
@@ -979,7 +973,7 @@
             margin-top: 0 !important;
         }
         
-        /* MOBILE BUTTON CONTAINER - SAME AS DESKTOP */
+        /* MOBILE BUTTON CONTAINER */
         .button-container {
             position: static !important;
             top: auto !important;
@@ -1056,7 +1050,6 @@
         #searchBtn,
         #aboutBtn, 
         #themeToggle,
-        #mobileCategoryBtn,
         .github-btn {
             width: 36px !important;
             height: 36px !important;
@@ -1079,16 +1072,10 @@
         #searchBtn svg,
         #aboutBtn svg,
         #themeToggle svg,
-        #mobileCategoryBtn svg,
         .github-btn svg {
             width: 20px !important;
             height: 20px !important;
             flex-shrink: 0 !important;
-        }
-
-        /* Show mobile category button on tablets */
-        #mobileCategoryBtn {
-            display: none !important;
         }
 
         .filter-icon {
@@ -1277,18 +1264,12 @@
         .container .header #searchBtn,
         .container .header #aboutBtn, 
         .container .header #themeToggle,
-        .container .header #mobileCategoryBtn,
         .container .header .github-btn {
             width: 36px !important;
             height: 36px !important;
             min-width: 36px !important;
             min-height: 36px !important;
             border-radius: 8px !important;
-        }
-
-        /* Show mobile category button on phones */
-        #mobileCategoryBtn {
-            display: flex !important;
         }
 
         .container {
@@ -1479,12 +1460,6 @@
                 </svg>
             </button>
             
-            <!-- Mobile Category Button -->
-            <button id="mobileCategoryBtn" class="mobile-category-btn" title="Category Filter" aria-label="Change category filter" style="display: none;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
-                </svg>
-            </button>
             <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle dark/light theme">
                 <div class="theme-icon dark">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1828,7 +1803,6 @@
     const aboutBtn = document.getElementById("aboutBtn");
     const aboutModal = document.getElementById("aboutModal");
     const aboutModalClose = document.getElementById("aboutModalClose");
-    const mobileCategoryBtn = document.getElementById("mobileCategoryBtn");
     
     aboutBtn.addEventListener("click", openAboutModal);
     aboutBtn.addEventListener("keydown", function(e) {
@@ -1837,34 +1811,6 @@
             openAboutModal();
         }
     });
-
-    // Mobile category button functionality
-    mobileCategoryBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        showPasswordModal(mobileCategoryBtn);
-    });
-    
-    mobileCategoryBtn.addEventListener("keydown", function(e) {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            showPasswordModal(mobileCategoryBtn);
-        }
-    });
-
-    // Show/hide mobile category button based on screen size
-    function updateMobileCategoryButton() {
-        const isPhone = window.innerWidth <= 480; // Only show on phones, not tablets
-        if (isPhone) {
-            mobileCategoryBtn.style.display = 'flex';
-        } else {
-            mobileCategoryBtn.style.display = 'none';
-        }
-    }
-
-    // Initialize and listen for resize
-    updateMobileCategoryButton();
-    window.addEventListener('resize', updateMobileCategoryButton);
     
     function openAboutModal() {
         aboutModal.classList.add("visible");
@@ -2027,40 +1973,19 @@
         const containerRect = container.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
         
-        // Position dropdown based on which element triggered it and screen size
-        if (triggerElement === mobileCategoryBtn) {
-            // Triggered from mobile category button - position relative to it
-            if (viewportWidth <= 480) {
-                // Mobile phones - centered below button
-                categoryFilterDropdown.style.left = "50%";
-                categoryFilterDropdown.style.transform = "translateX(-50%)";
-                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
-            } else {
-                // Tablets - positioned below button container, right-aligned to container
-                const buttonContainer = document.querySelector('.button-container');
-                const buttonContainerRect = buttonContainer.getBoundingClientRect();
-                
-                // Position it right-aligned within the main container
-                categoryFilterDropdown.style.right = "20px";
-                categoryFilterDropdown.style.left = "auto";
-                categoryFilterDropdown.style.top = (buttonContainerRect.bottom - containerRect.top + 12) + "px";
-                categoryFilterDropdown.style.transform = "none";
-            }
+        // Position dropdown - simplified since mobile button is removed
+        if (viewportWidth <= 480) {
+            categoryFilterDropdown.style.left = "50%";
+            categoryFilterDropdown.style.transform = "translateX(-50%)";
+            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+        } else if (viewportWidth <= 768) {
+            categoryFilterDropdown.style.left = (rect.left - containerRect.left - 50) + "px";
+            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
+            categoryFilterDropdown.style.transform = "none";
         } else {
-            // Triggered from table header filter icon - original positioning logic
-            if (viewportWidth <= 480) {
-                categoryFilterDropdown.style.left = "50%";
-                categoryFilterDropdown.style.transform = "translateX(-50%)";
-                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
-            } else if (viewportWidth <= 768) {
-                categoryFilterDropdown.style.left = (rect.left - containerRect.left - 50) + "px";
-                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
-                categoryFilterDropdown.style.transform = "none";
-            } else {
-                categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
-                categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
-                categoryFilterDropdown.style.transform = "none";
-            }
+            categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
+            categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
+            categoryFilterDropdown.style.transform = "none";
         }
         
         categoryFilterDropdown.classList.add("visible");
