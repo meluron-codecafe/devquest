@@ -961,7 +961,7 @@ files = [
 
 [[package]]
 name = "modusa"
-version = "0.3.84"
+version = "0.3.85"
 summary = ""
 dependencies = [
     "ipython",
@@ -973,8 +973,8 @@ dependencies = [
     "yt-dlp",
 ]
 files = [
-    {file = "modusa-0.3.84-py3-none-any.whl", hash = "sha256:722174a9c600576ffc8771705f2ed23fe7f9ac5c3252d67284945f44fa6e6303"},
-    {file = "modusa-0.3.84.tar.gz", hash = "sha256:96b1cabfd3998b561e77b734126f366609f7c26baa9f9ca0706bf8e0c5901d39"},
+    {file = "modusa-0.3.85-py3-none-any.whl", hash = "sha256:ab0e9073f21220126cf9d8e6dfe465a9884df392680d8647620947d417e145af"},
+    {file = "modusa-0.3.85.tar.gz", hash = "sha256:dc47b12e79964d1cc4418d40b4d168b955783690f39dffb422f2ff4d61143c25"},
 ]
 
 [[package]]
@@ -1901,9 +1901,9 @@ files = [
 
 [[package]]
 name = "yt-dlp"
-version = "2025.9.5"
+version = "2025.9.23"
 summary = ""
 files = [
-    {file = "yt_dlp-2025.9.5-py3-none-any.whl", hash = "sha256:68a03b5c50e3d0f6af7244bd4bf491c1b12e4e2112b051cde05cdfd2647eb9a8"},
-    {file = "yt_dlp-2025.9.5.tar.gz", hash = "sha256:9ce080f80b2258e872fe8a75f4707ea2c644e697477186e20b9a04d9a9ea37cf"},
+    {file = "yt_dlp-2025.9.23-py3-none-any.whl", hash = "sha256:84e36acf2dfbadb307d734a590dd937923173b13c57cf45a662f40c93e746302"},
+    {file = "yt_dlp-2025.9.23.tar.gz", hash = "sha256:9282ad1deadb4c90b2e6d3bcf9f360abf88c5f2e4ba836dad7b51387b086d757"},
 ]
