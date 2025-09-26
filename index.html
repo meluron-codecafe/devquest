@@ -661,127 +661,6 @@
         border-color: rgba(77, 163, 255, 0.2);
     }
 
-    /* ======= PASSWORD MODAL STYLES ======= */
-    .password-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 15000;
-        backdrop-filter: blur(0px);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        padding: var(--space-lg);
-    }
-
-    .password-modal.visible {
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .password-box {
-        background: var(--container-bg);
-        border: 2px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        display: flex;
-        align-items: center;
-        max-width: 400px;
-        width: 100%;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        transform: scale(0.95) translateY(-10px);
-        opacity: 0;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-        position: relative;
-    }
-
-    .password-modal.visible .password-box {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
-
-    .password-input {
-        flex: 1;
-        padding: var(--space-lg) var(--space-xl);
-        font-size: var(--font-size-base);
-        font-family: inherit;
-        border: none;
-        background: transparent;
-        color: var(--text-color);
-        outline: none;
-    }
-
-    .password-input::placeholder {
-        color: var(--quote-color);
-        font-size: var(--font-size-base);
-    }
-
-    .password-submit-btn {
-        background: var(--link-color);
-        border: none;
-        padding: var(--space-lg);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        width: 48px;
-        min-width: 48px;
-    }
-
-    .password-submit-btn:hover {
-        background: #e67700;
-        transform: scale(1.05);
-    }
-
-    .password-submit-btn svg {
-        width: 20px;
-        height: 20px;
-        stroke: white;
-        fill: none;
-    }
-
-    .password-box.error {
-        border-color: #f87171;
-        animation: shake 0.5s ease-in-out;
-    }
-
-    body.light-theme .password-box {
-        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    }
-
-    /* Tablet-specific password modal adjustments */
-    @media screen and (min-width: 481px) and (max-width: 768px) {
-        .password-box {
-            max-width: 350px;
-        }
-
-        .password-input {
-            padding: var(--space-md) var(--space-lg);
-            font-size: var(--font-size-sm);
-        }
-
-        .password-submit-btn {
-            width: 60px;
-            min-width: 60px;
-            padding: var(--space-md);
-        }
-
-        .password-submit-btn svg {
-            width: 32px;
-            height: 32px;
-            stroke-width: 2;
-        }
-    }
-
     .preview-tooltip {
         position: absolute;
         background: var(--container-bg);
@@ -1159,15 +1038,6 @@
             font-size: var(--font-size-base) !important;
         }
 
-        .password-modal {
-            padding: var(--space-md) !important;
-        }
-
-        .password-box {
-            width: calc(100vw - 4 * var(--space-md)) !important;
-            max-width: calc(100vw - 4 * var(--space-md)) !important;
-        }
-
         .preview-tooltip {
             max-width: calc(100vw - 2 * var(--space-md)) !important;
             left: var(--space-md) !important;
@@ -1311,10 +1181,6 @@
             position: relative !important;
         }
 
-        .password-box {
-            width: calc(100vw - 6 * var(--space-sm)) !important;
-            max-width: calc(100vw - 6 * var(--space-sm)) !important;
-        }
     }
 
     /* Ultra-small screens - bigger container expansion for search box */
@@ -1526,37 +1392,19 @@
                         <path d="M12 16v-4"></path>
                         <path d="M12 8h.01"></path>
                     </svg>
-                    About devQuest
+                    About Section
                 </h2>
                 <button class="about-modal-close" id="aboutModalClose" aria-label="Close about modal">&times;</button>
             </div>
             <div class="about-modal-body">
                 <div class="about-section">
-                    <h3>What is devQuest about?</h3>
-                    <p>Implementing Research.</p>
-                </div>
-                
-                <div class="about-section">
-                    <h3>Categories</h3>
-                    <p><strong>EXP (Experiments):</strong> Conducting experiments, exploring ideas, and uncovering insights on various topics.</p>
-                    <p><strong>P2C (Paper to Code):</strong> Breaking down research papers into practical, working implementations.</p>
-                    <p><strong>M4CS (Math for CS):</strong> Exploring mathematical concepts that form the backbone of computer science.</p>
-                    <p><strong>TOOL:</strong> Discovering and experimenting with tools to solve real-world problems efficiently.</p>
+                    <p><b>Motto</b>: </p>
+                    <p>Implementing Research</p>
+                    
+                    <p><b>Mission</b>:</p>
+                    <p>At devQuest, our mission is to help learners, developers, and researchers gain the skills to convert research papers into working prototypes.</p>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Password modal -->
-    <div id="passwordModal" class="password-modal" role="dialog" aria-hidden="true">
-        <div class="password-box" id="passwordBox">
-            <input type="password" class="password-input" id="passwordInput" placeholder="Enter password to change categories" maxlength="4" aria-label="Password">
-            <button class="password-submit-btn" id="passwordSubmit" aria-label="Submit password">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 10l-5 5 5 5"></path>
-                    <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
-                </svg>
-            </button>
         </div>
     </div>
     
@@ -1586,7 +1434,7 @@
     ];
     
     let tutorials = [];
-    let currentCategoryFilter = 'P2C'; // DEFAULT TO P2C
+    let currentCategoryFilter = ''; // DEFAULT TO All Categories
     let searchExpanded = false;
     
     const categoryColorMap = {};
@@ -1844,81 +1692,7 @@
         if (e.key === "Escape" && aboutModal.classList.contains("visible")) {
             closeAboutModal();
         }
-    });
-
-    // PASSWORD MODAL FUNCTIONALITY
-    const passwordModal = document.getElementById("passwordModal");
-    const passwordInput = document.getElementById("passwordInput");
-    const passwordSubmit = document.getElementById("passwordSubmit");
-    const passwordBox = document.getElementById("passwordBox");
-    const CORRECT_PASSWORD = "1122";
-    let categoryTriggerElement = null; // Track which element triggered the category filter
-
-    function showPasswordModal(triggerElement = null) {
-        categoryTriggerElement = triggerElement;
-        passwordModal.classList.add("visible");
-        passwordModal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-        setTimeout(() => {
-            passwordInput.focus();
-        }, 300);
-        passwordInput.value = "";
-        passwordBox.classList.remove("error");
-    }
-
-    function hidePasswordModal() {
-        passwordModal.classList.remove("visible");
-        passwordModal.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-        passwordInput.value = "";
-        passwordBox.classList.remove("error");
-        categoryTriggerElement = null;
-    }
-
-    function checkPassword() {
-        const enteredPassword = passwordInput.value.trim();
-        if (enteredPassword === CORRECT_PASSWORD) {
-            hidePasswordModal();
-            showCategoryFilterDropdown(categoryTriggerElement);
-        } else {
-            passwordBox.classList.add("error");
-            passwordInput.value = "";
-            passwordInput.focus();
-            // Remove error class after animation
-            setTimeout(() => {
-                passwordBox.classList.remove("error");
-            }, 500);
-        }
-    }
-
-    passwordSubmit.addEventListener("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        checkPassword();
-    });
-
-    passwordSubmit.addEventListener("touchend", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        checkPassword();
-    });
-
-    passwordInput.addEventListener("keydown", function(e) {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            checkPassword();
-        } else if (e.key === "Escape") {
-            e.preventDefault();
-            hidePasswordModal();
-        }
-    });
-
-    // Close password modal when clicking outside
-    passwordModal.addEventListener("click", (e) => {
-        if (e.target === passwordModal) {
-            hidePasswordModal();
-        }
-    });
+    }); 
 
     // Add shake animation CSS
     const shakeStyle = document.createElement('style');
@@ -1951,8 +1725,7 @@
         if (filterDropdownVisible) {
             hideCategoryFilter();
         } else {
-            // Show password modal instead of directly showing filter
-            showPasswordModal(categoryFilterIcon);
+            showCategoryFilterDropdown(categoryFilterIcon)
         }
     }
     
@@ -2508,7 +2281,7 @@
                             font-size: 13px; color: var(--text-color); text-align: right;
                             border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 12px;">
                     <span style="font-weight: 600; font-style: italic;">
-                        ~ crafted by
+                        ~ Author(s): 
                     </span>
                     <span style="font-style: italic;">
                         ${questContent.authors.join(', ')}
