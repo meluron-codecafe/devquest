@@ -10200,6 +10200,14 @@ Cell <span class="ansi-green-fg">In[9], line 27</span>
       if (savedCodeVisibility === 'hidden') {
         codeVisible = true;
         toggleCodeVisibility();
+        // Update all individual icons to match hidden state
+        setTimeout(function() {
+          var allIndicators = document.querySelectorAll('.code-collapsed-indicator');
+          allIndicators.forEach(function(ind) {
+            ind.innerHTML = '&lt;&gt;';
+            ind.title = 'Click to show code';
+          });
+        }, 100);
       }
 
       var themeToggleBtn = document.createElement("button");
