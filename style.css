@@ -845,8 +845,7 @@ body.light-theme .preview-tooltip .quest-item {
 }
 
 /* Mobile responsive */
-/* Mobile responsive */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 1000px) {
     body {
         padding: var(--space-sm) !important;
     }
