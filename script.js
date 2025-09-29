@@ -25,7 +25,7 @@ function assignCategoryColors() {
 // Initialize mobile logo and layout
 function initializeMobileLayout() {
     const logo = document.getElementById('logo');
-    const isMobile = window.innerWidth <= 480;
+    const isMobile = window.innerWidth <= 760;
     
     if (logo) {
         if (isMobile) {
