@@ -76,7 +76,7 @@ function initializeSearch() {
         });
 
         searchBox.addEventListener("click", function(e) {
-            if (window.innerWidth <= 768 && !searchExpanded) {
+            if (window.innerWidth <= 480 && !searchExpanded) {
                 e.preventDefault();
                 toggleSearch();
             }
@@ -88,7 +88,7 @@ function toggleSearch() {
     searchExpanded = !searchExpanded;
     
     const buttonContainer = document.querySelector('.button-container');
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= 480;
     
     console.log('Search toggled:', searchExpanded, 'Mobile:', isMobile); // Debug log
     
@@ -326,10 +326,6 @@ function showCategoryFilterDropdown(triggerElement = null) {
         categoryFilterDropdown.style.left = "50%";
         categoryFilterDropdown.style.transform = "translateX(-50%)";
         categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
-    } else if (viewportWidth <= 768) {
-        categoryFilterDropdown.style.left = (rect.left - containerRect.left - 50) + "px";
-        categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
-        categoryFilterDropdown.style.transform = "none";
     } else {
         categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
         categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
@@ -758,7 +754,7 @@ async function showPreview(element, filename) {
     
     const rect = element.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
-    const isMobile = viewportWidth <= 768;
+    const isMobile = viewportWidth <= 480;
     
     if (isMobile) {
         previewTooltip.style.position = "fixed";
@@ -879,7 +875,7 @@ function addPreviewListeners() {
     topicLinks.forEach(link => {
         const filename = link.getAttribute('href').replace('htmls/', '');
         
-        const isMobile = window.innerWidth <= 768;
+        const isMobile = window.innerWidth <= 480;
         const showDelay = isMobile ? 800 : 500;
         const hideDelay = isMobile ? 300 : 200;
         
@@ -939,7 +935,7 @@ document.addEventListener('touchstart', (e) => {
 }, { passive: true });
 
 document.addEventListener('click', (e) => {
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= 480;
     if (isMobile && currentPreviewTarget && !previewTooltip.contains(e.target)) {
         const topicLinks = document.querySelectorAll('#tutorialTable a');
         let clickedOnLink = false;
