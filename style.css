@@ -882,20 +882,6 @@ body.light-theme .preview-tooltip .quest-item {
         background: transparent !important;
     }
 
-    /* Force consistent button sizes on phones */
-    .container .header #searchBtn,
-    .container .header .search-btn,
-    .container .header #aboutBtn,
-    .container .header .about-btn,
-    .container .header #themeToggle,
-    .container .header .github-btn {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
-        border-radius: 8px !important;
-    }
-
     .container {
         padding: var(--space-md) !important;
         border-radius: var(--radius-md) !important;
