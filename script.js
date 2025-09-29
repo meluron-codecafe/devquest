@@ -76,7 +76,7 @@ function initializeSearch() {
         });
 
         searchBox.addEventListener("click", function(e) {
-            if (window.innerWidth <= 480 && !searchExpanded) {
+            if (!searchExpanded) {
                 e.preventDefault();
                 toggleSearch();
             }
@@ -88,9 +88,6 @@ function toggleSearch() {
     searchExpanded = !searchExpanded;
     
     const buttonContainer = document.querySelector('.button-container');
-    const isMobile = window.innerWidth <= 480;
-    
-    console.log('Search toggled:', searchExpanded, 'Mobile:', isMobile); // Debug log
     
     if (searchExpanded) {
         searchInputContainer.classList.add("expanded");
@@ -100,22 +97,14 @@ function toggleSearch() {
         // Force focus after animation
         setTimeout(() => {
             searchBox.focus();
-            if (isMobile) {
-                searchBox.click();
-            }
-        }, isMobile ? 100 : 300);
+            searchBox.click();
+        }, 300);
     } else {
         searchInputContainer.classList.remove("expanded");
         searchBtn.classList.remove("active");
         buttonContainer.classList.remove("search-expanded");
         searchBox.blur();
     }
-    
-    console.log('Classes applied:', {
-        expanded: searchInputContainer.classList.contains('expanded'),
-        active: searchBtn.classList.contains('active'),
-        searchExpanded: buttonContainer.classList.contains('search-expanded')
-    }); // Debug log
 }
 
 // Enhanced click outside behavior
@@ -319,18 +308,11 @@ function showCategoryFilterDropdown(triggerElement = null) {
     const rect = referenceElement.getBoundingClientRect();
     const container = document.querySelector('.container');
     const containerRect = container.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
     
-    // Position dropdown - simplified since mobile button is removed
-    if (viewportWidth <= 480) {
-        categoryFilterDropdown.style.left = "50%";
-        categoryFilterDropdown.style.transform = "translateX(-50%)";
-        categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 8) + "px";
-    } else {
-        categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
-        categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
-        categoryFilterDropdown.style.transform = "none";
-    }
+    // Position dropdown
+    categoryFilterDropdown.style.left = (rect.left - containerRect.left) + "px";
+    categoryFilterDropdown.style.top = (rect.bottom - containerRect.top + 5) + "px";
+    categoryFilterDropdown.style.transform = "none";
     
     categoryFilterDropdown.classList.add("visible");
     categoryFilterIcon.classList.add("active");
@@ -753,28 +735,16 @@ async function showPreview(element, filename) {
     currentPreviewTarget = element;
     
     const rect = element.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const isMobile = viewportWidth <= 480;
+    const container = document.querySelector('.container');
+    const containerRect = container.getBoundingClientRect();
     
-    if (isMobile) {
-        previewTooltip.style.position = "fixed";
-        previewTooltip.style.left = "12px";
-        previewTooltip.style.right = "12px";
-        previewTooltip.style.width = "calc(100vw - 24px)";
-        previewTooltip.style.maxWidth = "calc(100vw - 24px)";
-        previewTooltip.style.top = (rect.bottom + 10) + "px";
-        previewTooltip.style.maxHeight = "calc(100vh - " + (rect.bottom + 30) + "px)";
-    } else {
-        const container = document.querySelector('.container');
-        const containerRect = container.getBoundingClientRect();
-        previewTooltip.style.position = "absolute";
-        previewTooltip.style.left = (rect.left - containerRect.left) + "px";
-        previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
-        previewTooltip.style.width = "";
-        previewTooltip.style.right = "";
-        previewTooltip.style.maxWidth = "500px";
-        previewTooltip.style.maxHeight = "";
-    }
+    previewTooltip.style.position = "absolute";
+    previewTooltip.style.left = (rect.left - containerRect.left) + "px";
+    previewTooltip.style.top = (rect.bottom - containerRect.top + 10) + "px";
+    previewTooltip.style.width = "";
+    previewTooltip.style.right = "";
+    previewTooltip.style.maxWidth = "500px";
+    previewTooltip.style.maxHeight = "";
     
     previewTooltip.innerHTML = `
         <div class="loading">Loading quest preview...</div>
@@ -875,9 +845,8 @@ function addPreviewListeners() {
     topicLinks.forEach(link => {
         const filename = link.getAttribute('href').replace('htmls/', '');
         
-        const isMobile = window.innerWidth <= 480;
-        const showDelay = isMobile ? 800 : 500;
-        const hideDelay = isMobile ? 300 : 200;
+        const showDelay = 500;
+        const hideDelay = 200;
         
         link.addEventListener('mouseenter', () => {
             clearTimeout(previewTimeout);
@@ -893,14 +862,12 @@ function addPreviewListeners() {
             }, hideDelay);
         });
         
-        if (isMobile) {
-            link.addEventListener('touchstart', () => {
-                clearTimeout(previewTimeout);
-                previewTimeout = setTimeout(() => {
-                    showPreview(link, filename);
-                }, showDelay);
-            });
-        }
+        link.addEventListener('touchstart', () => {
+            clearTimeout(previewTimeout);
+            previewTimeout = setTimeout(() => {
+                showPreview(link, filename);
+            }, showDelay);
+        });
     });
 }
 
@@ -912,7 +879,7 @@ previewTooltip.addEventListener('mouseleave', () => {
     hidePreview();
 });
 
-// Add mobile-specific event listeners to hide preview
+// Add event listeners to hide preview
 document.addEventListener('scroll', () => {
     if (currentPreviewTarget) {
         hidePreview();
@@ -935,8 +902,7 @@ document.addEventListener('touchstart', (e) => {
 }, { passive: true });
 
 document.addEventListener('click', (e) => {
-    const isMobile = window.innerWidth <= 480;
-    if (isMobile && currentPreviewTarget && !previewTooltip.contains(e.target)) {
+    if (currentPreviewTarget && !previewTooltip.contains(e.target)) {
         const topicLinks = document.querySelectorAll('#tutorialTable a');
         let clickedOnLink = false;
         topicLinks.forEach(link => {
