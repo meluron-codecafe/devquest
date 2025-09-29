@@ -112,6 +112,7 @@
         display: block;
         transition: opacity 0.3s ease;
         margin-top: -23px;
+        margin-left: 15px;
     }
     
     .logo-container {
@@ -128,13 +129,44 @@
         letter-spacing: 0.5px;
         font-style: italic;
         margin-left: 2px;
-        opacity: 0.85;
+        opacity: 1;
         transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: default;
     }
     
     .tagline:hover {
         opacity: 1;
+        background: linear-gradient(to right, #fbbf24 0%, #fbbf24 60%, #d4a574 80%, var(--quote-color) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
     }
+    
+    body.light-theme .tagline:hover {
+        background: linear-gradient(to right, #f59e0b 0%, #f59e0b 30%, #c77d3a 70%, var(--quote-color) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
+    }
+    
+    .lightbulb-icon {
+        transition: all 0.3s ease;
+        stroke: var(--quote-color);
+        fill: none;
+    }
+    
+    .tagline:hover .lightbulb-icon {
+        stroke: #fbbf24;
+        fill: #fef3c7;
+        filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));
+        transform: scale(1.1);
+    }
+
 
     /* ======= BUTTON CONTAINER - DESKTOP ======= */
     .button-container {
@@ -1328,7 +1360,14 @@
     <div class="header">
         <div class="logo-container">
             <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo" id="logo" alt="DevQuest Logo">
-            <div class="tagline">Implementing Research</div>
+            <div class="tagline">
+                <svg class="lightbulb-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18h6"></path>
+                    <path d="M10 22h4"></path>
+                    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1.33.47 2.48 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
+                </svg>
+                <span>Implementing Research</span>
+            </div>
         </div>
         <div class="button-container">
             <!-- Search functionality -->
