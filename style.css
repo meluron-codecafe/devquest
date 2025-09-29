@@ -827,7 +827,12 @@ body.light-theme .preview-tooltip .quest-item {
         margin-top: -30px;
         margin-left: -12px;
     }
+    
     .tagline {
+        display: none;
+    }
+    
+    .button-container {
         display: none;
     }
 
