@@ -830,31 +830,10 @@ body.light-theme .preview-tooltip .quest-item {
     .tagline {
         display: none;
     }
-    .button-container.search-expanded {
-        padding-left: 100px;
-    }
-    .search-input-container.expanded {
-        width: 130px;
+    
+    .button-container {
+        display: none;
     }
     
-    /* FIX: Prevent button compression on mobile */
-    .search-btn,
-    .about-btn,
-    .theme-toggle-btn,
-    .github-btn {
-        flex-shrink: 0 !important; /* Prevent flex from squishing buttons */
-        min-width: 40px !important;
-        min-height: 40px !important;
-    }
-
-    /* Ensure search container doesn't collapse */
-    .search-container {
-        flex-shrink: 0;
-    }
-
-    /* Add small gap between buttons for breathing room */
-    .button-container {
-        gap: 2px;
-    }
 
 }
