@@ -8676,11 +8676,17 @@ a.anchor-link {
     }
 
     /* ======= CODE VISIBILITY TOGGLE ======= */
+    /* When global code is hidden, hide all cells except individually expanded ones */
     .code-hidden .jp-Cell:has(.jp-InputArea div.highlight) .jp-InputArea:not(.individually-expanded) {
       display: none !important;
     }
     
     .code-hidden .jp-InputArea:has(div.highlight):not(.individually-expanded) {
+      display: none !important;
+    }
+
+    /* When global code is visible, hide individually collapsed cells */
+    .jp-InputArea.individually-collapsed {
       display: none !important;
     }
 
@@ -9513,25 +9519,44 @@ a.anchor-link {
             
             var indicator = document.createElement('div');
             indicator.className = 'code-collapsed-indicator';
-            indicator.innerHTML = '&lt;&gt;'; // <>
-            indicator.title = 'Click to show code';
+            indicator.innerHTML = '&lt;/&gt;'; // Start with </> (expanded)
+            indicator.title = 'Click to hide code';
             
             // Click handler - toggles the code cell
             indicator.addEventListener('click', function(e) {
               e.stopPropagation();
               
-              if (inputArea.classList.contains('individually-expanded')) {
-                // Collapse it
-                inputArea.classList.remove('individually-expanded');
-                indicator.classList.add('show-collapsed');
-                indicator.innerHTML = '&lt;&gt;';
-                indicator.title = 'Click to show code';
+              // Check if we're in global hidden mode
+              var isGlobalHidden = document.body.classList.contains('code-hidden');
+              
+              if (isGlobalHidden) {
+                // Global hidden mode: toggle between hidden and individually-expanded
+                if (inputArea.classList.contains('individually-expanded')) {
+                  // Collapse it
+                  inputArea.classList.remove('individually-expanded');
+                  indicator.classList.add('show-collapsed');
+                  indicator.innerHTML = '&lt;&gt;';
+                  indicator.title = 'Click to show code';
+                } else {
+                  // Expand it
+                  inputArea.classList.add('individually-expanded');
+                  indicator.classList.remove('show-collapsed');
+                  indicator.innerHTML = '&lt;/&gt;';
+                  indicator.title = 'Click to hide code';
+                }
               } else {
-                // Expand it
-                inputArea.classList.add('individually-expanded');
-                indicator.classList.remove('show-collapsed');
-                indicator.innerHTML = '&lt;/&gt;'; // </>
-                indicator.title = 'Click to hide code';
+                // Global visible mode: toggle between visible and individually-collapsed
+                if (inputArea.classList.contains('individually-collapsed')) {
+                  // Show it
+                  inputArea.classList.remove('individually-collapsed');
+                  indicator.innerHTML = '&lt;/&gt;';
+                  indicator.title = 'Click to hide code';
+                } else {
+                  // Hide it
+                  inputArea.classList.add('individually-collapsed');
+                  indicator.innerHTML = '&lt;&gt;';
+                  indicator.title = 'Click to show code';
+                }
               }
             });
             
@@ -9549,25 +9574,27 @@ a.anchor-link {
         var allIndicators = document.querySelectorAll('.code-collapsed-indicator');
         
         if (codeVisible) {
-          // Global show: reset all individual states to expanded
+          // Global show: reset all to visible state
           allInputAreas.forEach(function(area) {
             area.classList.remove('individually-expanded');
+            area.classList.remove('individually-collapsed');
           });
           allIndicators.forEach(function(ind) {
             ind.classList.remove('indicator-hidden');
             ind.classList.remove('show-collapsed');
-            ind.innerHTML = '&lt;/&gt;'; // </>
+            ind.innerHTML = '&lt;/&gt;';
             ind.title = 'Click to hide code';
           });
         } else {
-          // Global hide: reset all individual states to collapsed
+          // Global hide: reset all to hidden state
           allInputAreas.forEach(function(area) {
             area.classList.remove('individually-expanded');
+            area.classList.remove('individually-collapsed');
           });
           allIndicators.forEach(function(ind) {
             ind.classList.remove('indicator-hidden');
             ind.classList.remove('show-collapsed');
-            ind.innerHTML = '&lt;&gt;'; // <>
+            ind.innerHTML = '&lt;&gt;';
             ind.title = 'Click to show code';
           });
         }
