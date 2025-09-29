@@ -113,6 +113,28 @@
         transition: opacity 0.3s ease;
         margin-top: -23px;
     }
+    
+    .logo-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .tagline {
+        font-size: var(--font-size-xs);
+        color: var(--quote-color);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        font-style: italic;
+        margin-left: 2px;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+    }
+    
+    .tagline:hover {
+        opacity: 1;
+    }
 
     /* ======= BUTTON CONTAINER - DESKTOP ======= */
     .button-container {
@@ -841,6 +863,14 @@
             margin-top: 0 !important;
         }
         
+        .logo-container {
+            gap: 2px;
+        }
+        
+        .tagline {
+            margin-left: 1px;
+        }
+        
         /* MOBILE BUTTON CONTAINER */
         .button-container {
             position: static !important;
@@ -969,6 +999,10 @@
             .category-filter-dropdown {
                 left: 50% !important;
                 transform: translateX(-50%) !important;
+            }
+            
+            .tagline {
+                display: None;
             }
         }
         
@@ -1292,7 +1326,10 @@
 <div class="container">
     <!-- Header -->
     <div class="header">
-        <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo" id="logo" alt="DevQuest Logo">
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png" class="logo" id="logo" alt="DevQuest Logo">
+            <div class="tagline">Implementing Research</div>
+        </div>
         <div class="button-container">
             <!-- Search functionality -->
             <div class="search-container">
