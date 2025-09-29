@@ -846,7 +846,7 @@ body.light-theme .preview-tooltip .quest-item {
 
 /* Mobile responsive */
 /* Mobile responsive */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 760px) {
     body {
         padding: var(--space-sm) !important;
     }
