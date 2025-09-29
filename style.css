@@ -836,5 +836,25 @@ body.light-theme .preview-tooltip .quest-item {
     .search-input-container.expanded {
         width: 130px;
     }
+    
+    /* FIX: Prevent button compression on mobile */
+    .search-btn,
+    .about-btn,
+    .theme-toggle-btn,
+    .github-btn {
+        flex-shrink: 0 !important; /* Prevent flex from squishing buttons */
+        min-width: 40px !important;
+        min-height: 40px !important;
+    }
+
+    /* Ensure search container doesn't collapse */
+    .search-container {
+        flex-shrink: 0;
+    }
+
+    /* Add small gap between buttons for breathing room */
+    .button-container {
+        gap: 2px;
+    }
 
 }
