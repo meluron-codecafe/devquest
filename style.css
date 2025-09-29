@@ -884,7 +884,9 @@ body.light-theme .preview-tooltip .quest-item {
 
     /* Force consistent button sizes on phones */
     .container .header #searchBtn,
-    .container .header #aboutBtn, 
+    .container .header .search-btn,
+    .container .header #aboutBtn,
+    .container .header .about-btn,
     .container .header #themeToggle,
     .container .header .github-btn {
         width: 36px !important;
