@@ -930,7 +930,8 @@ function setupRequestTopicLink() {
 }
 
 function handleRequestTopicClick() {
-    const searchValue = searchBox.value.trim();
+    const searchBoxMobile = document.getElementById('searchBoxMobile');
+    const searchValue = (searchBox?.value || searchBoxMobile?.value || '').trim();
     const capitalizedValue = searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
     
     const baseUrl = "https://github.com/meluron-codecafe/DevQuest/issues/new";
@@ -968,7 +969,8 @@ fetch('tutorials.csv')
 });
 
 function renderTable() {
-    const searchQuery = searchBox.value.toLowerCase();
+    const searchBoxMobile = document.getElementById('searchBoxMobile');
+    const searchQuery = (searchBox?.value || searchBoxMobile?.value || '').toLowerCase();
     const tableBody = document.querySelector('#tutorialTable tbody');
     const noResultsDiv = document.getElementById('noResults');
     const tableWrapper = document.querySelector('.table-wrapper');
@@ -1011,4 +1013,16 @@ function initializeSearchInput() {
     }
 }
 
+function initializeMobileSearch() {
+    const searchBoxMobile = document.getElementById('searchBoxMobile');
+    
+    if (searchBoxMobile) {
+        searchBoxMobile.addEventListener('input', () => {
+            renderTable();
+            setTimeout(addPreviewListeners, 100);
+        });
+    }
+}
+
 setTimeout(initializeSearchInput, 100);
+setTimeout(initializeMobileSearch, 100);

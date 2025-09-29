@@ -122,15 +122,22 @@ body {
 
 .search-input-mobile {
     width: 100%;
-    padding: var(--space-md);
-    font-size: var(--font-size-base);
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
     background: var(--container-bg);
     color: var(--text-color);
-    min-height: var(--touch-target);
+    min-height: var(--touch-target-sm);
 }
 
+.search-input-mobile:focus {
+    outline: none;
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 2px rgba(253, 138, 9, 0.1);
+}
+
+/* Tagline */
 .lightbulb-icon {
     transition: all 0.3s ease;
     stroke: var(--quote-color);
@@ -834,31 +841,65 @@ body.light-theme .preview-tooltip .quest-item {
 }
 
 /* ======= MOBILE & TABLET RESPONSIVE DESIGN ======= */
+/* Mobile search container */
+.mobile-search-container {
+    display: none;
+}
+
+.search-input-mobile {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--container-bg);
+    color: var(--text-color);
+    min-height: var(--touch-target-sm);
+}
+
+.search-input-mobile:focus {
+    outline: none;
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 2px rgba(253, 138, 9, 0.1);
+}
+
+/* Mobile responsive */
 @media screen and (max-width: 760px) {
     body {
         padding: var(--space-sm) !important;
     }
+    
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--space-md);
+    }
+    
     .logo {
         max-width: 70px;
-        margin-top: -30px;
-        margin-left: -12px;
+        margin-top: -4px;
+        margin-left: -16px;
     }
     
     .tagline {
         display: none;
     }
     
-    .button-container {
-        display: none;
+    .logo-container {
+        flex-shrink: 0;
     }
     
+    /* Hide desktop button container */
+    .button-container {
+        display: none !important;
+    }
+    
+    /* Show mobile search */
     .mobile-search-container {
         display: block;
-        width: 100%;
+        flex: 1;
+        max-width: 200px;
     }
-
-    .logo-container {
-        align-items: center;
-    }
-
 }
