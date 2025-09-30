@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:48e7d889115bfc891d452027cea5cce09d54c137d229b241c647a7f5c4dc6891"
+content_hash = "sha256:bc02ab0aab28a9284172fecf430eff525f45d5364fe135ca4a6d7a832f59d376"
 
 [[metadata.targets]]
 requires_python = "==3.10.*"
@@ -1735,6 +1735,24 @@ dependencies = [
 files = [
     {file = "stack_data-0.6.3-py3-none-any.whl", hash = "sha256:d5558e0c25a4cb0853cddad3d77da9891a08cb85dd9f9f91b9f8cd66e511e695"},
     {file = "stack_data-0.6.3.tar.gz", hash = "sha256:836a778de4fec4dcd1dcd89ed8abff8a221f58308462e1c4aa2a3cf30148f0b9"},
+]
+
+[[package]]
+name = "stockwell"
+version = "1.2"
+summary = ""
+dependencies = [
+    "numpy",
+]
+files = [
+    {file = "stockwell-1.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:16f7da927b6e847c3dd6ad46bf5dd713065d8217c59359a72af4d2efb5276bec"},
+    {file = "stockwell-1.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b964f5395021ffe89b9eb8db33a23e3928db4fcdbbab229f76abd4e9310bf5d1"},
+    {file = "stockwell-1.2-cp310-cp310-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:cc31c7d27134000d52864271ef16af62431f7a76e11731c10da59cfd107f63f4"},
+    {file = "stockwell-1.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8c5e4c2f7e0b3e9c2d45008bfb5148faec807ad40b6dac8276ed47dbd81c762f"},
+    {file = "stockwell-1.2-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:c3bfd3728aa43cbf6a503d1c495b31d6547faa52a2063ee7c7a12cff72f6c05f"},
+    {file = "stockwell-1.2-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:1f4bccd9a41e0796c3a9b7f429a12b00d6e98df6ccf0c3870c1d00a88491887f"},
+    {file = "stockwell-1.2-cp310-cp310-win_amd64.whl", hash = "sha256:022d393b1def3fdd125e85a4fd2e5a30023b41c12ed628f6289f60ae48dc3da1"},
+    {file = "stockwell-1.2.tar.gz", hash = "sha256:48b1df34fb27bb110650823c2a9f2b4e2a6a7412f3c1c7b05d69419552a26ea8"},
 ]
 
 [[package]]
