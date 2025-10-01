@@ -29,10 +29,10 @@ function initializeMobileLayout() {
     
     if (logo) {
         if (isMobile) {
-            logo.src = 'https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon.png';
+            logo.src = 'https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/devquest/icon.png';
             logo.alt = 'DevQuest';
         } else {
-            logo.src = 'https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/DevQuest/icon_with_text.png';
+            logo.src = 'https://raw.githubusercontent.com/meluron/assets/refs/heads/main/logos/meluron-codecafe/devquest/icon_with_text.png';
             logo.alt = 'DevQuest Logo';
         }
     }
